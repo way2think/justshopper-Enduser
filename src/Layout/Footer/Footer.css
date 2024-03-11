@@ -58,4 +58,29 @@
 
 .socialicon {
   color: #dc3237 !important;
+  margin: 0 10px;
+}
+
+.sociallink {
+  width: 30px;
+  height: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .rights {
+    flex-direction: column;
+  }
+  .socialicon {
+    margin-right: 10px;
+  }
+  .socialicon {
+    font-size: 12px !important;
+  }
+  .copy {
+    font-size: 12px;
+  }
+  .sociallink {
+    width: 20px;
+    height: 20px;
+  }
 }

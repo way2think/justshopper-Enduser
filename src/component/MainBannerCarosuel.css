@@ -1,0 +1,38 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../public/Ember/AmazonEmber_He.ttf);
+}
+
+.caption {
+  position: absolute;
+  top: 30% !important;
+  left: 15% !important;
+  display: flex !important;
+}
+
+.slidercaption {
+  font-size: 56px;
+  font-family: amazonheavy;
+  color: #fff;
+  /* padding: 0px 390px; */
+  text-align: left;
+  line-height: 80px;
+}
+
+.sliderbtn {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  margin-top: 20px;
+  background-color: #d9d9d9 !important;
+  font-size: 20px !important;
+  font-family: amazonheavy !important;
+  color: #000 !important;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  /* Your mobile styles go here */
+  .caption{
+    display: block !important;
+  }
+}

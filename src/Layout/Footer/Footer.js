@@ -63,24 +63,24 @@ export default function Footer() {
               </h6>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
-                  Angular
+                  Home
                 </a>
               </p>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
-                  React
+                  Shop by Category
                 </a>
               </p>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
-                  Vue
+                  Contact Us
                 </a>
               </p>
-              <p className="linkcontent">
+              {/* <p className="linkcontent">
                 <a href="#!" className="text-reset">
                   Laravel
                 </a>
-              </p>
+              </p> */}
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
@@ -89,22 +89,22 @@ export default function Footer() {
               </h6>
               <p className="linkcontent">
                 <a href="#!" className="text-reset ">
-                  Pricing
+                  Cart
                 </a>
               </p>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
-                  Settings
+                  Wishlist
                 </a>
               </p>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
-                  Orders
+                  Privacy Policy
                 </a>
               </p>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
-                  Help
+                  Terms & Condition
                 </a>
               </p>
             </MDBCol>
@@ -119,7 +119,10 @@ export default function Footer() {
               </p>
               <p className="linkcontent">
                 <MDBIcon icon="envelope" className="me-3" />
-                <a className="linkcontent" href="mailto:justshopperofficial@gmail.com">
+                <a
+                  className="linkcontent"
+                  href="mailto:justshopperofficial@gmail.com"
+                >
                   {" "}
                   justshopperofficial@gmail.com
                 </a>
@@ -137,7 +140,7 @@ export default function Footer() {
           </MDBRow>
         </MDBContainer>
       </section>
-      <section className="d-flex justify-content-center justify-content-lg-between p-4 align-items-center">
+      <section className="d-flex justify-content-center justify-content-lg-between p-4 align-items-center rights">
         <div className="text-center p-4  copy">
           © 2024 Copyright JustShopper
           {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
@@ -145,27 +148,27 @@ export default function Footer() {
           </a> */}
         </div>
         <div>
-          <a href="" className="me-4  socialicon">
+          <a href="" className="  socialicon">
             {/* <MDBIcon fab icon="facebook-f" /> */}
-            <img src="../images/Facebook F.png" alt="" width={25} height={25} />
+            <img src="../images/Facebook F.png" alt="" className="sociallink"  />
           </a>
-          <a href="" className="me-4 socialicon">
+          <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="twitter" /> */}
-            <img src="../images/YouTube.png" alt="" width={25} height={25} />
+            <img src="../images/YouTube.png" alt="" className="sociallink"  />
           </a>
-          <a href="" className="me-4 socialicon">
+          <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="google" /> */}
-            <img src="../images/TwitterX.png" alt="" width={25} height={25} />
+            <img src="../images/TwitterX.png" alt="" className="sociallink"  />
           </a>
-          <a href="" className="me-4 socialicon">
+          <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="instagram" /> */}
-            <img src="../images/Instagram.png" alt="" width={25} height={25} />
+            <img src="../images/Instagram.png" alt="" className="sociallink"  />
           </a>
-          <a href="" className="me-4 socialicon">
+          <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="linkedin" /> */}
-            <img src="../images/LinkedIn.png" alt="" width={25} height={25} />
+            <img src="../images/LinkedIn.png" alt="" className="sociallink"  />
           </a>
-          <a href="" className="me-4 socialicon">
+          <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="github" /> */}
           </a>
         </div>
