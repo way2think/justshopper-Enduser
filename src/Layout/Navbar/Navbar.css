@@ -1,0 +1,10 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+
+.navitem {
+  margin: 0 28px;
+  font-family: amazonheavy;
+  font-size: 18px;
+}
