@@ -11,7 +11,7 @@ const ShopByCatergory = () => {
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        sx={{ my: 5 }}
+        className="mainshopbycatergory"
       >
         <h3 className="shopCategoryhead">Shop by Catergory</h3>
         <p className="shopCategorydesc">Love is a letter on pink stationery</p>

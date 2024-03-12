@@ -20,6 +20,7 @@
   text-align: left;
   font-family: amazonbold;
   font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .cardamount {
@@ -32,7 +33,7 @@
 .cardamountstrickout {
   text-align: left;
   color: #aaaaaa;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   margin-bottom: 0;
   text-decoration: line-through;

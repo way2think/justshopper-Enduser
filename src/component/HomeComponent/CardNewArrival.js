@@ -6,7 +6,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import StarRateIcon from "@mui/icons-material/StarRate";
 import "./CardNewArrival.css";
+import { Stack } from "@mui/material";
 
 export default function CardNewArrival(props) {
   const cart = {
@@ -37,6 +39,14 @@ export default function CardNewArrival(props) {
 
       <CardContent sx={{ px: 0 }}>
         <p className="cardtitle">{props.cardtitle}</p>
+        <Stack direction="row" justifyContent="flex-start" alignItems="start">
+          <StarRateIcon sx={{ color: "#FCD425" }} />
+          <StarRateIcon sx={{ color: "#FCD425" }} />
+          <StarRateIcon sx={{ color: "#FCD425" }} />
+          <StarRateIcon sx={{ color: "#FCD425" }} />
+          <StarRateIcon />
+        </Stack>
+        
         <p className="cardamount">
           <CurrencyRupeeIcon fontSize="18px" />
           {props.discountprice}
