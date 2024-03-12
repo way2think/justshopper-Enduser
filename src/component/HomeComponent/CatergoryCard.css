@@ -1,0 +1,23 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+.bg-image{
+    border-radius: 5px;
+}
+
+.productname {
+  position: absolute;
+  bottom: 10px;
+  background-color: #dc3237;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+  font-family: amazonbold;
+  padding: 0 20px;
+}
