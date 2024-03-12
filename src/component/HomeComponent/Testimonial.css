@@ -67,8 +67,9 @@
 .testimonial {
   min-height: 375px;
   position: relative;
-  /* background: url(../../../public/images/stationary.png); */
-  background: #000;
+  background: url(../../../public/images/testimonial.png);
+  background-attachment: fixed;
+  /* background: #000; */
   padding-top: 50px;
   padding-bottom: 50px;
   background-position: center;

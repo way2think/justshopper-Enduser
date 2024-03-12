@@ -11,8 +11,8 @@ const Home = () => {
       <MainBannerCarosuel />
       <NewArrival />
       <ShopByCatergory />
-      <WorkDetails />
       <Testimonial />
+      <WorkDetails />
     </>
   );
 };

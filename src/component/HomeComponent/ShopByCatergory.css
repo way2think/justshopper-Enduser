@@ -1,4 +1,4 @@
-.mainshopbycatergory{
+.mainshopbycatergory {
   margin-top: 100px;
   margin-bottom: 40px;
 }
@@ -11,5 +11,21 @@
 .shopCategorydesc {
   font-size: 18px;
 
-  color: #AAA;
+  color: #aaa;
+}
+
+
+.viewmore {
+  background-color: #dc3237;
+  color: #fff;
+  font-size: 20px;
+  font-family: amazonbold;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 5px;
+}
+.viewmore:hover {
+  border: 2px solid #dc3237;
+  color: #dc3237;
+  background: transparent;
 }

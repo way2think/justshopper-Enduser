@@ -23,7 +23,7 @@ const ShopByCatergory = () => {
         direction="row"
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} sx={{mb: 10}}>
             <Grid item xs={12} md={4}>
               <CatergoryCard
                 catergoryname="Pen"
@@ -31,21 +31,39 @@ const ShopByCatergory = () => {
               />
             </Grid>
             <Grid item xs={12} md={4}>
-              <CatergoryCard catergoryname="Pencils" catergoryimage="../images/stati.png" />
+              <CatergoryCard
+                catergoryname="Pencils"
+                catergoryimage="../images/stati.png"
+              />
             </Grid>
             <Grid item xs={12} md={4}>
-              <CatergoryCard catergoryname="Erasers" catergoryimage="../images/2.png" />
+              <CatergoryCard
+                catergoryname="Erasers"
+                catergoryimage="../images/2.png"
+              />
             </Grid>
             <Grid item xs={12} md={4}>
-              <CatergoryCard catergoryname="Pouches" catergoryimage="../images/4.png" />
+              <CatergoryCard
+                catergoryname="Pouches"
+                catergoryimage="../images/4.png"
+              />
             </Grid>
             <Grid item xs={12} md={4}>
-              <CatergoryCard catergoryname="Gifts" catergoryimage="../images/3.png" />
+              <CatergoryCard
+                catergoryname="Gifts"
+                catergoryimage="../images/3.png"
+              />
             </Grid>
             <Grid item xs={12} md={4}>
-              <CatergoryCard catergoryname="Notes" catergoryimage="../images/1.png" />
+              <CatergoryCard
+                catergoryname="Notes"
+                catergoryimage="../images/1.png"
+              />
             </Grid>
           </Grid>
+          <a href="" className="viewmore">
+            View More
+          </a>
         </Box>
       </Stack>
     </>
