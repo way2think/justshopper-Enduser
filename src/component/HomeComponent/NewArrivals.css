@@ -1,0 +1,55 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+.arrivals {
+  font-size: 36px;
+  font-family: amazonheavy;
+  color: #000;
+}
+
+.Sale {
+  background-color: #dc3237;
+  color: #fff;
+  font-size: 14px;
+  font-family: amazonbold;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  top: 25px;
+  left: 10px;
+}
+
+.view {
+  background-color: #dc3237;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: amazonbold;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .arrivals {
+    font-size: 16px;
+    margin: 0;
+  }
+  .view {
+    padding: 5px;
+    font-size: 12px;
+    color: #fff;
+  }
+  .view:hover {
+    padding: 0px 5px;
+    font-size: 14px;
+    color: #fff;
+  }
+}

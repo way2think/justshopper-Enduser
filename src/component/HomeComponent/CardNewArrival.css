@@ -1,0 +1,62 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+.cardimage {
+  width: 100%;
+  height: 250px;
+  margin: auto;
+  background-position: center;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.cardtitle {
+  text-align: left;
+  font-family: amazonbold;
+  font-size: 18px;
+}
+
+.cardamount {
+  text-align: left;
+  color: #7b7979;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.cardamountstrickout {
+  text-align: left;
+  color: #aaaaaa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-decoration: line-through;
+}
+
+.cart {
+  font-family: amazonbold;
+}
+
+/* .Sale {
+  background-color: #dc3237;
+  color: #fff;
+  font-size: 14px;
+  font-family: amazonbold;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+} */
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .cardimage {
+    height: 150px;
+  }
+  .cardtitle {
+    font-size: 14px;
+  }
+}
