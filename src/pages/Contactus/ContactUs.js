@@ -1,12 +1,13 @@
 import React from "react";
-import WorkDetails from "../../component/HomeComponent/WorkDetails";
 import WorkDetailBlack from "../../component/HomeComponent/WorkDetailBlack";
-import ContactComponent from "../../component/contactus/ContactComponent";
+import ContactDetails from "../../component/contactus/ContactDetails";
+import Path from "../../component/Path";
 
 const ContactUs = () => {
   return (
     <div>
-      <ContactComponent />
+      <Path pathhome="Home" pathdetails="Contact us" />
+      <ContactDetails />
       <WorkDetailBlack />
     </div>
   );

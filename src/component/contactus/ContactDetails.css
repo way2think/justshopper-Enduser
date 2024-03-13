@@ -1,0 +1,65 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+.mainOuter {
+  background-color: #e9e6e6;
+  padding: 40px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.contactdetailHeading {
+  font-size: 28px;
+  font-family: amazonheavy;
+  color: #000;
+  text-align: left;
+}
+
+.Enquiry {
+  font-size: 28px;
+  font-family: amazonheavy;
+  color: #000;
+  text-align: left;
+}
+
+.Location {
+  width: 40px;
+  height: 40px;
+}
+
+.location1 {
+  padding: 40px;
+}
+
+.locationheading {
+  padding: 20px;
+}
+
+.rowlocaton {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.chennai {
+  font-size: 20px;
+  font-family: amazonbold;
+  color: #7b7979;
+  padding-left: 20px;
+}
+
+/* mobile */
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+}
+
+/* tablet */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 979px) {
+}
