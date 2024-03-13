@@ -7,23 +7,23 @@
   src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
 }
 
-.workdetail {
+.workdetail1 {
   padding: 40px 0;
 }
 
-.iconwork {
-  width: 80px;
-  height: 80px;
+.iconwork1 {
+  width: 50px;
+  height: 50px;
   margin-bottom: 10px;
 }
 
-.mainworkdetail {
+.mainworkdetail1 {
   /* margin-top: 80px; */
   /* margin-bottom: 80px; */
 }
 
-.titlework {
-  font-size: 20px;
+.titlework1 {
+  font-size: 16px;
   color: #fff;
   font-weight: 600;
   text-align: center;
@@ -31,15 +31,15 @@
 }
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
-  .mainworkdetail {
+  .mainworkdetail1 {
     margin-top: 30px;
     margin-bottom: 30px;
   }
-  .iconwork {
+  .iconwork1 {
     width: 50px;
     height: 50px;
   }
-  .titlework {
+  .titlework1 {
     font-size: 14px;
   }
 }

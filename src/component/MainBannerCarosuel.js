@@ -13,7 +13,7 @@ export default function MainBannerCarosuel() {
       <MDBCarouselItem itemId={1}>
         <img
           src="../images/testimonial.png"
-          className="d-block w-100 h-100"
+          className="d-block w-100 "
           alt="..."
         />
         <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
@@ -33,7 +33,7 @@ export default function MainBannerCarosuel() {
       <MDBCarouselItem itemId={2}>
         <img
           src="../images/Gift and toys.png"
-          className="d-block w-100 h-100"
+          className="d-block w-100 "
           alt="..."
         />
         <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
@@ -52,7 +52,7 @@ export default function MainBannerCarosuel() {
       <MDBCarouselItem itemId={3}>
         <img
           src="../images/Gift and toys.png"
-          className="d-block w-100 h-100"
+          className="d-block w-100 "
           alt="..."
         />
         <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>

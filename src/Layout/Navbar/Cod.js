@@ -5,7 +5,7 @@ const Cod = () => {
   return (
     <>
       <div className="cod">
-        <p className="time">Cod not available | Delivery time 7-12 working days</p>
+        <p className="time">Cod not available | Delivery time 1-5 working days</p>
       </div>
     </>
   );

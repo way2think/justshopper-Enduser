@@ -166,7 +166,7 @@ export default function Footer() {
           </a>
           <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="linkedin" /> */}
-            <img src="../images/LinkedIn.png" alt="" className="sociallink"  />
+            {/* <img src="../images/LinkedIn.png" alt="" className="sociallink"  /> */}
           </a>
           <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="github" /> */}

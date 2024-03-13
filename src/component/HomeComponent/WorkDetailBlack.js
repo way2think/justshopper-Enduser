@@ -8,38 +8,38 @@ const WorkDetailBlack = () => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="mainworkdetail py-4 container-fluid"
+        className="mainworkdetail1 py-4 container-fluid"
         direction="row"
         bgcolor="#000"
       >
         <Box
           sx={{ flexGrow: 1, position: "relative" }}
-          className="workdetail  "
+          className="workdetail1  "
         >
           <Grid container spacing={2}>
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Card Security (2).png"
-                className="iconwork"
+                className="iconwork1"
                 alt=""
               />
-              <h5 className="titlework">Secure Payment</h5>
+              <h5 className="titlework1">Secure Payment</h5>
             </Grid>
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Online Support (1).png"
-                className="iconwork"
+                className="iconwork1"
                 alt=""
               />
-              <h5 className="titlework">24/7 Support</h5>
+              <h5 className="titlework1">24/7 Support</h5>
             </Grid>
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Shipped (1).png"
-                className="iconwork"
+                className="iconwork1"
                 alt=""
               />
-              <h5 className="titlework">
+              <h5 className="titlework1">
                 Delivering quality
                 <br /> Products
               </h5>
@@ -47,10 +47,10 @@ const WorkDetailBlack = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Human Resources (1).png"
-                className="iconwork"
+                className="iconwork1"
                 alt=""
               />
-              <h5 className="titlework">
+              <h5 className="titlework1">
                 Best Customer <br /> Services
               </h5>
             </Grid>
