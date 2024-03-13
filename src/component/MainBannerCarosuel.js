@@ -12,7 +12,7 @@ export default function MainBannerCarosuel() {
     <MDBCarousel showIndicators showControls fade>
       <MDBCarouselItem itemId={1}>
         <img
-          src="../images/Gift and toys.png"
+          src="../images/testimonial.png"
           className="d-block w-100 h-100"
           alt="..."
         />

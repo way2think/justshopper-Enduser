@@ -1,0 +1,21 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+.cod {
+  background: #292929;
+  color: #fff;
+  padding: 0 5px;
+}
+
+.time {
+  margin: 0;
+  font-family: amazonbold;
+  text-align: center;
+  font-size: 16px;
+}

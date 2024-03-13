@@ -1,8 +1,8 @@
 import { Box, Grid, Stack } from "@mui/material";
 import React from "react";
-import "./WorkDetail.css";
+import "./WorkDetailBlack.css";
 
-const WorkDetails = () => {
+const WorkDetailBlack = () => {
   return (
     <>
       <Stack
@@ -10,7 +10,7 @@ const WorkDetails = () => {
         alignItems="center"
         className="mainworkdetail py-4 container-fluid"
         direction="row"
-        bgcolor="#fff"
+        bgcolor="#000"
       >
         <Box
           sx={{ flexGrow: 1, position: "relative" }}
@@ -19,7 +19,7 @@ const WorkDetails = () => {
           <Grid container spacing={2}>
             <Grid item xs={6} md={3}>
               <img
-                src="../images/Card Security (1).png"
+                src="../images/Card Security (2).png"
                 className="iconwork"
                 alt=""
               />
@@ -27,14 +27,18 @@ const WorkDetails = () => {
             </Grid>
             <Grid item xs={6} md={3}>
               <img
-                src="../images/Online Support.png"
+                src="../images/Online Support (1).png"
                 className="iconwork"
                 alt=""
               />
               <h5 className="titlework">24/7 Support</h5>
             </Grid>
             <Grid item xs={6} md={3}>
-              <img src="../images/Shipped.png" className="iconwork" alt="" />
+              <img
+                src="../images/Shipped (1).png"
+                className="iconwork"
+                alt=""
+              />
               <h5 className="titlework">
                 Delivering quality
                 <br /> Products
@@ -42,7 +46,7 @@ const WorkDetails = () => {
             </Grid>
             <Grid item xs={6} md={3}>
               <img
-                src="../images/Human Resources.png"
+                src="../images/Human Resources (1).png"
                 className="iconwork"
                 alt=""
               />
@@ -57,4 +61,4 @@ const WorkDetails = () => {
   );
 };
 
-export default WorkDetails;
+export default WorkDetailBlack;

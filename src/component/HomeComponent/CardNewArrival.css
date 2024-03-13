@@ -53,6 +53,8 @@
   position: absolute;
 } */
 
+/* mobile */
+
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .cardimage {
     height: 150px;
@@ -60,4 +62,11 @@
   .cardtitle {
     font-size: 14px;
   }
+}
+
+
+/* tablet */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 979px){
+  
 }

@@ -7,8 +7,8 @@
   src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
 }
 
-.bg-image{
-    border-radius: 5px;
+.bg-image {
+  border-radius: 5px;
 }
 
 .productname {
@@ -20,4 +20,14 @@
   font-size: 20px;
   font-family: amazonbold;
   padding: 0 20px;
+}
+
+/* mobile */
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+}
+
+/* tablet */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 979px) {
 }

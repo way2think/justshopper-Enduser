@@ -1,0 +1,25 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../public/Ember/AmazonEmber_He.ttf);
+}
+
+@font-face {
+  font-family: amazonbold;
+  src: url(../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+.mainpath {
+  padding: 30px;
+}
+
+.pathhome {
+  color: #aaaaaa;
+  font-size: 18px;
+  font-family: amazonbold;
+}
+
+.pathdetails {
+  color: #aaaaaa;
+  font-size: 18px;
+  font-family: amazonbold;
+}
