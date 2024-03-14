@@ -46,7 +46,7 @@ const NewArrival = () => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2}>
-            <Grid item xs={6} md={3}>
+            <Grid item sm={6} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -55,7 +55,7 @@ const NewArrival = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item sm={6} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/chocolate.jpg"
                 cardtitle="Choco Bar"
@@ -64,7 +64,7 @@ const NewArrival = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item sm={6} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/bread.jpg"
                 cardtitle="Bread Notes"
@@ -73,7 +73,7 @@ const NewArrival = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item sm={6} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"

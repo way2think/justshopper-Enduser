@@ -10,7 +10,7 @@ import "./MainBannerCarosuel.css";
 export default function MainBannerCarosuel() {
   return (
     <MDBCarousel showIndicators showControls fade>
-      <MDBCarouselItem itemId={1}>
+      <MDBCarouselItem itemId={1} className="overall">
         <img
           src="../images/testimonial.png"
           className="d-block w-100 "
@@ -30,7 +30,7 @@ export default function MainBannerCarosuel() {
         </div>
       </MDBCarouselItem>
 
-      <MDBCarouselItem itemId={2}>
+      <MDBCarouselItem itemId={2} className="overall">
         <img
           src="../images/Gift and toys.png"
           className="d-block w-100 "
@@ -49,7 +49,7 @@ export default function MainBannerCarosuel() {
         </div>
       </MDBCarouselItem>
 
-      <MDBCarouselItem itemId={3}>
+      <MDBCarouselItem itemId={3} className="overall">
         <img
           src="../images/Gift and toys.png"
           className="d-block w-100 "

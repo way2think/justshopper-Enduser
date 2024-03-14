@@ -1,3 +1,13 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+
 .testimonialhead {
   font-size: 36px;
   font-family: amazonheavy;
@@ -258,9 +268,11 @@
   }
   .testimonial4_slide p {
     font-size: 16px;
+    font-family: amazonbold;
   }
   .testimonial4_slide h4 {
     font-size: 16px;
+    font-family: amazonheavy;
   }
 }
 
@@ -277,19 +289,53 @@
   }
   .testimonial4_slide p {
     font-size: 14px;
+    font-family: amazonbold;
   }
   .testimonial4_slide h4 {
     font-size: 18px;
+    font-family: amazonheavy;
   }
 }
 
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .testimonialhead {
+    font-size: 36px;
+  }
+  .testimonialdesc {
+    font-size: 16px;
+  }
   .testimonial4_slide img {
     width: 80px;
     height: 80px;
   }
+  .testimonial4_slide p {
+    font-size: 20px;
+    font-family: amazonbold;
+  }
+  .testimonial4_slide h4 {
+    font-size: 22px;
+    font-family: amazonheavy;
+  }
 }
 @media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .testimonialhead {
+    font-size: 36px;
+  }
+  .testimonialdesc {
+    font-size: 16px;
+  }
+  .testimonial4_slide img {
+    width: 100px;
+    height: 100px;
+  }
+  .testimonial4_slide p {
+    font-size: 26px;
+    font-family: amazonbold;
+  }
+  .testimonial4_slide h4 {
+    font-size: 28px;
+    font-family: amazonheavy;
+  }
 }
 
 /* ------testimonial  close-------*/

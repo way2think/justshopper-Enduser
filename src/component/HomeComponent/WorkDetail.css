@@ -46,5 +46,33 @@
 
 /* tablet */
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 979px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .iconwork {
+    width: 60px;
+    height: 60px;
+  }
+  .titlework{
+    font-size: 18px;
+  }
+}
+/* laptops */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .iconwork {
+    width: 70px;
+    height: 70px;
+  }
+  .titlework{
+    font-size: 20px;
+  }
+}
+
+/* large screen */
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .iconwork {
+    width: 80px;
+    height: 80px;
+  }
+  .titlework{
+    font-size: 22px;
+  }
 }
