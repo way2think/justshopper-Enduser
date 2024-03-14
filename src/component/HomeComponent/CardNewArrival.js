@@ -24,6 +24,10 @@ export default function CardNewArrival(props) {
       fontFamily: "amazonbold",
       padding: "5px 10px",
     },
+    "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+      {
+        fontSize: "12px",
+      },
   };
   return (
     <Card sx={{ maxWidth: 345, boxShadow: "none", py: 2 }}>
@@ -40,13 +44,52 @@ export default function CardNewArrival(props) {
       <CardContent sx={{ px: 0 }}>
         <p className="cardtitle">{props.cardtitle}</p>
         <Stack direction="row" justifyContent="flex-start" alignItems="start">
-          <StarRateIcon sx={{ color: "#FCD425" }} />
-          <StarRateIcon sx={{ color: "#FCD425" }} />
-          <StarRateIcon sx={{ color: "#FCD425" }} />
-          <StarRateIcon sx={{ color: "#FCD425" }} />
-          <StarRateIcon />
+          <StarRateIcon
+            sx={{
+              color: "#FCD425",
+              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+                {
+                  fontSize: "18px",
+                },
+            }}
+          />
+          <StarRateIcon
+            sx={{
+              color: "#FCD425",
+              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+                {
+                  fontSize: "18px",
+                },
+            }}
+          />
+          <StarRateIcon
+            sx={{
+              color: "#FCD425",
+              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+                {
+                  fontSize: "18px",
+                },
+            }}
+          />
+          <StarRateIcon
+            sx={{
+              color: "#FCD425",
+              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+                {
+                  fontSize: "18px",
+                },
+            }}
+          />
+          <StarRateIcon
+            sx={{
+              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+                {
+                  fontSize: "18px",
+                },
+            }}
+          />
         </Stack>
-        
+
         <p className="cardamount">
           <CurrencyRupeeIcon fontSize="18px" />
           {props.discountprice}
