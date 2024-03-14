@@ -42,9 +42,68 @@
   .caption {
     display: block !important;
   }
+  .carousel-inner {
+    height: 50vh;
+  }
+  .d-block {
+    height: 50vh;
+  }
 }
 
 /* tablet */
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 979px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .slidercaption {
+    font-size: 24px;
+    line-height: 35px;
+  }
+  .sliderbtn {
+    font-size: 10px !important;
+    padding: 5px !important;
+    margin-top: 10px !important;
+  }
+  .caption {
+    display: block !important;
+  }
+  .carousel-inner {
+    height: 50vh;
+  }
+  .d-block {
+    height: 50vh;
+    object-fit: cover;
+  }
+}
+
+/* big laptops */
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .slidercaption {
+    font-size: 26px;
+    line-height: 40px;
+  }
+  .sliderbtn {
+    font-size: 14px !important;
+    padding: 8px !important;
+    margin-top: 10px !important;
+  }
+}
+
+/* larger screens */
+
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .slidercaption {
+    font-size: 50px;
+    line-height: 80px;
+  }
+  .sliderbtn {
+    font-size: 20px !important;
+    padding: 5px !important;
+    margin-top: 20px !important;
+  }
+  .d-block {
+    height: 40vh;
+  }
+  .carousel-inner {
+    height: 40vh;
+  }
 }

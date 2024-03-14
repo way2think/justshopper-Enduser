@@ -19,3 +19,34 @@
   text-align: center;
   font-size: 16px;
 }
+
+/* mobile */
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .time {
+    font-size: 12px;
+  }
+}
+
+/* tablet */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .time {
+    font-size: 16px;
+  }
+}
+
+/* big laptops */
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .time {
+    font-size: 16px;
+  }
+}
+
+/* larger screens */
+
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .time {
+    font-size: 20px;
+  }
+}
