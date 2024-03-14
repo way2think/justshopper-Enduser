@@ -78,13 +78,19 @@
 
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
   .slidercaption {
-    font-size: 26px;
-    line-height: 40px;
+    font-size: 36px;
+    line-height: 50px;
   }
   .sliderbtn {
-    font-size: 14px !important;
+    font-size: 12px !important;
     padding: 8px !important;
     margin-top: 10px !important;
+  }
+  .d-block {
+    height: 50vh;
+  }
+  .carousel-inner {
+    height: 50vh;
   }
 }
 
