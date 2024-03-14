@@ -77,17 +77,17 @@
 
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
   .arrivals {
-    font-size: 36px;
+    font-size: 30px;
     margin: 0;
   }
   .view {
     padding: 5px;
-    font-size: 18px;
+    font-size: 14px;
     color: #fff;
   }
   .view:hover {
     padding: 5px;
-    font-size: 18px;
+    font-size: 14px;
     color: #fff;
   }
 }

@@ -25,7 +25,7 @@ export default function Navbar() {
     <MDBNavbar expand="lg" light bgColor="light">
       <MDBContainer fluid>
         <MDBNavbarBrand href="#">
-          <img src="../images/JS logo png.png" width={50} height={50} alt="" />
+          <img src="../images/JS logo png.png" className="logo" alt="" />
         </MDBNavbarBrand>
 
         <MDBNavbarToggler

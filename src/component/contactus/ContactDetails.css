@@ -150,16 +150,30 @@ input[type="submit"]:hover {
 /* mobile */
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
+  .mainpadding {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  .locationheading {
+    padding: 20px;
+  }
+  .contactdetailHeading {
+    font-size: 22px;
+  }
   .location1 {
     padding: 20px;
   }
   .chennai {
-    font-size: 12px;
+    font-size: 14px;
     padding-left: 10px;
   }
   .Location {
     width: 20px;
     height: 20px;
+  }
+  .sociallink {
+    width: 30px;
+    height: 30px;
   }
   .enquiryform {
     margin-top: 20px;
@@ -186,5 +200,150 @@ input[type="submit"]:hover {
 
 /* tablet */
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 979px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .mainpadding {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  .locationheading {
+    padding: 20px;
+  }
+  .contactdetailHeading {
+    font-size: 22px;
+  }
+  .location1 {
+    padding: 20px;
+  }
+  .chennai {
+    font-size: 16px;
+    padding-left: 10px;
+  }
+  .Location {
+    width: 20px;
+    height: 20px;
+  }
+  .sociallink {
+    width: 30px;
+    height: 30px;
+  }
+  .enquiryform {
+    margin: auto;
+  }
+  input[type="submit"] {
+    width: 80%;
+  }
+  textarea {
+    width: 80%;
+  }
+  input[type="tel"],
+  select {
+    width: 80%;
+  }
+  input[type="mail"],
+  select {
+    width: 80%;
+  }
+  input[type="text"],
+  select {
+    width: 80%;
+  }
+}
+
+/* laptops */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .mainpadding {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  .locationheading {
+    padding: 20px;
+  }
+  .contactdetailHeading {
+    font-size: 22px;
+  }
+  .location1 {
+    padding: 20px;
+  }
+  .chennai {
+    font-size: 16px;
+    padding-left: 10px;
+  }
+  .Location {
+    width: 20px;
+    height: 20px;
+  }
+  .sociallink {
+    width: 30px;
+    height: 30px;
+  }
+  .enquiryform {
+    margin: auto;
+  }
+  input[type="submit"] {
+    width: 80%;
+  }
+  textarea {
+    width: 80%;
+  }
+  input[type="tel"],
+  select {
+    width: 80%;
+  }
+  input[type="mail"],
+  select {
+    width: 80%;
+  }
+  input[type="text"],
+  select {
+    width: 80%;
+  }
+}
+/* larger screen */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .mainpadding {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  .locationheading {
+    padding: 20px;
+  }
+  .contactdetailHeading {
+    font-size: 22px;
+  }
+  .location1 {
+    padding: 20px;
+  }
+  .chennai {
+    font-size: 16px;
+    padding-left: 10px;
+  }
+  .Location {
+    width: 20px;
+    height: 20px;
+  }
+  .sociallink {
+    width: 30px;
+    height: 30px;
+  }
+  .enquiryform {
+    margin: auto;
+  }
+  input[type="submit"] {
+    width: 80%;
+  }
+  textarea {
+    width: 80%;
+  }
+  input[type="tel"],
+  select {
+    width: 80%;
+  }
+  input[type="mail"],
+  select {
+    width: 80%;
+  }
+  input[type="text"],
+  select {
+    width: 80%;
+  }
 }

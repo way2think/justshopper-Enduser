@@ -1,4 +1,4 @@
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Divider, Grid, Stack } from "@mui/material";
 import React from "react";
 import "./WorkDetailBlack.css";
 
@@ -57,6 +57,7 @@ const WorkDetailBlack = () => {
           </Grid>
         </Box>
       </Stack>
+      <Divider color="#ccc" />
     </>
   );
 };

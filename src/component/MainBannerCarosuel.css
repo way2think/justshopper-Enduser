@@ -42,7 +42,7 @@
   .caption {
     display: block !important;
   }
-  .carousel-inner {
+  .overall {
     height: 50vh;
   }
   .d-block {
@@ -65,45 +65,51 @@
   .caption {
     display: block !important;
   }
-  .carousel-inner {
+  /* .carousel-inner {
     height: 50vh;
   }
   .d-block {
     height: 50vh;
     object-fit: cover;
-  }
+  } */
 }
 
 /* big laptops */
 
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
-  .slidercaption {
-    font-size: 26px;
-    line-height: 40px;
+  /* .slidercaption {
+    font-size: 36px;
+    line-height: 50px;
   }
   .sliderbtn {
-    font-size: 14px !important;
+    font-size: 12px !important;
     padding: 8px !important;
     margin-top: 10px !important;
+  } */
+  /* .d-block {
+    height: 50vh;
   }
+  .carousel-inner {
+    height: 50vh;
+  } */
 }
 
 /* larger screens */
 
 @media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
   .slidercaption {
-    font-size: 50px;
-    line-height: 80px;
+    font-size: 70px;
+    line-height: 120px;
   }
   .sliderbtn {
-    font-size: 20px !important;
-    padding: 5px !important;
+    font-size: 30px !important;
+    padding: 10px !important;
     margin-top: 20px !important;
   }
-  .d-block {
+  /* .d-block {
     height: 40vh;
   }
   .carousel-inner {
     height: 40vh;
-  }
+  } */
 }

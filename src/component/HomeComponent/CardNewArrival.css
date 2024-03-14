@@ -9,7 +9,7 @@
 
 .cardimage {
   width: 100%;
-  height: 250px;
+  height: 150px;
   margin: auto;
   background-position: center;
   object-fit: cover;
@@ -64,9 +64,13 @@
   }
 }
 
-
 /* tablet */
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 979px){
-  
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .cardimage {
+    height: 100px;
+  }
+  .cardtitle {
+    font-size: 14px;
+  }
 }

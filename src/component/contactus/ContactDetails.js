@@ -7,8 +7,8 @@ const ContactDetails = () => {
     <>
       <div className="mainpadding">
         <Stack className="mainOuter container ">
-          <Grid container spacing={2}>
-            <Grid xs={12} md={6} lg={6}>
+          <Grid container spacing={2} margin="auto">
+            <Grid sm={12} xs={12} md={6} lg={6}>
               <Box className="locationheading">
                 <h3 className="contactdetailHeading">Contact Details</h3>
               </Box>
@@ -66,35 +66,35 @@ const ContactDetails = () => {
                     <img
                       src="../images/Facebook F (2).png"
                       alt=""
-                      className="Location"
+                      className="sociallink"
                     />
                   </a>
                   <a href="">
                     <img
                       src="../images/YouTube (2).png"
                       alt=""
-                      className="Location"
+                      className="sociallink"
                     />
                   </a>
                   <a href="">
                     <img
                       src="../images/Instagram (2).png"
                       alt=""
-                      className="Location"
+                      className="sociallink"
                     />
                   </a>
                   <a href="">
                     <img
                       src="../images/TwitterX (2).png"
                       alt=""
-                      className="Location"
+                      className="sociallink"
                     />
                   </a>
                   {/* <img src="../images/Phone.png" alt="" className="Location" /> */}
                 </Stack>
               </Box>
             </Grid>
-            <Grid xs={12} md={6} lg={6}>
+            <Grid sm={12} xs={12} md={6} lg={6}>
               <Box className="locationheading">
                 <h3 className="Enquiry">Enquiry Form</h3>
               </Box>
