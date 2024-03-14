@@ -16,6 +16,7 @@ import {
   MDBCollapse,
 } from "mdb-react-ui-kit";
 import "./Navbar.css";
+import Search from "./Search";
 
 export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
@@ -57,7 +58,11 @@ export default function Navbar() {
             </MDBNavbarItem>
 
             <MDBNavbarItem className="navitem">
-              <MDBNavbarLink href="contact-us" tabIndex={-1} aria-disabled="true">
+              <MDBNavbarLink
+                href="contact-us"
+                tabIndex={-1}
+                aria-disabled="true"
+              >
                 Contact Us
               </MDBNavbarLink>
             </MDBNavbarItem>
@@ -65,7 +70,8 @@ export default function Navbar() {
             <MDBNavbarItem className="me-3 me-lg-0">
               <MDBNavbarLink href="#">
                 {/* <MDBIcon fas icon="search" /> */}
-                <img src="../images/Search.png" alt="" width={25} height={25} />
+                {/* <img src="../images/Search.png" alt="" width={25} height={25}  /> */}
+                <Search />
               </MDBNavbarLink>
             </MDBNavbarItem>
             <MDBNavbarItem className="me-3 me-lg-0">
