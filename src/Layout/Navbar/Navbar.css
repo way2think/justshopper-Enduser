@@ -21,4 +21,23 @@
     height: 50px;
     margin-left: 15px;
   }
+  .mobileviewcart {
+    display: block;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .mobileviewcart {
+    display: none !important;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .mobileviewcart {
+    display: none !important;
+  }
+}
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .mobileviewcart {
+    display: none !important;
+  }
 }

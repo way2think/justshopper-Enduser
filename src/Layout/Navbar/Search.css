@@ -149,7 +149,7 @@
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .search-box .input {
-    width: 80%;
+    width: 90%;
     height: 75%;
     font-size: 12px;
   }
@@ -159,7 +159,7 @@
     top: -7px;
   }
   .cancelicon {
-    right: 55px;
+    right: 35px;
     font-size: 20px !important;
   }
 }
