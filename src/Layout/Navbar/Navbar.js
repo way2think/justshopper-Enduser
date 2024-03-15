@@ -17,7 +17,6 @@ import {
 } from "mdb-react-ui-kit";
 import "./Navbar.css";
 import Search from "./Search";
-import { Stack } from "@mui/material";
 
 export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
@@ -27,41 +26,38 @@ export default function Navbar() {
       <MDBContainer fluid>
         <MDBNavbarBrand href="#">
           <img src="../images/JS logo png.png" className="logo" alt="" />
-          </MDBNavbarBrand>
-          <Stack direction="row">
-            <MDBNavbarLink href="#">
-              <Search />
-            </MDBNavbarLink>
-            <MDBNavbarLink href="#">
-              {/* <MDBIcon fas icon="shopping-cart" /> */}
+          <MDBNavbarLink href="#">
+          <Search />
+          </MDBNavbarLink>
+          <MDBNavbarLink href="#">
+            {/* <MDBIcon fas icon="shopping-cart" /> */}
+            <img
+              src="../images/Shopping Bag.png"
+              alt=""
+              width={25}
+              height={25}
+            />
+          </MDBNavbarLink>
+          <MDBNavbarLink href="/wishlist">
+            {/* <MDBIcon fas icon="shopping-cart" /> */}
+            <img src="../images/heart.png" alt="" width={25} height={25} />
+          </MDBNavbarLink>
+          <MDBDropdown>
+            <MDBDropdownToggle tag="a" className="nav-link" role="button">
               <img
-                src="../images/Shopping Bag.png"
+                src="../images/male User.png"
                 alt=""
                 width={25}
                 height={25}
               />
-            </MDBNavbarLink>
-            <MDBNavbarLink href="/wishlist">
-              {/* <MDBIcon fas icon="shopping-cart" /> */}
-              <img src="../images/heart.png" alt="" width={25} height={25} />
-            </MDBNavbarLink>
-            <MDBDropdown>
-              <MDBDropdownToggle tag="a" className="nav-link" role="button">
-                <img
-                  src="../images/male User.png"
-                  alt=""
-                  width={25}
-                  height={25}
-                />
-              </MDBDropdownToggle>
-              <MDBDropdownMenu>
-                <MDBDropdownItem link>Profile</MDBDropdownItem>
-                <MDBDropdownItem link>Setting</MDBDropdownItem>
-                <MDBDropdownItem link>Logout</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </Stack>
-       
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem link>Profile</MDBDropdownItem>
+              <MDBDropdownItem link>Setting</MDBDropdownItem>
+              <MDBDropdownItem link>Logout</MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+        </MDBNavbarBrand>
 
         <MDBNavbarToggler
           aria-controls="navbarSupportedContent"
@@ -108,17 +104,10 @@ export default function Navbar() {
                 <img src="../images/Search.png" alt="" width={25} height={25}  />
                 <Search />
               </MDBNavbarLink>
-<<<<<<< HEAD
             </MDBNavbarItem> */}
             {/* <MDBNavbarItem className="me-3 me-lg-0">
               <MDBNavbarLink href="#">
                 <MDBIcon fas icon="shopping-cart" />
-=======
-            </MDBNavbarItem>
-            <MDBNavbarItem className="me-3 me-lg-0">
-              <MDBNavbarLink href="cart">
-                {/* <MDBIcon fas icon="shopping-cart" /> */}
->>>>>>> 146cba72a7f6245d386b4dab03d135c408807387
                 <img
                   src="../images/Shopping Bag.png"
                   alt=""
