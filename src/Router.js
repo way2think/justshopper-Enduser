@@ -4,6 +4,7 @@ import DashBoardLayout from "./Layout/dashboard/DashboardLayout";
 import Home from "./pages/Home/Home";
 import ContactUs from "./pages/Contactus/ContactUs";
 import Wishlist from "./pages/Wishlist/Wishlist";
+import CartPage from "./pages/Cart/CartPage";
 
 export default function Router() {
   const routes = useRoutes([
@@ -13,7 +14,8 @@ export default function Router() {
       children: [
         { path: "/", element: <Home /> },
         { path: "contact-us", element: <ContactUs /> },
-        {path:"wishlist",element:<Wishlist /> }
+        { path: "wishlist", element: <Wishlist /> },
+        { path: "cart", element: <CartPage /> },
       ],
     },
   ]);

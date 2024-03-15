@@ -108,10 +108,17 @@ export default function Navbar() {
                 <img src="../images/Search.png" alt="" width={25} height={25}  />
                 <Search />
               </MDBNavbarLink>
+<<<<<<< HEAD
             </MDBNavbarItem> */}
             {/* <MDBNavbarItem className="me-3 me-lg-0">
               <MDBNavbarLink href="#">
                 <MDBIcon fas icon="shopping-cart" />
+=======
+            </MDBNavbarItem>
+            <MDBNavbarItem className="me-3 me-lg-0">
+              <MDBNavbarLink href="cart">
+                {/* <MDBIcon fas icon="shopping-cart" /> */}
+>>>>>>> 146cba72a7f6245d386b4dab03d135c408807387
                 <img
                   src="../images/Shopping Bag.png"
                   alt=""
