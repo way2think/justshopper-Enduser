@@ -4,6 +4,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "./WishlistCard.css";
 
 const WishlistCard = () => {
+  const cart = {
+    "&:hover": {},
+  };
+
+  const deleteicon = {
+    "&:hover": {},
+  };
   return (
     <>
       <Stack
@@ -14,94 +21,42 @@ const WishlistCard = () => {
       >
         <h3 className="yourcartheading">WishList</h3>
       </Stack>
-      <Stack className="container wishlist-box">
-        <Stack direction="column" spacing={3}>
-          <Grid container>
-            <Stack
-              xs={12}
-              direction="row"
-              spacing={3}
-              justifyContent="space-between"
-            >
-              <Grid
-                container
+      <Stack
+        justifyContent="space-between"
+        alignItems="center"
+        className="my-4 container wishlist-box"
+        direction="row"
+      >
+        <Box sx={{ flexGrow: 1, position: "relative" }}>
+          <Grid container spacing={2} sx={{ mb: 10 }}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <Stack
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
               >
-                <Box >
-                  <img src="../images/biscuit.jpg" className="product-img" />
-
-                  <Stack
-                    direction="column"
-                    justifyContent="start"
-                    alignItems="start"
-                    className="container"
-                  >
-                    <h4 style={{ fontWeight: "bolder", color: "#000" }}>
-                      Choco Biscuits
-                    </h4>
-                    <h6 style={{ color: "#7D7D7D" }}>Stationery notes</h6>
-                    <Stack direction="row">
-                      <Typography
-                        variant="h5"
-                        sx={{ fontWeight: "bold", color: "#7B7979" }}
-                      >
-                        ₹499{" "}
-                      </Typography>
-                      <Typography
-                        variant="h5"
-                        sx={{ fontWeight: "bold", color: "#AAAAAA" }}
-                      >
-                        <del> ₹799</del>
-                      </Typography>
-                    </Stack>
-                  </Stack>
+                <img
+                  src="../images/biscuit.jpg"
+                  alt=""
+                  className="product-img"
+                />
+                <Box>
+                  <p>Choco Biscuits</p>
+                  <p>Choco Biscuits</p>
+                  <p>Choco Biscuits</p>
                 </Box>
-              </Grid>
-
-              <Grid lg={6}>
-                <Button>Add to Cart</Button>
-                <Button>
-                  <DeleteIcon />
-                </Button>
-              </Grid>
-            </Stack>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <Button sx={cart} variant="contained">
+                Add to Cart
+              </Button>
+              <Button sx={deleteicon} variant="contained">
+                <DeleteIcon />
+              </Button>
+            </Grid>
           </Grid>
-          <Grid container>
-            <Stack xs={8} direction="row">
-              <Grid>
-                <img src="../images/biscuit.jpg" width={145} height={145} />
-              </Grid>
-              <Grid>
-                <Stack direction="column">
-                  <Typography variant="h4">Choco Biscuits</Typography>
-                  <Typography variant="h6">Stationery notes</Typography>
-                  <Stack direction="row">
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: "bold", color: "#7B7979" }}
-                    >
-                      ₹499
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontWeight: "bold", color: "#AAAAAA" }}
-                    >
-                      <del>₹799</del>
-                    </Typography>
-                  </Stack>
-                </Stack>
-              </Grid>
-              <Grid>
-                <Button>Add to Cart</Button>
-                <Button>
-                  <DeleteIcon />
-                </Button>
-              </Grid>
-            </Stack>
-          </Grid>
-        </Stack>
+        </Box>
       </Stack>
     </>
   );
