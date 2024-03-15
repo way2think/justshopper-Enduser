@@ -21,12 +21,15 @@
     height: 50px;
     margin-left: 15px;
   }
-  .mobileviewcart {
-    display: block;
+  .icon-desktop{
+    display: none !important;
   }
+  /* .mobileviewcart {
+    display: block;
+  } */
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+/* @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
   .mobileviewcart {
     display: none !important;
   }
@@ -40,4 +43,4 @@
   .mobileviewcart {
     display: none !important;
   }
-}
+} */
