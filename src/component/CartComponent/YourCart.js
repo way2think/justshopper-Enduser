@@ -1,6 +1,7 @@
 import React from "react";
 import { Stack } from "@mui/material";
 import "./YourCart.css";
+import CartTable from "./CartTable";
 
 const YourCart = () => {
   return (
@@ -13,6 +14,7 @@ const YourCart = () => {
       >
         <h3 className="yourcartheading"> Your Cart</h3>
       </Stack>
+      <CartTable />
     </>
   );
 };
