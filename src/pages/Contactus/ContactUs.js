@@ -6,7 +6,7 @@ import Path from "../../component/Path";
 const ContactUs = () => {
   return (
     <div>
-      <Path pathhome="Home" pathdetails="Contact us" />
+      <Path link="/" pathhome="Home" pathdetails="Contact us" />
       <ContactDetails />
       <WorkDetailBlack />
     </div>

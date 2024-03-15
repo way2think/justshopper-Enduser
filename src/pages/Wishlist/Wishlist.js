@@ -5,7 +5,7 @@ import WorkDetailBlack from '../../component/HomeComponent/WorkDetailBlack'
 const Wishlist = () => {
   return (
     <div>
-        <Path pathhome="Home" pathdetails="Wishlist" />
+        <Path link="/" pathhome="Home" pathdetails="Wishlist" />
         
         <WorkDetailBlack />
     </div>

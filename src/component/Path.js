@@ -11,7 +11,7 @@ const Path = (props) => {
         alignItems="center"
         className="mainpath container"
       >
-        <a href="" className="pathhome">
+        <a href={props.link} className="pathhome">
           {props.pathhome}/
         </a>
         <a href="" className="pathdetails">

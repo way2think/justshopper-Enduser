@@ -57,7 +57,7 @@ const WorkDetailBlack = () => {
           </Grid>
         </Box>
       </Stack>
-      <Divider color="#ccc" />
+      <Divider color="#AAAAAA" />
     </>
   );
 };

@@ -6,7 +6,7 @@ import YourCart from "../../component/CartComponent/YourCart";
 const CartPage = () => {
   return (
     <>
-      <Path pathhome="Home" pathdetails="Cart" />
+      <Path link="/" pathhome="Home" pathdetails="Cart" />
       <YourCart />
       <WorkDetailBlack />
     </>
