@@ -1,0 +1,33 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+/* .price {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+} */
+
+.under {
+  margin-right: 10px;
+  font-size: 16px;
+  font-family: amazonbold;
+  color: #000;
+}
+
+.currency {
+  margin-left: 10px;
+  font-size: 16spx;
+  font-family: amazonbold;
+  color: #000;
+}
+
+#outlined-adornment-weight {
+  padding: 10px 5px;
+}

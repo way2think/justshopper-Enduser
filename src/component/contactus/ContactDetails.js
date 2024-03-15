@@ -101,6 +101,7 @@ const ContactDetails = () => {
               <form className="enquiryform">
                 {/* <label for="fname">First Name</label> */}
                 <input
+                  className="input"
                   type="text"
                   id="fname"
                   name="firstname"
@@ -109,25 +110,28 @@ const ContactDetails = () => {
 
                 {/* <label for="lname">Last Name</label> */}
                 <input
+                  className="input"
                   type="mail"
                   id="mail"
                   name="mail"
                   placeholder="Email.."
                 />
                 <input
+                  className="input"
                   type="tel"
                   id="phone"
                   name="phone"
                   placeholder="Phone.."
                 />
                 <textarea
+                  className="textinput"
                   id="w3review"
                   name="w3review"
                   rows="4"
                   cols="50"
                   placeholder="Desc"
                 ></textarea>
-                <input type="submit" value="Submit" />
+                <input className="submit" type="submit" value="Submit" />
               </form>
             </Grid>
           </Grid>

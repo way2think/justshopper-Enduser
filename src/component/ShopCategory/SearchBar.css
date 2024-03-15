@@ -7,14 +7,14 @@
   background-color: #d8d9d9;
   overflow: hidden;
   padding: 0 8px;
-  max-width: 230px;
+  max-width: 300px;
   margin-top: 20px;
   /* box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.273); */
 }
 #search {
   padding: 10px;
   border: none;
-  width: 200px;
+  width: 255px;
   font-size: 15px;
   box-shadow: none;
   margin: 0;
