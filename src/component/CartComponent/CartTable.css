@@ -28,7 +28,7 @@
   }
   .table-xs td:before {
     white-space: nowrap;
-    width: 50%;
+    width: 60%;
     display: table-cell;
     text-align: left;
     font-weight: bold;
@@ -73,13 +73,41 @@
   .tableheadrow {
     display: none !important;
   }
+
   .itemname {
+    font-size: 16px;
+    font-family: amazonbold;
+    color: #000;
     padding: 5px !important;
     margin-bottom: 5px;
   }
   .itemdesc {
+    font-size: 16px;
+    font-family: amazonbold;
+    color: #7d7d7d;
     padding: 5px !important;
     margin-bottom: 5px;
+  }
+  .cartqty {
+    border: 2px solid #dc3237;
+    padding: 5px !important;
+    border-radius: 5px;
+    border-bottom-width: 2px !important;
+  }
+  .qty {
+    color: #000;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-family: amazonbold;
+  }
+  .price {
+    font-size: 16px !important;
+    font-family: amazonbold;
+    color: #000;
+  }
+  .checkoutbtn {
+    width: 100%;
+    
   }
 }
 
@@ -103,6 +131,26 @@
   .itemdesc {
     padding: 5px !important;
     margin-bottom: 5px;
+  }
+  .cartqty {
+    border: 2px solid #dc3237;
+    padding: 5px !important;
+    border-radius: 5px;
+    border-bottom-width: 2px !important;
+  }
+  .qty {
+    color: #000;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-family: amazonbold;
+  }
+  .price {
+    font-size: 18px;
+    font-family: amazonbold;
+    color: #000;
+  }
+  .checkoutbtn {
+    width: 28%;
   }
 }
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
@@ -136,6 +184,26 @@
     padding: 5px !important;
     margin-bottom: 5px !important;
   }
+  .cartqty {
+    border: 2px solid #dc3237;
+    padding: 5px !important;
+    border-radius: 5px;
+    border-bottom-width: 2px !important;
+  }
+  .qty {
+    color: #000;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-family: amazonbold;
+  }
+  .price {
+    font-size: 18px;
+    font-family: amazonbold;
+    color: #000;
+  }
+  .checkoutbtn {
+    width: 25%;
+  }
 }
 @media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
   .Items {
@@ -153,5 +221,25 @@
     font-size: 16px;
     font-family: amazonheavy;
     color: #000;
+  }
+  .cartqty {
+    border: 2px solid #dc3237;
+    padding: 5px !important;
+    border-radius: 5px;
+    border-bottom-width: 2px !important;
+  }
+  .qty {
+    color: #000;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-family: amazonbold;
+  }
+  .price {
+    font-size: 18px;
+    font-family: amazonbold;
+    color: #000;
+  }
+  .checkoutbtn {
+    width: 25%;
   }
 }
