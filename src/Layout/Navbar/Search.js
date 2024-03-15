@@ -31,12 +31,10 @@ const Search = () => {
         <HighlightOffIcon
           style={{
             display: !isSearchOpen ? "none" : "block",
-            position: "absolute",
-            right: "100px",
-            color: "#fff",
-            zIndex:2
+            
           }}
           onClick={handleNavClose}
+          className="cancelicon"
         />
       </div>
     </nav>

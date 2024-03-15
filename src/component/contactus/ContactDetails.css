@@ -299,7 +299,7 @@ input[type="submit"]:hover {
   }
 }
 /* larger screen */
-@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
   .mainpadding {
     margin-top: 40px;
     margin-bottom: 50px;
