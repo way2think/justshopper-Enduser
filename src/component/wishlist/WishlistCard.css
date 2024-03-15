@@ -16,6 +16,21 @@
   border-radius: 5px;
 }
 
+.product-name{
+  font-weight: 800;
+  color:#000;
+}
+
+.product-category{
+  color: #7D7D7D;
+  font-weight: bold;
+}
+
+.add-cart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 
