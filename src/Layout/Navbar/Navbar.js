@@ -27,7 +27,7 @@ export default function Navbar() {
         <MDBNavbarBrand href="#">
           <img src="../images/JS logo png.png" className="logo" alt="" />
         </MDBNavbarBrand>
-        <Search />
+        {/* <Search /> */}
         <MDBNavbarToggler
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
@@ -45,11 +45,11 @@ export default function Navbar() {
               </MDBNavbarLink>
             </MDBNavbarItem>
             <MDBNavbarItem className="navitem">
-              <MDBDropdown>
+              <MDBDropdown >
                 <MDBDropdownToggle tag="a" className="nav-link" role="button">
                   Shop by Category
                 </MDBDropdownToggle>
-                <MDBDropdownMenu>
+                <MDBDropdownMenu >
                   <MDBDropdownItem link>Stationery</MDBDropdownItem>
                   <MDBDropdownItem link>Pen</MDBDropdownItem>
                   <MDBDropdownItem link>Notes</MDBDropdownItem>
@@ -71,7 +71,7 @@ export default function Navbar() {
               <MDBNavbarLink href="#">
                 {/* <MDBIcon fas icon="search" /> */}
                 {/* <img src="../images/Search.png" alt="" width={25} height={25}  /> */}
-                {/* <Search /> */}
+                <Search />
               </MDBNavbarLink>
             </MDBNavbarItem>
             <MDBNavbarItem className="me-3 me-lg-0">
@@ -130,6 +130,7 @@ export default function Navbar() {
             <MDBBtn color="primary">Search</MDBBtn>
           </form> */}
         </MDBCollapse>
+        
       </MDBContainer>
     </MDBNavbar>
   );
