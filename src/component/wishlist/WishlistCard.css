@@ -1,8 +1,19 @@
 .wishlist-box {
   background-color: #e9e6e6;
+  padding:50px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .mainpadding {
-    margin-top: 80px;
-    margin-bottom: 100px;
-  }
+  margin-top: 80px;
+  margin-bottom: 100px;
+}
+
+.product-img{
+  width: 145px;
+  height: 145px;
+  border-radius: 5px;
+}
+
+
