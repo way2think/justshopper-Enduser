@@ -27,13 +27,14 @@ const Search = () => {
       />
 
       <div className="search-box">
-        <input type="text" placeholder="Search here..." />
+        <input type="text" placeholder="Search here..." className="input" />
         <HighlightOffIcon
           style={{
             display: !isSearchOpen ? "none" : "block",
             position: "absolute",
             right: "100px",
             color: "#fff",
+            zIndex:2
           }}
           onClick={handleNavClose}
         />
