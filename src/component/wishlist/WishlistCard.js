@@ -95,7 +95,7 @@ const WishlistCard = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} className="add-cart">
-              <Button sx={cart} variant="contained" fullWidth>
+              <Button sx={cart} variant="contained" >
                 Add to Cart
               </Button>
               <Button sx={deleteicon} variant="contained">
@@ -148,7 +148,7 @@ const WishlistCard = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} className="add-cart">
-              <Button sx={cart} variant="contained" fullWidth>
+              <Button sx={cart} variant="contained" >
                 Add to Cart
               </Button>
               <Button sx={deleteicon} variant="contained">
@@ -201,7 +201,7 @@ const WishlistCard = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} className="add-cart">
-              <Button sx={cart} variant="contained" fullWidth>
+              <Button sx={cart} variant="contained" >
                 Add to Cart
               </Button>
               <Button sx={deleteicon} variant="contained">
