@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import Path from "../../component/Path";
+import WorkDetailBlack from "../../component/HomeComponent/WorkDetailBlack";
+import LatestCarousel from "../../component/ShopCategory/LatestCarousel";
+import Product from "../../component/ProductDetails/Product";
 
 const ProductDetails = () => {
   return (
-    <div>ProductDetails</div>
-  )
-}
+    <>
+      <Path link="/" pathhome="Home" pathdetails="Product Details" />
+      <Product />
+      <LatestCarousel />
+      <WorkDetailBlack />
+    </>
+  );
+};
 
-export default ProductDetails
+export default ProductDetails;
