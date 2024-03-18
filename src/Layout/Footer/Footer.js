@@ -156,10 +156,10 @@ export default function Footer() {
             {/* <MDBIcon fab icon="twitter" /> */}
             <img src="../images/YouTube.png" alt="" className="sociallink"  />
           </a>
-          <a href="" className=" socialicon">
-            {/* <MDBIcon fab icon="google" /> */}
+          {/* <a href="" className=" socialicon">
+            <MDBIcon fab icon="google" />
             <img src="../images/TwitterX.png" alt="" className="sociallink"  />
-          </a>
+          </a> */}
           <a href="" className=" socialicon">
             {/* <MDBIcon fab icon="instagram" /> */}
             <img src="../images/Instagram.png" alt="" className="sociallink"  />
