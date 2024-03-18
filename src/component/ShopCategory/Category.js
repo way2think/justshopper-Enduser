@@ -18,7 +18,7 @@ const Category = () => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item xs={12} sm={3} md={3} lg={3}>
               <Box>
                 <h4 className="searchproducthead">Search Product</h4>
                 <SearchBar />
@@ -56,7 +56,7 @@ const Category = () => {
                 <FilterCategory />
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={9}>
+            <Grid item xs={12} sm={9} md={9} lg={9}>
               <Box>
                 <h4 className="productheading">Stationery</h4>
                 <CategoryCard />

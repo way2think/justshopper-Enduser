@@ -1,7 +1,8 @@
 import React from "react";
-import "./CategoryCard.css";
 import { Box, Grid, Pagination, Stack } from "@mui/material";
 import CardNewArrival from "../HomeComponent/CardNewArrival";
+import CategoryPagination from "./CategoryPagination";
+import "./CategoryCard.css";
 
 const CategoryCard = () => {
   return (
@@ -14,7 +15,7 @@ const CategoryCard = () => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -23,7 +24,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -32,7 +33,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -41,7 +42,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -50,7 +51,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -59,7 +60,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -68,7 +69,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -77,7 +78,7 @@ const CategoryCard = () => {
                 sale="sale"
               />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={3}>
+            <Grid item sm={3} xs={6} md={3} lg={3}>
               <CardNewArrival
                 image="../images/biscuit.jpg"
                 cardtitle="Choco Biscuits"
@@ -87,7 +88,7 @@ const CategoryCard = () => {
               />
             </Grid>
           </Grid>
-          <Pagination />
+          <CategoryPagination />
         </Box>
       </Stack>
     </>

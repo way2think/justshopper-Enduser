@@ -9,3 +9,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.css-frb6yl-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: #aaa;
+  color: #dc3237;
+}
