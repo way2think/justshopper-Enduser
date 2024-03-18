@@ -147,7 +147,7 @@ export default function Footer() {
            
           </a> */}
         </div>
-        <div>
+        <div className="socialflex d-flex">
           <a href="" className="  socialicon">
             {/* <MDBIcon fab icon="facebook-f" /> */}
             <img src="../images/Facebook F.png" alt="" className="sociallink"  />

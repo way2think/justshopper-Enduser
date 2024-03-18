@@ -20,7 +20,7 @@ const WorkDetailBlack = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Card Security (2).png"
-                className="iconwork1"
+                className="iconwork1 mb-2"
                 alt=""
               />
               <h5 className="titlework1">Secure Payment</h5>
@@ -28,7 +28,7 @@ const WorkDetailBlack = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Online Support (1).png"
-                className="iconwork1"
+                className="iconwork1 mb-2"
                 alt=""
               />
               <h5 className="titlework1">24/7 Support</h5>
@@ -36,7 +36,7 @@ const WorkDetailBlack = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Shipped (1).png"
-                className="iconwork1"
+                className="iconwork1 mb-2"
                 alt=""
               />
               <h5 className="titlework1">
@@ -47,7 +47,7 @@ const WorkDetailBlack = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Human Resources (1).png"
-                className="iconwork1"
+                className="iconwork1 mb-2"
                 alt=""
               />
               <h5 className="titlework1">

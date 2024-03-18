@@ -21,8 +21,8 @@ const Product = () => {
               <ProductCard />
             </Grid>
           </Grid>
+          <Divider/>
         </Box>
-        <Divider />
       </Stack>
     </>
   );

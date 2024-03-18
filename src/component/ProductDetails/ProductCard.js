@@ -4,6 +4,40 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import classes from "../ProductDetails/ProductCard.module.css";
 
 const ProductCard = () => {
+  const addtocart = {
+    backgroundColor: "#dc3237",
+    color: "#fff",
+    fontSize: "18px",
+    fontFamily: "amazonbold",
+    marginRight: "30px",
+    "&:hover": {
+      backgroundColor: "#dc3237",
+      color: "#fff",
+      fontSize: "18px",
+      fontFamily: "amazonbold",
+      marginRight: "30px",
+    },
+    "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      fontSize: "16px",
+    },
+  };
+  const buy = {
+    backgroundColor: "#fcd425",
+    color: "#fff",
+    fontSize: "18px",
+    fontFamily: "amazonbold",
+    marginRight: "30px",
+    "&:hover": {
+      backgroundColor: "#fcd425",
+      color: "#fff",
+      fontSize: "18px",
+      fontFamily: "amazonbold",
+      marginRight: "30px",
+    },
+    "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      fontSize: "16px",
+    },
+  };
   return (
     <>
       <main>
@@ -69,8 +103,8 @@ const ProductCard = () => {
           alignItems="center"
           className={classes.overallbtn}
         >
-          <Button className={classes.addtocart}>Add to Cart</Button>
-          <Button className={classes.buy}>Buy Now</Button>
+          <Button sx={addtocart}>Add to Cart</Button>
+          <Button sx={buy}>Buy Now</Button>
         </Stack>
       </main>
     </>

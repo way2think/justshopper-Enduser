@@ -20,7 +20,7 @@ const WorkDetails = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Card Security (1).png"
-                className="iconwork"
+                className="iconwork mb-2"
                 alt=""
               />
               <h5 className="titlework">Secure Payment</h5>
@@ -28,13 +28,13 @@ const WorkDetails = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Online Support.png"
-                className="iconwork"
+                className="iconwork mb-2"
                 alt=""
               />
               <h5 className="titlework">24/7 Support</h5>
             </Grid>
             <Grid item xs={6} md={3}>
-              <img src="../images/Shipped.png" className="iconwork" alt="" />
+              <img src="../images/Shipped.png" className="iconwork mb-2" alt="" />
               <h5 className="titlework">
                 Delivering quality
                 <br /> Products
@@ -43,7 +43,7 @@ const WorkDetails = () => {
             <Grid item xs={6} md={3}>
               <img
                 src="../images/Human Resources.png"
-                className="iconwork"
+                className="iconwork mb-2"
                 alt=""
               />
               <h5 className="titlework">
