@@ -19,6 +19,7 @@ import "./Navbar.css";
 import Search from "./Search";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
+import LoginModal from "../../component/Login/LoginModal";
 
 export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
@@ -63,6 +64,11 @@ export default function Navbar() {
               <MDBNavbarItem className="me-3 me-lg-0">
                 <MDBNavbarLink href="#">
                   <Search />
+                </MDBNavbarLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem className="me-3 me-lg-0">
+                <MDBNavbarLink href="#">
+                  <LoginModal />
                 </MDBNavbarLink>
               </MDBNavbarItem>
 
@@ -213,6 +219,12 @@ export default function Navbar() {
                       <MDBDropdownItem link>Logout</MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
+                </MDBNavbarItem>
+
+                <MDBNavbarItem className="me-3 me-lg-0">
+                  <MDBNavbarLink href="#">
+                    <LoginModal />
+                  </MDBNavbarLink>
                 </MDBNavbarItem>
               </>
             )}

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+
+@font-face {
+  font-family: amazonbold;
+  src: url(../../public/Ember/AmazonEmber_Bd.ttf);
+}
+
+#modal-modal-title {
+  text-align: center;
+}
