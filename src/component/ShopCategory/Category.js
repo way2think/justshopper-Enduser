@@ -43,9 +43,11 @@ const Category = () => {
               </Box>
             </Grid>
           </Grid>
-          <LatestCarousel />
+         
         </Box>
+      
       </Stack>
+      <LatestCarousel />
     </>
   );
 };
