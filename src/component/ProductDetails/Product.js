@@ -1,6 +1,7 @@
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Divider, Grid, Stack } from "@mui/material";
 import React from "react";
 import ProductGallery from "./ProductGallery";
+import ProductCard from "./ProductCard";
 
 const Product = () => {
   return (
@@ -17,10 +18,11 @@ const Product = () => {
               <ProductGallery />
             </Grid>
             <Grid item sm={6} xs={12} md={6} lg={6}>
-              hello
+              <ProductCard />
             </Grid>
           </Grid>
         </Box>
+        <Divider />
       </Stack>
     </>
   );

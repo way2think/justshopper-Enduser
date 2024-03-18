@@ -1,0 +1,178 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+@font-face {
+  font-family: amazonlight;
+  src: url(../../../public/Ember/AmazonEmber_Lt.ttf);
+}
+
+.productdetailsHeading {
+  font-size: 40px;
+  font-family: amazonbold;
+  color: #000;
+  font-weight: 600 !important;
+}
+
+.redheart {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.yellowshare {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainSubtitle {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.Subtitle {
+  font-size: 20px;
+  color: #7b7979;
+  font-family: amazonbold;
+}
+
+.descripation {
+  text-align: left;
+  font-size: 16px;
+  font-family: amazonlight;
+  color: #aaa;
+  margin-top: 30px;
+}
+
+.maincolors {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.colors {
+  font-size: 20px;
+  color: #7b7979;
+  font-family: amazonbold;
+}
+
+.colorsCircle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.color1 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #dc3237;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.color2 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #8d28ad;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.color3 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #fcd425;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.color4 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #ff006b;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.color5 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: brown;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.price {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.price1 {
+  font-size: 30px;
+  font-family: amazonbold;
+  color: #7b7979;
+  margin-right: 10px;
+}
+.price2 {
+  font-size: 18px;
+  font-family: amazonbold;
+  color: #aaaa;
+  text-decoration: line-through;
+}
+
+.rupee1 {
+  font-size: 30px;
+}
+.rupee2 {
+  font-size: 20px;
+}
+
+.overallbtn {
+  margin-top: 30px;
+}
+
+.addtocart {
+  background-color: #dc3237;
+  color: #fff;
+  font-size: 18px;
+  font-family: amazonbold;
+  margin-right: 30px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.addtocart:hover {
+  background-color: #dc3237;
+  color: #fff;
+  font-size: 18px;
+  font-family: amazonbold;
+}
+
+.buy {
+  background-color: #fcd425;
+  color: #000;
+  font-size: 18px;
+  font-family: amazonbold;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.buy:hover {
+  background-color: #fcd425;
+  color: #000;
+  font-size: 18px;
+  font-family: amazonbold;
+}
