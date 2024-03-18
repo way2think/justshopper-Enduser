@@ -9,7 +9,7 @@ const Path = (props) => {
         direction="row"
         justifyContent="flex-start"
         alignItems="center"
-        className="mainpath container"
+        className="mainpath container-fluid"
       >
         <a href={props.link} className="pathhome">
           {props.pathhome}/

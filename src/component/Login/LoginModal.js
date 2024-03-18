@@ -38,7 +38,7 @@ const style = {
   borderRadius: "10px",
   boxShadow: 24,
   p: 4,
- 
+
   "@media (max-width: 768px)": {
     width: 400,
     maxHeight: "450px",
@@ -56,7 +56,7 @@ const loginModalBtn = {
   fontFamily: "amazonbold",
   "@media (max-width: 768px)": {
     marginBottom: "10px",
-    marginLeft: "35px",
+    marginLeft: "0px",
     marginRight: "10px",
     border: "none",
     fontWeight: "bold",
@@ -210,7 +210,11 @@ export default function LoginModal() {
                 id="modal-modal-title"
                 variant="h4"
                 component="h2"
-                sx={{ textAlign: "center", marginBottom: 1, fontFamily: "amazonbold", }}
+                sx={{
+                  textAlign: "center",
+                  marginBottom: 1,
+                  fontFamily: "amazonbold",
+                }}
               >
                 Login
               </Typography>

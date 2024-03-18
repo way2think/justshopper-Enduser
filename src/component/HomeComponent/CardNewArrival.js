@@ -14,13 +14,13 @@ export default function CardNewArrival(props) {
   const cart = {
     background: "#dc3237",
     color: "#fff",
-    fontSize: "16px",
+    fontSize: "14px",
     padding: "5px 10px",
     fontFamily: "amazonbold",
     "&:hover": {
       background: "#dc3237",
       color: "#fff",
-      fontSize: "16px",
+      fontSize: "14px",
       fontFamily: "amazonbold",
       padding: "5px 10px",
     },

@@ -66,11 +66,6 @@ export default function Navbar() {
                   <Search />
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-3 me-lg-0">
-                <MDBNavbarLink href="#">
-                  <LoginModal />
-                </MDBNavbarLink>
-              </MDBNavbarItem>
 
               <MDBNavbarItem className="me-3 me-lg-0">
                 <MDBNavbarLink href="cart">
@@ -156,6 +151,11 @@ export default function Navbar() {
                 aria-disabled="true"
               >
                 Contact Us
+              </MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem className="me-3 me-lg-0">
+              <MDBNavbarLink href="#">
+                <LoginModal />
               </MDBNavbarLink>
             </MDBNavbarItem>
             {!mobileNav && (

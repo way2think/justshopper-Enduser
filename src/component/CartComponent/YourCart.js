@@ -10,7 +10,7 @@ const YourCart = () => {
         direction="row"
         justifyContent="start"
         alignItems="center"
-        className="container"
+        className="container-fluid"
       >
         <h3 className="yourcartheading"> Your Cart</h3>
       </Stack>

@@ -7,6 +7,76 @@
   src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
 }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 600px) {
+  .searchproducthead {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 22px;
+    color: #000;
+  }
+
+  .productheading {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 22px;
+    color: #000;
+  }
+
+  .filter {
+    margin-top: 30px;
+  }
+
+  .filterheading {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 22px;
+    color: #000;
+  }
+  .titleghead {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .titledesc {
+    text-align: left;
+    font-size: 14px;
+    color: #ccc;
+  }
+  .filtersidenav {
+    display: none;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 998px) {
+  .searchproducthead {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 16px;
+    color: #000;
+  }
+
+  .productheading {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 16px;
+    color: #000;
+  }
+
+  .filter {
+    margin-top: 30px;
+  }
+
+  .filterheading {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 16px;
+    color: #000;
+  }
+  .filtersidenav {
+    display: block;
+  }
+}
+
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
   .searchproducthead {
     text-align: left;
@@ -31,5 +101,37 @@
     font-family: amazonbold;
     font-size: 22px;
     color: #000;
+  }
+  .filtersidenav {
+    display: block;
+  }
+}
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .searchproducthead {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 22px;
+    color: #000;
+  }
+
+  .productheading {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 22px;
+    color: #000;
+  }
+
+  .filter {
+    margin-top: 30px;
+  }
+
+  .filterheading {
+    text-align: left;
+    font-family: amazonbold;
+    font-size: 22px;
+    color: #000;
+  }
+  .filtersidenav {
+    display: block;
   }
 }
