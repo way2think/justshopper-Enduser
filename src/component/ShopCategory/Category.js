@@ -1,11 +1,13 @@
 import React from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import "./Category.css";
+
 import SearchBar from "./SearchBar";
 import FilterPrice from "./FilterPrice";
 import FilterCategory from "./FilterCategory";
 import LatestCarousel from "./LatestCarousel";
 import CategoryCard from "./CategoryCard";
+import SideNavFilter from "./SideNavFilter";
+import "./Category.css";
 
 const Category = () => {
   return (
@@ -13,12 +15,12 @@ const Category = () => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="my-4 container"
+        className="my-4 container-fluid"
         direction="row"
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            <Grid item xs={12} sm={3} md={3} lg={3}>
+            <Grid item xs={12} sm={3} md={3} lg={3} className="filtersidenav">
               <Box>
                 <h4 className="searchproducthead">Search Product</h4>
                 <SearchBar />
@@ -57,10 +59,18 @@ const Category = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={9} md={9} lg={9}>
-              <Box>
-                <h4 className="productheading">Stationery</h4>
-                <CategoryCard />
-              </Box>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box className="titleghead">
+                  <h4 className="productheading">Stationery</h4>
+                  <p className="titledesc">Love is Letter on pick Stationery</p>
+                </Box>
+                <SideNavFilter />
+              </Stack>
+              <CategoryCard />
             </Grid>
           </Grid>
           {/* <LatestCarousel /> */}

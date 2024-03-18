@@ -32,7 +32,7 @@ const FilterPrice = () => {
   };
   return (
     <>
-      <Box>
+      <Box className="filtercatergory">
         <Stack direction="row" alignItems="center" className="overallrow">
           <img src="../images/Select black.png" alt="" className="seleticon" />{" "}
           <Typography className="Categoryitemname" variant="body1">

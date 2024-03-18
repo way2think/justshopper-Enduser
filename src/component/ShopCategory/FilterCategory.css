@@ -23,7 +23,7 @@
 
 .currency {
   margin-left: 10px;
-  font-size: 16spx;
+  font-size: 16px;
   font-family: amazonbold;
   color: #000;
 }
@@ -49,4 +49,8 @@
   color: #545454;
   
   cursor: pointer;
+}
+
+.filtercatergory{
+  margin-top: 20px;
 }
