@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import FilterPrice from "./FilterPrice";
 import FilterCategory from "./FilterCategory";
 import LatestCarousel from "./LatestCarousel";
+import CategoryCard from "./CategoryCard";
 
 const Category = () => {
   return (
@@ -27,10 +28,28 @@ const Category = () => {
                 <FilterPrice />
               </Box>
               <Box className="filter">
-                <Typography variant="h5" sx={{ textAlign: "left",fontWeight:"bold",color:"#000" }}>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontSize: "22px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                    color: "#000",
+                    fontFamily: "amazonheavy",
+                  }}
+                >
                   Filter
                 </Typography>
-                <Typography variant="body1" sx={{ textAlign: "left" ,fontWeight:600,color:"#000" }}>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textAlign: "left",
+                    fontWeight: 600,
+                    color: "#000",
+                    fontSize: "22px",
+                    fontFamily: "amazonbold",
+                  }}
+                >
                   Pick a category
                 </Typography>
 
@@ -40,10 +59,11 @@ const Category = () => {
             <Grid item xs={12} sm={4} md={9} lg={9}>
               <Box>
                 <h4 className="productheading">Stationery</h4>
+                <CategoryCard />
               </Box>
             </Grid>
           </Grid>
-          <LatestCarousel />
+          {/* <LatestCarousel /> */}
         </Box>
       </Stack>
     </>

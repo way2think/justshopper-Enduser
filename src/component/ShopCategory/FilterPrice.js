@@ -28,11 +28,7 @@ const FilterPrice = () => {
   return (
     <>
       <Box>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox />
           <span className="under">Under</span> <RemoveIcon />{" "}
           <span className="currency">
@@ -40,11 +36,7 @@ const FilterPrice = () => {
             299
           </span>
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox />
           <span className="under">
             {" "}
@@ -57,11 +49,7 @@ const FilterPrice = () => {
             999
           </span>
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox />
           <span className="under">
             {" "}
@@ -74,11 +62,7 @@ const FilterPrice = () => {
             1499
           </span>
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox />
           <span className="under">
             {" "}
@@ -93,7 +77,8 @@ const FilterPrice = () => {
         </Stack>
         <Stack
           direction="row"
-          justifyContent="space-between"
+          j
+          justifyContent="flex-start"
           alignItems="center"
         >
           <Checkbox />
@@ -103,12 +88,8 @@ const FilterPrice = () => {
             2000
           </span>
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+        <Stack direction="row" justifyContent="flex-start" alignItems="center">
+          <FormControl sx={{ m: 1, width: "10ch" }} variant="outlined">
             <OutlinedInput
               placeholder="Min"
               sx={{ padding: 0, m: 0 }}
@@ -128,7 +109,7 @@ const FilterPrice = () => {
             Weight
           </FormHelperText> */}
           </FormControl>
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+          <FormControl sx={{ m: 1, width: "10ch" }} variant="outlined">
             <OutlinedInput
               placeholder=" Max"
               sx={{ padding: 0, m: 0 }}
@@ -149,10 +130,10 @@ const FilterPrice = () => {
             Weight
           </FormHelperText> */}
           </FormControl>
+          <Button sx={go} variant="contained">
+            Go
+          </Button>
         </Stack>
-        <Button fullWidth sx={go} variant="contained">
-          Go
-        </Button>
       </Box>
     </>
   );
