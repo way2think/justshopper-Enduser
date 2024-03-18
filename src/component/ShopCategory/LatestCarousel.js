@@ -13,7 +13,7 @@ function SampleNextArrow(props) {
         display: "block",
         background: "black",
         position: "absolute",
-        right: "65px",
+        right: "15px",
         borderRadius: "30px",
         padding: " 11px 27px 27px 8px",
       }}
@@ -32,10 +32,10 @@ function SamplePrevArrow(props) {
         display: "block",
         background: "black",
         position: "absolute",
-        left: "65px",
+        left: "15px",
         borderRadius: "30px",
         padding: " 11px 27px 27px 8px",
-        zIndex:1
+        zIndex: 1,
       }}
       onClick={onClick}
     />
@@ -43,7 +43,7 @@ function SamplePrevArrow(props) {
 }
 function LatestCarousel() {
   var settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 3,
@@ -55,8 +55,8 @@ function LatestCarousel() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 2,
+          slidesToScroll: 2,
           infinite: true,
           dots: true,
         },
@@ -86,7 +86,7 @@ function LatestCarousel() {
             direction="row"
             justifyContent="center"
             alignItems="center"
-            width="520px"
+
             // style={{boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}
           >
             <img src="../images/chocolate.jpg" alt="" className="product-img" />
@@ -123,12 +123,7 @@ function LatestCarousel() {
           </Stack>
         </div>
         <div>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            width="520px"
-          >
+          <Stack direction="row" justifyContent="center" alignItems="center">
             <img src="../images/biscuit.jpg" alt="" className="product-img" />
             <Box
               sx={{
@@ -164,12 +159,7 @@ function LatestCarousel() {
         </div>
         <div>
           {" "}
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            width="520px"
-          >
+          <Stack direction="row" justifyContent="center" alignItems="center">
             <img src="../images/biscuit.jpg" alt="" className="product-img" />
             <Box
               sx={{
@@ -205,12 +195,7 @@ function LatestCarousel() {
         </div>
 
         <div>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            width="520px"
-          >
+          <Stack direction="row" justifyContent="center" alignItems="center">
             <img src="../images/biscuit.jpg" alt="" className="product-img" />
             <Box
               sx={{
@@ -245,12 +230,7 @@ function LatestCarousel() {
           </Stack>
         </div>
         <div>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            width="520px"
-          >
+          <Stack direction="row" justifyContent="center" alignItems="center">
             <img src="../images/biscuit.jpg" alt="" className="product-img" />
             <Box
               sx={{
@@ -284,85 +264,75 @@ function LatestCarousel() {
             </Box>
           </Stack>
         </div>
-       <div>
-       <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          width="520px"
-        >
-          <img src="../images/biscuit.jpg" alt="" className="product-img" />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "start",
-              marginLeft: 3,
-            }}
-          >
-            <h4 className="product-name"> Choco Biscuits</h4>
-            <p className="product-category">Stationery notes</p>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", color: "#7B7979" }}
-            >
-              {" "}
-              ₹499
-              <span>
-                <del
-                  style={{
-                    fontWeight: "bold",
-                    color: "#AAAAAA",
-                    marginLeft: 5,
-                    fontSize: "18px",
-                  }}
-                >
-                  ₹799
-                </del>
-              </span>
-            </Typography>
-          </Box>
-        </Stack>
-       </div>
         <div>
-          <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          width="520px"
-        >
-          <img src="../images/biscuit.jpg" alt="" className="product-img" />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "start",
-              marginLeft: 3,
-            }}
-          >
-            <h4 className="product-name"> Choco Biscuits</h4>
-            <p className="product-category">Stationery notes</p>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", color: "#7B7979" }}
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <img src="../images/biscuit.jpg" alt="" className="product-img" />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "start",
+                marginLeft: 3,
+              }}
             >
-              {" "}
-              ₹499
-              <span>
-                <del
-                  style={{
-                    fontWeight: "bold",
-                    color: "#AAAAAA",
-                    marginLeft: 5,
-                    fontSize: "18px",
-                  }}
-                >
-                  ₹799
-                </del>
-              </span>
-            </Typography>
-          </Box>
-        </Stack>
+              <h4 className="product-name"> Choco Biscuits</h4>
+              <p className="product-category">Stationery notes</p>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: "bold", color: "#7B7979" }}
+              >
+                {" "}
+                ₹499
+                <span>
+                  <del
+                    style={{
+                      fontWeight: "bold",
+                      color: "#AAAAAA",
+                      marginLeft: 5,
+                      fontSize: "18px",
+                    }}
+                  >
+                    ₹799
+                  </del>
+                </span>
+              </Typography>
+            </Box>
+          </Stack>
+        </div>
+        <div>
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <img src="../images/biscuit.jpg" alt="" className="product-img" />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "start",
+                marginLeft: 3,
+              }}
+            >
+              <h4 className="product-name"> Choco Biscuits</h4>
+              <p className="product-category">Stationery notes</p>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: "bold", color: "#7B7979" }}
+              >
+                {" "}
+                ₹499
+                <span>
+                  <del
+                    style={{
+                      fontWeight: "bold",
+                      color: "#AAAAAA",
+                      marginLeft: 5,
+                      fontSize: "18px",
+                    }}
+                  >
+                    ₹799
+                  </del>
+                </span>
+              </Typography>
+            </Box>
+          </Stack>
         </div>
       </Slider>
     </div>
@@ -488,7 +458,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //         // style={{boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}
 //       >
 //         <img src="../images/chocolate.jpg" alt="" className="product-img" />
@@ -529,7 +499,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //       >
 //         <img src="../images/biscuit.jpg" alt="" className="product-img" />
 //         <Box
@@ -567,7 +537,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //       >
 //         <img src="../images/biscuit.jpg" alt="" className="product-img" />
 //         <Box
@@ -605,7 +575,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //       >
 //         <img src="../images/biscuit.jpg" alt="" className="product-img" />
 //         <Box
@@ -643,7 +613,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //       >
 //         <img src="../images/biscuit.jpg" alt="" className="product-img" />
 //         <Box
@@ -681,7 +651,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //       >
 //         <img src="../images/biscuit.jpg" alt="" className="product-img" />
 //         <Box
@@ -719,7 +689,7 @@ export default LatestCarousel;
 //         direction="row"
 //         justifyContent="center"
 //         alignItems="center"
-//         width="520px"
+//
 //       >
 //         <img src="../images/biscuit.jpg" alt="" className="product-img" />
 //         <Box
