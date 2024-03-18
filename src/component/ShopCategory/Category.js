@@ -34,7 +34,7 @@ const Category = () => {
                   Pick a category
                 </Typography>
 
-                {/* <FilterCategory /> */}
+                <FilterCategory />
               </Box>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={9}>
