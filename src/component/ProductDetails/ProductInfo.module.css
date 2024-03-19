@@ -60,22 +60,17 @@
 
 /* big screen */
 
-@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+@media only screen and (min-width: 1536px) and (max-width: 2560px) {
   .detailsbook {
     grid-template-columns: 10% 70%;
   }
 }
+/* tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+ 
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
-  .gridItemWhite {
-    padding: 19px 45px;
-    font-family: "Poppins", sans-serif;
-  }
-  .productInfo {
-    padding: 20px;
-  }
   .detailsbook {
-    grid-template-columns: 20% 70%;
+    grid-template-columns: 20% 70% !important;
   }
 }
 
