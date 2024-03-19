@@ -4,3 +4,23 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.product-name{
+  font-weight: 800;
+  color:#000;
+}
+.product-category{
+  color: #7D7D7D;
+  font-weight: bold;
+}
+
+
+
+@media only screen and (max-width: 767px){
+  .product-name{
+   font-size: medium;
+  }
+  .product-category{
+    font-size: small;
+  }
+}
