@@ -3,11 +3,23 @@
   margin: 0 auto;
   padding: 0 50px;
 }
+
+.card {
+  box-shadow: none !important;
+}
+
+/* img {
+  width: 100%;
+  display: block;
+  border-radius: 5px;
+} */
+
+/* 
 img {
   width: 100%;
   display: block;
   border-radius: 5px;
-}
+} */
 .img-display {
   overflow: hidden;
 }
@@ -16,7 +28,7 @@ img {
   width: 100%;
   transition: all 0.5s ease;
 }
-.img-showcase img {
+.img-showcase .galleryimage {
   min-width: 100%;
   max-height: 400px;
   margin-bottom: 20px;
@@ -175,8 +187,19 @@ img {
 }
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
-  .card-wrappergellery{
+  .card-wrappergellery {
     padding: 0 20px;
+  }
+  .gallerysmall {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+  }
+  .img-showcase .galleryimage {
+    min-width: 100%;
+    max-height: 400px;
+    margin-bottom: 20px;
+    border-radius: 5px;
   }
 }
 

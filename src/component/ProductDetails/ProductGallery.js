@@ -33,36 +33,121 @@ const ProductGallery = () => {
           <div className="product-imgs">
             <div className="img-display">
               <div className="img-showcase">
-                <img src="../images/biscuit.jpg" alt="shoe image" />
-                <img src="../images/biscuit.jpg" alt="shoe image" />
-                <img src="../images/biscuit.jpg" alt="shoe image" />
-                <img src="../images/biscuit.jpg" alt="shoe image" />
-                <img src="../images/biscuit.jpg" alt="shoe image" />
+                <img
+                  src="../images/biscuit.jpg"
+                  alt="shoe image"
+                  className="galleryimage"
+                  style={{
+                    width: "100%",
+                    display: "block",
+                    borderRadius: "5px",
+                  }}
+                />
+                <img
+                  src="../images/biscuit.jpg"
+                  alt="shoe image"
+                  className="galleryimage"
+                  style={{
+                    width: "100%",
+                    display: "block",
+                    borderRadius: "5px",
+                  }}
+                />
+                <img
+                  src="../images/biscuit.jpg"
+                  alt="shoe image"
+                  className="galleryimage"
+                  style={{
+                    width: "100%",
+                    display: "block",
+                    borderRadius: "5px",
+                  }}
+                />
+                <img
+                  src="../images/biscuit.jpg"
+                  alt="shoe image"
+                  className="galleryimage"
+                  style={{
+                    width: "100%",
+                    display: "block",
+                    borderRadius: "5px",
+                  }}
+                />
+                <img
+                  src="../images/biscuit.jpg"
+                  alt="shoe image"
+                  className="galleryimage"
+                  style={{
+                    width: "100%",
+                    display: "block",
+                    borderRadius: "5px",
+                  }}
+                />
               </div>
               <div className="img-select">
                 <div className="img-item">
                   <a href="#" data-id="1">
-                    <img src="../images/biscuit.jpg" alt="shoe image" />
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
                   </a>
                 </div>
                 <div className="img-item">
                   <a href="#" data-id="2">
-                    <img src="../images/biscuit.jpg" alt="shoe image" />
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
                   </a>
                 </div>
                 <div className="img-item">
                   <a href="#" data-id="3">
-                    <img src="../images/biscuit.jpg" alt="shoe image" />
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
                   </a>
                 </div>
                 <div className="img-item">
                   <a href="#" data-id="4">
-                    <img src="../images/biscuit.jpg" alt="shoe image" />
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
                   </a>
                 </div>
                 <div className="img-item">
                   <a href="#" data-id="5">
-                    <img src="../images/biscuit.jpg" alt="shoe image" />
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
                   </a>
                 </div>
               </div>
