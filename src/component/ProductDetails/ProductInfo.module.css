@@ -1,0 +1,94 @@
+.productInfo {
+  font-weight: bolder;
+  color: #000;
+  /* line-height: 4px; */
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@600&family=Montserrat&family=Nunito&family=Open+Sans&family=Poppins&display=swap");
+
+/* .titlebook {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+} */
+
+.productInfo {
+  padding: 50px;
+}
+
+.bookdetailoverall {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+.detailsbook {
+  display: grid;
+  grid-template-columns: 20% 70%;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+.gridItem {
+  height: inherit;
+  /* background-color: #4d4d4d; */
+  list-style-type: none;
+  padding-top: 7px;
+  color: #aaaaaa;
+  font-size: 14px;
+  text-align: left;
+  border: none;
+  outline: none;
+
+  font-family: "Poppins", sans-serif;
+}
+.gridItemWhite {
+  list-style-type: none;
+  padding-left: 0;
+  height: inherit;
+  text-transform: capitalize;
+  font-family: "Poppins", sans-serif;
+  padding-top: 7px;
+  color: #000;
+  font-weight: bolder;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* big screen */
+
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .detailsbook {
+    grid-template-columns: 10% 70%;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .gridItemWhite {
+    padding: 19px 45px;
+    font-family: "Poppins", sans-serif;
+  }
+  .productInfo {
+    padding: 20px;
+  }
+  .detailsbook {
+    grid-template-columns: 20% 70%;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 767px) {
+  .gridItemWhite {
+    padding: 19px 45px;
+    font-family: "Poppins", sans-serif;
+  }
+  .productInfo {
+    padding: 20px;
+  }
+  .detailsbook {
+    grid-template-columns: 30% 70%;
+  }
+}

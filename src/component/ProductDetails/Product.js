@@ -17,11 +17,10 @@ const Product = () => {
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <ProductGallery />
             </Grid>
-            <Grid item sm={6} xs={12} md={6} lg={6}>
+            <Grid item sm={6} xs={12} md={6} lg={6} sx={{paddingRight:"30px"}}>
               <ProductCard />
             </Grid>
           </Grid>
-          <Divider/>
         </Box>
       </Stack>
     </>
