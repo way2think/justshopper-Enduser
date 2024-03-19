@@ -49,14 +49,13 @@ const save = {
   background: "#dc3237",
   color: "#fff",
   fontSize: "16px",
-
   "&:hover": {
     background: "#dc3237",
     color: "#fff",
   },
-  "@media only screen and (max-width: 600px)" :{
-    fontSize:"12px",
-    marginTop:"14px",
+  "@media only screen and (max-width: 600px)": {
+    fontSize: "12px",
+    marginTop: "14px !important",
   },
 };
 const Cancel = {
@@ -67,8 +66,8 @@ const Cancel = {
     border: "1px solid #dc3237",
     color: "#dc3237",
   },
-  "@media only screen and (max-width: 600px)" :{
-    fontSize:"12px",
+  "@media only screen and (max-width: 600px)": {
+    fontSize: "12px",
   },
 };
 
@@ -86,24 +85,24 @@ const sechalf = {
 };
 
 const ProfileDetail = () => {
-//   const dispatch = useDispatch();
-//   const { userDetail } = useSelector(selectUser);
-//   const { id } = userDetail;
+  //   const dispatch = useDispatch();
+  //   const { userDetail } = useSelector(selectUser);
+  //   const { id } = userDetail;
 
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(true);
   const [disableProfileEdit, setDisableProfileEdit] = useState(false);
   const [disableSettingsEdit, setDisableSettingsEdit] = useState(true);
-//   const [editedValues, setEditedValues] = useState({
-//     name: userDetail.name,
-//     phone: userDetail.phone,
-//     address: userDetail.address,
-//     country: userDetail.country,
-//     state: userDetail.state,
-//     city: userDetail.city,
-//     pincode: userDetail.pincode,
-//   });
-//   console.log("editedValues", editedValues);
+  //   const [editedValues, setEditedValues] = useState({
+  //     name: userDetail.name,
+  //     phone: userDetail.phone,
+  //     address: userDetail.address,
+  //     country: userDetail.country,
+  //     state: userDetail.state,
+  //     city: userDetail.city,
+  //     pincode: userDetail.pincode,
+  //   });
+  //   console.log("editedValues", editedValues);
   const [pwd, setPwd] = useState("");
   const [cpwd, setCpwd] = useState("");
   const [countriesList, setCountriesList] = useState([]);
@@ -129,76 +128,74 @@ const ProfileDetail = () => {
     event.preventDefault();
   };
 
-//   const handleEditValues = (e) => {
-//     const { name, value } = e.target;
-//     setEditedValues((prev) => {
-//       return {
-//         ...editedValues,
-//         [name]: value,
-//       };
-//     });
-//   };
+  //   const handleEditValues = (e) => {
+  //     const { name, value } = e.target;
+  //     setEditedValues((prev) => {
+  //       return {
+  //         ...editedValues,
+  //         [name]: value,
+  //       };
+  //     });
+  //   };
 
-//   const { name, address, phone, country, state, city, pincode } = editedValues;
+  //   const { name, address, phone, country, state, city, pincode } = editedValues;
 
-//   async function saveChanges() {
-//     const docRef = doc(db, "users", id);
-//     await updateDoc(docRef, { name, phone, address });
-//     setDisableProfileEdit(true);
-//   }
+  //   async function saveChanges() {
+  //     const docRef = doc(db, "users", id);
+  //     await updateDoc(docRef, { name, phone, address });
+  //     setDisableProfileEdit(true);
+  //   }
 
-//   const handleSaveChanges = () => {
-//     const { name, address, phone } = editedValues;
+  //   const handleSaveChanges = () => {
+  //     const { name, address, phone } = editedValues;
 
-//     !isValidName(name)
-//       ? errorNotification("Invalid Name")
-//       : !isValidPhoneNumber(phone)
-//       ? errorNotification("Invalid phone")
-//       : !isValidAddress(address)
-//       ? errorNotification("Invalid Address ")
-//       : saveChanges();
-//   };
+  //     !isValidName(name)
+  //       ? errorNotification("Invalid Name")
+  //       : !isValidPhoneNumber(phone)
+  //       ? errorNotification("Invalid phone")
+  //       : !isValidAddress(address)
+  //       ? errorNotification("Invalid Address ")
+  //       : saveChanges();
+  //   };
 
-//   const updateUserPassword = () => {
-//     if (!isValidPassword(pwd)) {
-//       errorNotification(
-//         "Invalid, Password must be 6 characters or more in length"
-//       );
-//       return;
-//     }
-//     if (pwd !== cpwd) {
-//       errorNotification(
-//         "Invalid, Password must be 6 characters or more in length"
-//       );
-//       return;
-//     }
+  //   const updateUserPassword = () => {
+  //     if (!isValidPassword(pwd)) {
+  //       errorNotification(
+  //         "Invalid, Password must be 6 characters or more in length"
+  //       );
+  //       return;
+  //     }
+  //     if (pwd !== cpwd) {
+  //       errorNotification(
+  //         "Invalid, Password must be 6 characters or more in length"
+  //       );
+  //       return;
+  //     }
 
-//     console.log("updateUserPassword", isValidPassword, pwd, cpwd);
-//     const auth = getAuth();
+  //     console.log("updateUserPassword", isValidPassword, pwd, cpwd);
+  //     const auth = getAuth();
 
-//     const user = auth.currentUser;
-//     console.log("user: ", user);
+  //     const user = auth.currentUser;
+  //     console.log("user: ", user);
 
-//     updatePassword(user, pwd)
-//       .then(() => {
-//         successNotification("Password updated successfully!!!");
-//         setDisableSettingsEdit(true);
-//         setPwd("");
-//         setCpwd("");
-//       })
-//       .catch((error) => {
-//         errorNotification(error.message);
-//         console.log("updateUserPassword error: ", error.message);
-//         setPwd("");
-//         setCpwd("");
-//         if (error.code === "auth/requires-recent-login") {
-//           // logout the user
-//           dispatch(logout);
-//         }
-//       });
-//   };
-
- 
+  //     updatePassword(user, pwd)
+  //       .then(() => {
+  //         successNotification("Password updated successfully!!!");
+  //         setDisableSettingsEdit(true);
+  //         setPwd("");
+  //         setCpwd("");
+  //       })
+  //       .catch((error) => {
+  //         errorNotification(error.message);
+  //         console.log("updateUserPassword error: ", error.message);
+  //         setPwd("");
+  //         setCpwd("");
+  //         if (error.code === "auth/requires-recent-login") {
+  //           // logout the user
+  //           dispatch(logout);
+  //         }
+  //       });
+  //   };
 
   return (
     <>
@@ -210,7 +207,12 @@ const ProfileDetail = () => {
             alignItems="center"
             sx={{ width: "100%", mb: 2 }}
           >
-            <Typography id="modal-modal-profile" variant="h4" component="h2" sx={{color:"#000",fontWeight:"bold"}}>
+            <Typography
+              id="modal-modal-profile"
+              variant="h4"
+              component="h2"
+              sx={{ color: "#000", fontWeight: "bold" }}
+            >
               Profile
             </Typography>
             {disableProfileEdit && (
@@ -226,7 +228,6 @@ const ProfileDetail = () => {
             <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
-
                 id="outlined-basic1"
                 label="Name"
                 disabled={disableProfileEdit}
@@ -344,8 +345,10 @@ const ProfileDetail = () => {
               justifyContent="end"
               alignItems="end"
             >
-              <Button variant="contained" sx={save} 
-            //   onClick={handleSaveChanges}
+              <Button
+                variant="contained"
+                sx={save}
+                //   onClick={handleSaveChanges}
               >
                 Save Changes
               </Button>
@@ -359,12 +362,9 @@ const ProfileDetail = () => {
             </Stack>
           )}
         </Box>
-      
       </Stack>
     </>
   );
 };
 
 export default ProfileDetail;
-
-

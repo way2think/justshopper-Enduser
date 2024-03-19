@@ -14,3 +14,7 @@ code {
   background-color: #aaa;
   color: #dc3237;
 }
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  /* background: #dc3237; */
+  color: #dc3237 !important;
+}

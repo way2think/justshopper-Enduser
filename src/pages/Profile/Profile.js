@@ -54,7 +54,6 @@ export default function Profile() {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
-          centered
           //   textColor="secondary"
           //   indicatorColor="secondary"
           TabIndicatorProps={{
@@ -63,6 +62,7 @@ export default function Profile() {
               color: "#000",
             },
           }}
+          className="container"
         >
           <Tab
             label="My Profile"
