@@ -7,6 +7,7 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import CartPage from "./pages/Cart/CartPage";
 import ShopCategory from "./pages/Category/ShopCategory";
 import ProductDetails from "./pages/Product/ProductDetails";
+import Profile from "./pages/Profile/Profile";
 
 export default function Router() {
   const routes = useRoutes([
@@ -20,6 +21,7 @@ export default function Router() {
         { path: "Product-details", element: <ProductDetails /> },
         { path: "wishlist", element: <Wishlist /> },
         { path: "cart", element: <CartPage /> },
+        { path: "profile", element: <Profile /> },
       ],
     },
   ]);
