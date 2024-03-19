@@ -99,17 +99,13 @@ export default function Navbar() {
                     />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem link>Profile</MDBDropdownItem>
+                    <MDBDropdownItem link href="profile">Profile</MDBDropdownItem>
                     <MDBDropdownItem link>Setting</MDBDropdownItem>
                     <MDBDropdownItem link>Logout</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-3 me-lg-0 mobileLogin">
-                <MDBNavbarLink href="#">
-                  <LoginModal />
-                </MDBNavbarLink>
-              </MDBNavbarItem>
+              <MDBNavbarItem className="me-3 me-lg-0 mobileLogin"></MDBNavbarItem>
             </Stack>
           )}
 
@@ -215,7 +211,7 @@ export default function Navbar() {
                       />
                     </MDBDropdownToggle>
                     <MDBDropdownMenu>
-                      <MDBDropdownItem link>Profile</MDBDropdownItem>
+                      <MDBDropdownItem link href="profile">Profile</MDBDropdownItem>
                       <MDBDropdownItem link>Setting</MDBDropdownItem>
                       <MDBDropdownItem link>Logout</MDBDropdownItem>
                     </MDBDropdownMenu>
