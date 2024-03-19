@@ -5,15 +5,39 @@ import LatestCarousel from "../../component/ShopCategory/LatestCarousel";
 import Product from "../../component/ProductDetails/Product";
 import ProductInfo from "../../component/ProductDetails/ProductInfo";
 import { Divider } from "@mui/material";
+import ReviewAndRating from "../../component/ProductDetails/ReviewAndRating";
 
 const ProductDetails = () => {
   return (
     <>
       <Path link="/" pathhome="Home" pathdetails="Product Details" />
       <Product />
-     <Divider  sx={{borderBottomColor:"#000",margin:"auto",maxWidth:"95%" ,borderBottomWidth:"2px"}}  />
+      <Divider
+        sx={{
+          borderBottomColor: "#000",
+          margin: "auto",
+          maxWidth: "95%",
+          borderBottomWidth: "2px",
+        }}
+      />
       <ProductInfo />
-      <Divider  sx={{borderBottomColor:"#000",margin:"auto",maxWidth:"95%" ,borderBottomWidth:"2px"}}  />
+      <Divider
+        sx={{
+          borderBottomColor: "#000",
+          margin: "auto",
+          maxWidth: "95%",
+          borderBottomWidth: "2px",
+        }}
+      />
+      <ReviewAndRating />
+      <Divider
+        sx={{
+          borderBottomColor: "#000",
+          margin: "auto",
+          maxWidth: "95%",
+          borderBottomWidth: "2px",
+        }}
+      />
       <LatestCarousel />
       <WorkDetailBlack />
     </>

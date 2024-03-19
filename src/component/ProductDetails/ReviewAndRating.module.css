@@ -1,0 +1,45 @@
+.review {
+  /* border: 1px solid #cccccc; */
+  border-radius: 4px;
+  padding: 40px;
+}
+.review + .review {
+  margin-top: 1em;
+}
+
+.navi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.startgroup {
+  text-align: left;
+}
+
+.stars {
+  color: #fcd425;
+}
+
+.count {
+  color: #000;
+  font-size: 14px;
+}
+
+.reviewandrating {
+  background-color: #dc3237 !important;
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+.col9 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.lipagi {
+  padding: 5px;
+  margin: 0 10px;
+}
