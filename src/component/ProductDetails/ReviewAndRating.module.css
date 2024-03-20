@@ -1,3 +1,16 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+@font-face {
+  font-family: amazonlight;
+  src: url(../../../public/Ember/AmazonEmber_Lt.ttf);
+}
+
 .review {
   /* border: 1px solid #cccccc; */
   border-radius: 4px;
@@ -37,6 +50,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+  text-align: left;
 }
 
 .lipagi {
@@ -53,7 +67,90 @@
 }
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
+  .overflow {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 410px;
+  }
   .review {
     padding: 20px;
+  }
+  .title {
+    font-size: 20px;
+    font-family: amazonheavy;
+  }
+  .subtitle {
+    font-size: 16px;
+    font-family: amazonbold;
+  }
+  .customerdesc {
+    font-size: 14px;
+    font-family: amazonlight;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .overflow {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 410px;
+  }
+  .review {
+    padding: 20px;
+  }
+  .title {
+    font-size: 20px;
+    font-family: amazonheavy;
+  }
+  .subtitle {
+    font-size: 16px;
+    font-family: amazonbold;
+  }
+  .customerdesc {
+    font-size: 14px;
+    font-family: amazonlight;
+  }
+}
+@media only screen and (min-width: 1024px) and (max-width: 1535px) {
+  .overflow {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 500px;
+  }
+  .review {
+    padding: 20px;
+  }
+  .title {
+    font-size: 24px;
+    font-family: amazonheavy;
+  }
+  .subtitle {
+    font-size: 18px;
+    font-family: amazonbold;
+  }
+  .customerdesc {
+    font-size: 16px;
+    font-family: amazonlight;
+  }
+}
+@media only screen and (min-width: 1536px) and (max-width: 2560px) {
+  .overflow {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 700px;
+  }
+  .review {
+    padding: 20px;
+  }
+  .title {
+    font-size: 20px;
+    font-family: amazonheavy;
+  }
+  .subtitle {
+    font-size: 26px;
+    font-family: amazonbold;
+  }
+  .customerdesc {
+    font-size: 20px;
+    font-family: amazonlight;
   }
 }
