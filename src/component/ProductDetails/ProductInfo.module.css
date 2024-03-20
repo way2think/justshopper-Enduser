@@ -1,10 +1,21 @@
+@font-face {
+  font-family: amazonheavy;
+  src: url(../../../public/Ember/AmazonEmber_He.ttf);
+}
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
+@font-face {
+  font-family: amazonlight;
+  src: url(../../../public/Ember/AmazonEmber_Lt.ttf);
+}
+
 .productInfo {
   font-weight: bolder;
   color: #000;
   /* line-height: 4px; */
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@600&family=Montserrat&family=Nunito&family=Open+Sans&family=Poppins&display=swap");
 
 /* .titlebook {
   display: flex;
@@ -41,14 +52,14 @@
   border: none;
   outline: none;
 
-  font-family: "Poppins", sans-serif;
+  font-family: amazonbold;
 }
 .gridItemWhite {
   list-style-type: none;
   padding-left: 0;
   height: inherit;
   text-transform: capitalize;
-  font-family: "Poppins", sans-serif;
+  font-family: amazonlight;
   padding-top: 7px;
   color: #000;
   font-weight: bolder;
@@ -76,12 +87,71 @@
 
 /* Mobile */
 @media only screen and (max-width: 767px) {
+  .gridItem {
+    font-size: 16px;
+    font-family: amazonbold;
+  }
   .gridItemWhite {
     padding: 5px;
-    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-family: amazonlight;
   }
   .productInfo {
     padding: 20px;
+  }
+  .detailsbook {
+    grid-template-columns: 30% 70%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .gridItem {
+    font-size: 16px;
+    font-family: amazonbold;
+  }
+  .gridItemWhite {
+    padding: 5px;
+    font-size: 14px;
+    font-family: amazonlight;
+  }
+  .productInfo {
+    padding: 25px;
+  }
+  .detailsbook {
+    grid-template-columns: 30% 70%;
+  }
+}
+@media only screen and (min-width: 1024px) and (max-width: 1535px) {
+  .gridItem {
+    font-size: 18px;
+    font-family: amazonbold;
+  }
+  .gridItemWhite {
+    padding: 5px;
+    font-size: 16px;
+
+    font-family: amazonlight;
+  }
+  .productInfo {
+    padding: 35px;
+  }
+  .detailsbook {
+    grid-template-columns: 30% 70%;
+  }
+}
+@media only screen and (min-width: 1536px) and (max-width: 2560px) {
+  .gridItem {
+    font-size: 20px;
+    font-family: amazonbold;
+  }
+  .gridItemWhite {
+    padding: 5px;
+    font-size: 18px;
+
+    font-family: amazonlight;
+  }
+  .productInfo {
+    padding: 35px;
   }
   .detailsbook {
     grid-template-columns: 30% 70%;

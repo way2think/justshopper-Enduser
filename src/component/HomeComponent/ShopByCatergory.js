@@ -3,7 +3,7 @@ import { Box, Grid, Stack } from "@mui/material";
 import "./ShopByCatergory.css";
 import CatergoryCard from "./CatergoryCard";
 
-const ShopByCatergory = () => {
+const ShopByCatergory = (props) => {
   return (
     <>
       <Stack
@@ -13,7 +13,7 @@ const ShopByCatergory = () => {
         flexDirection="column"
         className="mainshopbycatergory"
       >
-        <h3 className="shopCategoryhead">Shop by Catergory</h3>
+        <h3 className="shopCategoryhead">{props.shopbytitle}</h3>
         <p className="shopCategorydesc">Love is a letter on pink stationery</p>
       </Stack>
       <Stack

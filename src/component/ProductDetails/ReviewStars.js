@@ -78,7 +78,7 @@ const ReviewStars = () => {
           <Grid container spacing={2}>
             <Grid
               item
-              sm={6}
+              sm={3}
               xs={12}
               md={3}
               lg={3}
@@ -106,7 +106,7 @@ const ReviewStars = () => {
                 <span className={classes.totalreviews}>0</span>
               </div>
             </Grid>
-            <Grid item sm={6} xs={12} md={9} lg={9} sx={{ p: 0 }}>
+            <Grid item sm={9} xs={12} md={9} lg={9} sx={{ p: 0 }}>
               <div className={classes.chart}>
                 <div className={classes.ratebox}>
                   <span className={classes.value}>5</span>

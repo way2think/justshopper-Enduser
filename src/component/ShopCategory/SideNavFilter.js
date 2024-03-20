@@ -8,6 +8,7 @@ import FilterPrice from "./FilterPrice";
 import FilterCategory from "./FilterCategory";
 import "../ShopCategory/Category.css";
 import classes from "./SideNavFilter.module.css"; // Import your CSS module
+import FilterRange from "./FilterRange";
 
 const SideNavFilter = ({
   className,
@@ -52,7 +53,8 @@ const SideNavFilter = ({
                 </Box>
                 <Box className="filter">
                   <h4 className="filterheading">Filter by Price</h4>
-                  <FilterPrice />
+                  {/* <FilterPrice /> */}
+                  <FilterRange />
                 </Box>
                 <Box className="filter">
                   <Typography

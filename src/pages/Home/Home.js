@@ -10,8 +10,9 @@ const Home = () => {
     <>
       <MainBannerCarosuel />
       <NewArrival />
-      <ShopByCatergory />
-      <Testimonial />
+      <ShopByCatergory shopbytitle="Shop by Category" />
+      <ShopByCatergory shopbytitle="Shop by Theme" />
+      {/* <Testimonial /> */}
       <WorkDetails />
     </>
   );

@@ -47,7 +47,7 @@ const ReviewAndRating = () => {
                     placeholder="Write a Review"
                   ></textarea>
                   <button className={`${classes.reviewandrating} btn`}>
-                    Write a Review
+                    Post a review
                   </button>
                 </Stack>
               </Grid>
@@ -57,67 +57,6 @@ const ReviewAndRating = () => {
         <hr />
       </div>
       <div className={`${classes.row} row`}>
-        {/* <div className={`${classes.colmun} col-sm-4 col-md-3`}>
-          <div className={`${classes.visibsle} visible-xs-block`}>
-            <div className={`${classes.form} form-group`}></div>
-            <div className={`${classes.form}form-group`}>
-              <select className={`${classes.formcontrol} form-control`}>
-                <option value="0">show all (1346)</option>
-                <option value="5">★★★★★ (1247)</option>
-                <option value="4">★★★★☆ (47)</option>
-                <option value="3">★★★☆☆ (27)</option>
-                <option value="2">★★☆☆☆ (24)</option>
-                <option value="1">★☆☆☆☆ (1)</option>
-              </select>
-            </div>
-          </div>
-          <div className={`${classes.hidden} hidden-xs`}>
-            <div className={`${classes.form} form-group`}>
-              <h5></h5>
-              <Typography
-                variant="h6"
-                sx={{ textAlign: "left", fontWeight: 800, color: "#000" }}
-              >
-                Filter Reviews
-              </Typography>
-              <ul className={`${classes.listgroup} list-group`}>
-                <li className={`${classes.startgroup} list-group-item`}>
-                  <a href="#" className={classes.stars}>
-                    ★★★★★ <span className={classes.count}>(1247)</span>
-                  </a>
-                </li>
-                <li className={`${classes.startgroup} list-group-item`}>
-                  <a href="#" className={classes.stars}>
-                    ★★★★☆ <span className={classes.count}>(47)</span>
-                  </a>
-                </li>
-                <li className={`${classes.startgroup} list-group-item`}>
-                  <a href="#" className={classes.stars}>
-                    ★★★☆☆ <span className={classes.count}>(27)</span>
-                  </a>
-                </li>
-                <li className={`${classes.startgroup} list-group-item`}>
-                  <a href="#" className={classes.stars}>
-                    ★★☆☆☆ <span className={classes.count}>(24)</span>
-                  </a>
-                </li>
-                <li className={`${classes.startgroup} list-group-item`}>
-                  <a href="#" className={classes.stars}>
-                    ★☆☆☆☆ <span className={classes.count}>(1)</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className={`${classes.group} form-group`}>
-              <a
-                className={`${classes.reviewandrating} btn  btn-block btn-lg`}
-                href="#"
-              >
-                Write a Review
-              </a>
-            </div>
-          </div>
-        </div> */}
         <div className={`${classes.col8and9} col-sm-8 col-md-12`}>
           {/* <form name="form" method="post" action="#">
             <div className={`${classes.row} row`}>
@@ -138,35 +77,42 @@ const ReviewAndRating = () => {
               </div>
             </div>
           </form> */}
-          <div className={`${classes.rev} review`}>
-            <div className={`${classes.row} row`}>
-              <div className={`${classes.col9} col-sm-9`}>
-                <h4 className={classes.stars}>★★★☆☆</h4>
+          <Box className={classes.overflow}>
+            <div className={`${classes.rev} review`}>
+              <div className={`${classes.row} row`}>
+                <div className={`${classes.col9} col-sm-9`}>
+                  <h4 className={classes.stars}>★★★☆☆</h4>
 
-                <h4>Regione mentitum legendos ne usu</h4>
-                <h5>Zoë Washburne</h5>
-                <p>
-                  Regione mentitum legendos ne usu. Nam omnesque detraxit
-                  contentiones cu.
-                </p>
+                  <h4 className={classes.title}>
+                    Regione mentitum legendos ne usu
+                  </h4>
+                  <h5 className={classes.subtitle}>Zoë Washburne</h5>
+                  <p className={classes.customerdesc}>
+                    Regione mentitum legendos ne usu. Nam omnesque detraxit
+                    contentiones cu.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <hr />
-          <div className={`${classes.rev} review`}>
-            <div className={`${classes.row} row`}>
-              <div className={`${classes.col9} col-sm-9`}>
-                <h4 className={classes.stars}>★★★☆☆</h4>
-                <h4>Regione mentitum legendos ne usu</h4>
-                <h5>Zoë Washburne</h5>
-                <p>
-                  Regione mentitum legendos ne usu. Nam omnesque detraxit
-                  contentiones cu.
-                </p>
+            <hr />
+            <div className={`${classes.rev} review`}>
+              <div className={`${classes.row} row`}>
+                <div className={`${classes.col9} col-sm-9`}>
+                  <h4 className={classes.stars}>★★★☆☆</h4>
+
+                  <h4 className={classes.title}>
+                    Regione mentitum legendos ne usu
+                  </h4>
+                  <h5 className={classes.subtitle}>Zoë Washburne</h5>
+                  <p className={classes.customerdesc}>
+                    Regione mentitum legendos ne usu. Nam omnesque detraxit
+                    contentiones cu.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-
+            <hr />
+          </Box>
           <nav
             className={`${classes.navi} text-center`}
             aria-label="Page navigation"
