@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./MyOrders.css";
-import { Box } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import BuyAgain from "./BuyAgain";
 import OrderList from "./OrderList";
 
@@ -15,9 +15,8 @@ const MyOrders = () => {
 
   return (
     <>
-      <Box mb={100} textAlign="left">
-      
-        <div className="container-fluid bgBox" >
+      <Box textAlign="left" p={2}>
+        <div className="container-fluid bgBox">
           <div className="customer_details orderList">
             <div className="orderTop">
               <h2 className="hidden-xs">My Orders</h2>
@@ -89,105 +88,82 @@ const MyOrders = () => {
             {/* orders */}
             {currentTabContent == "order_tab" && (
               <>
-           
-                <div id="order_tab" className="orderCardWrap  current " style={{margin:5}}>
-                <div className="orderCard">
-                  <div className="orderHead">
-                    <ul className="orderLeft">
-                      <li>
-                        <p>
-                          ORDER PLACED <span>20 March 2024</span>
-                        </p>
-                      </li>
-                      <li>
-                        <p>
-                          TOTAL <span>&#8377;413.00</span>
-                        </p>
-                      </li>
-                      <li>
-                        <p>
-                          SHIP TO <span className="customerName">Raji</span>
-                          <span className="cstmrInfo">
-                            <strong>Raji</strong> Web Developer, chennai
-                          </span>
-                        </p>
-                      </li>
-                    </ul>
-
-                    <div className="invoiceDetails">
+                <div
+                  id="order_tab"
+                  className="orderCardWrap  current "
+                  style={{ margin: 5 }}
+                >
+                  {/* <Box sx={{ flexGrow: 1, position: "relative" }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}></Grid>
+                      <Grid item xs={12}></Grid>
+                      <Grid item xs={12}></Grid>
+                    </Grid>
+                  </Box> */}
+                  <div className="orderCard row">
+                    <div className="orderHead col-md-3">
                       <p>
-                        ORDER # 171-8448362-6456308{" "}
-                        <span>
-                          <a href="#">Order Details</a>
-                        </span>{" "}
-                        <span className="showInvoice">
-                          <a href="javascript:void(0)">
-                            Invoice{" "}
-                            <i
-                              className="fa fa-chevron-down"
-                              aria-hidden="true"
-                            ></i>
-                          </a>
+                        ORDER PLACED <span>20 March 2024</span>
+                      </p>
+                    </div>
+                    <div className="orderHead col-md-3">
+                      <p>
+                        TOTAL <span>&#8377;413.00</span>
+                      </p>
+                    </div>
+                    <div className="orderHead col-md-3">
+                      <p>
+                        SHIP TO <span className="customerName">Raji</span>
+                        <span className="cstmrInfo">
+                          <strong>Raji</strong>
                         </span>
                       </p>
-                      <div className="invioceModel">
-                        <ul>
-                          <li>
-                            <a href="#">Invoice 1</a>
-                          </li>
-                          <li>
-                            <a href="#">Invoice 1</a>
-                          </li>
-                          <li>
-                            <a href="#">Invoice 1</a>
-                          </li>
-                        </ul>
-                        <span className="modelClose">
-                          <i className="fa fa-times" aria-hidden="true"></i>
-                        </span>
-                      </div>
                     </div>
-                  </div>
-                  <div className="itemDetails">
-                    <h3>Delivered 16-Mar-2019</h3>
-                    <p>Package was handed to a receptionist</p>
-                    <p>Signed by: Priti.</p>
-                    {/* <div className="itemInfo">
-                      <div className="itemImg">
-                        <img
-                          src="../images/biscuit.jpg"
-                          alt=""
-                          style={{
-                            width: "120px",
-                            height: "120px",
-                            borderRadius: 4,
-                          }}
-                        />
-                      </div>
-                      <div className="itemDesc">
-                        <h4>Choco Biscuit</h4>
+                    <div className="orderHead col-md-3">
+                      <div className="invoiceDetails">
                         <p>
-                          Sold by: <span>Just Shopper</span>
+                          ORDER # 171-8448362-6456308{" "}
+                          <span>
+                            <a href="#">Order Details</a>
+                          </span>{" "}
+                          <span className="showInvoice">
+                            <a href="javascript:void(0)">
+                              Invoice{" "}
+                              <i
+                                className="fa fa-chevron-down"
+                                aria-hidden="true"
+                              ></i>
+                            </a>
+                          </span>
                         </p>
-                        <span className="itemPrice">&#8377;413.00</span>
-                        <button className="buy_again">Buy it again</button>
+                        <div className="invioceModel">
+                          <ul>
+                            <li>
+                              <a href="#">Invoice 1</a>
+                            </li>
+                            <li>
+                              <a href="#">Invoice 1</a>
+                            </li>
+                            <li>
+                              <a href="#">Invoice 1</a>
+                            </li>
+                          </ul>
+                          <span className="modelClose">
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="btn_group">
-                      <button className="buy_again">
-                        Return or replace items
-                      </button>
-                      <button className="gift_btn">
-                        Write product review{" "}
-                      </button>
-                      <button className="gift_btn">
-                        Leave seller feedback
-                      </button>
-                    </div> */}
-                    <OrderList />
+
+                    <div className="itemDetails">
+                      <h3>Delivered 16-Mar-2019</h3>
+                      <p>Package was handed to a receptionist</p>
+                      <p>Signed by: Priti.</p>
+
+                      <OrderList />
+                    </div>
                   </div>
                 </div>
-              </div>
               </>
             )}
             {/* buy again */}
@@ -247,9 +223,9 @@ const MyOrders = () => {
             )} */}
             {/* cancel order */}
             {currentTabContent === "cancelled_orders" && (
-                <>
+              <>
                 <OrderList />
-              {/* <div id="cancelled_orders" className="orderCardWrap ">
+                {/* <div id="cancelled_orders" className="orderCardWrap ">
                 <div className="orderCard">
                   <div className="orderHead">
                     <ul className="orderLeft">

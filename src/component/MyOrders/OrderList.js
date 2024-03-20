@@ -11,6 +11,7 @@ import {
   IconButton,
   Avatar,
   Box,
+  Stack,
 } from "@mui/material";
 import styled from "@emotion/styled";
 
@@ -31,52 +32,44 @@ const OrderList = () => {
   return (
     <Card>
       <Box>
-        <Grid container spacing={2} >
-          <Grid item xs={12} md={3} sm={4} lg={2}>
-            <div className={classes.itemImg}>
-              <img
-               src="../images/biscuit.jpg"  style={{width:"150px",height:"150px"}}               
-                alt=""
-              />
-            </div>
+        <Grid container spacing={2}>
+          <Grid item sm={4} xs={12} md={7} lg={7}>
+            <Stack direction="row" justifyContent="center" alignItems="center">
+              <div className={classes.itemImg}>
+                <img
+                  src="../images/biscuit.jpg"
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    marginRight: "20px",
+                  }}
+                  alt=""
+                />
+              </div>
+
+              <div className="itemDesc">
+                <h5 className="titlename">Choco Biscuit</h5>
+                <p>
+                  Sold by: <span>Just Shopper</span>
+                </p>
+                <p>&#8377;413.00</p>
+                <Button variant="contained" color="primary">
+                  Buy it again
+                </Button>
+              </div>
+            </Stack>
           </Grid>
-          <Grid item xs={12} md={4} sm={4} lg={5} style={{ display: "flex" }}>
-            <div className="itemDesc">
-              <Typography variant="h6">Choco Biscuit</Typography>
-              <Typography variant="body1">
-                Sold by: <span>Just Shopper</span>
-              </Typography>
-              <Typography variant="body1">&#8377;413.00</Typography>
-              <Button variant="contained" color="primary">
-                Buy it again
-              </Button>
-            </div>
-          </Grid>
-          <Grid
-            container
-            spacing={1}
-            direction="column"
-            xs={12}
-            md={5}
-            sm={4}
-            lg={5}
-            mt={2}
-            // ml={2}
-          >
-          <div className="btn_group">
-            <Grid item>
+
+          <Grid className="trackbtn" sm={4} xs={12} md={5} lg={5}>
+            <div className="btn_group">
               {/* <ReturnIcon /> */}
               <button className="buy_again">Return or replace items</button>
-            </Grid>
-            <Grid item>
+
               <button className="gift_btn">Write product review </button>
-            </Grid>
-            <Grid item>
+
               <button className="gift_btn">Leave seller feedback</button>
-            </Grid>
             </div>
           </Grid>
-          
         </Grid>
       </Box>
     </Card>
