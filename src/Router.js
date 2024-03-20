@@ -9,6 +9,7 @@ import ShopCategory from "./pages/Category/ShopCategory";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Profile from "./pages/Profile/Profile";
 
+
 export default function Router() {
   const routes = useRoutes([
     {
