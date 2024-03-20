@@ -4,7 +4,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import classes from "../ProductDetails/ProductCard.module.css";
 
 const ProductCard = () => {
-  const addtocart = {
+  const buy = {
     backgroundColor: "#dc3237",
     color: "#fff",
     fontSize: "18px",
@@ -24,15 +24,15 @@ const ProductCard = () => {
       fontSize: "14px",
     },
   };
-  const buy = {
-    backgroundColor: "#fcd425",
-    color: "#fff",
+  const addtocart = {
+    border: "1px solid #dc3237",
+    color: "#dc3237",
     fontSize: "18px",
     fontFamily: "amazonbold",
     marginRight: "30px",
     "&:hover": {
-      backgroundColor: "#fcd425",
-      color: "#fff",
+      border: "1px solid #dc3237",
+      color: "#dc3237",
       fontFamily: "amazonbold",
       marginRight: "30px",
     },
@@ -59,7 +59,7 @@ const ProductCard = () => {
               className={classes.redheart}
             />
             <img
-              src="../images/Shareyellow.png"
+              src="../images/Share.png"
               alt=""
               className={classes.yellowshare}
             />
