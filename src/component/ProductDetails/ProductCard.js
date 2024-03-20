@@ -18,7 +18,10 @@ const ProductCard = () => {
       marginRight: "30px",
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
-      fontSize: "16px",
+      fontSize: "14px",
+    },
+    "@media only screen and (min-width: 768px) and (max-width: 1023px)": {
+      fontSize: "14px",
     },
   };
   const buy = {
@@ -35,7 +38,10 @@ const ProductCard = () => {
       marginRight: "30px",
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
-      fontSize: "16px",
+      fontSize: "14px",
+    },
+    "@media only screen and (min-width: 768px) and (max-width: 1023px)": {
+      fontSize: "14px",
     },
   };
   return (

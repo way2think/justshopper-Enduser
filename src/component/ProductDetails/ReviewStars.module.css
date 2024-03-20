@@ -1,0 +1,171 @@
+.stars {
+  display: flex;
+  border-radius: 15px;
+  gap: 40px;
+  height: 200px;
+}
+.chart {
+  /* width: 500px; */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chart .ratebox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  height: 30px;
+  padding: 20px 0;
+  padding: 10px;
+}
+.chart .ratebox > * {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #444;
+}
+.ratebox .value {
+  display: flex;
+  align-items: center;
+}
+.ratebox .value:hover {
+  color: #66bb6a;
+}
+.chart .value {
+  font-size: 30px;
+  cursor: pointer;
+}
+.ratebox .progressbar {
+  border-width: 1px;
+  position: relative;
+  background-color: #cfd8dc91;
+
+  height: 10px;
+  border-radius: 100px;
+  width: 350px;
+}
+.ratebox .progressbar .progress {
+  background-color: #66bb6a;
+  height: 100%;
+  border-radius: 100px;
+  transition: 300ms ease-in-out;
+}
+
+.global {
+  height: 100%;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.one .fas {
+  color: #cfd8dc;
+}
+
+.two {
+  background: linear-gradient(to right, #66bb6a 0%, transparent 0%);
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s ease-in-out all;
+}
+
+.global > span {
+  font-size: 90px;
+  font-weight: 500;
+}
+
+.ratingicons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 10%;
+}
+.ratingicons span {
+  position: absolute;
+  display: flex;
+  font-size: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
+}
+
+.totalreviews {
+  font-size: 25px !important;
+}
+
+.firsthalf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .ratebox .progressbar {
+    width: 190px;
+  }
+  .chart .value {
+    font-size: 20px;
+  }
+  .ratingicons span {
+    font-size: 24px;
+  }
+  .global > span {
+    font-size: 50px;
+    font-weight: 500;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .global > span {
+    font-size: 30px;
+    font-weight: 500;
+  }
+  .global {
+    margin-right: 10px;
+  }
+  .ratingicons span {
+    font-size: 20px;
+  }
+  .chart .value {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1535px) {
+  .global > span {
+    font-size: 30px;
+    font-weight: 500;
+  }
+  .global {
+    margin-right: 10px;
+  }
+  .ratingicons span {
+    font-size: 20px;
+  }
+  .chart .value {
+    font-size: 22px;
+  }
+}
+@media only screen and (min-width: 1536px) and (max-width: 2560px) {
+  .global > span {
+    font-size: 30px;
+    font-weight: 500;
+  }
+  .global {
+    margin-right: 10px;
+  }
+  .ratingicons span {
+    font-size: 20px;
+  }
+  .chart .value {
+    font-size: 22px;
+  }
+}

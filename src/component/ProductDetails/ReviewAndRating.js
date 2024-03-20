@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import classes from "../ProductDetails/ReviewAndRating.module.css";
+import ReviewStars from "./ReviewStars";
 
 const ReviewAndRating = () => {
   return (
@@ -9,7 +10,7 @@ const ReviewAndRating = () => {
         variant="h6"
         sx={{ textAlign: "left", fontWeight: 800, color: "#000" }}
       >
-        Product Details
+        Review & Rating
       </Typography>
 
       <div className={`${classes.noreview} no-reviews text-center`}>
@@ -20,13 +21,35 @@ const ReviewAndRating = () => {
           direction="row"
         >
           <Box sx={{ flexGrow: 1, position: "relative" }}>
-            <Grid container spacing={2}>
-              <Grid item sm={12} xs={6} md={3} lg={3}></Grid>
-              <Grid item sm={12} xs={6} md={9} lg={9}>
-                <p>There are currently no reviews for this product.</p>
-                <button className={`${classes.reviewandrating} btn `}>
+            <Grid container spacing={2} sx={{ p: 0 }}>
+              <Grid item sm={12} xs={12} md={5} lg={5} sx={{ p: 0 }}>
+                <ReviewStars />
+              </Grid>
+              <Grid item sm={12} xs={12} md={7} lg={7} sx={{ p: 0 }}>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "left", fontWeight: 800, color: "#000" }}
+                >
                   Write a Review
-                </button>
+                </Typography>
+                <Stack
+                  direction="row"
+                  justifyContent="start"
+                  alignItems="start"
+                  flexDirection="column"
+                >
+                  <textarea
+                    className={classes.reviewtextarea}
+                    id="textarea"
+                    name="textarea"
+                    rows="4"
+                    cols="30"
+                    placeholder="Write a Review"
+                  ></textarea>
+                  <button className={`${classes.reviewandrating} btn`}>
+                    Write a Review
+                  </button>
+                </Stack>
               </Grid>
             </Grid>
           </Box>

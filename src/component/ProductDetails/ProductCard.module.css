@@ -201,7 +201,46 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .productdetailsHeading {
+    font-size: 24px;
+  }
+  .Subtitle {
+    font-size: 16px;
+  }
+  .descripation {
+    font-size: 14px;
+  }
+  .colors {
+    font-size: 16px;
+  }
+  .color1 {
+    width: 25px;
+    height: 25px;
+  }
+  .color2 {
+    width: 25px;
+    height: 25px;
+  }
+  .color3 {
+    width: 25px;
+    height: 25px;
+  }
+  .color4 {
+    width: 25px;
+    height: 25px;
+  }
+  .color5 {
+    width: 25px;
+    height: 25px;
+  }
+  .price1 {
+    font-size: 26px;
+  }
+  .price2 {
+    font-size: 16px;
+  }
 }
+
 @media only screen and (min-width: 1024px) and (max-width: 1535px) {
 }
 @media only screen and (min-width: 1536px) and (max-width: 2560px) {

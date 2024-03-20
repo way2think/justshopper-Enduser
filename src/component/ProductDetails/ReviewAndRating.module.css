@@ -43,3 +43,17 @@
   padding: 5px;
   margin: 0 10px;
 }
+
+.reviewtextarea {
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .review {
+    padding: 20px;
+  }
+}
