@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ProfileDetail, { temp } from "../../component/Profile/ProfileDetail";
 import ChangePassword from "../../component/Profile/ChangePassword";
+import Path from "../../component/Path";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,43 +49,46 @@ export default function Profile() {
   };
 
   return (
-    <Box sx={{ width: "100%", marginTop: "40px" }}>
-      <Box sx={{}}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          //   textColor="secondary"
-          //   indicatorColor="secondary"
-          TabIndicatorProps={{
-            style: {
-              backgroundColor: "#dc3237",
-              color: "#000",
-            },
-          }}
-          className="container"
-        >
-          <Tab
-            label="My Profile"
-            {...a11yProps(0)}
-            //    sx={{ color: "#fff" ,backgroundColor:"#dc3237","mui-selected":{
-            //     color: "#000",backgroundColor:"#dc3237"
-            //    } }}
-          />
-          <Tab
-            label="Change Password"
-            {...a11yProps(1)}
-            // sx={{ color: "#dc3237" }}
-          />
-        </Tabs>
+    <>
+      <Path link="/" pathhome="Home" pathdetails="Profile" />
+      <Box sx={{ width: "100%", marginTop: "10px" }}>
+        <Box>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            //   textColor="secondary"
+            //   indicatorColor="secondary"
+            TabIndicatorProps={{
+              style: {
+                backgroundColor: "#dc3237",
+                color: "#000",
+              },
+            }}
+            className="container"
+          >
+            <Tab
+              label="My Profile"
+              {...a11yProps(0)}
+              //    sx={{ color: "#fff" ,backgroundColor:"#dc3237","mui-selected":{
+              //     color: "#000",backgroundColor:"#dc3237"
+              //    } }}
+            />
+            <Tab
+              label="Change Password"
+              {...a11yProps(1)}
+              // sx={{ color: "#dc3237" }}
+            />
+          </Tabs>
+        </Box>
+        <CustomTabPanel value={value} index={0}>
+          <ProfileDetail />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <ChangePassword />
+          {/* {  temp} */}
+        </CustomTabPanel>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <ProfileDetail />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <ChangePassword />
-        {/* {  temp} */}
-      </CustomTabPanel>
-    </Box>
+    </>
   );
 }
