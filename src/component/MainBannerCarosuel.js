@@ -13,17 +13,15 @@ export default function MainBannerCarosuel() {
       <MDBCarouselItem itemId={1} className="overall">
         <img
           src="../images/testimonial.png"
-          className="d-block w-100 "
+          className="d-block w-100 carousel-img"
           alt="..."
         />
-        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
+        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
           <MDBCarouselCaption className="caption">
             <h1 className="slidercaption">
               As men get older,
               <br /> the toys get more expensive.
             </h1>
-
-            {/* <p>Nulla vitae elit libero, a phareStra augue mollis interdum.</p> */}
             <MDBBtn className="sliderbtn">Shop Now</MDBBtn>
           </MDBCarouselCaption>
         </div>
@@ -32,16 +30,15 @@ export default function MainBannerCarosuel() {
       <MDBCarouselItem itemId={2} className="overall">
         <img
           src="../images/Gift and toys.png"
-          className="d-block w-100 "
+          className="d-block w-100 carousel-img"
           alt="..."
         />
-        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
+        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
           <MDBCarouselCaption className="caption">
             <h1 className="slidercaption">
               As men get older,
               <br /> the toys get more expensive.
             </h1>
-            {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
             <MDBBtn className="sliderbtn">Shop Now</MDBBtn>
           </MDBCarouselCaption>
         </div>
@@ -50,18 +47,15 @@ export default function MainBannerCarosuel() {
       <MDBCarouselItem itemId={3} className="overall">
         <img
           src="../images/Gift and toys.png"
-          className="d-block w-100 "
+          className=" w-100 carousel-img"
           alt="..."
         />
-        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
+        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
           <MDBCarouselCaption className="caption">
             <h1 className="slidercaption">
               As men get older,
               <br /> the toys get more expensive.
             </h1>
-            {/* <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p> */}
             <MDBBtn className="sliderbtn">Shop Now</MDBBtn>
           </MDBCarouselCaption>
         </div>

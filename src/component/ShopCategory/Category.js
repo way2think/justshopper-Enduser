@@ -8,6 +8,7 @@ import LatestCarousel from "./LatestCarousel";
 import CategoryCard from "./CategoryCard";
 import SideNavFilter from "./SideNavFilter";
 import "./Category.css";
+import FilterRange from "./FilterRange";
 
 const Category = () => {
   return (
@@ -27,7 +28,8 @@ const Category = () => {
               </Box>
               <Box className="filter">
                 <h4 className="filterheading">Filter by Price</h4>
-                <FilterPrice />
+                {/* <FilterPrice /> */}
+                <FilterRange />
               </Box>
               <Box className="filter">
                 <Typography
@@ -73,10 +75,9 @@ const Category = () => {
               <CategoryCard />
             </Grid>
           </Grid>
-         
+
           {/* <LatestCarousel /> */}
         </Box>
-      
       </Stack>
       <LatestCarousel />
     </>

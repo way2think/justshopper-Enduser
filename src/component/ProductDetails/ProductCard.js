@@ -13,7 +13,7 @@ const ProductCard = () => {
     "&:hover": {
       backgroundColor: "#dc3237",
       color: "#fff",
-      fontSize: "18px",
+
       fontFamily: "amazonbold",
       marginRight: "30px",
     },
@@ -33,7 +33,6 @@ const ProductCard = () => {
     "&:hover": {
       backgroundColor: "#fcd425",
       color: "#fff",
-      fontSize: "18px",
       fontFamily: "amazonbold",
       marginRight: "30px",
     },

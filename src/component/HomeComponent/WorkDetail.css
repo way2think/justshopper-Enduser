@@ -7,9 +7,7 @@
   src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
 }
 
-.workdetail {
-  padding: 40px 0;
-}
+
 
 .iconwork {
   width: 50px;
@@ -43,6 +41,9 @@
   .titlework {
     font-size: 14px;
   }
+  .workdetail {
+    padding: 40px 0;
+  }
 }
 
 /* tablet */
@@ -55,6 +56,9 @@
   .titlework{
     font-size: 18px;
   }
+  .workdetail {
+    padding: 50px 0;
+  }
 }
 /* laptops */
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
@@ -64,6 +68,9 @@
   }
   .titlework{
     font-size: 20px;
+  }
+  .workdetail {
+    padding: 80px 0;
   }
 }
 
