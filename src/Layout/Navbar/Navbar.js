@@ -78,7 +78,7 @@ export default function Navbar() {
                 </MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-3 me-lg-0">
-                <MDBNavbarLink href="/wishlist">
+                <MDBNavbarLink href="/favorites">
                   <img
                     src="../images/heart.png"
                     alt=""
@@ -99,8 +99,12 @@ export default function Navbar() {
                     />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem link href="profile">Profile</MDBDropdownItem>
-                    <MDBDropdownItem link>Setting</MDBDropdownItem>
+                    <MDBDropdownItem link href="profile">
+                      Profile
+                    </MDBDropdownItem>
+                    <MDBDropdownItem link href="orders">
+                      Orders
+                    </MDBDropdownItem>
                     <MDBDropdownItem link>Logout</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
@@ -176,7 +180,7 @@ export default function Navbar() {
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem className="me-3 me-lg-0">
-                  <MDBNavbarLink href="/wishlist">
+                  <MDBNavbarLink href="/favorites">
                     {/* <MDBIcon fas icon="shopping-cart" /> */}
                     <img
                       src="../images/heart.png"
@@ -211,8 +215,10 @@ export default function Navbar() {
                       />
                     </MDBDropdownToggle>
                     <MDBDropdownMenu>
-                      <MDBDropdownItem link href="profile">Profile</MDBDropdownItem>
-                      <MDBDropdownItem link>Setting</MDBDropdownItem>
+                      <MDBDropdownItem link href="profile">
+                        Profile
+                      </MDBDropdownItem>
+                      <MDBDropdownItem link href="orders">Orders</MDBDropdownItem>
                       <MDBDropdownItem link>Logout</MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>

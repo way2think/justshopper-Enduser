@@ -21,7 +21,7 @@ export default function Router() {
         { path: "contact-us", element: <ContactUs /> },
         { path: "shop-by-category", element: <ShopCategory /> },
         { path: "Product-details", element: <ProductDetails /> },
-        { path: "wishlist", element: <Wishlist /> },
+        { path: "favorites", element: <Wishlist /> },
         { path: "cart", element: <CartPage /> },
         { path: "profile", element: <Profile /> },
         { path: "orders", element: <Order /> },

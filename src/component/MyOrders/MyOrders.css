@@ -112,6 +112,30 @@
   color: #000 !important;
   cursor: pointer;
 }
+
+.Delivery {
+  font-size: 18px;
+  color: #000;
+  font-family: amazonbold;
+}
+
+.customer {
+  font-size: 14px;
+}
+.signed {
+  font-size: 14px;
+}
+.Shippingaddress {
+  font-size: 18px;
+  color: #000;
+  font-family: amazonbold;
+}
+
+.titlename {
+  font-size: 18px;
+  color: #000;
+  font-family: amazonbold;
+}
 .invoiceDetails {
   float: right;
   /* width: 30%; */
@@ -325,12 +349,12 @@ ul.tabs li.current {
   width: 100%;
 }
 
-.trackbtn {
+/* .trackbtn {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
+} */
 
 .titlename {
   font-size: 20px;

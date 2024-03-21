@@ -79,7 +79,20 @@ function LatestCarousel() {
     ],
   };
   return (
-    <div className="slider-container">
+    <div className="slider-container container-fluid">
+      <Stack
+        direction="row"
+        justifyContent="start"
+        alignItems="start"
+        className="container"
+      >
+        <h3
+          className="latestheading"
+          style={{ fontSize: "30px", color: "#000", fontFamily: " amazonheavy",  }}
+        >
+          Latest Product
+        </h3>
+      </Stack>
       <Slider {...settings} style={{ margin: "20px" }}>
         <div>
           <Stack

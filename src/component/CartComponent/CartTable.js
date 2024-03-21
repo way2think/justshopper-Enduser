@@ -17,20 +17,20 @@ const CartTable = () => {
     },
   };
   return (
-    <div class="container-fluid mt-5">
+    <div class="container m-auto mt-5">
       <table class="table table-xs">
         <tr className="tableheadrow">
-          <th></th>
+          {/* <th></th> */}
           <th className="text-left tableheaditem">Product Name</th>
-          <th className="text-right tableheaditem">Quantity </th>
+          <th className="text-left tableheaditem">Quantity </th>
           <th className="text-right tableheaditem">Price</th>
           <th className="text-right tableheaditem">Total Price</th>
         </tr>
         <tr className="item-row">
-          <td>
+          {/* <td>
             {" "}
             <img src="../images/chocolate.jpg" alt="" className="imagecion" />
-          </td>
+          </td> */}
           <td className="Items">
             <p className="itemname">
               {" "}
@@ -44,6 +44,13 @@ const CartTable = () => {
               justifyContent="space-around"
               alignItems="center"
               className="cartqty"
+              sx={{
+                width: "50%",
+                "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                  {
+                    width: "100%",
+                  },
+              }}
             >
               <RemoveIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
               <p className="qty">1</p>
@@ -58,10 +65,10 @@ const CartTable = () => {
           </td>
         </tr>
         <tr className="item-row item-row-last">
-          <td>
+          {/* <td>
             {" "}
             <img src="../images/biscuit.jpg" alt="" className="imagecion" />
-          </td>
+          </td> */}
           <td className="Items">
             <p className="itemname">
               {" "}
@@ -75,6 +82,13 @@ const CartTable = () => {
               justifyContent="space-around"
               alignItems="center"
               className="cartqty"
+              sx={{
+                width: "50%",
+                "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                  {
+                    width: "100%",
+                  },
+              }}
             >
               <RemoveIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
               <p className="qty">1</p>
@@ -89,13 +103,13 @@ const CartTable = () => {
           </td>
         </tr>
         <tr className="total-row info">
-          <td className="text-right price" colspan="4">
+          <td className="text-right price" colspan="3">
             Sub Total
           </td>
           <td className="text-right price">898.00</td>
         </tr>
         <tr className="total-row info">
-          <td className="text-right price" colspan="4">
+          <td className="text-right price" colspan="3">
             Total
           </td>
           <td className="text-right price">898.00</td>

@@ -13,6 +13,9 @@ const WishlistCard = () => {
       bgcolor: "#fff",
       color: "#DC3237",
     },
+    "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      width: "100%",
+    },
   };
 
   const deleteicon = {
@@ -34,7 +37,7 @@ const WishlistCard = () => {
         alignItems="center"
         className="container"
       >
-        <h3 className="yourcartheading">WishList</h3>
+        <h3 className="yourcartheading">Favorites</h3>
       </Stack>
       <Stack
         justifyContent="space-between"
@@ -95,7 +98,7 @@ const WishlistCard = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} className="add-cart">
-              <Button sx={cart} variant="contained" >
+              <Button sx={cart} variant="contained">
                 Add to Cart
               </Button>
               <Button sx={deleteicon} variant="contained">
@@ -148,7 +151,7 @@ const WishlistCard = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} className="add-cart">
-              <Button sx={cart} variant="contained" >
+              <Button sx={cart} variant="contained">
                 Add to Cart
               </Button>
               <Button sx={deleteicon} variant="contained">
@@ -201,7 +204,7 @@ const WishlistCard = () => {
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} className="add-cart">
-              <Button sx={cart} variant="contained" >
+              <Button sx={cart} variant="contained">
                 Add to Cart
               </Button>
               <Button sx={deleteicon} variant="contained">

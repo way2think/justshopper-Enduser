@@ -4,6 +4,7 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import SearchBar from "./SearchBar";
 import FilterPrice from "./FilterPrice";
 import FilterCategory from "./FilterCategory";
+import FilterTheme from "./FilterTheme";
 import LatestCarousel from "./LatestCarousel";
 import CategoryCard from "./CategoryCard";
 import SideNavFilter from "./SideNavFilter";
@@ -58,6 +59,34 @@ const Category = () => {
                 </Typography>
 
                 <FilterCategory />
+              </Box>
+              <Box className="filter">
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontSize: "22px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                    color: "#000",
+                    fontFamily: "amazonheavy",
+                  }}
+                >
+                  Filter
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textAlign: "left",
+                    fontWeight: 600,
+                    color: "#000",
+                    fontSize: "22px",
+                    fontFamily: "amazonbold",
+                  }}
+                >
+                  Pick a Theme
+                </Typography>
+
+                <FilterTheme />
               </Box>
             </Grid>
             <Grid item xs={12} sm={9} md={9} lg={9}>

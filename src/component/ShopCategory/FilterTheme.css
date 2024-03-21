@@ -8,11 +8,11 @@
 }
 
 /* .price {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-  } */
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
+    } */
 
 .under {
   margin-right: 10px;
@@ -32,17 +32,17 @@
   padding: 10px 5px;
 }
 
-.overallrow {
+.overallrowtheme {
   margin-bottom: 10px;
 }
 
-.seleticon {
+.seleticontheme {
   max-width: 8%;
   margin-right: 15px;
   cursor: pointer;
 }
 
-.Categoryitemname {
+.Themeitemname {
   font-size: 16px;
   font-family: amazonbold;
   color: #545454;
@@ -50,7 +50,7 @@
   cursor: pointer;
 }
 
-.filtercatergory {
+.filterTheme {
   margin-top: 20px;
   overflow-y: scroll;
   max-height: 270px;

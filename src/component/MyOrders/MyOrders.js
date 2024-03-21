@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./MyOrders.css";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Divider, Grid, Stack } from "@mui/material";
 import BuyAgain from "./BuyAgain";
 import OrderList from "./OrderList";
 
@@ -15,7 +15,7 @@ const MyOrders = () => {
 
   return (
     <>
-      <Box textAlign="left" p={2}>
+      <Box textAlign="left" p={5}>
         <div className="container-fluid bgBox">
           <div className="customer_details orderList">
             <div className="orderTop">
@@ -62,7 +62,7 @@ const MyOrders = () => {
                 >
                   Open Orders
                 </li> */}
-                <li
+                {/* <li
                   className={`tab-link ${
                     currentTab === "cancelled_orders" && "current"
                   }`}
@@ -70,7 +70,7 @@ const MyOrders = () => {
                   data-tab="cancelled_orders"
                 >
                   Cancelled Orders
-                </li>
+                </li> */}
               </ul>
               <div className="orderFilter">
                 <label>
@@ -88,6 +88,112 @@ const MyOrders = () => {
             {/* orders */}
             {currentTabContent == "order_tab" && (
               <>
+                <div
+                  id="order_tab"
+                  className="orderCardWrap  current "
+                  style={{ margin: 5 }}
+                >
+                  <div className="orderCard row">
+                    <div className="orderHead col-md-3">
+                      <p>
+                        ORDER PLACED <span>20 March 2024</span>
+                      </p>
+                    </div>
+                    <div className="orderHead col-md-3">
+                      <p>
+                        TOTAL <span>&#8377;413.00</span>
+                      </p>
+                    </div>
+                    <div className="orderHead col-md-3">
+                      <p>
+                        SHIP TO <span className="customerName">Raji</span>
+                        <span className="cstmrInfo">
+                          <strong>Raji</strong>
+                        </span>
+                      </p>
+                    </div>
+                    <div className="orderHead col-md-3">
+                      <div className="invoiceDetails">
+                        <p>
+                          ORDER # 171-8448362-6456308{" "}
+                          {/* <span>
+                            <a href="#">Order Details</a>
+                          </span>{" "} */}
+                          <span className="showInvoice">
+                            <a href="javascript:void(0)">
+                              Invoice{" "}
+                              <i
+                                className="fa fa-chevron-down"
+                                aria-hidden="true"
+                              ></i>
+                            </a>
+                          </span>
+                        </p>
+                        <div className="invioceModel">
+                          <ul>
+                            <li>
+                              <a href="#">Invoice 1</a>
+                            </li>
+                            <li>
+                              <a href="#">Invoice 1</a>
+                            </li>
+                            <li>
+                              <a href="#">Invoice 1</a>
+                            </li>
+                          </ul>
+                          <span className="modelClose">
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="itemDetails">
+                      <OrderList />
+                      <hr />
+                      <Stack>
+                        <Grid container spacing={2}>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            {" "}
+                            <Box>
+                              <h3 className="Delivery">
+                                Delivered 16-Mar-2019
+                              </h3>
+                              <p className="customer">
+                                Package was handed to a receptionist
+                              </p>
+                              <p className="signed">Signed by: Priti.</p>
+                            </Box>
+                          </Grid>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            <Box>
+                              <h3 className="Delivery">Shipping Address</h3>
+                              <p>
+                                no 103 krs nagar 4th street valimalai road
+                                katpadi
+                              </p>
+                            </Box>
+                          </Grid>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            <Box>
+                              <h3 className="Delivery">Payment Method</h3>
+                              <p>Cash On delivery</p>
+                            </Box>
+                          </Grid>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            <Box>
+                              <h3 className="Delivery">Order Summary</h3>
+                              <p>Item(s) Subtotal: 708.00</p>
+                              <p>Shipping: 40.00</p>
+                              <p>Total: 748.00</p>
+                              <p>Grand Total: 708.00</p>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Stack>
+                    </div>
+                  </div>
+                </div>
                 <div
                   id="order_tab"
                   className="orderCardWrap  current "
@@ -123,9 +229,9 @@ const MyOrders = () => {
                       <div className="invoiceDetails">
                         <p>
                           ORDER # 171-8448362-6456308{" "}
-                          <span>
+                          {/* <span>
                             <a href="#">Order Details</a>
-                          </span>{" "}
+                          </span>{" "} */}
                           <span className="showInvoice">
                             <a href="javascript:void(0)">
                               Invoice{" "}
@@ -156,11 +262,48 @@ const MyOrders = () => {
                     </div>
 
                     <div className="itemDetails">
-                      <h3>Delivered 16-Mar-2019</h3>
-                      <p>Package was handed to a receptionist</p>
-                      <p>Signed by: Priti.</p>
-
                       <OrderList />
+                      <hr />
+                      <Stack>
+                        <Grid container spacing={2}>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            {" "}
+                            <Box>
+                              <h3 className="Delivery">
+                                Delivered 16-Mar-2019
+                              </h3>
+                              <p className="customer">
+                                Package was handed to a receptionist
+                              </p>
+                              <p className="signed">Signed by: Priti.</p>
+                            </Box>
+                          </Grid>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            <Box>
+                              <h3 className="Delivery">Shipping Address</h3>
+                              <p>
+                                no 103 krs nagar 4th street valimalai road
+                                katpadi
+                              </p>
+                            </Box>
+                          </Grid>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            <Box>
+                              <h3 className="Delivery">Payment Method</h3>
+                              <p>Cash On delivery</p>
+                            </Box>
+                          </Grid>
+                          <Grid item sm={6} xs={12} md={3} lg={3}>
+                            <Box>
+                              <h3 className="Delivery">Order Summary</h3>
+                              <p>Item(s) Subtotal: 708.00</p>
+                              <p>Shipping: 40.00</p>
+                              <p>Total: 748.00</p>
+                              <p>Grand Total: 708.00</p>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Stack>
                     </div>
                   </div>
                 </div>

@@ -6,9 +6,10 @@ import WishlistCard from "../../component/wishlist/WishlistCard";
 const Wishlist = () => {
   return (
     <div>
-      <Path link="/" pathhome="Home" pathdetails="Wishlist" />
+      <Path link="/" pathhome="Home" pathdetails="Favorites" />
 
       <WishlistCard />
+      {/* <NewArrival /> */}
       <WorkDetailBlack />
     </div>
   );
