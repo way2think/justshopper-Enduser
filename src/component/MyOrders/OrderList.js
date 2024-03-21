@@ -53,9 +53,6 @@ const OrderList = () => {
                   Sold by: <span>Just Shopper</span>
                 </p>
                 <p>&#8377;413.00</p>
-                <Button variant="contained" color="primary">
-                  Buy it again
-                </Button>
               </div>
             </Stack>
           </Grid>
@@ -63,11 +60,11 @@ const OrderList = () => {
           <Grid className="trackbtn" sm={4} xs={12} md={5} lg={5}>
             <div className="btn_group">
               {/* <ReturnIcon /> */}
-              <button className="buy_again">Return or replace items</button>
+              {/* <button className="buy_again">Return or replace items</button> */}
 
               <button className="gift_btn">Write product review </button>
 
-              <button className="gift_btn">Leave seller feedback</button>
+              <button className="gift_btn">Buy it again</button>
             </div>
           </Grid>
         </Grid>

@@ -161,7 +161,7 @@ export default function Navbar() {
                   <MDBNavbarLink href="#">
                     {/* <MDBIcon fas icon="search" /> */}
                     {/* <img src="../images/Search.png" alt="" width={25} height={25}  /> */}
-                    <Search />
+                    {/* <Search /> */}
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem className="me-3 me-lg-0">

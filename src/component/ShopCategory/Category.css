@@ -7,6 +7,29 @@
   src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
 }
 
+.search-container {
+  float: right;
+}
+.search-container input[type="text"] {
+  width: 200px;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  transition: 0.5s all;
+}
+.search-container input[type="text"]:focus {
+  width: 300px;
+}
+.search-container button {
+  height: 40px;
+  width: 40px;
+  margin-left: -5px;
+  background: #141617;
+  border: 0;
+  color: #fff;
+  font-size: 17px;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 600px) {
   .searchproducthead {
     text-align: left;
@@ -34,8 +57,8 @@
   }
   .titleghead {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
     flex-direction: column;
   }
   .titledesc {

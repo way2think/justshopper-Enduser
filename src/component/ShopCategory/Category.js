@@ -69,6 +69,18 @@ const Category = () => {
                 <Box className="titleghead">
                   <h4 className="productheading">Stationery</h4>
                   <p className="titledesc">Love is Letter on pick Stationery</p>
+                  {/* <div className="search-container">
+                    <form action="/action_page.php">
+                      <input
+                        type="text"
+                        placeholder="Search all orders"
+                        name="search"
+                      />
+                      <button type="submit">
+                        <i className="fa fa-search"></i>
+                      </button>
+                    </form>
+                  </div> */}
                 </Box>
                 <SideNavFilter />
               </Stack>
