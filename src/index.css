@@ -18,3 +18,7 @@ code {
   /* background: #dc3237; */
   color: #dc3237 !important;
 }
+
+.table>:not(caption)>*>* {
+  padding-left:0 !important;
+}
