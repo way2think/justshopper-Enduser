@@ -137,13 +137,19 @@ export default function Navbar() {
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <Link to="shop-by-category">
-                    <MDBDropdownItem link>Stationery</MDBDropdownItem>
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Stationery
+                    </MDBDropdownItem>
                   </Link>
                   <Link to="shop-by-category">
-                    <MDBDropdownItem link>Pen</MDBDropdownItem>
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Pen
+                    </MDBDropdownItem>
                   </Link>
                   <Link to="shop-by-category">
-                    <MDBDropdownItem link>Notes</MDBDropdownItem>
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Notes
+                    </MDBDropdownItem>
                   </Link>
                 </MDBDropdownMenu>
               </MDBDropdown>
@@ -215,11 +221,23 @@ export default function Navbar() {
                       />
                     </MDBDropdownToggle>
                     <MDBDropdownMenu>
-                      <MDBDropdownItem link href="profile">
+                      <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        link
+                        href="profile"
+                      >
                         Profile
                       </MDBDropdownItem>
-                      <MDBDropdownItem link href="orders">Orders</MDBDropdownItem>
-                      <MDBDropdownItem link>Logout</MDBDropdownItem>
+                      <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        link
+                        href="orders"
+                      >
+                        Orders
+                      </MDBDropdownItem>
+                      <MDBDropdownItem className="MDBDropdownItem" link>
+                        Logout
+                      </MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
                 </MDBNavbarItem>

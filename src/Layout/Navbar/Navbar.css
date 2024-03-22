@@ -2,11 +2,20 @@
   font-family: amazonheavy;
   src: url(../../../public/Ember/AmazonEmber_He.ttf);
 }
+@font-face {
+  font-family: amazonbold;
+  src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
+}
 
 .navitem {
   margin: 0 28px;
   font-family: amazonheavy;
   font-size: 16px;
+}
+
+.MDBDropdownItem{
+  font-size: 16px;
+  font-family: amazonbold;
 }
 
 .logo {

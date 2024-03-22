@@ -89,29 +89,39 @@ const Category = () => {
                 <FilterTheme />
               </Box>
             </Grid>
-            <Grid item xs={12} sm={9} md={9} lg={9}>
+            <Grid item xs={12} sm={12} md={9} lg={9}>
               <Stack
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Box className="titleghead">
-                  <h4 className="productheading">Stationery</h4>
-                  <p className="titledesc">Love is Letter on pick Stationery</p>
-                  {/* <div className="search-container">
-                    <form action="/action_page.php">
-                      <input
-                        type="text"
-                        placeholder="Search all orders"
-                        name="search"
-                      />
-                      <button type="submit">
-                        <i className="fa fa-search"></i>
-                      </button>
-                    </form>
-                  </div> */}
-                </Box>
-                <SideNavFilter />
+                <Grid container spacing={2} className="overallheading">
+                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Box className="titleghead">
+                      <h4 className="productheading">Stationery</h4>
+                      <p className="titledesc">
+                        Love is Letter on pick Stationery
+                      </p>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Stack className="searchandfilter">
+                      <div className="search-container">
+                        <form action="/action_page.php">
+                          <input
+                            type="text"
+                            placeholder="Search all orders"
+                            name="search"
+                          />
+                          <button type="submit">
+                            <i className="fa fa-search"></i>
+                          </button>
+                        </form>
+                      </div>
+                      <SideNavFilter />
+                    </Stack>
+                  </Grid>
+                </Grid>
               </Stack>
               <CategoryCard />
             </Grid>
