@@ -137,7 +137,7 @@
   font-family: amazonbold;
 }
 .invoiceDetails {
-  float: right;
+  float: left;
   /* width: 30%; */
   position: relative;
 }
@@ -356,7 +356,89 @@ ul.tabs li.current {
   flex-direction: column;
 } */
 
+.overallorderdetails{
+  
+}
+
 .titlename {
   font-size: 20px;
   font-family: amazonbold;
+}
+
+.orderplaced {
+  font-family: amazonbold;
+  font-size: 16px;
+  color: #000;
+}
+
+.overallorderpage {
+  padding: 40px;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 600px) {
+  .customer_details.orderList {
+    padding: 10px 0 0 0;
+  }
+  .overallorderpage {
+    padding: 10px;
+  }
+
+  .hidden-xs {
+    font-size: 16px;
+  }
+  .invoiceDetails {
+    float: left;
+    /* width: 30%; */
+    position: relative;
+  }
+  .itemDetails h3 {
+    font-size: 16px;
+  }
+  .itemDetails p {
+    font-size: 14px;
+  }
+  .orderplaced {
+    font-family: amazonbold;
+    font-size: 16px;
+    color: #000;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .customer_details.orderList {
+    padding: 10px 0 0 0;
+  }
+  .overallorderpage {
+    padding: 10px;
+  }
+
+  .hidden-xs {
+    font-size: 16px;
+  }
+  .invoiceDetails {
+    float: left;
+    /* width: 30%; */
+    position: relative;
+  }
+  .itemDetails h3 {
+    font-size: 16px;
+  }
+  .itemDetails p {
+    font-size: 14px;
+  }
+  .orderplaced {
+    font-family: amazonbold;
+    font-size: 16px;
+    color: #000;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .customer_details.orderList {
+    padding: 20px 0 0 0;
+  }
+}
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .customer_details.orderList {
+    padding: 20px 0 0 0;
+  }
 }

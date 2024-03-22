@@ -4,7 +4,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import SearchBar from "./SearchBar";
-import FilterPrice from "./FilterPrice";
+import FilterTheme from "./FilterTheme";
 import FilterCategory from "./FilterCategory";
 import "../ShopCategory/Category.css";
 import classes from "./SideNavFilter.module.css"; // Import your CSS module
@@ -23,7 +23,7 @@ const SideNavFilter = ({
   const closeNav = () => setIsSidenavOpen(false);
 
   return (
-    <div>
+    <div className={classes.overallsidenav}>
       <span className={classes.openButton} onClick={openNav}>
         <FilterListIcon fontSize="40px" />
       </span>
@@ -83,6 +83,34 @@ const SideNavFilter = ({
                   </Typography>
 
                   <FilterCategory />
+                </Box>
+                <Box className="filter">
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontSize: "22px",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                      color: "#000",
+                      fontFamily: "amazonheavy",
+                    }}
+                  >
+                    Filter
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      textAlign: "left",
+                      fontWeight: 600,
+                      color: "#000",
+                      fontSize: "22px",
+                      fontFamily: "amazonbold",
+                    }}
+                  >
+                    Pick a Theme
+                  </Typography>
+
+                  <FilterTheme />
                 </Box>
               </Grid>
             </Grid>

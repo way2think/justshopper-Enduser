@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import MyOrders from "../../component/MyOrders/MyOrders";
+import Path from "../../component/Path";
 import { Stack } from "@mui/material";
 
 // function InvoiceModel() {
@@ -48,6 +49,7 @@ const Order = () => {
     <>
       {/* <MyOrders /> */}
       <Stack>
+        <Path pathhome="Home" pathdetails="Orders" />
         <MyOrders />
       </Stack>
     </>

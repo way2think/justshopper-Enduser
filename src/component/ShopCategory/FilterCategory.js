@@ -57,10 +57,10 @@ const FilterPrice = () => {
             Pen
           </Typography>
         </Stack>
-        <Button fullWidth sx={load} variant="contained">
+        {/* <Button fullWidth sx={load} variant="contained">
           <AddCircleOutlineIcon fontSize="small" />
           &nbsp; Load More
-        </Button>
+        </Button> */}
       </Box>
     </>
   );

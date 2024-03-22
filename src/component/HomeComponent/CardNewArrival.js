@@ -43,52 +43,11 @@ export default function CardNewArrival(props) {
 
       <CardContent sx={{ px: 0 }}>
         <p className="cardtitle">{props.cardtitle}</p>
-        <Stack direction="row" justifyContent="flex-start" alignItems="start">
-          <StarRateIcon
-            sx={{
-              color: "#FCD425",
-              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-                {
-                  fontSize: "18px",
-                },
-            }}
-          />
-          <StarRateIcon
-            sx={{
-              color: "#FCD425",
-              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-                {
-                  fontSize: "18px",
-                },
-            }}
-          />
-          <StarRateIcon
-            sx={{
-              color: "#FCD425",
-              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-                {
-                  fontSize: "18px",
-                },
-            }}
-          />
-          <StarRateIcon
-            sx={{
-              color: "#FCD425",
-              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-                {
-                  fontSize: "18px",
-                },
-            }}
-          />
-          <StarRateIcon
-            sx={{
-              "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-                {
-                  fontSize: "18px",
-                },
-            }}
-          />
-        </Stack>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="start"
+        ></Stack>
 
         <p className="cardamount">
           <CurrencyRupeeIcon fontSize="18px" />
