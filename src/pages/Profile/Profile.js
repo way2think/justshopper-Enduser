@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import ProfileDetail, { temp } from "../../component/Profile/ProfileDetail";
 import ChangePassword from "../../component/Profile/ChangePassword";
 import Path from "../../component/Path";
+import { ManageAccounts } from "@mui/icons-material";
+import ManageAddress from "../../component/Profile/ManageAddress";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -79,6 +81,11 @@ export default function Profile() {
               {...a11yProps(1)}
               // sx={{ color: "#dc3237" }}
             />
+            <Tab
+              label="Manage Address"
+              {...a11yProps(1)}
+              // sx={{ color: "#dc3237" }}
+            />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
@@ -86,7 +93,10 @@ export default function Profile() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <ChangePassword />
-          {/* {  temp} */}
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          <ManageAddress />
+          {/* <ChangePassword /> */}
         </CustomTabPanel>
       </Box>
     </>
