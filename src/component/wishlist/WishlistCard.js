@@ -214,6 +214,15 @@ const WishlistCard = () => {
           </Grid>
         </Box>
       </Stack>
+      {/* <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <img src="../images/arrow.png " alt="" className="favimage" />
+        <h5 className="nofav">No Item in the Favorites</h5>
+      </Stack> */}
     </>
   );
 };

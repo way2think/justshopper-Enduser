@@ -15,6 +15,15 @@ const YourCart = () => {
         <h3 className="yourcartheading"> Your Cart</h3>
       </Stack>
       <CartTable />
+      {/* <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <img src="../images/shopping.png " alt="" className="cartimage" />
+        <h5 className="noitem">No Item in the cart</h5>
+      </Stack> */}
     </>
   );
 };
