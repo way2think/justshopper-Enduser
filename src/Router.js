@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useNavigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import DashBoardLayout from "./Layout/dashboard/DashboardLayout";
 import Home from "./pages/Home/Home";
 import ContactUs from "./pages/Contactus/ContactUs";
@@ -9,9 +9,12 @@ import ShopCategory from "./pages/Category/ShopCategory";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Profile from "./pages/Profile/Profile";
 import Order from "./pages/Order/Order";
-
+import { useGetSettingsQuery } from "./api/apiSlice";
 
 export default function Router() {
+  const { data: settings } = useGetSettingsQuery();
+  console.log("settings: ", settings);
+
   const routes = useRoutes([
     {
       path: "/",

@@ -110,10 +110,10 @@ export default function Navbar() {
                 </MDBDropdown>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-3 me-lg-0">
-                  <MDBNavbarLink href="#">
-                    <LoginModal />
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
+                <MDBNavbarLink href="#">
+                  <LoginModal />
+                </MDBNavbarLink>
+              </MDBNavbarItem>
               <MDBNavbarItem className="me-3 me-lg-0 mobileLogin"></MDBNavbarItem>
             </Stack>
           )}

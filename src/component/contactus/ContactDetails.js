@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import "./ContactDetails.css";
+import { useSendEnquiryMutation } from "../../api/apiSlice";
+import { successNotification } from "../../utils/notifications";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../../store/appSlice";
+import { scrollToTop } from "../../utils";
 
 const ContactDetails = () => {
+  const dispatch = useDispatch();
+  const [contactInfo, setContactInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    description: "",
+  });
+
+  const [sendEnquiry, { isLoading, isSuccess, isError, error }] =
+    useSendEnquiryMutation();
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setContactInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    dispatch(setIsLoading(true));
+    const result = await sendEnquiry(contactInfo);
+    // console.log("result: ", result);
+    if (result.data === "ok") {
+      dispatch(setIsLoading(false));
+      successNotification(
+        "Enquiry Successfully sent, we will reach to you asap!!!"
+      );
+      setContactInfo({
+        name: "",
+        email: "",
+        phone: "",
+        description: "",
+      });
+      scrollToTop();
+    }
+  };
+
   return (
     <>
       <Stack
@@ -152,40 +196,52 @@ const ContactDetails = () => {
             <Box className="locationheading">
               <h3 className="Enquiry">Enquiry Form</h3>
             </Box>
-            <form className="enquiryform">
+            <form className="enquiryform" onSubmit={submitHandler}>
               {/* <label for="fname">First Name</label> */}
               <input
                 className="input"
                 type="text"
-                id="fname"
-                name="firstname"
-                placeholder="Your name.."
+                id="name"
+                name="name"
+                placeholder="Your name"
+                value={contactInfo.name}
+                onChange={onChangeHandler}
               />
-
               {/* <label for="lname">Last Name</label> */}
               <input
                 className="input"
                 type="mail"
-                id="mail"
-                name="mail"
-                placeholder="Email.."
+                id="email"
+                name="email"
+                placeholder="Email"
+                value={contactInfo.email}
+                onChange={onChangeHandler}
               />
               <input
                 className="input"
                 type="tel"
                 id="phone"
                 name="phone"
-                placeholder="Phone.."
+                placeholder="Phone"
+                value={contactInfo.phone}
+                onChange={onChangeHandler}
               />
               <textarea
                 className="textinput"
-                id="w3review"
-                name="w3review"
+                id="description"
+                name="description"
                 rows="4"
                 cols="50"
-                placeholder="Desc"
+                placeholder="Description of your enquiry"
+                value={contactInfo.description}
+                onChange={onChangeHandler}
               ></textarea>
-              <input className="submit" type="submit" value="Submit" />
+              <input
+                className="submit"
+                type="submit"
+                value="Submit"
+                onClick={submitHandler}
+              />
             </form>
           </Grid>
         </Grid>

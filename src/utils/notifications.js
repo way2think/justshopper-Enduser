@@ -1,32 +1,32 @@
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-// const successNotification = (message) => {
-//   toast.success(message, {
-//     position: toast.POSITION.TOP_RIGHT,
-//   });
-// };
+const successNotification = (message) => {
+  toast.success(message, {
+    position: "top-right",
+  });
+};
 
-// const errorNotification = (message) => {
-//   toast.error(message, {
-//     position: toast.POSITION.TOP_RIGHT,
-//   });
-// };
+const errorNotification = (message) => {
+  toast.error(message, {
+    position: "top-right",
+  });
+};
 
-// const infoNotification = (message) => {
-//   toast.info(message, {
-//     position: toast.POSITION.TOP_RIGHT,
-//   });
-// };
+const infoNotification = (message) => {
+  toast.info(message, {
+    position: "top-right",
+  });
+};
 
-// const warningNotification = (message) => {
-//   toast.warning(message, {
-//     position: toast.POSITION.TOP_RIGHT,
-//   });
-// };
+const warningNotification = (message) => {
+  toast.warning(message, {
+    position: "top-right",
+  });
+};
 
-// export {
-//   successNotification,
-//   errorNotification,
-//   infoNotification,
-//   warningNotification,
-// };
+export {
+  successNotification,
+  errorNotification,
+  infoNotification,
+  warningNotification,
+};
