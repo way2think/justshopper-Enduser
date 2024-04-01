@@ -9,11 +9,11 @@ import ShopCategory from "./pages/Category/ShopCategory";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Profile from "./pages/Profile/Profile";
 import Order from "./pages/Order/Order";
-import { useGetSettingsQuery } from "./api/apiSlice";
+// import { useGetSettingsQuery } from "./api/apiSlice";
 
 export default function Router() {
-  const { data: settings } = useGetSettingsQuery();
-  console.log("settings: ", settings);
+  // const { data: settings } = useGetSettingsQuery();
+  // console.log("settings: ", settings);
 
   const routes = useRoutes([
     {

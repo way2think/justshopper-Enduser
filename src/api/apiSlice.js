@@ -44,7 +44,7 @@ export const apiSlice = createApi({
     sendEnquiry: build.mutation({
       queryFn: async ({ name, email, phone, description }) => {
         try {
-          console.log("sendQ: ", name, email, phone, description);
+          // console.log("sendQ: ", name, email, phone, description);
           const enquiryRef = collection(db, "enquiry");
 
           await addDoc(enquiryRef, {
@@ -53,7 +53,8 @@ export const apiSlice = createApi({
             phone,
             description,
             status: "open",
-            userId: "", // if logged in
+            user_id: "", // if logged in
+            timestamp: new Date().getTime(),
           });
 
           return {
@@ -77,3 +78,10 @@ export const apiSlice = createApi({
 });
 
 export const { useGetSettingsQuery, useSendEnquiryMutation } = apiSlice;
+
+export const selectStatusMessage = (state) =>
+  apiSlice.endpoints.getSettings.select()(state).data;
+
+// apiSlice.util.updateQueryData("getSettings", "12", (draft) => {
+//   Object.assign(draft, updatedPost);
+// });
