@@ -25,23 +25,25 @@ export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
 
-  // useEffect(()=>{
-  //   if(window.innerWidth <= 600){
-  //     setMobileNav(true)
-  //   }
-  //   else{
-  //     setMobileNav(false)
-  //   }
-  // },[window.innerWidth])
-
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    function handleResize() {
       if (window.innerWidth <= 992) {
         setMobileNav(true);
       } else {
         setMobileNav(false);
       }
-    });
+    }
+
+    // Set initial mobileNav state on page load
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup function to remove event listener when component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   console.log("mobile", mobileNav);
@@ -117,7 +119,6 @@ export default function Navbar() {
               <MDBNavbarItem className="me-3 me-lg-0 mobileLogin"></MDBNavbarItem>
             </Stack>
           )}
-
           <MDBNavbarToggler
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
@@ -128,7 +129,7 @@ export default function Navbar() {
           </MDBNavbarToggler>
         </Stack>
 
-        <MDBCollapse navbar open={openBasic}>
+        <MDBCollapse navbar open={openBasic} style={{ textAlign: "left" }}>
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 justify-content-end">
             <MDBNavbarItem className="navitem">
               <MDBNavbarLink active aria-current="page" href="/">
@@ -139,6 +140,30 @@ export default function Navbar() {
               <MDBDropdown>
                 <MDBDropdownToggle tag="a" className="nav-link" role="button">
                   Shop by Category
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <Link to="shop-by-category">
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Stationery
+                    </MDBDropdownItem>
+                  </Link>
+                  <Link to="shop-by-category">
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Pen
+                    </MDBDropdownItem>
+                  </Link>
+                  <Link to="shop-by-category">
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Notes
+                    </MDBDropdownItem>
+                  </Link>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavbarItem>
+            <MDBNavbarItem className="navitem">
+              <MDBDropdown>
+                <MDBDropdownToggle tag="a" className="nav-link" role="button">
+                  Shop by Theme
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <Link to="shop-by-category">
@@ -192,7 +217,6 @@ export default function Navbar() {
                 </MDBNavbarItem>
                 <MDBNavbarItem className="me-3 me-lg-0">
                   <MDBNavbarLink href="/favorites">
-                    {/* <MDBIcon fas icon="shopping-cart" /> */}
                     <img
                       src="../images/heart.png"
                       alt=""
