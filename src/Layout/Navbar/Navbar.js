@@ -63,13 +63,13 @@ export default function Navbar() {
               sx={{ listStyleType: "none" }}
               className="mobileviewcart"
             >
-              <MDBNavbarItem className="me-3 me-lg-0">
+              {/* <MDBNavbarItem className="me-3 me-lg-0">
                 <MDBNavbarLink href="#">
                   <Search />
                 </MDBNavbarLink>
-              </MDBNavbarItem>
+              </MDBNavbarItem> */}
 
-              <MDBNavbarItem className="me-3 me-lg-0">
+              <MDBNavbarItem className="me-2 me-lg-0">
                 <MDBNavbarLink href="cart">
                   <img
                     src="../images/Shopping Bag.png"
@@ -79,7 +79,7 @@ export default function Navbar() {
                   />
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-3 me-lg-0">
+              <MDBNavbarItem className="me-2 me-lg-0">
                 <MDBNavbarLink href="/favorites">
                   <img
                     src="../images/heart.png"
@@ -89,7 +89,6 @@ export default function Navbar() {
                   />
                 </MDBNavbarLink>
               </MDBNavbarItem>
-
               <MDBNavbarItem>
                 <MDBDropdown>
                   <MDBDropdownToggle tag="a" className="nav-link" role="button">
@@ -111,12 +110,12 @@ export default function Navbar() {
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-3 me-lg-0">
+              <MDBNavbarItem className="me-2 me-lg-0">
                 <MDBNavbarLink href="#">
                   <LoginModal />
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-3 me-lg-0 mobileLogin"></MDBNavbarItem>
+              
             </Stack>
           )}
           <MDBNavbarToggler

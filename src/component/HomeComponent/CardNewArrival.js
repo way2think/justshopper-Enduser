@@ -24,13 +24,14 @@ export default function CardNewArrival(props) {
       fontFamily: "amazonbold",
       padding: "5px 10px",
     },
+
     "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
       {
         fontSize: "12px",
       },
   };
   return (
-    <Card sx={{ maxWidth: 345, boxShadow: "none", py: 2 }}>
+    <Card sx={{ maxWidth: 345, boxShadow: "none", py: 2, margin: "auto" }}>
       {/* <CardMedia
         component="img"
         alt="green iguana"
@@ -41,7 +42,17 @@ export default function CardNewArrival(props) {
       {/* <span className="Sale">{props.sale}</span> */}
       <img src={props.image} alt="" className="cardimage" />
 
-      <CardContent sx={{ px: 0 }}>
+      <CardContent
+        sx={{
+          p: 0,
+          "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          },
+        }}
+      >
         <p className="cardtitle">{props.cardtitle}</p>
         <Stack
           direction="row"
@@ -57,7 +68,16 @@ export default function CardNewArrival(props) {
           <CurrencyRupeeIcon fontSize="16px" /> {props.currentprice}
         </p>
       </CardContent>
-      <CardActions sx={{ p: 0 }}>
+      <CardActions
+        sx={{
+          p: 0,
+          "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }}
+      >
         <Button size="small" sx={cart} className="cart">
           Add to Cart
         </Button>
