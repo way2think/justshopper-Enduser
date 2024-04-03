@@ -159,6 +159,30 @@ export default function Navbar() {
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavbarItem>
+            <MDBNavbarItem className="navitem">
+              <MDBDropdown>
+                <MDBDropdownToggle tag="a" className="nav-link" role="button">
+                  Shop by Theme
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <Link to="shop-by-category">
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Stationery
+                    </MDBDropdownItem>
+                  </Link>
+                  <Link to="shop-by-category">
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Pen
+                    </MDBDropdownItem>
+                  </Link>
+                  <Link to="shop-by-category">
+                    <MDBDropdownItem className="MDBDropdownItem" link>
+                      Notes
+                    </MDBDropdownItem>
+                  </Link>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavbarItem>
 
             <MDBNavbarItem className="navitem">
               <MDBNavbarLink
