@@ -1,6 +1,6 @@
 import React from "react";
 import "./Cod.css";
-import { useGetSettingsQuery } from "../../api/apiSlice";
+import { useGetSettingsQuery } from "../../api/api";
 
 const Cod = () => {
   const { data: settings, isLoading, isFetching } = useGetSettingsQuery();

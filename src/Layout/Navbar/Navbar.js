@@ -46,7 +46,7 @@ export default function Navbar() {
     };
   }, []);
 
-  console.log("mobile", mobileNav);
+  // console.log("mobile", mobileNav);
 
   return (
     <MDBNavbar expand="lg" light bgColor="light">
@@ -115,7 +115,6 @@ export default function Navbar() {
                   <LoginModal />
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              
             </Stack>
           )}
           <MDBNavbarToggler

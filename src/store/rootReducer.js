@@ -1,9 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import appReducer from "./appSlice";
-import { apiSlice } from "../api/apiSlice";
+import { api } from "../api/api";
 
 const rootReducer = combineReducers({
-  [apiSlice.reducerPath]: apiSlice.reducer,
+  [api.reducerPath]: api.reducer,
   app: appReducer,
 });
 

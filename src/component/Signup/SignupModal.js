@@ -1,15 +1,4 @@
-import * as React from "react";
 import { useState } from "react";
-// import {
-//   isValidEmail,
-//   isValidPassword,
-//   isValidAddress,
-//   isValidPhoneNumber,
-//   isValidName,
-//   isValidNumber,
-// } from "../utils/validator";
-// import { doc, setDoc } from "firebase/firestore";
-// import { db } from "../services/firebase";
 import {
   FormControl,
   Grid,
@@ -25,11 +14,21 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-// import "./SignupModal.css";
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-// import { errorNotification, successNotification } from "../utils/notifications";
-// import { async } from "q";
-import CountryAndStates from "./CountryAndStates";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+
+// import CountryAndStates from "./CountryAndStates";
+import {
+  isValidEmail,
+  isValidName,
+  isValidPassword,
+  isValidPhoneNumber,
+} from "../../utils/validator";
+
+import { auth, db } from "../../config/firebase";
+import { errorNotification } from "../../utils/notifications";
+
+import "./SignupModal.css";
 
 const style = {
   position: "absolute",
@@ -83,25 +82,17 @@ const Signupbtn = {
 //   overflowY: "scroll",
 // };
 
-export default function SignupModal({ manageAddress }) {
+export default function SignupModal() {
   const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [countryid, setCountryid] = useState(0);
-  const [stateid, setstateid] = useState(0);
-  const [countryName, setCountryName] = useState("");
-  const [stateName, setstateName] = useState("");
-  const [cityName, setCityName] = useState("");
+  // const [countryid, setCountryid] = useState(0);
+  // const [stateid, setstateid] = useState(0);
   const [signUpDetails, setSignUpDetails] = useState({
     name: "",
     email: "",
     phonenumber: "",
-    address: "",
     createPassword: "",
     confirmPassword: "",
-    country: "",
-    state: "",
-    city: "",
-    pincode: "",
   });
   // console.log("testing for name", signUpDetails);
   // const auth = getAuth();
@@ -126,97 +117,74 @@ export default function SignupModal({ manageAddress }) {
     });
   };
 
-  //   const handleSignUP = () => {
-  //     const {
-  //       name,
-  //       email,
-  //       phonenumber,
-  //       address,
-  //       confirmPassword,
-  //       createPassword,
-  //       country,
-  //       state,
-  //       city,
-  //       pincode,
-  //     } = signUpDetails;
+  const handleSignup = () => {
+    const { name, email, phonenumber, confirmPassword, createPassword } =
+      signUpDetails;
 
-  //     if (
-  //       isValidName(name) &&
-  //       isValidEmail(email) &&
-  //       isValidPhoneNumber(phonenumber) &&
-  //       isValidAddress(address) &&
-  //       isValidPassword(createPassword) &&
-  //       isValidPassword(confirmPassword) &&
-  //       isValidNumber(pincode) &&
-  //       country &&
-  //       state &&
-  //       city &&
-  //       createPassword === confirmPassword
-  //     ) {
-  //       createUserWithEmailAndPassword(auth, email, createPassword)
-  //         .then(async (userCredential) => {
-  //           // Signed up
-  //           const user = userCredential.user;
-  //           console.log("user1", user);
-  //           const { uid } = userCredential.user;
-  //           const docRef = doc(db, collection, uid);
-  //           await setDoc(docRef, {
-  //             name,
-  //             phone: phonenumber,
-  //             address,
-  //             email,
-  //             country: countryName,
-  //             state: stateName,
-  //             city: cityName,
-  //             pincode,
-  //             role: "consumer",
-  //           });
-  //         })
-  //         .catch((error) => {
-  //           const errorCode = error.code;
-  //           const errorMessage = error.message;
-  //           errorNotification(errorCode);
-  //         });
-  //     } else {
-  //       !isValidName(name) && errorNotification("Invalid Name");
+    if (
+      isValidName(name) &&
+      isValidEmail(email) &&
+      isValidPhoneNumber(phonenumber) &&
+      isValidPassword(createPassword) &&
+      isValidPassword(confirmPassword)
+    ) {
+      createUserWithEmailAndPassword(auth, email, createPassword)
+        .then(async (userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log("user1", user);
+          const { uid } = userCredential.user;
+          const docRef = doc(db, "users", uid);
+          await setDoc(docRef, {
+            name,
+            phone: phonenumber,
+            email,
+            role: "consumer",
+            saved_addresses: [],
+            favourites: [],
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          errorNotification(`${errorCode}: ${errorMessage}`);
+        });
+    } else {
+      !isValidName(name) && errorNotification("Invalid Name");
 
-  //       !isValidEmail(email) && errorNotification("Invalid Email");
+      !isValidEmail(email) && errorNotification("Invalid Email");
 
-  //       !isValidPhoneNumber(phonenumber) &&
-  //         errorNotification("Invalid Phone Number");
-  //       !isValidAddress(address) && errorNotification("Invalid Address");
-  //       !isValidPassword(createPassword) &&
-  //         errorNotification("Invalid CreatePassword");
-  //       !isValidPassword(confirmPassword) &&
-  //         errorNotification("Invalid ConfirmPassword");
-  //       !(createPassword === confirmPassword) &&
-  //         errorNotification("Password doesn't match");
-  //       !isValidNumber(pincode) && errorNotification("Enter valid pincode");
-  //       !country && errorNotification("Select Country");
-  //       !state && errorNotification("Select State");
-  //       !city && errorNotification("Select City");
-  //     }
-  //   };
+      !isValidPhoneNumber(phonenumber) &&
+        errorNotification("Invalid Phone Number");
+
+      !isValidPassword(createPassword) &&
+        errorNotification("Invalid CreatePassword");
+
+      !isValidPassword(confirmPassword) &&
+        errorNotification("Invalid ConfirmPassword");
+
+      !(createPassword === confirmPassword) &&
+        errorNotification("Password doesn't match");
+    }
+  };
 
   return (
     <div>
-      {!manageAddress && (
-        <Button onClick={handleOpen} sx={signup}>
-          Create New Account?
-        </Button>
-      )}
-      {manageAddress && (
+      <Button onClick={handleOpen} sx={signup}>
+        Create New Account?
+      </Button>
+      {/* {manageAddress && (
         <Button
           onClick={handleOpen}
           sx={Signupbtn}
           style={{
-            width:"15%",
-            float:"right"
+            width: "15%",
+            float: "right",
           }}
         >
           Add Address
         </Button>
-      )}
+      )} */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -224,8 +192,8 @@ export default function SignupModal({ manageAddress }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          
-         {!manageAddress && <>   <Grid xs={12} sx={{ textAlign: "center" }}>
+          <>
+            <Grid xs={12} sx={{ textAlign: "center" }}>
               <img
                 src="../images/JS logo png.png"
                 alt=""
@@ -244,12 +212,11 @@ export default function SignupModal({ manageAddress }) {
             >
               Sign Up
             </Typography>
-
             <Grid container>
               <Grid md={6} xs={12}>
                 <TextField
                   fullWidth
-                  id="outlined-basic1"
+                  id="name"
                   label="Name"
                   variant="outlined"
                   name="name"
@@ -269,10 +236,10 @@ export default function SignupModal({ manageAddress }) {
               <Grid md={6} xs={12}>
                 <TextField
                   fullWidth
-                  id="outlined-basic"
+                  id="phone"
                   label="Phone Number"
                   variant="outlined"
-                  name="phonenumber"
+                  name="phone"
                   type="tel"
                   value={signUpDetails.phonenumber}
                   onChange={handleInputChange}
@@ -281,12 +248,11 @@ export default function SignupModal({ manageAddress }) {
                 />
               </Grid>
             </Grid>
-
             <Grid container>
               <Grid md={12} xs={12}>
                 <TextField
                   fullWidth
-                  id="outlined-basic"
+                  id="email"
                   label="Email"
                   variant="outlined"
                   name="email"
@@ -309,13 +275,11 @@ export default function SignupModal({ manageAddress }) {
                   }}
                   variant="outlined"
                 >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Create Password
-                  </InputLabel>
+                  <InputLabel htmlFor="password">Create Password</InputLabel>
                   <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="password"
                     type={showPassword ? "text" : "password"}
-                    name="createPassword"
+                    name="password"
                     value={signUpDetails.createPassword}
                     onChange={handleInputChange}
                     endAdornment={
@@ -330,17 +294,16 @@ export default function SignupModal({ manageAddress }) {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="Create Password"
                   />
                 </FormControl>
               </Grid>
               <Grid md={6} xs={12}>
                 <FormControl sx={{ mb: 2, width: "100%" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">
+                  <InputLabel htmlFor="confirmPassword">
                     Confirm Password
                   </InputLabel>
                   <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="confirmPassword"
                     type={showPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={signUpDetails.confirmPassword}
@@ -357,37 +320,31 @@ export default function SignupModal({ manageAddress }) {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="Password"
                   />
                 </FormControl>
               </Grid>
             </Grid>
-            <Button
-              sx={Signupbtn}
-              //   onClick={handleSignUP}
-            >
+            <Button sx={Signupbtn} onClick={handleSignup}>
               Sign up
             </Button>
-          
-          </> }
-          {manageAddress && (
+          </>
+          {/* {manageAddress && (
             <>
               {" "}
               <Typography
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-              sx={{
-                fontFamily: "amazonbold",
-                marginBottom: 2,
-                textAlign: "left",
-                marginTop:3,
-              }}
-             
-            >
-            ADD ADDRESS
-            </Typography>
-              <Grid md={12} xs={12} sx={{marginTop:3}}>
+                id="modal-modal-title"
+                variant="h5"
+                component="h2"
+                sx={{
+                  fontFamily: "amazonbold",
+                  marginBottom: 2,
+                  textAlign: "left",
+                  marginTop: 3,
+                }}
+              >
+                ADD ADDRESS
+              </Typography>
+              <Grid md={12} xs={12} sx={{ marginTop: 3 }}>
                 <TextField
                   id="outlined-multiline-static"
                   label="Address"
@@ -414,13 +371,13 @@ export default function SignupModal({ manageAddress }) {
                 />
               </Grid>
               <Button
-              sx={Signupbtn}
-              //   onClick={handleSignUP}
-            >
-             Add 
-            </Button>
+                sx={Signupbtn}
+                //   onClick={handleSignUP}
+              >
+                Add
+              </Button>
             </>
-          )}
+          )} */}
         </Box>
       </Modal>
     </div>

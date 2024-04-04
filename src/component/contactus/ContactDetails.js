@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import "./ContactDetails.css";
-import { useSendEnquiryMutation } from "../../api/apiSlice";
-import { successNotification } from "../../utils/notifications";
+import { useSendEnquiryMutation } from "../../api/api";
+import {
+  errorNotification,
+  successNotification,
+} from "../../utils/notifications";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../store/appSlice";
 import { scrollToTop } from "../../utils";
@@ -31,8 +34,8 @@ const ContactDetails = () => {
     e.preventDefault();
     dispatch(setIsLoading(true));
     const result = await sendEnquiry(contactInfo);
-    // console.log("result: ", result);
-    if (result.data === "ok") {
+    console.log("result: ", result);
+    if (result.data) {
       dispatch(setIsLoading(false));
       successNotification(
         "Enquiry Successfully sent, we will reach to you asap!!!"
@@ -44,6 +47,9 @@ const ContactDetails = () => {
         description: "",
       });
       scrollToTop();
+    } else {
+      dispatch(setIsLoading(false));
+      errorNotification("Enquiry failed, try after sometime!!!");
     }
   };
 
