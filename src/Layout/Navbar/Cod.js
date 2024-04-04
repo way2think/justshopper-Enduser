@@ -15,9 +15,11 @@ const Cod = () => {
 
   return (
     <>
-      <div className="cod">
-        <p className="time">{settings?.enduser_status_message}</p>
-      </div>
+      {settings?.enduser_status_message && (
+        <div className="cod">
+          <p className="time">{settings?.enduser_status_message}</p>
+        </div>
+      )}
     </>
   );
 };
