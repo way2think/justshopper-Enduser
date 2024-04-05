@@ -22,6 +22,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../../store/userSlice";
+import { useSignOutUserMutation } from "../../api/auth";
 
 export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
@@ -48,7 +49,9 @@ export default function Navbar() {
   ]);
   const navigate = useNavigate();
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  console.log("isAuthenticated: ", isAuthenticated);
+  const [signOutUser, { isError, error, data, isLoading }] =
+    useSignOutUserMutation();
+  // console.log("isAuthenticated: ", isAuthenticated);
 
   useEffect(() => {
     function handleResize() {
@@ -311,7 +314,10 @@ export default function Navbar() {
                         >
                           Orders
                         </MDBDropdownItem>
-                        <MDBDropdownItem className="MDBDropdownItem" link>
+                        <MDBDropdownItem
+                          className="MDBDropdownItem"
+                          onClick={() => signOutUser()}
+                        >
                           Logout
                         </MDBDropdownItem>
                       </MDBDropdownMenu>

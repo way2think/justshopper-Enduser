@@ -13,21 +13,21 @@ import { useOnAuthListenerQuery } from "./api/auth";
 import { useGetSettingsQuery } from "./api/api";
 
 export default function Router() {
-  const { data, isFetching, isLoading, error } = useOnAuthListenerQuery();
+  const { data: user, isFetching, isLoading, error } = useOnAuthListenerQuery();
   const { data: settings } = useGetSettingsQuery();
   const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    console.log("data: ", data, isFetching, isLoading);
-    if (data) {
+    console.log("data: ", user);
+    if (user) {
       setAuthChecked(true);
     }
-  }, [data]);
+  }, [user]);
 
   console.log("Route: ", settings);
 
   const AuthenticatedRoute = ({ element, ...rest }) =>
-    data?.isAuthenticated ? element : <Navigate to="/" />;
+    user?.isAuthenticated ? element : <Navigate to="/" />;
 
   const routes = useRoutes([
     {

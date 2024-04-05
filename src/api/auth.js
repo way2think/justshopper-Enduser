@@ -11,7 +11,7 @@ import {
 } from "../services/firestore-http";
 import { api } from "./api";
 import { auth as firebaseAuth } from "../config/firebase";
-import { setUser } from "../store/userSlice";
+import { setUser, setUserLogout } from "../store/userSlice";
 
 const collectionId = "user";
 
@@ -46,8 +46,9 @@ export const auth = api.injectEndpoints({
       },
     }),
     signOutUser: build.mutation({
-      queryFn: async () => {
+      queryFn: async (args, api) => {
         await signOutUser();
+        api.dispatch(setUserLogout());
       },
     }),
     onAuthListener: build.query({

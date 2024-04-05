@@ -79,6 +79,7 @@ const sendPasswordResetEmail = async (email) => {
 };
 
 const signOutUser = async () => {
+  console.log("signOutUser - api");
   try {
     await signOut(auth);
     return {
