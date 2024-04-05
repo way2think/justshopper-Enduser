@@ -18,12 +18,33 @@ import {
 import "./Navbar.css";
 import Search from "./Search";
 import { Stack } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
 
 export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
+  const [categoryList, setCategoryList] = useState([
+    {
+      label: "Pen",
+      img: "",
+    },
+    {
+      label: "Notebook",
+      img: "",
+    },
+  ]);
+  const [themeList, setThemeList] = useState([
+    {
+      label: "Stationery",
+      img: "",
+    },
+    {
+      label: "Kids",
+      img: "",
+    },
+  ]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleResize() {
@@ -140,12 +161,21 @@ export default function Navbar() {
                   Shop by Category
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <Link to="shop-by-category">
-                    <MDBDropdownItem className="MDBDropdownItem" link>
-                      Stationery
-                    </MDBDropdownItem>
-                  </Link>
-                  <Link to="shop-by-category">
+                  {categoryList.map((item) => (
+                    <Link
+                      to={`/shop-by-category?category=${item?.label}`}
+                      // onClick={() =>
+                      //   navigate("/shop-by-category", {
+                      //     state: item,
+                      //   })
+                      // }
+                    >
+                      <MDBDropdownItem className="MDBDropdownItem" link>
+                        {item?.label}
+                      </MDBDropdownItem>
+                    </Link>
+                  ))}
+                  {/* <Link to="shop-by-category">
                     <MDBDropdownItem className="MDBDropdownItem" link>
                       Pen
                     </MDBDropdownItem>
@@ -154,7 +184,7 @@ export default function Navbar() {
                     <MDBDropdownItem className="MDBDropdownItem" link>
                       Notes
                     </MDBDropdownItem>
-                  </Link>
+                  </Link> */}
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavbarItem>
@@ -164,7 +194,21 @@ export default function Navbar() {
                   Shop by Theme
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <Link to="shop-by-category">
+                  {themeList.map((item) => (
+                    <Link
+                      to={`/shop-by-category?theme=${item?.label}`}
+                      // onClick={() =>
+                      //   navigate("/shop-by-category", {
+                      //     state: item,
+                      //   })
+                      // }
+                    >
+                      <MDBDropdownItem className="MDBDropdownItem" link>
+                        {item?.label}
+                      </MDBDropdownItem>
+                    </Link>
+                  ))}
+                  {/* <Link to="shop-by-category">
                     <MDBDropdownItem className="MDBDropdownItem" link>
                       Stationery
                     </MDBDropdownItem>
@@ -178,7 +222,7 @@ export default function Navbar() {
                     <MDBDropdownItem className="MDBDropdownItem" link>
                       Notes
                     </MDBDropdownItem>
-                  </Link>
+                  </Link> */}
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavbarItem>

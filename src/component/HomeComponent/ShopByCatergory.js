@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import "./ShopByCatergory.css";
 import CatergoryCard from "./CatergoryCard";
@@ -24,13 +24,16 @@ const ShopByCatergory = (props) => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <CatergoryCard
-                catergoryname="Pen"
-                catergoryimage="../images/stationary.png"
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
+            {props?.data &&
+              props?.data?.map((item) => (
+                <Grid item xs={12} sm={4} md={4} lg={4}>
+                  <CatergoryCard
+                    catergoryname={item?.label}
+                    catergoryimage={item?.img}
+                  />
+                </Grid>
+              ))}
+            {/* <Grid item xs={12} sm={4} md={4} lg={4}>
               <CatergoryCard
                 catergoryname="Pencils"
                 catergoryimage="../images/stati.png"
@@ -59,7 +62,7 @@ const ShopByCatergory = (props) => {
                 catergoryname="Notes"
                 catergoryimage="../images/1.png"
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <a href="" className="viewmore">
             View More
