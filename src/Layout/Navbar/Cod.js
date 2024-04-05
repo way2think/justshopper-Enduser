@@ -1,23 +1,18 @@
 import React from "react";
 import "./Cod.css";
-import { useGetSettingsQuery } from "../../api/api";
+import { selectStatusMessage } from "../../api/api";
+import { useSelector } from "react-redux";
 
 const Cod = () => {
-  const { data: settings, isLoading, isFetching } = useGetSettingsQuery();
+  const enduser_status_message = useSelector(selectStatusMessage);
 
-  console.log(
-    "settings: ",
-    settings,
-    isLoading,
-    isFetching,
-    settings?.enduser_status_message
-  );
+  console.log("settings: ", enduser_status_message);
 
   return (
     <>
-      {settings?.enduser_status_message && (
+      {enduser_status_message && (
         <div className="cod">
-          <p className="time">{settings?.enduser_status_message}</p>
+          <p className="time">{enduser_status_message}</p>
         </div>
       )}
     </>

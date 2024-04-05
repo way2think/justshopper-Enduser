@@ -1,5 +1,5 @@
-import React from "react";
-import { useRoutes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, useRoutes } from "react-router-dom";
 import DashBoardLayout from "./Layout/dashboard/DashboardLayout";
 import Home from "./pages/Home/Home";
 import ContactUs from "./pages/Contactus/ContactUs";
@@ -9,11 +9,25 @@ import ShopCategory from "./pages/Category/ShopCategory";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Profile from "./pages/Profile/Profile";
 import Order from "./pages/Order/Order";
-// import { useGetSettingsQuery } from "./api/apiSlice";
+import { useOnAuthListenerQuery } from "./api/auth";
+import { useGetSettingsQuery } from "./api/api";
 
 export default function Router() {
-  // const { data: settings } = useGetSettingsQuery();
-  // console.log("settings: ", settings);
+  const { data, isFetching, isLoading, error } = useOnAuthListenerQuery();
+  const { data: settings } = useGetSettingsQuery();
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    console.log("data: ", data, isFetching, isLoading);
+    if (data) {
+      setAuthChecked(true);
+    }
+  }, [data]);
+
+  console.log("Route: ", settings);
+
+  const AuthenticatedRoute = ({ element, ...rest }) =>
+    data?.isAuthenticated ? element : <Navigate to="/" />;
 
   const routes = useRoutes([
     {
@@ -26,10 +40,21 @@ export default function Router() {
         { path: "Product-details", element: <ProductDetails /> },
         { path: "favorites", element: <Wishlist /> },
         { path: "cart", element: <CartPage /> },
-        { path: "profile", element: <Profile /> },
-        { path: "orders", element: <Order /> },
+        {
+          path: "profile",
+          element: <AuthenticatedRoute element={<Profile />} key="Profile" />,
+        },
+        {
+          path: "orders",
+          element: <AuthenticatedRoute element={<Order />} key="Profile" />,
+        },
       ],
     },
   ]);
+
+  if (!authChecked) {
+    return <div>Loading...</div>;
+  }
+
   return routes;
 }

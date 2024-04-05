@@ -17,16 +17,14 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import SignupModal from "../Signup/SignupModal";
-// import "./LoginModal.css";
-// import { isValidEmail, isValidPassword } from "../utils/validator";
-// import { errorNotification, successNotification } from "../utils/notifications";
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../services/firebase";
-// import { getUserById } from "../api/user";
-// import { useDispatch } from "react-redux";
-// import { login } from "../store/userSlice";
-// import SignupModal from "./SignupModal";
-// import { logout } from "../api/auth";
+import { isValidEmail, isValidPassword } from "../../utils/validator";
+import {
+  errorNotification,
+  successNotification,
+} from "../../utils/notifications";
+import { useSignInWithEmailAndPasswordMutation } from "../../api/auth";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/userSlice";
 
 const style = {
   position: "absolute",
@@ -86,9 +84,13 @@ const loginbtn = {
 // };
 
 export default function LoginModal() {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [signInWithEmailAndPassword, { isLoading, isError, data, error }] =
+    useSignInWithEmailAndPasswordMutation();
+
+  // console.log("result: ", isLoading, data, error);
 
   const [userCred, setUserCred] = useState({
     email: "",
@@ -121,40 +123,35 @@ export default function LoginModal() {
 
   //for user verificationa nd login(submit)
 
-  //   const handleLogin = () => {
-  //     const { email, password } = userCred;
-  //     if (isValidEmail(email) && isValidPassword(password)) {
-  //       signInWithEmailAndPassword(auth, email, password)
-  //         .then((userCredential) => {
-  //           console.log("userCredential: ", userCredential);
-  //           console.log("userCredential.user: ", userCredential.user);
-  //           const { uid } = userCredential.user;
-  //           getUserById(uid, (result) => {
-  //             console.log("userdetail: ", result);
-  //             if (result.success) {
-  //               if (result?.data?.role === "admin") {
-  //                 errorNotification(
-  //                   "Admin's don't have access to customer website. Please login with someother email id"
-  //                 );
-  //                 logout(false);
-  //                 closeModal();
-  //               } else {
-  //                 dispatch(login(result.data));
-  //                 successNotification(result.message);
-  //                 closeModal();
-  //               }
-  //             } else {
-  //               errorNotification(result.err.message);
-  //             }
-  //           }); // async/await, promise-then, callback
-  //         })
-  //         .catch((e) => {
-  //           errorNotification(e.code);
-  //         });
-  //     } else {
-  //       errorNotification("Invalid Email/Password");
-  //     }
-  //   };
+  const handleLogin = async () => {
+    const { email, password } = userCred;
+    if (isValidEmail(email) && isValidPassword(password)) {
+      const result = await signInWithEmailAndPassword({ email, password });
+      console.log("result: ", result);
+      const user = result.data;
+      if (user) {
+        const { id, name, email, phone, role, favourite, saved_address } = user;
+        dispatch(
+          setUser({
+            id,
+            name,
+            email,
+            phone,
+            role,
+            favourite,
+            saved_address,
+            isAuthenticated: true,
+          })
+        );
+        successNotification(`Successfully Signed In!!!`);
+        closeModal();
+      } else {
+        errorNotification(result.error.message);
+      }
+    } else {
+      errorNotification("Invalid Email/Password");
+    }
+  };
 
   return (
     <div>
@@ -275,10 +272,7 @@ export default function LoginModal() {
                   Forgot password?
                 </Link>
               </Stack>
-              <Button
-                sx={loginbtn}
-                // onClick={handleLogin}
-              >
+              <Button sx={loginbtn} onClick={handleLogin}>
                 Login
               </Button>
 

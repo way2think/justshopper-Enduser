@@ -109,7 +109,10 @@ const getAllObjects = async (
 
     const resultList = [];
     querySnapshot.forEach((doc) => {
-      const data = doc.data();
+      const data = {
+        id: doc.id,
+        ...doc.data(),
+      };
       resultList.push(data);
     });
     console.log(`${metaData}: - success`, resultList);
@@ -138,7 +141,7 @@ const getObjectByParam = async (
     const result = docSnap.data();
     console.log(`${metaData}: ${docId} - success`, result);
     return {
-      data: { ...result },
+      data: { id: docSnap.id, ...result },
       error: null,
     };
   } else {

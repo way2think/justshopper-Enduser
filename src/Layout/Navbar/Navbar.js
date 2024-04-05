@@ -20,6 +20,8 @@ import Search from "./Search";
 import { Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../../store/userSlice";
 
 export default function Navbar() {
   const [openBasic, setOpenBasic] = useState(false);
@@ -45,6 +47,8 @@ export default function Navbar() {
     },
   ]);
   const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  console.log("isAuthenticated: ", isAuthenticated);
 
   useEffect(() => {
     function handleResize() {
@@ -277,47 +281,49 @@ export default function Navbar() {
                 />
               </MDBNavbarLink>
             </MDBNavbarItem> */}
-                <MDBNavbarItem>
-                  <MDBDropdown>
-                    <MDBDropdownToggle
-                      tag="a"
-                      className="nav-link"
-                      role="button"
-                    >
-                      <img
-                        src="../images/male User.png"
-                        alt=""
-                        width={25}
-                        height={25}
-                      />
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu>
-                      <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        link
-                        href="profile"
+                {isAuthenticated ? (
+                  <MDBNavbarItem>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        tag="a"
+                        className="nav-link"
+                        role="button"
                       >
-                        Profile
-                      </MDBDropdownItem>
-                      <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        link
-                        href="orders"
-                      >
-                        Orders
-                      </MDBDropdownItem>
-                      <MDBDropdownItem className="MDBDropdownItem" link>
-                        Logout
-                      </MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavbarItem>
-
-                <MDBNavbarItem className="me-3 me-lg-0">
-                  <MDBNavbarLink href="#">
-                    <LoginModal />
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
+                        <img
+                          src="../images/male User.png"
+                          alt=""
+                          width={25}
+                          height={25}
+                        />
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu>
+                        <MDBDropdownItem
+                          className="MDBDropdownItem"
+                          link
+                          href="profile"
+                        >
+                          Profile
+                        </MDBDropdownItem>
+                        <MDBDropdownItem
+                          className="MDBDropdownItem"
+                          link
+                          href="orders"
+                        >
+                          Orders
+                        </MDBDropdownItem>
+                        <MDBDropdownItem className="MDBDropdownItem" link>
+                          Logout
+                        </MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBNavbarItem>
+                ) : (
+                  <MDBNavbarItem className="me-3 me-lg-0">
+                    <MDBNavbarLink href="#">
+                      <LoginModal />
+                    </MDBNavbarLink>
+                  </MDBNavbarItem>
+                )}
               </>
             )}
           </MDBNavbarNav>

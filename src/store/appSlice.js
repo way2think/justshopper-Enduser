@@ -22,8 +22,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setTableError, setTableDetail, setUser, setIsLoading } =
-  appSlice.actions;
+export const { setIsLoading } = appSlice.actions;
 
 // export const selectTable = (state) => state.app;
 export const selectIsLoading = (state) => state.app.isLoading;
