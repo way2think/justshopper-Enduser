@@ -195,14 +195,14 @@ export default function LoginModal() {
           </Stack>
           <p className="or">Or</p> */}
           <Stack direction="column">
-            <Grid xs={12} sx={{ textAlign: "center" }}>
+            <Grid item xs={12} sx={{ textAlign: "center" }}>
               <img
                 src="../images/JS logo png.png"
                 alt=""
                 style={{ width: "55px ", borderRadius: 5 }}
               />
             </Grid>
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <Typography
                 id="modal-modal-title"
                 variant="h4"
@@ -216,7 +216,7 @@ export default function LoginModal() {
                 Login
               </Typography>
               <Grid container>
-                <Grid md={12} xs={12}>
+                <Grid item md={12} xs={12}>
                   <TextField
                     fullWidth
                     id="outlined-basic"
@@ -229,7 +229,7 @@ export default function LoginModal() {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid md={12} xs={12}>
+                <Grid item md={12} xs={12}>
                   <FormControl sx={{ mb: 2, width: "100%" }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">
                       Password

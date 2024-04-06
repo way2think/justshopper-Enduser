@@ -5,12 +5,13 @@ import Home from "./pages/Home/Home";
 import ContactUs from "./pages/Contactus/ContactUs";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import CartPage from "./pages/Cart/CartPage";
-import ShopCategory from "./pages/Category/ShopCategory";
+import ShopType from "./pages/Category/ShopType";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Profile from "./pages/Profile/Profile";
 import Order from "./pages/Order/Order";
 import { useOnAuthListenerQuery } from "./api/auth";
 import { useGetSettingsQuery } from "./api/api";
+import BackDropWithLoader from "./component/Loader/BackDropWithLoader";
 
 export default function Router() {
   const { data: user, isFetching, isLoading, error } = useOnAuthListenerQuery();
@@ -18,13 +19,13 @@ export default function Router() {
   const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    console.log("data: ", user);
+    // console.log("data: ", user);
     if (user) {
-      setAuthChecked(true);
     }
+    setAuthChecked(true);
   }, [user]);
 
-  console.log("Route: ", settings);
+  console.log("Route - user?.isAuthenticated: ", user?.isAuthenticated);
 
   const AuthenticatedRoute = ({ element, ...rest }) =>
     user?.isAuthenticated ? element : <Navigate to="/" />;
@@ -36,7 +37,26 @@ export default function Router() {
       children: [
         { path: "/", element: <Home /> },
         { path: "contact-us", element: <ContactUs /> },
-        { path: "shop-by-category", element: <ShopCategory /> },
+        {
+          path: "shop-by-category",
+          element: (
+            <ShopType
+              path="shop-by-category"
+              pathName="Shop By Category"
+              type="category"
+            />
+          ),
+        },
+        {
+          path: "shop-by-theme",
+          element: (
+            <ShopType
+              path="shop-by-theme"
+              pathName="Shop By Theme"
+              type="theme"
+            />
+          ),
+        },
         { path: "Product-details", element: <ProductDetails /> },
         { path: "favorites", element: <Wishlist /> },
         { path: "cart", element: <CartPage /> },
@@ -53,7 +73,7 @@ export default function Router() {
   ]);
 
   if (!authChecked) {
-    return <div>Loading...</div>;
+    return <BackDropWithLoader />;
   }
 
   return routes;

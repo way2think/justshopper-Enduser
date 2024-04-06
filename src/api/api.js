@@ -85,10 +85,16 @@ export const api = createApi({
 export const { useGetSettingsQuery, useSendEnquiryMutation } = api;
 
 export const selectStatusMessage = (state) =>
-  api.endpoints.getSettings.select()(state).data.enduser_status_message;
+  api.endpoints.getSettings.select()(state).data?.enduser_status_message;
 
-// export const selectHomeBanner = (state) =>
-//   api.endpoints.getSettings.select()(state).data;
+export const selectHomeBanner = (state) =>
+  api.endpoints.getSettings.select()(state).data?.home_banner;
+
+export const selectCategory = (state) =>
+  api.endpoints.getSettings.select()(state).data?.category;
+
+export const selectTheme = (state) =>
+  api.endpoints.getSettings.select()(state).data?.theme;
 
 // api.util.updateQueryData("getSettings", "12", (draft) => {
 //   Object.assign(draft, updatedPost);

@@ -10,8 +10,9 @@ import CategoryCard from "./CategoryCard";
 import SideNavFilter from "./SideNavFilter";
 import "./Category.css";
 import FilterRange from "./FilterRange";
+import Filter from "./Filter";
 
-const Category = () => {
+const Category = ({ type, productType }) => {
   return (
     <>
       <Stack
@@ -22,14 +23,14 @@ const Category = () => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            <Grid item xs={12} sm={3} md={3} lg={3} className="filtersidenav">
+            {/* <Grid item xs={12} sm={3} md={3} lg={3} className="filtersidenav">
               <Box>
                 <h4 className="searchproducthead">Search Product</h4>
                 <SearchBar />
               </Box>
               <Box className="filter">
                 <h4 className="filterheading">Filter by Price</h4>
-                {/* <FilterPrice /> */}
+                <FilterPrice />
                 <FilterRange />
               </Box>
               <Box className="filter">
@@ -88,7 +89,8 @@ const Category = () => {
 
                 <FilterTheme />
               </Box>
-            </Grid>
+            </Grid> */}
+            <Filter />
             <Grid item xs={12} sm={12} md={9} lg={9}>
               <Stack
                 direction="row"
@@ -98,10 +100,13 @@ const Category = () => {
                 <Grid container spacing={2} className="overallheading">
                   <Grid item xs={12} sm={6} md={6} lg={6}>
                     <Box className="titleghead">
-                      <h4 className="productheading">Stationery</h4>
-                      <p className="titledesc">
+                      <h4 className="productheading">
+                        {productType}{" "}
+                        {type[0].toUpperCase() + type.substring(1)}
+                      </h4>
+                      {/* <p className="titledesc">
                         Love is Letter on pick Stationery
-                      </p>
+                      </p> */}
                     </Box>
                   </Grid>
                   <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -130,7 +135,7 @@ const Category = () => {
           {/* <LatestCarousel /> */}
         </Box>
       </Stack>
-      <LatestCarousel />
+      {/* <LatestCarousel /> */}
     </>
   );
 };

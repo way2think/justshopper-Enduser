@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   MDBContainer,
   MDBNavbar,
@@ -23,35 +23,30 @@ import LoginModal from "../../component/Login/LoginModal";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../../store/userSlice";
 import { useSignOutUserMutation } from "../../api/auth";
+import { selectCategory, selectTheme } from "../../api/api";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
-  const [categoryList, setCategoryList] = useState([
-    {
-      label: "Pen",
-      img: "",
-    },
-    {
-      label: "Notebook",
-      img: "",
-    },
-  ]);
-  const [themeList, setThemeList] = useState([
-    {
-      label: "Stationery",
-      img: "",
-    },
-    {
-      label: "Kids",
-      img: "",
-    },
-  ]);
-  const navigate = useNavigate();
+
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const categoryListDetail = useSelector(selectCategory);
+  const themeListDetail = useSelector(selectTheme);
+
+  const categoryList = useMemo(() => {
+    return categoryListDetail?.filter((cat) => cat.show_in_top_navbar === true);
+  }, [categoryListDetail]);
+
+  const themeList = useMemo(() => {
+    return themeListDetail?.filter(
+      (theme) => theme.show_in_top_navbar === true
+    );
+  }, [themeListDetail]);
+
   const [signOutUser, { isError, error, data, isLoading }] =
     useSignOutUserMutation();
-  // console.log("isAuthenticated: ", isAuthenticated);
 
   useEffect(() => {
     function handleResize() {
@@ -168,20 +163,23 @@ export default function Navbar() {
                   Shop by Category
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  {categoryList.map((item) => (
-                    <Link
-                      to={`/shop-by-category?category=${item?.label}`}
-                      // onClick={() =>
-                      //   navigate("/shop-by-category", {
-                      //     state: item,
-                      //   })
-                      // }
-                    >
-                      <MDBDropdownItem className="MDBDropdownItem" link>
-                        {item?.label}
-                      </MDBDropdownItem>
-                    </Link>
-                  ))}
+                  {categoryList?.map((item) =>
+                    item?.show_in_top_navbar ? (
+                      <Link
+                        key={item?.name}
+                        to={`/shop-by-category?category=${item?.name}`}
+                        // onClick={() =>
+                        //   navigate("/shop-by-category", {
+                        //     state: item,
+                        //   })
+                        // }
+                      >
+                        <MDBDropdownItem className="MDBDropdownItem" link>
+                          {item?.name}
+                        </MDBDropdownItem>
+                      </Link>
+                    ) : null
+                  )}
                   {/* <Link to="shop-by-category">
                     <MDBDropdownItem className="MDBDropdownItem" link>
                       Pen
@@ -201,20 +199,23 @@ export default function Navbar() {
                   Shop by Theme
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  {themeList.map((item) => (
-                    <Link
-                      to={`/shop-by-category?theme=${item?.label}`}
-                      // onClick={() =>
-                      //   navigate("/shop-by-category", {
-                      //     state: item,
-                      //   })
-                      // }
-                    >
-                      <MDBDropdownItem className="MDBDropdownItem" link>
-                        {item?.label}
-                      </MDBDropdownItem>
-                    </Link>
-                  ))}
+                  {themeList?.map((item) =>
+                    item?.show_in_top_navbar ? (
+                      <Link
+                        key={item?.name}
+                        to={`/shop-by-theme?theme=${item?.name}`}
+                        // onClick={() =>
+                        //   navigate("/shop-by-category", {
+                        //     state: item,
+                        //   })
+                        // }
+                      >
+                        <MDBDropdownItem className="MDBDropdownItem" link>
+                          {item?.name}
+                        </MDBDropdownItem>
+                      </Link>
+                    ) : null
+                  )}
                   {/* <Link to="shop-by-category">
                     <MDBDropdownItem className="MDBDropdownItem" link>
                       Stationery

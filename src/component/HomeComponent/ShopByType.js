@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Grid, Stack } from "@mui/material";
-import "./ShopByCatergory.css";
+import "./ShopByType.css";
 import CatergoryCard from "./CatergoryCard";
 
-const ShopByCatergory = (props) => {
+const ShopByType = ({ type, title, subTitle, dataList }) => {
   return (
     <>
       <Stack
@@ -13,8 +13,8 @@ const ShopByCatergory = (props) => {
         flexDirection="column"
         className="mainshopbycatergory"
       >
-        <h3 className="shopCategoryhead">{props.shopbytitle}</h3>
-        <p className="shopCategorydesc">Love is a letter on pink stationery</p>
+        <h3 className="shopCategoryhead">{title}</h3>
+        <p className="shopCategorydesc">{subTitle}</p>
       </Stack>
       <Stack
         justifyContent="space-between"
@@ -24,15 +24,17 @@ const ShopByCatergory = (props) => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            {props?.data &&
-              props?.data?.map((item) => (
-                <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <CatergoryCard
-                    catergoryname={item?.label}
-                    catergoryimage={item?.img}
-                  />
-                </Grid>
-              ))}
+            {dataList &&
+              dataList?.map((item) =>
+                item?.show_in_home ? (
+                  <Grid item xs={12} sm={4} md={4} lg={4} key={item?.name}>
+                    <CatergoryCard
+                      catergoryname={item?.name}
+                      catergoryimage={item?.image}
+                    />
+                  </Grid>
+                ) : null
+              )}
             {/* <Grid item xs={12} sm={4} md={4} lg={4}>
               <CatergoryCard
                 catergoryname="Pencils"
@@ -64,13 +66,13 @@ const ShopByCatergory = (props) => {
               />
             </Grid> */}
           </Grid>
-          <a href="" className="viewmore">
+          {/* <a href="" className="viewmore">
             View More
-          </a>
+          </a> */}
         </Box>
       </Stack>
     </>
   );
 };
 
-export default ShopByCatergory;
+export default ShopByType;

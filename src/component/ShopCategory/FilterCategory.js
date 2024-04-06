@@ -14,9 +14,13 @@ import Checkbox from "@mui/material/Checkbox";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useSelector } from "react-redux";
 import "./FilterCategory.css";
+import { selectCategory } from "../../api/api";
 
-const FilterPrice = () => {
+const FilterCategory = () => {
+  const categoryList = useSelector(selectCategory);
+
   const load = {
     background: "#dc3237",
     color: "#fff",
@@ -33,37 +37,26 @@ const FilterPrice = () => {
   return (
     <>
       <Box className="filtercatergory">
-        <Stack direction="row" alignItems="center" className="overallrow">
-          <img src="../images/Select black.png" alt="" className="seleticon" />{" "}
-          <Typography className="Categoryitemname" variant="body1">
-            Pen
-          </Typography>
-        </Stack>
-        <Stack direction="row" alignItems="center" className="overallrow">
-          <img src="../images/Select black.png" alt="" className="seleticon" />{" "}
-          <Typography className="Categoryitemname" variant="body1">
-            Notes
-          </Typography>
-        </Stack>
-        <Stack direction="row" alignItems="center" className="overallrow">
-          <img src="../images/Select black.png" alt="" className="seleticon" />{" "}
-          <Typography className="Categoryitemname" variant="body1">
-            Letter Pad
-          </Typography>
-        </Stack>
-        <Stack direction="row" alignItems="center" className="overallrow">
-          <img src="../images/Select black.png" alt="" className="seleticon" />{" "}
-          <Typography className="Categoryitemname" variant="body1">
-            Pen
-          </Typography>
-        </Stack>
-        {/* <Button fullWidth sx={load} variant="contained">
-          <AddCircleOutlineIcon fontSize="small" />
-          &nbsp; Load More
-        </Button> */}
+        {categoryList?.map((category) => (
+          <Stack
+            direction="row"
+            alignItems="center"
+            className="overallrow"
+            key={category?.name}
+          >
+            <img
+              src="../images/Select black.png"
+              alt="select-black"
+              className="seleticon"
+            />
+            <Typography className="Categoryitemname" variant="body1">
+              {category?.name}
+            </Typography>
+          </Stack>
+        ))}
       </Box>
     </>
   );
 };
 
-export default FilterPrice;
+export default FilterCategory;

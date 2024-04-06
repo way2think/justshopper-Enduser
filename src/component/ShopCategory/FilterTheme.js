@@ -14,9 +14,13 @@ import Checkbox from "@mui/material/Checkbox";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useSelector } from "react-redux";
 import "./FilterTheme.css";
+import { selectTheme } from "../../api/api";
 
-const FilterPrice = () => {
+const FilterTheme = () => {
+  const themeList = useSelector(selectTheme);
+
   const load = {
     background: "#dc3237",
     color: "#fff",
@@ -33,36 +37,22 @@ const FilterPrice = () => {
   return (
     <>
       <Box className="filterTheme">
-        <Stack direction="row" alignItems="center" className="overallrowtheme">
-          <img
-            src="../images/Select black.png"
-            alt=""
-            className="seleticontheme"
-          />{" "}
-          <Typography className="Themeitemname" variant="body1">
-            Unicorn pencil
-          </Typography>
-        </Stack>
-        <Stack direction="row" alignItems="center" className="overallrowtheme">
-          <img
-            src="../images/Select black.png"
-            alt=""
-            className="seleticontheme"
-          />{" "}
-          <Typography className="Themeitemname" variant="body1">
-            Panda Rubbers
-          </Typography>
-        </Stack>
-        <Stack direction="row" alignItems="center" className="overallrowtheme">
-          <img
-            src="../images/Select black.png"
-            alt=""
-            className="seleticontheme"
-          />{" "}
-          <Typography className="Themeitemname" variant="body1">
-            Kitty Sharpners
-          </Typography>
-        </Stack>
+        {themeList?.map((theme) => (
+          <Stack
+            direction="row"
+            alignItems="center"
+            className="overallrowtheme"
+          >
+            <img
+              src="../images/Select black.png"
+              alt=""
+              className="seleticontheme"
+            />
+            <Typography className="Themeitemname" variant="body1">
+              {theme?.name}
+            </Typography>
+          </Stack>
+        ))}
 
         {/* <Button fullWidth sx={load} variant="contained">
           <AddCircleOutlineIcon fontSize="small" />
@@ -73,4 +63,4 @@ const FilterPrice = () => {
   );
 };
 
-export default FilterPrice;
+export default FilterTheme;

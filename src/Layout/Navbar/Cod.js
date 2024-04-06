@@ -10,11 +10,11 @@ const Cod = () => {
 
   return (
     <>
-      {enduser_status_message && (
+      {enduser_status_message ? (
         <div className="cod">
           <p className="time">{enduser_status_message}</p>
         </div>
-      )}
+      ) : null}
     </>
   );
 };
