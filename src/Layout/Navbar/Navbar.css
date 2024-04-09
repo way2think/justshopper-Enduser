@@ -11,6 +11,10 @@
   margin: 0 28px;
   font-family: amazonheavy;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
 }
 
 .MDBDropdownItem{

@@ -9,6 +9,13 @@
 
 .bg-image {
   border-radius: 5px;
+  width: 300px; /* Adjust this value as needed */
+  height: 150px; /* Adjust this value as needed */
+}
+
+.category {
+  width: 100%;
+  height: 100%;
 }
 
 .productname {

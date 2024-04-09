@@ -25,7 +25,7 @@ const ReviewAndRating = () => {
               <Grid item sm={12} xs={12} md={5} lg={5} sx={{ p: 0 }}>
                 <ReviewStars />
               </Grid>
-              <Grid item sm={12} xs={12} md={7} lg={7} sx={{ p: 0 }}>
+              {/* <Grid item sm={12} xs={12} md={7} lg={7} sx={{ p: 0 }}>
                 <Typography
                   variant="h6"
                   sx={{ textAlign: "left", fontWeight: 800, color: "#000" }}
@@ -50,7 +50,7 @@ const ReviewAndRating = () => {
                     Post a review
                   </button>
                 </Stack>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Box>
         </Stack>
@@ -113,7 +113,7 @@ const ReviewAndRating = () => {
             </div>
             <hr />
           </Box>
-          <nav
+          {/* <nav
             className={`${classes.navi} text-center`}
             aria-label="Page navigation"
           >
@@ -144,7 +144,7 @@ const ReviewAndRating = () => {
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
       </div>
     </div>

@@ -27,7 +27,16 @@ const ShopByType = ({ type, title, subTitle, dataList }) => {
             {dataList &&
               dataList?.map((item) =>
                 item?.show_in_home ? (
-                  <Grid item xs={12} sm={4} md={4} lg={4} key={item?.name}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    md={4}
+                    lg={4}
+                    key={item?.name}
+                    container
+                    justifyContent="center"
+                  >
                     <CatergoryCard
                       catergoryname={item?.name}
                       catergoryimage={item?.image}

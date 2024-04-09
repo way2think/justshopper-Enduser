@@ -73,6 +73,11 @@ export default function Footer() {
               </p>
               <p className="linkcontent">
                 <a href="#!" className="text-reset">
+                  Shop by Theme
+                </a>
+              </p>
+              <p className="linkcontent">
+                <a href="#!" className="text-reset">
                   Contact Us
                 </a>
               </p>
@@ -114,7 +119,7 @@ export default function Footer() {
                 Contact
               </h6>
               <p className="linkcontent">
-                <MDBIcon icon="home" className="me-2" />
+                <MDBIcon icon="home" className="me-3" />
                 Chennai
               </p>
               <p className="linkcontent">
@@ -140,36 +145,64 @@ export default function Footer() {
           </MDBRow>
         </MDBContainer>
       </section>
-      <section className="d-flex justify-content-center justify-content-lg-between p-4 align-items-center rights">
-        <div className="text-center p-4  copy">
-          © 2024 Copyright JustShopper
-          {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
+      <section className="d-flex justify-content-center justify-content-lg-between p-4 align-items-center">
+        <section className="d-flex justify-content-start justify-content-lg-start copy col p-4 align-items-start">
+          <div className="text-center p-4  copy">
+            © 2024 Copyright JustShopper
+            {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
            
           </a> */}
-        </div>
-        <div className="socialflex d-flex">
-          <a href="" className="  socialicon">
-            {/* <MDBIcon fab icon="facebook-f" /> */}
-            <img src="../images/Facebook F.png" alt="" className="sociallink"  />
-          </a>
-          <a href="" className=" socialicon">
-            {/* <MDBIcon fab icon="twitter" /> */}
-            <img src="../images/YouTube.png" alt="" className="sociallink"  />
-          </a>
-          {/* <a href="" className=" socialicon">
+          </div>
+          <div className="socialflex d-flex">
+            <a href="" className="  socialicon">
+              {/* <MDBIcon fab icon="facebook-f" /> */}
+              <img
+                src="../images/Facebook F.png"
+                alt=""
+                className="sociallink"
+              />
+            </a>
+            <a href="" className=" socialicon">
+              {/* <MDBIcon fab icon="twitter" /> */}
+              <img src="../images/YouTube.png" alt="" className="sociallink" />
+            </a>
+            {/* <a href="" className=" socialicon">
             <MDBIcon fab icon="google" />
             <img src="../images/TwitterX.png" alt="" className="sociallink"  />
           </a> */}
-          <a href="" className=" socialicon">
-            {/* <MDBIcon fab icon="instagram" /> */}
-            <img src="../images/Instagram.png" alt="" className="sociallink"  />
-          </a>
-          <a href="" className=" socialicon">
-            {/* <MDBIcon fab icon="linkedin" /> */}
-            {/* <img src="../images/LinkedIn.png" alt="" className="sociallink"  /> */}
-          </a>
-          <a href="" className=" socialicon">
-            {/* <MDBIcon fab icon="github" /> */}
+            <a href="" className=" socialicon">
+              {/* <MDBIcon fab icon="instagram" /> */}
+              <img
+                src="../images/Instagram.png"
+                alt=""
+                className="sociallink"
+              />
+            </a>
+            <a href="" className=" socialicon">
+              {/* <MDBIcon fab icon="linkedin" /> */}
+              {/* <img src="../images/LinkedIn.png" alt="" className="sociallink"  /> */}
+            </a>
+            <a href="" className=" socialicon">
+              {/* <MDBIcon fab icon="github" /> */}
+            </a>
+          </div>
+        </section>
+        <div className="text-center p-4  copy">
+          <br />
+          Designed and developed by <br />
+          <a
+            href="https://way2think.com/"
+            target="_blank"
+            style={{ color: "#dc3237" }}
+          >
+            {" "}
+            {/* <img
+              src="../images/way2thinklogo.png"
+              alt=""
+              className="way2thinklogo"
+            />{" "}
+            <br /> */}
+            Way2Think Technologies
           </a>
         </div>
       </section>

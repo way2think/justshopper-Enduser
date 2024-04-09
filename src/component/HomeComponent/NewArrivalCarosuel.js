@@ -3,6 +3,7 @@ import React from "react";
 import Slider from "react-slick";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import CardNewArrival from "./CardNewArrival";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export default function SimpleSlider() {
   function SampleNextArrow(props) {
@@ -13,7 +14,7 @@ export default function SimpleSlider() {
         style={{
           ...style,
           display: "block",
-          background: "#dc3237",
+          background: "#000",
           position: "absolute",
           right: "20px",
           borderRadius: "30px",
@@ -32,7 +33,7 @@ export default function SimpleSlider() {
         style={{
           ...style,
           display: "block",
-          background: "#dc3237",
+          background: "#000",
           position: "absolute",
           left: "20px",
           borderRadius: "30px",
@@ -71,7 +72,6 @@ export default function SimpleSlider() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          
         },
       },
       {

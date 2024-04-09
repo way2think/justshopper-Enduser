@@ -18,7 +18,8 @@ import {
 import "./Navbar.css";
 import Search from "./Search";
 import { Stack } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../../store/userSlice";
@@ -27,6 +28,7 @@ import { selectCategory, selectTheme } from "../../api/api";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
@@ -153,13 +155,29 @@ export default function Navbar() {
         <MDBCollapse navbar open={openBasic} style={{ textAlign: "left" }}>
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 justify-content-end">
             <MDBNavbarItem className="navitem">
-              <MDBNavbarLink active aria-current="page" href="/">
+              <Link
+                active
+                aria-current="page"
+                to="/"
+                style={{
+                  color: location.pathname.match(/^\/$/) ? "#dc3237" : "#000",
+                }}
+              >
                 Home
-              </MDBNavbarLink>
+              </Link>
             </MDBNavbarItem>
             <MDBNavbarItem className="navitem">
               <MDBDropdown>
-                <MDBDropdownToggle tag="a" className="nav-link" role="button">
+                <MDBDropdownToggle
+                  style={{
+                    color: location.pathname.includes("/shop-by-category")
+                      ? "#dc3237"
+                      : "#000",
+                  }}
+                  tag="a"
+                  className="nav-link"
+                  role="button"
+                >
                   Shop by Category
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
@@ -195,7 +213,16 @@ export default function Navbar() {
             </MDBNavbarItem>
             <MDBNavbarItem className="navitem">
               <MDBDropdown>
-                <MDBDropdownToggle tag="a" className="nav-link" role="button">
+                <MDBDropdownToggle
+                  style={{
+                    color: location.pathname.includes("/shop-by-theme")
+                      ? "#dc3237"
+                      : "#000",
+                  }}
+                  tag="a"
+                  className="nav-link"
+                  role="button"
+                >
                   Shop by Theme
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
@@ -236,13 +263,16 @@ export default function Navbar() {
             </MDBNavbarItem>
 
             <MDBNavbarItem className="navitem">
-              <MDBNavbarLink
-                href="contact-us"
-                tabIndex={-1}
-                aria-disabled="true"
+              <Link
+                to="contact-us"
+                style={{
+                  color: location.pathname.includes("/contact-us")
+                    ? "#dc3237"
+                    : "#000",
+                }}
               >
                 Contact Us
-              </MDBNavbarLink>
+              </Link>
             </MDBNavbarItem>
 
             {!mobileNav && (

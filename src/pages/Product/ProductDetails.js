@@ -30,14 +30,14 @@ const ProductDetails = () => {
         }}
       />
       <ReviewAndRating />
-      <Divider
+      {/* <Divider
         sx={{
           borderBottomColor: "#000",
           margin: "auto",
           maxWidth: "95%",
           borderBottomWidth: "2px",
         }}
-      />
+      /> */}
       <LatestCarousel />
       <WorkDetailBlack />
     </>
