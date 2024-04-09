@@ -25,6 +25,7 @@ import {
 import { useSignInWithEmailAndPasswordMutation } from "../../api/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
+import { setIsLoading } from "../../store/appSlice";
 
 const style = {
   position: "absolute",
@@ -75,6 +76,21 @@ const loginbtn = {
     border: "1px solid #dc3237",
   },
 };
+const signup = {
+  // background: "#f19e38",
+  color: "#dc3237",
+  marginTop: "5px",
+  fontSize: "12px",
+  fontweight: 800,
+  fontfamily: "amazonbold",
+  // "&:hover": {
+  //   // background: "#f19e38",
+  //   color: "#fff",
+  //   fontsize: "14px",
+  //   fontweight: 500,
+  //   fontfamily: "'Poppins', sans-serif",
+  // },
+};
 
 // const forgot = {
 //   color: "#f19e38",
@@ -83,9 +99,9 @@ const loginbtn = {
 //   fontFamily: "'Poppins', sans-serif",
 // };
 
-export default function LoginModal() {
+export default function LoginModal({ open, setOpen }) {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const [signInWithEmailAndPassword, { isLoading, isError, data, error }] =
     useSignInWithEmailAndPasswordMutation();
@@ -97,8 +113,8 @@ export default function LoginModal() {
     password: "",
   });
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (isOpen, type) => setOpen(isOpen, type);
+  const handleClose = () => setOpen(false, "login");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -124,29 +140,20 @@ export default function LoginModal() {
   //for user verificationa nd login(submit)
 
   const handleLogin = async () => {
+    dispatch(setIsLoading(true));
+
     const { email, password } = userCred;
     if (isValidEmail(email) && isValidPassword(password)) {
       const result = await signInWithEmailAndPassword({ email, password });
       console.log("result: ", result);
-      const user = result.data;
-      if (user) {
-        const { id, name, email, phone, role, favourite, saved_address } = user;
-        dispatch(
-          setUser({
-            id,
-            name,
-            email,
-            phone,
-            role,
-            favourite,
-            saved_address,
-            isAuthenticated: true,
-          })
-        );
+      if (result) {
+        // getting user from db is handled in authListener
+        dispatch(setIsLoading(false));
         successNotification(`Successfully Signed In!!!`);
         closeModal();
       } else {
-        errorNotification(result.error.message);
+        console.log("error: ", result);
+        errorNotification(result?.error?.message);
       }
     } else {
       errorNotification("Invalid Email/Password");
@@ -155,7 +162,7 @@ export default function LoginModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={loginModalBtn}>
+      <Button onClick={() => handleOpen(true, "login")} sx={loginModalBtn}>
         Login
       </Button>
       <Modal
@@ -276,7 +283,10 @@ export default function LoginModal() {
                 Login
               </Button>
 
-              <SignupModal />
+              <Button onClick={() => handleOpen(true, "signup")} sx={signup}>
+                Create New Account?
+              </Button>
+              {/* <SignupModal /> */}
             </Grid>
           </Stack>
         </Box>

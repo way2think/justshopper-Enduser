@@ -82,8 +82,8 @@ const Signupbtn = {
 //   overflowY: "scroll",
 // };
 
-export default function SignupModal() {
-  const [open, setOpen] = useState(false);
+export default function SignupModal({ open, setOpen }) {
+  // const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   // const [countryid, setCountryid] = useState(0);
   // const [stateid, setstateid] = useState(0);
@@ -170,9 +170,9 @@ export default function SignupModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={signup}>
+      {/* <Button onClick={handleOpen} sx={signup}>
         Create New Account?
-      </Button>
+      </Button> */}
       {/* {manageAddress && (
         <Button
           onClick={handleOpen}
