@@ -34,7 +34,8 @@ export const auth = api.injectEndpoints({
         const result = await signinWithEmailAndPassword(email, password);
         const user = result.data;
         if (user) {
-          return await getObjectByParam(collectionId, user.uid);
+          // return await getObjectByParam(collectionId, user.uid);
+          return user;
         } else {
           return result;
         }
@@ -114,3 +115,4 @@ export const {
   useSignOutUserMutation,
   useOnAuthListenerQuery,
 } = auth;
+

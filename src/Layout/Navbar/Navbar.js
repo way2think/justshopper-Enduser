@@ -16,20 +16,23 @@ import {
   MDBCollapse,
 } from "mdb-react-ui-kit";
 import "./Navbar.css";
-import Search from "./Search";
+// import Search from "./Search";
 import { Stack } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../../store/userSlice";
 import { useSignOutUserMutation } from "../../api/auth";
 import { selectCategory, selectTheme } from "../../api/api";
+import SignupModal from "../../component/Signup/SignupModal";
 
 export default function Navbar() {
-  const navigate = useNavigate();
-
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
+  const [open, setOpen] = useState({
+    login: false,
+    signup: false,
+  });
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const categoryListDetail = useSelector(selectCategory);
@@ -327,7 +330,34 @@ export default function Navbar() {
                 ) : (
                   <MDBNavbarItem className="me-3 me-lg-0">
                     <MDBNavbarLink href="#">
-                      <LoginModal />
+                      <LoginModal
+                        open={open.login}
+                        setOpen={(isOpen, type) =>
+                          setOpen((prevState) => {
+                            if (type === "login") {
+                              return {
+                                signup: false,
+                                login: isOpen,
+                              };
+                            } else {
+                              return {
+                                signup: isOpen,
+                                login: false,
+                              };
+                            }
+                          })
+                        }
+                      />
+
+                      <SignupModal
+                        open={open.signup}
+                        setOpen={(isOpen, type) =>
+                          setOpen((prevState) => ({
+                            ...prevState,
+                            signup: isOpen,
+                          }))
+                        }
+                      />
                     </MDBNavbarLink>
                   </MDBNavbarItem>
                 )}
