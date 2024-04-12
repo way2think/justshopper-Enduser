@@ -10,7 +10,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import "./CardNewArrival.css";
 import { Stack } from "@mui/material";
 
-export default function CardNewArrival(props) {
+export default function CardNewArrival({ product }) {
   const cart = {
     background: "#dc3237",
     color: "#fff",
@@ -30,6 +30,9 @@ export default function CardNewArrival(props) {
         fontSize: "12px",
       },
   };
+
+  const { name, discount_price, selling_price } = product;
+
   return (
     <Card sx={{ maxWidth: 345, boxShadow: "none", py: 2, margin: "auto" }}>
       {/* <CardMedia
@@ -40,7 +43,7 @@ export default function CardNewArrival(props) {
         className="cardimage"
       /> */}
       {/* <span className="Sale">{props.sale}</span> */}
-      <img src={props.image} alt="" className="cardimage" />
+      <img src={"../images/biscuit.jpg"} alt={name} className="cardimage" />
 
       <CardContent
         sx={{
@@ -53,7 +56,7 @@ export default function CardNewArrival(props) {
           },
         }}
       >
-        <p className="cardtitle">{props.cardtitle}</p>
+        <p className="cardtitle">{name}</p>
         <Stack
           direction="row"
           justifyContent="flex-start"
@@ -62,10 +65,10 @@ export default function CardNewArrival(props) {
 
         <p className="cardamount">
           <CurrencyRupeeIcon fontSize="18px" />
-          {props.discountprice}
+          {discount_price}
         </p>
         <p className="cardamountstrickout">
-          <CurrencyRupeeIcon fontSize="16px" /> {props.currentprice}
+          <CurrencyRupeeIcon fontSize="16px" /> {selling_price}
         </p>
       </CardContent>
       <CardActions

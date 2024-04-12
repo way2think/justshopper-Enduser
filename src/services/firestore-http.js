@@ -121,10 +121,10 @@ const getAllObjects = async (
       error: null,
     };
   } catch (e) {
-    console.log(`${metaData}: No Such Document`);
+    console.log("getAllObjects: ", e);
     return {
       data: null,
-      error: `${metaData}: No Such Document`,
+      error: e,
     };
   }
 };

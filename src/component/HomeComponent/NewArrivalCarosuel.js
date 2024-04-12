@@ -5,7 +5,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import CardNewArrival from "./CardNewArrival";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-export default function SimpleSlider() {
+export default function SimpleSlider({ products }) {
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -102,6 +102,7 @@ export default function SimpleSlider() {
         fontSize: "12px",
       },
   };
+
   return (
     <div className="container">
       <Stack
@@ -113,51 +114,11 @@ export default function SimpleSlider() {
         <h3 className="arrivals">New Arrivals</h3>
       </Stack>
       <Slider {...settings}>
-        <div>
-          <CardNewArrival
-            image="../images/biscuit.jpg"
-            cardtitle="Choco Biscuits"
-            discountprice="499.00"
-            currentprice="799.00"
-            sale="sale"
-          />
-        </div>
-        <div>
-          <CardNewArrival
-            image="../images/biscuit.jpg"
-            cardtitle="Choco Biscuits"
-            discountprice="499.00"
-            currentprice="799.00"
-            sale="sale"
-          />
-        </div>
-        <div>
-          <CardNewArrival
-            image="../images/biscuit.jpg"
-            cardtitle="Choco Biscuits"
-            discountprice="499.00"
-            currentprice="799.00"
-            sale="sale"
-          />
-        </div>
-        <div>
-          <CardNewArrival
-            image="../images/biscuit.jpg"
-            cardtitle="Choco Biscuits"
-            discountprice="499.00"
-            currentprice="799.00"
-            sale="sale"
-          />
-        </div>
-        <div>
-          <CardNewArrival
-            image="../images/biscuit.jpg"
-            cardtitle="Choco Biscuits"
-            discountprice="499.00"
-            currentprice="799.00"
-            sale="sale"
-          />
-        </div>
+        {products.map((product) => (
+          <div key={product.id}>
+            <CardNewArrival product={product} />
+          </div>
+        ))}
       </Slider>
     </div>
   );

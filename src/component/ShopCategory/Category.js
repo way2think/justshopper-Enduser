@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import SearchBar from "./SearchBar";
@@ -11,8 +11,35 @@ import SideNavFilter from "./SideNavFilter";
 import "./Category.css";
 import FilterRange from "./FilterRange";
 import Filter from "./Filter";
+import { useGetAllProductsQuery } from "../../api/product";
 
 const Category = ({ type, productType }) => {
+  // const [conditions, setConditions] = useState([]);
+  const conditions = [
+    { type: "where", field: "status", operator: "==", value: "published" },
+    { type: "where", field: type, operator: "==", value: productType },
+    // { type: "orderBy", field: "population", order: "asc | desc" },
+    // { type: "limit", value: 10 },
+  ];
+  // const [search, setSearch] = useState("");
+  const { data, isLoading, isFetching } = useGetAllProductsQuery({
+    conditions,
+  });
+  console.log("all products: ", data, isLoading, isFetching);
+
+  // useEffect(() => {
+  //   setConditions([
+  //     { type: "where", field: "status", operator: "==", value: "published" },
+  //     { type: "where", field: type, operator: "==", value: productType },
+  //     // { type: "orderBy", field: "population", order: "asc | desc" },
+  //     // { type: "limit", value: 10 },
+  //   ]);
+  // }, [type, productType]);
+
+  // const searchHandler = () => {
+  //   console.log("searchHandler: ", search);
+  // };
+
   return (
     <>
       <Stack
@@ -90,7 +117,7 @@ const Category = ({ type, productType }) => {
                 <FilterTheme />
               </Box>
             </Grid> */}
-            <Filter />
+            <Filter type={type} productType={productType} />
             <Grid item xs={12} sm={12} md={9} lg={9}>
               <Stack
                 direction="row"
@@ -109,26 +136,28 @@ const Category = ({ type, productType }) => {
                       </p> */}
                     </Box>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                  {/* <Grid item xs={12} sm={6} md={6} lg={6}>
                     <Stack className="searchandfilter">
                       <div className="search-container">
-                        <form action="/action_page.php">
-                          <input
-                            type="text"
-                            placeholder="Search all orders"
-                            name="search"
-                          />
-                          <button type="submit">
-                            <i className="fa fa-search"></i>
-                          </button>
-                        </form>
+                        <input
+                          type="text"
+                          placeholder="Search all orders"
+                          name="search"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <button type="button" onClick={searchHandler}>
+                          <i className="fa fa-search"></i>
+                        </button>
                       </div>
                       <SideNavFilter />
                     </Stack>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Stack>
-              <CategoryCard />
+              {/* -- Product listing -- */}
+              <CategoryCard products={data || []} />
+              {/* -- Product listing -- */}
             </Grid>
           </Grid>
 

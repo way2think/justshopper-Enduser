@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
   Box,
@@ -14,11 +16,11 @@ import Checkbox from "@mui/material/Checkbox";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useSelector } from "react-redux";
 import "./FilterCategory.css";
 import { selectCategory } from "../../api/api";
 
-const FilterCategory = () => {
+const FilterCategory = ({ type, productType }) => {
+  const navigate = useNavigate();
   const categoryList = useSelector(selectCategory);
 
   const load = {
@@ -34,22 +36,40 @@ const FilterCategory = () => {
       fontSize: "14px",
     },
   };
+
+  const handleNavigate = (category) => {
+    navigate(`/shop-by-category?category=${category.name}`);
+  };
+
   return (
     <>
       <Box className="filtercatergory">
         {categoryList?.map((category) => (
           <Stack
+            key={category?.name}
             direction="row"
             alignItems="center"
             className="overallrow"
-            key={category?.name}
+            onClick={() => handleNavigate(category)}
           >
             <img
-              src="../images/Select black.png"
+              src={
+                type === "category" && productType === category?.name
+                  ? `../images/Select red.png`
+                  : `../images/Select black.png`
+              }
               alt="select-black"
               className="seleticon"
             />
-            <Typography className="Categoryitemname" variant="body1">
+            <Typography
+              className="Categoryitemname"
+              variant="body1"
+              color={
+                type === "category" && productType === category?.name
+                  ? "red"
+                  : "black"
+              }
+            >
               {category?.name}
             </Typography>
           </Stack>

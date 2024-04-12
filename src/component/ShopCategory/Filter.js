@@ -5,16 +5,16 @@ import FilterCategory from "./FilterCategory";
 import FilterTheme from "./FilterTheme";
 import FilterRange from "./FilterRange";
 
-const Filter = () => (
+const Filter = ({ type, productType }) => (
   <Grid item xs={12} sm={3} md={3} lg={3} className="filtersidenav">
     <Box>
       <h4 className="searchproducthead">Search Product</h4>
       {/* <SearchBar /> */}
     </Box>
     <Box className="filter">
-      <h4 className="filterheading">Filter by Price</h4>
+      {/* <h4 className="filterheading">Filter by Price</h4> */}
       {/* <FilterPrice /> */}
-      <FilterRange />
+      {/* <FilterRange /> */}
     </Box>
     <Box className="filter">
       <Typography
@@ -42,7 +42,7 @@ const Filter = () => (
         Pick a category
       </Typography>
 
-      <FilterCategory />
+      <FilterCategory type={type} productType={productType} />
     </Box>
     <Box className="filter">
       {/* <Typography
@@ -70,7 +70,7 @@ const Filter = () => (
         Pick a Theme
       </Typography>
 
-      <FilterTheme />
+      <FilterTheme type={type} productType={productType} />
     </Box>
   </Grid>
 );

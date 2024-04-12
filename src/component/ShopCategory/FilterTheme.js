@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -18,7 +18,8 @@ import { useSelector } from "react-redux";
 import "./FilterTheme.css";
 import { selectTheme } from "../../api/api";
 
-const FilterTheme = () => {
+const FilterTheme = ({ type, productType }) => {
+  const navigate = useNavigate();
   const themeList = useSelector(selectTheme);
 
   const load = {
@@ -34,21 +35,40 @@ const FilterTheme = () => {
       fontSize: "14px",
     },
   };
+
+  const handleNavigate = (theme) => {
+    navigate(`/shop-by-theme?theme=${theme.name}`);
+  };
+
   return (
     <>
       <Box className="filterTheme">
         {themeList?.map((theme) => (
           <Stack
+            key={theme?.name}
             direction="row"
             alignItems="center"
             className="overallrowtheme"
+            onClick={() => handleNavigate(theme)}
           >
             <img
-              src="../images/Select black.png"
+              src={
+                type === "theme" && productType === theme?.name
+                  ? `../images/Select red.png`
+                  : `../images/Select black.png`
+              }
               alt=""
               className="seleticontheme"
             />
-            <Typography className="Themeitemname" variant="body1">
+            <Typography
+              className="Themeitemname"
+              variant="body1"
+              color={
+                type === "theme" && productType === theme?.name
+                  ? "red"
+                  : "black"
+              }
+            >
               {theme?.name}
             </Typography>
           </Stack>

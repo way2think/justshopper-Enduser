@@ -7,8 +7,25 @@ import WorkDetails from "../../component/HomeComponent/WorkDetails";
 import Testimonial from "../../component/HomeComponent/Testimonial";
 import NewArrivalCarosuel from "../../component/HomeComponent/NewArrivalCarosuel";
 import { selectCategory, selectTheme } from "../../api/api";
+import { useGetAllNewProductArrivalsQuery } from "../../api/product";
 
 const Home = () => {
+  const conditions = [
+    { type: "where", field: "status", operator: "==", value: "published" },
+    { type: "where", field: "is_new_arrival", operator: "==", value: true },
+    { type: "orderBy", field: "timestamp", order: "desc" },
+    { type: "limit", value: 10 }, // max newArrivals only 10
+  ];
+  const {
+    data: newArrivals,
+    isLoading,
+    isFetching,
+  } = useGetAllNewProductArrivalsQuery({
+    conditions,
+  });
+
+  // console.log("newArri: ", data);
+
   const categoryList = useSelector(selectCategory);
   const themeList = useSelector(selectTheme);
 
@@ -16,7 +33,7 @@ const Home = () => {
     <>
       <MainBannerCarosuel />
       {/* <NewArrival /> */}
-      <NewArrivalCarosuel />
+      <NewArrivalCarosuel products={newArrivals || []} />
       <ShopByType
         type="category"
         title="Shop by Category"

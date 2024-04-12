@@ -57,7 +57,7 @@ export default function Router() {
             />
           ),
         },
-        { path: "Product-details", element: <ProductDetails /> },
+        { path: "product/:handle-id", element: <ProductDetails /> },
         { path: "favorites", element: <Wishlist /> },
         { path: "cart", element: <CartPage /> },
         {

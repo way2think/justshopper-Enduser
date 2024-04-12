@@ -69,31 +69,27 @@ const CartTable = () => {
           </td>
           <td className="text-right" title="Amount">
             <Box style={{ position: "relative" }}>
-            <div  className="qtyFlex" >
-              <Stack
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-                className="cartqty"
-                sx={{
-                  width: "50%",
-                  // "@media only screen and (min-width: 320px) and (max-width: 600px)":
-                  //   {
-                  //     width: "100%",
-                  //   },
-                }}
-              >
-                <RemoveIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
-                <p className="qty">1</p>
-                <AddIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
-              </Stack>
-              <Button
-                sx={deleteicon}
-                variant="contained"
-               className="delete"
-              >
-                <DeleteIcon />
-              </Button>
+              <div className="qtyFlex">
+                <Stack
+                  direction="row"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  className="cartqty"
+                  sx={{
+                    width: "50%",
+                    // "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                    //   {
+                    //     width: "100%",
+                    //   },
+                  }}
+                >
+                  <RemoveIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
+                  <p className="qty">1</p>
+                  <AddIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
+                </Stack>
+                <Button sx={deleteicon} variant="contained" className="delete">
+                  <DeleteIcon />
+                </Button>
               </div>
             </Box>
           </td>
@@ -152,11 +148,7 @@ const CartTable = () => {
                 <p className="qty">1</p>
                 <AddIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
               </Stack>
-              <Button
-                sx={deleteicon}
-                variant="contained"
-              className="delete"
-              >
+              <Button sx={deleteicon} variant="contained" className="delete">
                 <DeleteIcon />
               </Button>
             </Box>

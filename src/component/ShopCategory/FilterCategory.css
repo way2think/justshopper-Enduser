@@ -45,8 +45,7 @@
 .Categoryitemname {
   font-size: 16px;
   font-family: amazonbold;
-  color: #545454;
-
+  /* color: #545454; */
   cursor: pointer;
 }
 

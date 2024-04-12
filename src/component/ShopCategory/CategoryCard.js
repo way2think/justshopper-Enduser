@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Grid, Pagination, Stack } from "@mui/material";
+import { Box, Grid, Pagination, Stack, Typography } from "@mui/material";
 import CardNewArrival from "../HomeComponent/CardNewArrival";
 import CategoryPagination from "./CategoryPagination";
 import "./CategoryCard.css";
 
-const CategoryCard = () => {
+const CategoryCard = ({ products }) => {
   return (
     <>
       <Stack
@@ -15,78 +15,23 @@ const CategoryCard = () => {
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2} sx={{ mb: 10 }}>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
-            <Grid item sm={3} xs={6} md={3} lg={3}>
-              <CardNewArrival
-                image="../images/biscuit.jpg"
-                cardtitle="Choco Biscuits"
-                discountprice="499.00"
-                currentprice="799.00"
-                sale="sale"
-              />
-            </Grid>
+            {products.length === 0 ? (
+              <Typography align="center">No Products</Typography>
+            ) : (
+              products.map((product) => (
+                <Grid item sm={3} xs={6} md={3} lg={3} key={product.id}>
+                  <CardNewArrival
+                    product={product}
+                    // image="../images/biscuit.jpg"
+                    // cardtitle="Choco Biscuits"
+                    // discountprice="499.00"
+                    // currentprice="799.00"
+                    // sale="sale"
+                  />
+                </Grid>
+              ))
+            )}
+            {/* {} */}
           </Grid>
           <CategoryPagination />
         </Box>
