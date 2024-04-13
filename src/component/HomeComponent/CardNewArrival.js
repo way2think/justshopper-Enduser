@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import "./CardNewArrival.css";
 import { Stack } from "@mui/material";
 
@@ -83,6 +85,9 @@ export default function CardNewArrival({ product }) {
       >
         <Button size="small" sx={cart} className="cart">
           Add to Cart
+        </Button>
+        <Button size="small" sx={cart} className="cart">
+          <RemoveIcon /> 1 <AddIcon />
         </Button>
       </CardActions>
     </Card>
