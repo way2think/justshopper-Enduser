@@ -15,22 +15,25 @@ import {
   MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import "./Navbar.css";
 // import Search from "./Search";
-import { Stack } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Badge, Stack } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import LoginModal from "../../component/Login/LoginModal";
-import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../../store/userSlice";
 import { useSignOutUserMutation } from "../../api/auth";
 import { selectCategory, selectTheme } from "../../api/api";
 import SignupModal from "../../component/Signup/SignupModal";
 
+import "./Navbar.css";
+import { selectCartSize } from "../../store/cartSlice";
+
 export default function Navbar() {
-  const navigate = useNavigate();
   const location = useLocation();
+  const cartTotalQuantity = useSelector(selectCartSize);
+  // console.log("cartTotalQuantity: ", cartTotalQuantity);
 
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
@@ -79,6 +82,17 @@ export default function Navbar() {
 
   // console.log("mobile", mobileNav);
 
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      // right: -3,
+      // top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+      color: "#fff",
+      backgroundColor: "#dc3237",
+    },
+  }));
+
   return (
     <MDBNavbar expand="lg" light bgColor="light">
       <MDBContainer fluid>
@@ -99,16 +113,28 @@ export default function Navbar() {
                   <Search />
                 </MDBNavbarLink>
               </MDBNavbarItem> */}
-
               <MDBNavbarItem className="me-2 me-lg-0">
-                <MDBNavbarLink href="cart">
-                  <img
-                    src="../images/Shopping Bag.png"
-                    alt=""
-                    width={25}
-                    height={25}
-                  />
-                </MDBNavbarLink>
+                <Link
+                  to="cart"
+                  style={{
+                    color: location.pathname.includes("/cart")
+                      ? "#dc3237"
+                      : "#000",
+                  }}
+                >
+                  <StyledBadge
+                    badgeContent={cartTotalQuantity || 0}
+                    color="primary"
+                  >
+                    {/* <MDBIcon fas icon="shopping-cart" /> */}
+                    <img
+                      src="../images/Shopping Bag.png"
+                      alt=""
+                      width={25}
+                      height={25}
+                    />
+                  </StyledBadge>
+                </Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-2 me-lg-0">
                 <MDBNavbarLink href="/favorites">
@@ -120,32 +146,79 @@ export default function Navbar() {
                   />
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              <MDBNavbarItem>
-                <MDBDropdown>
-                  <MDBDropdownToggle tag="a" className="nav-link" role="button">
-                    <img
-                      src="../images/male User.png"
-                      alt=""
-                      width={25}
-                      height={25}
-                    />
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu>
-                    <MDBDropdownItem link href="profile">
-                      Profile
-                    </MDBDropdownItem>
-                    <MDBDropdownItem link href="orders">
-                      Orders
-                    </MDBDropdownItem>
-                    <MDBDropdownItem link>Logout</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavbarItem>
-              <MDBNavbarItem className="me-2 me-lg-0">
-                <MDBNavbarLink href="#">
-                  <LoginModal />
-                </MDBNavbarLink>
-              </MDBNavbarItem>
+              {isAuthenticated ? (
+                <MDBNavbarItem>
+                  <MDBDropdown>
+                    <MDBDropdownToggle
+                      tag="a"
+                      className="nav-link"
+                      role="button"
+                    >
+                      <img
+                        src="../images/male User.png"
+                        alt=""
+                        width={25}
+                        height={25}
+                      />
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu>
+                      <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        link
+                        href="profile"
+                      >
+                        Profile
+                      </MDBDropdownItem>
+                      <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        link
+                        href="orders"
+                      >
+                        Orders
+                      </MDBDropdownItem>
+                      <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        onClick={() => signOutUser()}
+                      >
+                        Logout
+                      </MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                </MDBNavbarItem>
+              ) : (
+                <MDBNavbarItem className="me-3 me-lg-0">
+                  {/* <MDBNavbarLink href="#"> */}
+                  <LoginModal
+                    open={open.login}
+                    setOpen={(isOpen, type) =>
+                      setOpen((prevState) => {
+                        if (type === "login") {
+                          return {
+                            signup: false,
+                            login: isOpen,
+                          };
+                        } else {
+                          return {
+                            signup: isOpen,
+                            login: false,
+                          };
+                        }
+                      })
+                    }
+                  />
+
+                  <SignupModal
+                    open={open.signup}
+                    setOpen={(isOpen, type) =>
+                      setOpen((prevState) => ({
+                        ...prevState,
+                        signup: isOpen,
+                      }))
+                    }
+                  />
+                  {/* </MDBNavbarLink> */}
+                </MDBNavbarItem>
+              )}
             </Stack>
           )}
           <MDBNavbarToggler
@@ -291,25 +364,44 @@ export default function Navbar() {
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem className="me-3 me-lg-0">
-                  <MDBNavbarLink href="cart">
-                    {/* <MDBIcon fas icon="shopping-cart" /> */}
-                    <img
-                      src="../images/Shopping Bag.png"
-                      alt=""
-                      width={25}
-                      height={25}
-                    />
-                  </MDBNavbarLink>
+                  <Link
+                    to="cart"
+                    style={{
+                      color: location.pathname.includes("/cart")
+                        ? "#dc3237"
+                        : "#000",
+                    }}
+                  >
+                    <StyledBadge
+                      badgeContent={cartTotalQuantity || 0}
+                      color="primary"
+                    >
+                      {/* <MDBIcon fas icon="shopping-cart" /> */}
+                      <img
+                        src="../images/Shopping Bag.png"
+                        alt=""
+                        width={25}
+                        height={25}
+                      />
+                    </StyledBadge>
+                  </Link>
                 </MDBNavbarItem>
                 <MDBNavbarItem className="me-3 me-lg-0">
-                  <MDBNavbarLink href="/favorites">
+                  <Link
+                    to="favorites"
+                    style={{
+                      color: location.pathname.includes("/favorites")
+                        ? "#dc3237"
+                        : "#000",
+                    }}
+                  >
                     <img
                       src="../images/heart.png"
                       alt=""
                       width={25}
                       height={25}
                     />
-                  </MDBNavbarLink>
+                  </Link>
                 </MDBNavbarItem>
                 {/* <MDBNavbarItem className="me-3 me-lg-0">
               <MDBNavbarLink href="#">
@@ -362,36 +454,36 @@ export default function Navbar() {
                   </MDBNavbarItem>
                 ) : (
                   <MDBNavbarItem className="me-3 me-lg-0">
-                    <MDBNavbarLink href="#">
-                      <LoginModal
-                        open={open.login}
-                        setOpen={(isOpen, type) =>
-                          setOpen((prevState) => {
-                            if (type === "login") {
-                              return {
-                                signup: false,
-                                login: isOpen,
-                              };
-                            } else {
-                              return {
-                                signup: isOpen,
-                                login: false,
-                              };
-                            }
-                          })
-                        }
-                      />
+                    {/* <MDBNavbarLink href="#"> */}
+                    <LoginModal
+                      open={open.login}
+                      setOpen={(isOpen, type) =>
+                        setOpen((prevState) => {
+                          if (type === "login") {
+                            return {
+                              signup: false,
+                              login: isOpen,
+                            };
+                          } else {
+                            return {
+                              signup: isOpen,
+                              login: false,
+                            };
+                          }
+                        })
+                      }
+                    />
 
-                      <SignupModal
-                        open={open.signup}
-                        setOpen={(isOpen, type) =>
-                          setOpen((prevState) => ({
-                            ...prevState,
-                            signup: isOpen,
-                          }))
-                        }
-                      />
-                    </MDBNavbarLink>
+                    <SignupModal
+                      open={open.signup}
+                      setOpen={(isOpen, type) =>
+                        setOpen((prevState) => ({
+                          ...prevState,
+                          signup: isOpen,
+                        }))
+                      }
+                    />
+                    {/* </MDBNavbarLink> */}
                   </MDBNavbarItem>
                 )}
               </>

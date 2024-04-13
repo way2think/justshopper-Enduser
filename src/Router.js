@@ -12,8 +12,11 @@ import Order from "./pages/Order/Order";
 import { useOnAuthListenerQuery } from "./api/auth";
 import { useGetSettingsQuery } from "./api/api";
 import BackDropWithLoader from "./component/Loader/BackDropWithLoader";
+import { useDispatch } from "react-redux";
+import { setCartItems } from "./store/cartSlice";
 
 export default function Router() {
+  const dispatch = useDispatch();
   const { data: user, isFetching, isLoading, error } = useOnAuthListenerQuery();
   const { data: settings } = useGetSettingsQuery();
   const [authChecked, setAuthChecked] = useState(false);
@@ -21,7 +24,12 @@ export default function Router() {
   useEffect(() => {
     // console.log("data: ", user);
     if (user) {
+      const cartItems = localStorage.getItem("cartItems");
+      if (cartItems) {
+        dispatch(setCartItems(JSON.parse(cartItems)));
+      }
     }
+
     setAuthChecked(true);
   }, [user]);
 

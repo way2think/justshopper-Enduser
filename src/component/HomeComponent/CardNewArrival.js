@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,6 +10,14 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import "./CardNewArrival.css";
 import { Stack } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addItem,
+  addItemQty,
+  removeItemQty,
+  selectCartItems,
+} from "../../store/cartSlice";
+import { useEffect, useState } from "react";
 
 export default function CardNewArrival({ product }) {
   const cart = {
@@ -34,6 +41,31 @@ export default function CardNewArrival({ product }) {
   };
 
   const { name, discount_price, selling_price } = product;
+
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector(selectCartItems);
+  const [noOfItems, setNoOfItems] = useState(0);
+
+  useEffect(() => {
+    const item = cartItems.find((item) => item.id === product.id);
+    if (item) {
+      setNoOfItems(item.cart_quantity);
+    } else {
+      setNoOfItems(0);
+    }
+  }, [cartItems, product.id]);
+
+  const handleAddCartItem = () => {
+    dispatch(addItem(product));
+  };
+
+  const handleAddItemQty = () => {
+    dispatch(addItemQty(product));
+  };
+
+  const handleRemoveItemQty = () => {
+    dispatch(removeItemQty(product));
+  };
 
   return (
     <Card sx={{ maxWidth: 345, boxShadow: "none", py: 2, margin: "auto" }}>
@@ -83,16 +115,27 @@ export default function CardNewArrival({ product }) {
           },
         }}
       >
-        {/* <Button size="small" sx={cart} className="cart">
-          Add to Cart
-        </Button> */}
-        <Button size="small" className="cart">
-          <RemoveIcon sx={{ color: "#dc3237" }} />
-        </Button>
-        1
-        <Button size="small" className="cart">
-          <AddIcon sx={{ color: "#dc3237" }} />
-        </Button>
+        {noOfItems <= 0 ? (
+          <Button
+            size="small"
+            sx={cart}
+            className="cart"
+            type="button"
+            onClick={handleAddCartItem}
+          >
+            Add to Cart
+          </Button>
+        ) : (
+          <>
+            <Button size="small" className="cart" onClick={handleRemoveItemQty}>
+              <RemoveIcon sx={{ color: "#dc3237" }} />
+            </Button>
+            {noOfItems}
+            <Button size="small" className="cart" onClick={handleAddItemQty}>
+              <AddIcon sx={{ color: "#dc3237" }} />
+            </Button>
+          </>
+        )}
       </CardActions>
     </Card>
   );
