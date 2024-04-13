@@ -83,11 +83,15 @@ export default function CardNewArrival({ product }) {
           },
         }}
       >
-        <Button size="small" sx={cart} className="cart">
+        {/* <Button size="small" sx={cart} className="cart">
           Add to Cart
+        </Button> */}
+        <Button size="small" className="cart">
+          <RemoveIcon sx={{ color: "#dc3237" }} />
         </Button>
-        <Button size="small" sx={cart} className="cart">
-          <RemoveIcon /> 1 <AddIcon />
+        1
+        <Button size="small" className="cart">
+          <AddIcon sx={{ color: "#dc3237" }} />
         </Button>
       </CardActions>
     </Card>
