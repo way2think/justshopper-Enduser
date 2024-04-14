@@ -4,6 +4,7 @@ import {
   signOutUser,
   signinWithEmailAndPassword,
   signupWithEmailAndPassword,
+  updateUserPassword,
 } from "../services/firebase-auth-http";
 import {
   createObjectByParam,
@@ -44,6 +45,11 @@ export const auth = api.injectEndpoints({
     sendPasswordResetEmail: build.mutation({
       queryFn: async ({ email }) => {
         return await sendPasswordResetEmail(email);
+      },
+    }),
+    updatePassword: build.mutation({
+      queryFn: async ({ password }) => {
+        return await updateUserPassword(password);
       },
     }),
     signOutUser: build.mutation({
@@ -115,4 +121,3 @@ export const {
   useSignOutUserMutation,
   useOnAuthListenerQuery,
 } = auth;
-
