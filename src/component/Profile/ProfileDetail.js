@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { collection, doc, updateDoc } from "firebase/firestore";
 // import { db } from "../../services/firebase";
 import {
@@ -31,7 +31,7 @@ import {
   GetLanguages, //async functions
 } from "react-country-state-city";
 import classes from "./ProfileDetail.module.css";
-// import { selectUser } from "../../store/userSlice";
+import { selectUser } from "../../store/userSlice";
 // import {
 //   isValidName,
 //   isValidAddress,
@@ -86,35 +86,43 @@ const sechalf = {
 
 const ProfileDetail = () => {
   //   const dispatch = useDispatch();
-  //   const { userDetail } = useSelector(selectUser);
   //   const { id } = userDetail;
+  const user = useSelector(selectUser);
+  console.log("user Details", user);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(true);
   const [disableProfileEdit, setDisableProfileEdit] = useState(false);
   const [disableSettingsEdit, setDisableSettingsEdit] = useState(true);
-  //   const [editedValues, setEditedValues] = useState({
-  //     name: userDetail.name,
-  //     phone: userDetail.phone,
-  //     address: userDetail.address,
-  //     country: userDetail.country,
-  //     state: userDetail.state,
-  //     city: userDetail.city,
-  //     pincode: userDetail.pincode,
-  //   });
-  //   console.log("editedValues", editedValues);
-  const [pwd, setPwd] = useState("");
-  const [cpwd, setCpwd] = useState("");
-  const [countriesList, setCountriesList] = useState([]);
-  const [stateList, setStateList] = useState([]);
-  const [cityList, setCityList] = useState([]);
-  const [languageList, setLanguageList] = useState([]);
+  const [defaultValues, setDefaultValues] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: {
+      door_no: "",
+      street_name: "",
+      district: "",
+      pincode: "",
+    },
+  });
+  console.log("defaultValues", defaultValues);
 
   useEffect(() => {
-    GetCountries().then((result) => {
-      setCountriesList(result);
+    setDefaultValues((prev) => {
+      return {
+        ...defaultValues,
+        name: user.name,
+        phone: user.phone,
+        email: user.email,
+        address: user.address,
+      };
     });
+  }, [user]);
 
+  useEffect(() => {
+    // GetCountries().then((result) => {
+    //   setCountriesList(result);
+    // });
     // GetLanguages().then((result) => {
     //   setLanguageList(result);
     // });
@@ -128,17 +136,17 @@ const ProfileDetail = () => {
     event.preventDefault();
   };
 
-  //   const handleEditValues = (e) => {
-  //     const { name, value } = e.target;
-  //     setEditedValues((prev) => {
-  //       return {
-  //         ...editedValues,
-  //         [name]: value,
-  //       };
-  //     });
-  //   };
+  const handleEditValues = (e) => {
+    const { name, value } = e.target;
+    setDefaultValues((prev) => {
+      return {
+        ...defaultValues,
+        [name]: value,
+      };
+    });
+  };
 
-  //   const { name, address, phone, country, state, city, pincode } = editedValues;
+  //   const { name, address, phone, country, state, city, pincode } = defaultValues;
 
   //   async function saveChanges() {
   //     const docRef = doc(db, "users", id);
@@ -147,7 +155,7 @@ const ProfileDetail = () => {
   //   }
 
   //   const handleSaveChanges = () => {
-  //     const { name, address, phone } = editedValues;
+  //     const { name, address, phone } = defaultValues;
 
   //     !isValidName(name)
   //       ? errorNotification("Invalid Name")
@@ -231,8 +239,10 @@ const ProfileDetail = () => {
                 id="outlined-basic1"
                 label="Name"
                 disabled={disableProfileEdit}
-                // onChange={(e) => handleEditValues(e)}
-                // value={editedValues.name}
+                onChange={(e) =>
+                  setDefaultValues({ ...defaultValues, name: e.target.value })
+                }
+                value={defaultValues.name}
                 variant="outlined"
                 name="name"
                 type="text"
@@ -245,7 +255,10 @@ const ProfileDetail = () => {
                 fullWidth
                 id="outlined-basic1"
                 label="Email"
-                // value={userDetail.email}
+                value={defaultValues.email}
+                onChange={(e) =>
+                  setDefaultValues({ ...defaultValues, email: e.target.value })
+                }
                 disabled
                 variant="outlined"
                 name="mail"
@@ -259,8 +272,10 @@ const ProfileDetail = () => {
                 fullWidth
                 id="outlined-basic1"
                 label="Phone Number"
-                // value={editedValues.phone}
-                // onChange={(e) => handleEditValues(e)}
+                value={defaultValues.phone}
+                onChange={(e) =>
+                  setDefaultValues({ ...defaultValues, phone: e.target.value })
+                }
                 disabled={disableProfileEdit}
                 variant="outlined"
                 name="phone"
@@ -269,16 +284,24 @@ const ProfileDetail = () => {
                 sx={{ mb: 2 }}
               />
             </Grid>
-            <Grid item md={12} xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
+                fullWidth
                 id="outlined-multiline-static"
-                label="Address"
-                // value={editedValues.address}
-                // onChange={(e) => handleEditValues(e)}
+                label="House No"
+                placeholder="Door / House No"
+                value={defaultValues.address.door_no}
+                onChange={(e) =>
+                  setDefaultValues({
+                    ...defaultValues,
+                    address: {
+                      ...defaultValues.address,
+                      door_no: e.target.value,
+                    },
+                  })
+                }
                 disabled={disableProfileEdit}
-                multiline
-                name="address"
-                rows={2}
+                name="doorNumber"
                 sx={{ mb: 2, width: "100%" }}
               />
             </Grid>
@@ -286,11 +309,21 @@ const ProfileDetail = () => {
               <TextField
                 fullWidth
                 id="outlined-basic1"
-                label="Country"
-                // value={editedValues.country}
-                disabled={true}
+                label="Street & Area Name"
+                placeholder="Street & Area Name"
+                value={defaultValues.address.street_name}
+                onChange={(e) =>
+                  setDefaultValues({
+                    ...defaultValues,
+                    address: {
+                      ...defaultValues.address,
+                      street_name: e.target.value,
+                    },
+                  })
+                }
+                // disabled={true}
                 variant="outlined"
-                name="country"
+                name="streetName"
                 className="name"
                 sx={{ mb: 2 }}
               />
@@ -299,11 +332,21 @@ const ProfileDetail = () => {
               <TextField
                 fullWidth
                 id="outlined-basic1"
-                label="State"
-                // value={editedValues.state}
-                disabled={true}
+                label="City, District"
+                placeholder="City, District"
+                value={defaultValues.address.district}
+                onChange={(e) =>
+                  setDefaultValues({
+                    ...defaultValues,
+                    address: {
+                      ...defaultValues.address,
+                      district: e.target.value,
+                    },
+                  })
+                }
+                // disabled={true}
                 variant="outlined"
-                name="state"
+                name="district"
                 className="name"
                 sx={{ mb: 2 }}
               />
@@ -312,28 +355,21 @@ const ProfileDetail = () => {
               <TextField
                 fullWidth
                 id="outlined-basic1"
-                label="city"
-                // value={editedValues.city}
-                disabled={true}
-                variant="outlined"
-                name="city"
-                className="name"
-                sx={{ mb: 2 }}
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                id="outlined-basic"
-                label="Pincode"
-                variant="outlined"
                 name="pincode"
-                // type="number"
-                // value={editedValues.pincode}
-                // onChange={handleInputChange}
-                disabled={true}
-                className="pincode"
-                size="medium"
+                value={defaultValues.address.pincode}
+                onChange={(e) =>
+                  setDefaultValues({
+                    ...defaultValues,
+                    address: {
+                      ...defaultValues.address,
+                      pincode: e.target.value,
+                    },
+                  })
+                }
+                // disabled={true}
+                variant="outlined"
+                className="name"
+                sx={{ mb: 2 }}
               />
             </Grid>
           </Grid>

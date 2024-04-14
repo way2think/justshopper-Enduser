@@ -36,7 +36,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 440,
+  height: 565,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -93,6 +93,12 @@ export default function SignupModal({ open, setOpen }) {
     phonenumber: "",
     createPassword: "",
     confirmPassword: "",
+    address: {
+      door_no: "",
+      street_name: "",
+      district: "",
+      pincode: "",
+    },
   });
   // console.log("testing for name", signUpDetails);
   // const auth = getAuth();
@@ -118,7 +124,7 @@ export default function SignupModal({ open, setOpen }) {
   };
 
   const handleSignup = () => {
-    const { name, email, phonenumber, confirmPassword, createPassword } =
+    const { name, email, phonenumber, confirmPassword, createPassword, address } =
       signUpDetails;
 
     if (
@@ -134,12 +140,13 @@ export default function SignupModal({ open, setOpen }) {
           const user = userCredential.user;
           console.log("user1", user);
           const { uid } = userCredential.user;
-          const docRef = doc(db, "users", uid);
+          const docRef = doc(db, "user", uid);
           await setDoc(docRef, {
             name,
             phone: phonenumber,
             email,
             role: "consumer",
+            address,
             saved_addresses: [],
             favourites: [],
           });
@@ -213,7 +220,7 @@ export default function SignupModal({ open, setOpen }) {
               Sign Up
             </Typography>
             <Grid container>
-              <Grid md={6} xs={12}>
+              <Grid md={6} xs={12} pr={2}>
                 <TextField
                   fullWidth
                   id="name"
@@ -226,10 +233,10 @@ export default function SignupModal({ open, setOpen }) {
                   onChange={handleInputChange}
                   sx={{
                     mb: 2,
-                    width: "90%",
-                    "@media (max-width: 768px)": {
-                      width: "100%",
-                    },
+                    // width: "90%",
+                    // "@media (max-width: 768px)": {
+                    //   width: "100%",
+                    // },
                   }}
                 />
               </Grid>
@@ -239,7 +246,7 @@ export default function SignupModal({ open, setOpen }) {
                   id="phone"
                   label="Phone Number"
                   variant="outlined"
-                  name="phone"
+                  name="phonenumber"
                   type="tel"
                   value={signUpDetails.phonenumber}
                   onChange={handleInputChange}
@@ -264,14 +271,110 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={12}>
+              <Grid md={6} xs={6} pr={2}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="House No"
+                  placeholder="Door / House No"
+                  multiline
+                  rows={1}
+                  name="doorNumber"
+                  value={signUpDetails.address.door_no}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          door_no: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                />
+              </Grid>
+
+              <Grid md={6} xs={6}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Street & Area Name"
+                  placeholder="Street & Area Name"
+                  multiline
+                  rows={1}
+                  name="streetName"
+                  value={signUpDetails.address.street_name}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          street_name: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                />
+              </Grid>
+
+              <Grid md={6} xs={6} pr={2}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="City, District"
+                  placeholder="City, District"
+                  multiline
+                  rows={1}
+                  name="district"
+                  value={signUpDetails.address.district}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          district: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                />
+              </Grid>
+
+              <Grid md={6} xs={6}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Pincode"
+                  multiline
+                  rows={1}
+                  name="pincode"
+                  value={signUpDetails.address.pincode}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          pincode: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                />
+              </Grid>
+
+              <Grid md={6} xs={12} pr={2}>
                 <FormControl
+                  fullWidth
                   sx={{
                     mb: 2,
-                    width: "90%",
-                    "@media (max-width: 768px)": {
-                      width: "100%",
-                    },
+                    // width: "90%",
+                    // "@media (max-width: 768px)": {
+                    //   width: "100%",
+                    // },
                   }}
                   variant="outlined"
                 >
@@ -279,7 +382,7 @@ export default function SignupModal({ open, setOpen }) {
                   <OutlinedInput
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    name="password"
+                    name="createPassword"
                     value={signUpDetails.createPassword}
                     onChange={handleInputChange}
                     endAdornment={
@@ -328,56 +431,6 @@ export default function SignupModal({ open, setOpen }) {
               Sign up
             </Button>
           </>
-          {/* {manageAddress && (
-            <>
-              {" "}
-              <Typography
-                id="modal-modal-title"
-                variant="h5"
-                component="h2"
-                sx={{
-                  fontFamily: "amazonbold",
-                  marginBottom: 2,
-                  textAlign: "left",
-                  marginTop: 3,
-                }}
-              >
-                ADD ADDRESS
-              </Typography>
-              <Grid md={12} xs={12} sx={{ marginTop: 3 }}>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Address"
-                  multiline
-                  rows={1}
-                  name="address"
-                  value={signUpDetails.address}
-                  onChange={handleInputChange}
-                  sx={{ mb: 2, width: "100%" }}
-                />
-              </Grid>
-              <Grid md={12} xs={12}>
-                <CountryAndStates
-                  signUpDetails={signUpDetails}
-                  setSignUpDetails={setSignUpDetails}
-                  handleInputChange={handleInputChange}
-                  countryid={countryid}
-                  setCountryid={setCountryid}
-                  setCountryName={setCountryName}
-                  stateid={stateid}
-                  setstateid={setstateid}
-                  setstateName={setstateName}
-                  setCityName={setCityName}
-                />
-              </Grid>
-              <Button
-                sx={Signupbtn}
-                //   onClick={handleSignUP}
-              >
-                Add
-              </Button>
-            </>
-          )} */}
         </Box>
       </Modal>
     </div>

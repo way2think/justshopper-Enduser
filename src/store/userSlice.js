@@ -6,6 +6,12 @@ const initialState = {
   email: "",
   phone: "",
   role: "",
+  address: {
+    door_no: "",
+    street_name: "",
+    district: "",
+    pincode: "",
+  },
   favourite: [],
   saved_address: [],
   isAuthenticated: false,
@@ -23,6 +29,7 @@ export const userSlice = createSlice({
       state.email = payload.email;
       state.phone = payload.phone;
       state.role = payload.role;
+      state.address = payload.address;
       state.favourite = payload.favourite;
       state.saved_address = payload.saved_address;
       state.isAuthenticated = payload.isAuthenticated;
