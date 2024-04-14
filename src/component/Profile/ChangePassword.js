@@ -33,12 +33,12 @@ import {
 } from "react-country-state-city";
 import classes from "./ProfileDetail.module.css";
 // import { selectUser } from "../../store/userSlice";
-// import {
-//   isValidName,
-//   isValidAddress,
-//   isValidPassword,
-//   isValidPhoneNumber,
-// } from "../../utils/validator";
+import {
+  isValidName,
+  isValidAddress,
+  isValidPassword,
+  isValidPhoneNumber,
+} from "../../utils/validator";
 import {
   errorNotification,
   successNotification,
@@ -91,9 +91,9 @@ const ChangePassword = () => {
       updatePassword({ password })
         .then(() => {
           successNotification("Password updated successfully!!!");
-          setDisableSettingsEdit(true);
-          setPwd("");
-          setCpwd("");
+          // setDisableSettingsEdit(true);
+          setPassword("");
+          setConfirmPassword("");
         })
         .catch((error) => {
           errorNotification(error.message);
