@@ -13,6 +13,8 @@ import {
 import { displayRazorpay } from "../../services/razorpay-http";
 import { selectUser } from "../../store/userSlice";
 import { useCreateOrderMutation } from "../../api/order";
+import { setIsLoading } from "../../store/appSlice";
+import { errorNotification } from "../../utils/notifications";
 
 const CartTable = () => {
   const dispatch = useDispatch();
@@ -63,17 +65,17 @@ const CartTable = () => {
     const totalPrice =
       subtotalPrice + shipping.shipping_price + tax.total_tax_price;
 
-    const totalProfitPrice = totalActualPrice - totalDiscountPrice;
+    const totalProfitPrice = totalDiscountPrice - totalActualPrice;
 
     return {
-      subtotalPrice: subtotalPrice.toFixed(2),
-      totalPrice: totalPrice.toFixed(2),
-      totalWeightInGrams: totalWeightInGrams.toFixed(2),
+      subtotalPrice: +subtotalPrice.toFixed(2),
+      totalPrice: +totalPrice.toFixed(2),
+      totalWeightInGrams: +totalWeightInGrams.toFixed(2),
       totalQuantity,
-      totalActualPrice: totalActualPrice.toFixed(2),
-      totalSellingPrice: totalSellingPrice.toFixed(2),
-      totalDiscountPrice: totalDiscountPrice.toFixed(2),
-      totalProfitPrice: totalProfitPrice.toFixed(2),
+      totalActualPrice: +totalActualPrice.toFixed(2),
+      totalSellingPrice: +totalSellingPrice.toFixed(2),
+      totalDiscountPrice: +totalDiscountPrice.toFixed(2),
+      totalProfitPrice: +totalProfitPrice.toFixed(2),
     };
   }, [cartItems, shipping.shipping_price, tax.total_tax_price]);
 
@@ -110,7 +112,8 @@ const CartTable = () => {
   };
 
   const handleCheckout = async () => {
-    console.log("cartItems: ", cartItems);
+    dispatch(setIsLoading(true));
+    // console.log("cartItems: ", cartItems);
     // 1. create order in firebase - order_id
     // 2. create razorpay payment order using firebase functions - get razorpay payment: order_id
     // 3. pass it to razorpay checkout api, to open modal
@@ -145,14 +148,15 @@ const CartTable = () => {
       order_dispatched_timestamp: null,
       order_cancelled_timestamp: null,
       status: "pending", // pending(only opened to pay, but didn't pay), booked(paid & order booked), dispatched, cancelled
-      total_weight: totalWeightInGrams,
+      total_weight_in_grams: totalWeightInGrams,
       total_quantity: totalQuantity,
+      price_unit: "INR",
       total_price: totalPrice, // total_item_price + shipping_price + total_tax_price
       total_actual_price: totalActualPrice,
       total_selling_price: totalSellingPrice,
       total_discount_price: totalDiscountPrice,
       total_item_price: subtotalPrice, // equal to total_discount_price
-      total_profit_price: totalProfitPrice, // total_actual_price - total_discount_price
+      total_profit_price: totalProfitPrice, // total_discount_price - total_actual_price
       total_tax_price: tax.total_tax_price,
       tax_cgst_percentage: tax.tax_cgst_percentage,
       tax_sgst_percentage: tax.tax_sgst_percentage,
@@ -184,6 +188,19 @@ const CartTable = () => {
         isDispatchedEmailSent: false,
       },
     };
+
+    console.log("order: ", order);
+
+    const resultOrderCreation = await createOrder(order);
+    if (resultOrderCreation.data) {
+      dispatch(setIsLoading(false));
+      console.log("resultOrderCreation: ", resultOrderCreation);
+      createOrder()
+    } else {
+      console.log("resultOrderCreation-error: ", resultOrderCreation.error);
+      dispatch(setIsLoading(false));
+      errorNotification(resultOrderCreation.error.message);
+    }
 
     // const options = {
     //   key: process.env.REACT_APP_RAZORPAY_KEY_ID,
