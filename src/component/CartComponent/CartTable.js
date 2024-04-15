@@ -7,6 +7,7 @@ import { Box, Button, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addItemQty,
+  clearCart,
   removeItemQty,
   selectCartItems,
 } from "../../store/cartSlice";
@@ -14,18 +15,27 @@ import { displayRazorpay } from "../../services/razorpay-http";
 import { selectUser } from "../../store/userSlice";
 import { useCreateOrderMutation } from "../../api/order";
 import { setIsLoading } from "../../store/appSlice";
-import { errorNotification } from "../../utils/notifications";
+import {
+  errorNotification,
+  successNotification,
+} from "../../utils/notifications";
+import { useNavigate } from "react-router-dom";
+import { selectCategory } from "../../api/api";
+import { useCreateRazorpayPaymentOrderMutation } from "../../api/payment";
 
 const CartTable = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [createOrder, {}] = useCreateOrderMutation();
+  const [createRazorpayOrder, {}] = useCreateRazorpayPaymentOrderMutation();
   const user = useSelector(selectUser);
+  const categoryList = useSelector(selectCategory);
   const { cartItems } = useSelector(selectCartItems);
-  console.log("user: ", user);
+  // console.log("user: ", user, categoryList);
 
   const shipping = {
     shipping_type: "normal",
-    shipping_price: 40, // tamil nadu
+    shipping_price: (40.5).toFixed(2), // tamil nadu
   };
 
   const tax = {
@@ -63,19 +73,19 @@ const CartTable = () => {
     });
 
     const totalPrice =
-      subtotalPrice + shipping.shipping_price + tax.total_tax_price;
+      subtotalPrice + +shipping.shipping_price + tax.total_tax_price;
 
     const totalProfitPrice = totalDiscountPrice - totalActualPrice;
 
     return {
-      subtotalPrice: +subtotalPrice.toFixed(2),
-      totalPrice: +totalPrice.toFixed(2),
-      totalWeightInGrams: +totalWeightInGrams.toFixed(2),
+      subtotalPrice: subtotalPrice.toFixed(2),
+      totalPrice: totalPrice.toFixed(2),
+      totalWeightInGrams: totalWeightInGrams.toFixed(2),
       totalQuantity,
-      totalActualPrice: +totalActualPrice.toFixed(2),
-      totalSellingPrice: +totalSellingPrice.toFixed(2),
-      totalDiscountPrice: +totalDiscountPrice.toFixed(2),
-      totalProfitPrice: +totalProfitPrice.toFixed(2),
+      totalActualPrice: totalActualPrice.toFixed(2),
+      totalSellingPrice: totalSellingPrice.toFixed(2),
+      totalDiscountPrice: totalDiscountPrice.toFixed(2),
+      totalProfitPrice: totalProfitPrice.toFixed(2),
     };
   }, [cartItems, shipping.shipping_price, tax.total_tax_price]);
 
@@ -114,9 +124,7 @@ const CartTable = () => {
   const handleCheckout = async () => {
     dispatch(setIsLoading(true));
     // console.log("cartItems: ", cartItems);
-    // 1. create order in firebase - order_id
-    // 2. create razorpay payment order using firebase functions - get razorpay payment: order_id
-    // 3. pass it to razorpay checkout api, to open modal
+
     // 4. in handler, just show the payment success or failure
     // 5. after completing, in webhook, we will get success or failure, update the firebase order with the payment details
     // 6. add the order in notifications for real-time listener
@@ -143,26 +151,26 @@ const CartTable = () => {
       type: "online",
       device: "website",
       ordered_items: [...items],
-      order_created_timestamp: new Date().getTime(),
-      order_updated_timestamp: null,
+      order_pending_timestamp: new Date().getTime(),
+      order_booked_timestamp: null,
       order_dispatched_timestamp: null,
       order_cancelled_timestamp: null,
       status: "pending", // pending(only opened to pay, but didn't pay), booked(paid & order booked), dispatched, cancelled
-      total_weight_in_grams: totalWeightInGrams,
-      total_quantity: totalQuantity,
+      total_weight_in_grams: +totalWeightInGrams,
+      total_quantity: +totalQuantity,
       price_unit: "INR",
-      total_price: totalPrice, // total_item_price + shipping_price + total_tax_price
-      total_actual_price: totalActualPrice,
-      total_selling_price: totalSellingPrice,
-      total_discount_price: totalDiscountPrice,
-      total_item_price: subtotalPrice, // equal to total_discount_price
-      total_profit_price: totalProfitPrice, // total_discount_price - total_actual_price
-      total_tax_price: tax.total_tax_price,
-      tax_cgst_percentage: tax.tax_cgst_percentage,
-      tax_sgst_percentage: tax.tax_sgst_percentage,
-      tax_total_percentage: tax.tax_total_percentage,
+      total_price: +totalPrice, // total_item_price + shipping_price + total_tax_price
+      total_actual_price: +totalActualPrice,
+      total_selling_price: +totalSellingPrice,
+      total_discount_price: +totalDiscountPrice,
+      total_item_price: +subtotalPrice, // equal to total_discount_price
+      total_profit_price: +totalProfitPrice, // total_discount_price - total_actual_price
+      total_tax_price: +tax.total_tax_price,
+      tax_cgst_percentage: +tax.tax_cgst_percentage,
+      tax_sgst_percentage: +tax.tax_sgst_percentage,
+      tax_total_percentage: +tax.tax_total_percentage,
       shipping_type: shipping.shipping_type,
-      shipping_price: shipping.shipping_price,
+      shipping_price: +shipping.shipping_price,
       cancel_reason: "",
       logistics: {
         carrier_name: "",
@@ -170,10 +178,9 @@ const CartTable = () => {
         tracking_number: "",
         tracking_url: "",
       },
-      payment: {
-        payment_method: "",
-        payment_status: "",
-      },
+      payment_status: "",
+      payment_method: "",
+      payment_details: {},
       user_details: {
         user_id: user.id,
         name: user.name,
@@ -191,135 +198,177 @@ const CartTable = () => {
 
     console.log("order: ", order);
 
+    // 1. create order in firebase - order_id
     const resultOrderCreation = await createOrder(order);
+
     if (resultOrderCreation.data) {
-      dispatch(setIsLoading(false));
-      console.log("resultOrderCreation: ", resultOrderCreation);
-      createOrder()
+      console.log("resultOrderCreation: ", resultOrderCreation.data);
+      const { data: resultOrder } = resultOrderCreation;
+      // 2. create razorpay payment order using firebase functions - get razorpay payment: order_id
+      const resultRzpOrderCreation = await createRazorpayOrder({
+        order_id: resultOrder.id,
+        amount: resultOrder.total_price,
+      });
+      if (resultRzpOrderCreation.data) {
+        const { data: resultRzpOrder } = resultRzpOrderCreation;
+        // 3. pass it to razorpay checkout api, to open modal
+        const options = {
+          key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+          amount: resultRzpOrder.amount,
+          currency: resultRzpOrder.currency,
+          name: "Just Shopper",
+          description: `Payment for you order no: ${resultOrder.id}`, // receipt from razorpay order response
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/justshopper-dev.appspot.com/o/JS%20logo%20png.png?alt=media&token=4d5bf95f-cb69-44c4-936d-8368d1df0689",
+          order_id: resultRzpOrder.id,
+          handler: function (response) {
+            console.log("rzp: ", response.razorpay_payment_id);
+            console.log(response.razorpay_order_id);
+            console.log(response.razorpay_signature);
+            dispatch(clearCart());
+            successNotification(
+              "Order Successfully Placed, You'll receive receipt in email shortly. Have a great day!"
+            );
+            navigate("/orders");
+          },
+          prefill: {
+            name: user.name,
+            email: user.email,
+            contact: user.phone,
+          },
+          notes: {
+            order_id: resultOrder.id,
+          },
+          theme: {
+            color: "#dc3237",
+          },
+        };
+        await displayRazorpay(options);
+        dispatch(setIsLoading(false));
+      } else {
+        console.log(
+          "resultRzpOrderCreation-error: ",
+          resultRzpOrderCreation.error
+        );
+        dispatch(setIsLoading(false));
+        errorNotification(resultRzpOrderCreation.error.message);
+      }
     } else {
       console.log("resultOrderCreation-error: ", resultOrderCreation.error);
       dispatch(setIsLoading(false));
       errorNotification(resultOrderCreation.error.message);
     }
-
-    // const options = {
-    //   key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-    //   amount: "100",
-    //   currency: "INR",
-    //   name: "Just Shopper",
-    //   description: "Just Shopper",
-    //   image:
-    //     "https://firebasestorage.googleapis.com/v0/b/justshopper-dev.appspot.com/o/JS%20logo%20png.png?alt=media&token=4d5bf95f-cb69-44c4-936d-8368d1df0689",
-    //   order_id: "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //   handler: function (response) {
-    //     console.log(response.razorpay_payment_id);
-    //     console.log(response.razorpay_order_id);
-    //     console.log(response.razorpay_signature);
-    //   },
-    //   prefill: {
-    //     name: user.name,
-    //     email: user.email,
-    //     contact: user.phone,
-    //   },
-    //   // notes: {
-    //   //   address: "Razorpay Corporate Office",
-    //   // },
-    //   theme: {
-    //     color: "#dc3237",
-    //   },
-    // };
-    // await displayRazorpay(options);
   };
 
   return (
     <div class="container m-auto mt-5">
-      <table class="table table-xs">
-        <tr className="tableheadrow">
-          {/* <th></th> */}
-          <th className="text-left tableheaditem">Product Name</th>
-          <th className="text-left tableheaditem">Quantity </th>
-          <th className="text-right tableheaditem">Price</th>
-          <th className="text-right tableheaditem">Total Price</th>
-        </tr>
-        {cartItems.map((item) => (
-          <tr className="item-row" key={item.id}>
-            {/* <td>
+      {cartItems.length === 0 ? (
+        <>
+          <p>No items in cart</p>
+          <Button
+            variant="contained"
+            sx={checkout}
+            onClick={() =>
+              navigate(`/shop-by-category?category=${categoryList[0].name}`)
+            }
+          >
+            Shop
+          </Button>
+        </>
+      ) : (
+        <>
+          <table class="table table-xs">
+            <tr className="tableheadrow">
+              {/* <th></th> */}
+              <th className="text-left tableheaditem">Product Name</th>
+              <th className="text-left tableheaditem">Quantity </th>
+              <th className="text-right tableheaditem">Price</th>
+              <th className="text-right tableheaditem">Total Price</th>
+            </tr>
+
+            {cartItems.map((item) => (
+              <tr className="item-row" key={item.id}>
+                {/* <td>
             {" "}
             <img src="../images/chocolate.jpg" alt="" className="imagecion" />
           </td> */}
-            <td
-              className="Items"
-              style={{ display: "flex", flexDirection: "row", padding: "4px" }}
-            >
-              <img
-                src="../images/biscuit.jpg"
-                alt=""
-                style={{ maxWidth: "180px", borderRadius: 30 }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  textAlign: "left",
-                }}
-              >
-                <p className="itemname">
-                  {" "}
-                  <strong>{item.name}</strong>
-                </p>
-                <p className="itemdesc">Category - {item.category}</p>
-                {/* <p className="itemdesc">Theme - {item.theme}</p> */}
-              </div>
-            </td>
-            <td className="text-right" title="Amount">
-              <Box style={{ position: "relative" }}>
-                <div className="qtyFlex">
-                  <Stack
-                    direction="row"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    className="cartqty"
-                    sx={{
-                      width: "50%",
-                      // "@media only screen and (min-width: 320px) and (max-width: 600px)":
-                      //   {
-                      //     width: "100%",
-                      //   },
+                <td
+                  className="Items"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    padding: "4px",
+                  }}
+                >
+                  <img
+                    src="../images/biscuit.jpg"
+                    alt=""
+                    style={{ maxWidth: "180px", borderRadius: 30 }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      textAlign: "left",
                     }}
                   >
-                    <RemoveIcon
-                      htmlColor="#dc3237"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handleRemoveItemQty(item)}
-                    />
-                    <p className="qty">{item.cart_quantity}</p>
-                    <AddIcon
-                      htmlColor="#dc3237"
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handleAddItemQty(item)}
-                    />
-                  </Stack>
-                  {/* <Button
+                    <p className="itemname">
+                      {" "}
+                      <strong>{item.name}</strong>
+                    </p>
+                    <p className="itemdesc">Category - {item.category}</p>
+                    {/* <p className="itemdesc">Theme - {item.theme}</p> */}
+                  </div>
+                </td>
+                <td className="text-right" title="Amount">
+                  <Box style={{ position: "relative" }}>
+                    <div className="qtyFlex">
+                      <Stack
+                        direction="row"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        className="cartqty"
+                        sx={{
+                          width: "50%",
+                          // "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                          //   {
+                          //     width: "100%",
+                          //   },
+                        }}
+                      >
+                        <RemoveIcon
+                          htmlColor="#dc3237"
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => handleRemoveItemQty(item)}
+                        />
+                        <p className="qty">{item.cart_quantity}</p>
+                        <AddIcon
+                          htmlColor="#dc3237"
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => handleAddItemQty(item)}
+                        />
+                      </Stack>
+                      {/* <Button
                     sx={deleteicon}
                     variant="contained"
                     className="delete"
                   >
                     <DeleteIcon />
                   </Button> */}
-                </div>
-              </Box>
-            </td>
+                    </div>
+                  </Box>
+                </td>
 
-            <td className="text-right price" title="Price">
-              {item.discount_price}
-            </td>
-            <td className="text-right price" title="Total">
-              {item.cart_total_price}
-            </td>
-          </tr>
-        ))}
+                <td className="text-right price" title="Price">
+                  {item.discount_price}
+                </td>
+                <td className="text-right price" title="Total">
+                  {item.cart_total_price}
+                </td>
+              </tr>
+            ))}
 
-        {/* <tr className="item-row item-row-last">
+            {/* <tr className="item-row item-row-last">
           <td
             className="Items"
             style={{ display: "flex", flexDirection: "row", padding: "4px" }}
@@ -370,38 +419,40 @@ const CartTable = () => {
             499.00
           </td>
         </tr> */}
-        <tr className="total-row info">
-          <td className="text-right price" colspan="3">
-            Sub Total
-          </td>
-          <td className="text-right price">{subtotalPrice}</td>
-        </tr>
-        <tr className="total-row info">
-          <td className="text-right price" colspan="3">
-            Delivery Price
-          </td>
-          <td className="text-right price">{shipping.shipping_price}</td>
-        </tr>
-        <tr className="total-row info">
-          <td className="text-right price" colspan="3">
-            Total
-          </td>
-          <td className="text-right price">{totalPrice}</td>
-        </tr>
-      </table>
-      <Stack direction="row" justifyContent="end" alignItems="center">
-        {/* <td className="text-right price">Checkout</td> */}
-        {/* <td className="text-right price">898.00</td> */}
-        <Button
-          sx={checkout}
-          className="checkoutbtn"
-          variant="contained"
-          type="button"
-          onClick={handleCheckout}
-        >
-          Checkout
-        </Button>
-      </Stack>
+            <tr className="total-row info">
+              <td className="text-right price" colspan="3">
+                Sub Total
+              </td>
+              <td className="text-right price">{subtotalPrice}</td>
+            </tr>
+            <tr className="total-row info">
+              <td className="text-right price" colspan="3">
+                Delivery Price
+              </td>
+              <td className="text-right price">{shipping.shipping_price}</td>
+            </tr>
+            <tr className="total-row info">
+              <td className="text-right price" colspan="3">
+                Total
+              </td>
+              <td className="text-right price">{totalPrice}</td>
+            </tr>
+          </table>
+          <Stack direction="row" justifyContent="end" alignItems="center">
+            {/* <td className="text-right price">Checkout</td> */}
+            {/* <td className="text-right price">898.00</td> */}
+            <Button
+              sx={checkout}
+              className="checkoutbtn"
+              variant="contained"
+              type="button"
+              onClick={handleCheckout}
+            >
+              Checkout
+            </Button>
+          </Stack>
+        </>
+      )}
     </div>
   );
 };

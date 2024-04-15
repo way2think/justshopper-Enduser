@@ -5,7 +5,9 @@ export const payment = api.injectEndpoints({
   endpoints: (build) => ({
     createRazorpayPaymentOrder: build.mutation({
       queryFn: async (rzpOptions) => {
-        return await createRazorpayOrder(rzpOptions);
+        const res = await createRazorpayOrder(rzpOptions);
+        console.log("ressss: ", res);
+        return res;
       },
     }),
   }),

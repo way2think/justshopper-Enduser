@@ -162,20 +162,16 @@ export default function Navbar() {
                       />
                     </MDBDropdownToggle>
                     <MDBDropdownMenu>
-                      <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        link
-                        href="profile"
-                      >
-                        Profile
-                      </MDBDropdownItem>
-                      <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        link
-                        href="orders"
-                      >
-                        Orders
-                      </MDBDropdownItem>
+                      <Link to={"/profile"}>
+                        <MDBDropdownItem className="MDBDropdownItem">
+                          Profile
+                        </MDBDropdownItem>
+                      </Link>
+                      <Link to={"/orders"}>
+                        <MDBDropdownItem className="MDBDropdownItem">
+                          Orders
+                        </MDBDropdownItem>
+                      </Link>
                       <MDBDropdownItem
                         className="MDBDropdownItem"
                         onClick={() => signOutUser()}
@@ -429,7 +425,7 @@ export default function Navbar() {
                         />
                       </MDBDropdownToggle>
                       <MDBDropdownMenu>
-                        <MDBDropdownItem
+                        {/* <MDBDropdownItem
                           className="MDBDropdownItem"
                           link
                           href="profile"
@@ -442,7 +438,17 @@ export default function Navbar() {
                           href="orders"
                         >
                           Orders
-                        </MDBDropdownItem>
+                        </MDBDropdownItem> */}
+                        <Link to={"/profile"}>
+                          <MDBDropdownItem className="MDBDropdownItem">
+                            Profile
+                          </MDBDropdownItem>
+                        </Link>
+                        <Link to={"/orders"}>
+                          <MDBDropdownItem className="MDBDropdownItem">
+                            Orders
+                          </MDBDropdownItem>
+                        </Link>
                         <MDBDropdownItem
                           className="MDBDropdownItem"
                           onClick={() => signOutUser()}

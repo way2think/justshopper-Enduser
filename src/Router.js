@@ -70,8 +70,8 @@ export default function Router() {
         { path: "cart", element: <CartPage /> },
         {
           path: "profile",
-          // element: <AuthenticatedRoute element={<Profile />} key="Profile" />,
-          element: <Profile />,
+          element: <AuthenticatedRoute element={<Profile />} key="Profile" />,
+          // element: <Profile />,
         },
         {
           path: "orders",
