@@ -29,6 +29,11 @@ import { auth, db } from "../../config/firebase";
 import { errorNotification } from "../../utils/notifications";
 
 import "./SignupModal.css";
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+} from "react-country-state-city";
 
 const style = {
   position: "absolute",
@@ -36,7 +41,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 565,
+  height: 630,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -85,8 +90,11 @@ const Signupbtn = {
 export default function SignupModal({ open, setOpen }) {
   // const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [countryid, setCountryid] = useState(0);
-  // const [stateid, setstateid] = useState(0);
+  const [countryid, setCountryid] = useState(0);
+  const [stateid, setstateid] = useState(0);
+  const [countryName, setCountryName] = useState("");
+  const [stateName, setstateName] = useState("");
+  const [cityName, setCityName] = useState("");
   const [signUpDetails, setSignUpDetails] = useState({
     name: "",
     email: "",
@@ -94,9 +102,10 @@ export default function SignupModal({ open, setOpen }) {
     createPassword: "",
     confirmPassword: "",
     address: {
-      door_no: "",
-      street_name: "",
-      district: "",
+      line: "",
+      city: "",
+      state: "",
+      country: "",
       pincode: "",
     },
   });
@@ -124,8 +133,14 @@ export default function SignupModal({ open, setOpen }) {
   };
 
   const handleSignup = () => {
-    const { name, email, phonenumber, confirmPassword, createPassword, address } =
-      signUpDetails;
+    const {
+      name,
+      email,
+      phonenumber,
+      confirmPassword,
+      createPassword,
+      address,
+    } = signUpDetails;
 
     if (
       isValidName(name) &&
@@ -271,46 +286,20 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={6} pr={2}>
+              <Grid xs={12}>
                 <TextField
                   id="outlined-multiline-static"
-                  label="House No"
-                  placeholder="Door / House No"
-                  multiline
-                  rows={1}
-                  name="doorNumber"
-                  value={signUpDetails.address.door_no}
+                  label="Address Line"
+                  placeholder="Door / House No, Street Name, Area"
+                  name="addressLine"
+                  value={signUpDetails.address.line}
                   onChange={(e) => {
                     setSignUpDetails((prevState) => {
                       return {
                         ...prevState,
                         address: {
                           ...prevState.address,
-                          door_no: e.target.value,
-                        },
-                      };
-                    });
-                  }}
-                  sx={{ mb: 2, width: "100%" }}
-                />
-              </Grid>
-
-              <Grid md={6} xs={6}>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Street & Area Name"
-                  placeholder="Street & Area Name"
-                  multiline
-                  rows={1}
-                  name="streetName"
-                  value={signUpDetails.address.street_name}
-                  onChange={(e) => {
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          street_name: e.target.value,
+                          line: e.target.value,
                         },
                       };
                     });
@@ -320,30 +309,123 @@ export default function SignupModal({ open, setOpen }) {
               </Grid>
 
               <Grid md={6} xs={6} pr={2}>
-                <TextField
+                <CountrySelect
+                  onChange={(e) => {
+                    setCountryid(e.id);
+                    setCountryName(e.name);
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          country: e.name,
+                        },
+                      };
+                    });
+                  }}
+                  placeHolder="Select Country"
+                />
+                {/* <TextField
                   id="outlined-multiline-static"
-                  label="City, District"
-                  placeholder="City, District"
-                  multiline
-                  rows={1}
-                  name="district"
-                  value={signUpDetails.address.district}
+                  label="City"
+                  placeholder="City"
+                  name="city"
+                  value={signUpDetails.address.city}
                   onChange={(e) => {
                     setSignUpDetails((prevState) => {
                       return {
                         ...prevState,
                         address: {
                           ...prevState.address,
-                          district: e.target.value,
+                          city: e.target.value,
                         },
                       };
                     });
                   }}
                   sx={{ mb: 2, width: "100%" }}
-                />
+                /> */}
               </Grid>
 
               <Grid md={6} xs={6}>
+                {/* <TextField
+                  id="outlined-multiline-static"
+                  label="State"
+                  placeholder="State"
+                  name="state"
+                  value={signUpDetails.address.state}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          state: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                /> */}
+                <StateSelect
+                  countryid={countryid}
+                  onChange={(e) => {
+                    setstateid(e.id);
+                    setstateName(e.name);
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          state: e.name,
+                        },
+                      };
+                    });
+                  }}
+                  placeHolder="Select State"
+                />
+              </Grid>
+
+              <Grid md={6} xs={6} pr={2} mt={2}>
+                {/* <TextField
+                  id="outlined-multiline-static"
+                  label="Pincode"
+                  multiline
+                  rows={1}
+                  name="country"
+                  value={signUpDetails.address.country}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          country: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                /> */}
+                <CitySelect
+                  countryid={countryid}
+                  stateid={stateid}
+                  onChange={(e) => {
+                    setCityName(e.name);
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          city: e.name,
+                        },
+                      };
+                    });
+                  }}
+                  placeHolder="Select City"
+                />
+              </Grid>
+
+              <Grid md={6} xs={6} mt={2}>
                 <TextField
                   id="outlined-multiline-static"
                   label="Pincode"

@@ -99,9 +99,10 @@ const ProfileDetail = () => {
     phone: "",
     email: "",
     address: {
-      door_no: "",
-      street_name: "",
+      line: "",
       district: "",
+      state: "",
+      country: "",
       pincode: "",
     },
   });
@@ -284,24 +285,24 @@ const ProfileDetail = () => {
                 sx={{ mb: 2 }}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 id="outlined-multiline-static"
-                label="House No"
-                placeholder="Door / House No"
-                value={defaultValues.address.door_no}
+                label="Address Line"
+                placeholder="Door / House No, Street Name, Area"
+                value={defaultValues.address.line}
                 onChange={(e) =>
                   setDefaultValues({
                     ...defaultValues,
                     address: {
                       ...defaultValues.address,
-                      door_no: e.target.value,
+                      line: e.target.value,
                     },
                   })
                 }
                 disabled={disableProfileEdit}
-                name="doorNumber"
+                name="addressLine"
                 sx={{ mb: 2, width: "100%" }}
               />
             </Grid>
@@ -309,31 +310,8 @@ const ProfileDetail = () => {
               <TextField
                 fullWidth
                 id="outlined-basic1"
-                label="Street & Area Name"
-                placeholder="Street & Area Name"
-                value={defaultValues.address.street_name}
-                onChange={(e) =>
-                  setDefaultValues({
-                    ...defaultValues,
-                    address: {
-                      ...defaultValues.address,
-                      street_name: e.target.value,
-                    },
-                  })
-                }
-                // disabled={true}
-                variant="outlined"
-                name="streetName"
-                className="name"
-                sx={{ mb: 2 }}
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                id="outlined-basic1"
-                label="City, District"
-                placeholder="City, District"
+                label="District"
+                placeholder="District"
                 value={defaultValues.address.district}
                 onChange={(e) =>
                   setDefaultValues({
@@ -347,6 +325,50 @@ const ProfileDetail = () => {
                 // disabled={true}
                 variant="outlined"
                 name="district"
+                className="name"
+                sx={{ mb: 2 }}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                id="outlined-basic1"
+                label="State"
+                placeholder="State"
+                value={defaultValues.address.state}
+                onChange={(e) =>
+                  setDefaultValues({
+                    ...defaultValues,
+                    address: {
+                      ...defaultValues.address,
+                      state: e.target.value,
+                    },
+                  })
+                }
+                // disabled={true}
+                variant="outlined"
+                name="state"
+                className="name"
+                sx={{ mb: 2 }}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                id="outlined-basic1"
+                name="country"
+                value={defaultValues.address.country}
+                onChange={(e) =>
+                  setDefaultValues({
+                    ...defaultValues,
+                    address: {
+                      ...defaultValues.address,
+                      country: e.target.value,
+                    },
+                  })
+                }
+                // disabled={true}
+                variant="outlined"
                 className="name"
                 sx={{ mb: 2 }}
               />
