@@ -24,6 +24,7 @@ export default function CardNewArrival({ product }) {
     background: "#dc3237",
     color: "#fff",
     fontSize: "14px",
+
     padding: "5px 10px",
     fontFamily: "amazonbold",
     "&:hover": {
@@ -81,7 +82,7 @@ export default function CardNewArrival({ product }) {
 
       <CardContent
         sx={{
-          p: 0,
+          p: "5px 10px",
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
             display: "flex",
             justifyContent: "center",
@@ -107,7 +108,7 @@ export default function CardNewArrival({ product }) {
       </CardContent>
       <CardActions
         sx={{
-          p: 0,
+          p: "5px 10px",
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
             display: "flex",
             justifyContent: "center",

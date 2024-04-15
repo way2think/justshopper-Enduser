@@ -154,7 +154,11 @@ export default function Footer() {
           </a> */}
           </div>
           <div className="socialflex d-flex">
-            <a href="" className="  socialicon">
+            <a
+              href="https://www.facebook.com/profile.php?id=61557129773638"
+              className="  socialicon"
+              target="_blank"
+            >
               {/* <MDBIcon fab icon="facebook-f" /> */}
               <img
                 src="../images/Facebook F.png"
@@ -162,7 +166,11 @@ export default function Footer() {
                 className="sociallink"
               />
             </a>
-            <a href="" className=" socialicon">
+            <a
+              href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
+              target="_blank"
+              className=" socialicon"
+            >
               {/* <MDBIcon fab icon="twitter" /> */}
               <img src="../images/YouTube.png" alt="" className="sociallink" />
             </a>
@@ -170,7 +178,11 @@ export default function Footer() {
             <MDBIcon fab icon="google" />
             <img src="../images/TwitterX.png" alt="" className="sociallink"  />
           </a> */}
-            <a href="" className=" socialicon">
+            <a
+              href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
+              className=" socialicon"
+              target="_blank"
+            >
               {/* <MDBIcon fab icon="instagram" /> */}
               <img
                 src="../images/Instagram.png"

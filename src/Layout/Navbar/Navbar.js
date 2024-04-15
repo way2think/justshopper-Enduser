@@ -232,7 +232,7 @@ export default function Navbar() {
         </Stack>
 
         <MDBCollapse navbar open={openBasic} style={{ textAlign: "left" }}>
-          <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 justify-content-end">
+          <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 justify-content-end align-items-center">
             <MDBNavbarItem className="navitem">
               <Link
                 active
@@ -356,14 +356,14 @@ export default function Navbar() {
 
             {!mobileNav && (
               <>
-                <MDBNavbarItem className="me-3 me-lg-0">
+                {/* <MDBNavbarItem className="me-3 me-lg-0">
                   <MDBNavbarLink href="#">
-                    {/* <MDBIcon fas icon="search" /> */}
-                    {/* <img src="../images/Search.png" alt="" width={25} height={25}  /> */}
-                    {/* <Search /> */}
+                    <MDBIcon fas icon="search" />
+                    <img src="../images/Search.png" alt="" width={25} height={25}  />
+                    <Search />
                   </MDBNavbarLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem className="me-3 me-lg-0">
+                </MDBNavbarItem> */}
+                <MDBNavbarItem className="me-3 mx-2 me-lg-0">
                   <Link
                     to="cart"
                     style={{
@@ -386,7 +386,7 @@ export default function Navbar() {
                     </StyledBadge>
                   </Link>
                 </MDBNavbarItem>
-                <MDBNavbarItem className="me-3 me-lg-0">
+                <MDBNavbarItem className="me-3 mx-2 me-lg-0">
                   <Link
                     to="favorites"
                     style={{
@@ -418,7 +418,7 @@ export default function Navbar() {
                     <MDBDropdown>
                       <MDBDropdownToggle
                         tag="a"
-                        className="nav-link"
+                        className="nav-link p-0 mx-2"
                         role="button"
                       >
                         <img

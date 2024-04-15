@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import CardNewArrival from "./CardNewArrival";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import "./NewArrivalCarosuel.css";
 
 export default function SimpleSlider({ products }) {
   function SampleNextArrow(props) {
@@ -16,7 +17,7 @@ export default function SimpleSlider({ products }) {
           display: "block",
           background: "#000",
           position: "absolute",
-          right: "20px",
+          right: "-3rem",
           borderRadius: "30px",
           padding: " 11px 27px 27px 8px",
         }}
@@ -35,7 +36,7 @@ export default function SimpleSlider({ products }) {
           display: "block",
           background: "#000",
           position: "absolute",
-          left: "20px",
+          right: "-5rem",
           borderRadius: "30px",
           padding: " 11px 27px 27px 8px",
           zIndex: 1,
@@ -104,7 +105,7 @@ export default function SimpleSlider({ products }) {
   };
 
   return (
-    <div className="container">
+    <div className="container new-arrivals ">
       <Stack
         justifyContent="space-between"
         alignItems="center"
