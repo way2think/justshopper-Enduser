@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 const Cod = () => {
   const enduser_status_message = useSelector(selectStatusMessage);
 
-  console.log("settings: ", enduser_status_message);
-
   return (
     <>
       {enduser_status_message ? (

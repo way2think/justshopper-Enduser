@@ -33,7 +33,7 @@ export default function Router() {
     setAuthChecked(true);
   }, [user]);
 
-  console.log("Route - user?.isAuthenticated: ", user?.isAuthenticated);
+  // console.log("Route - user?.isAuthenticated: ", user?.isAuthenticated);
 
   const AuthenticatedRoute = ({ element, ...rest }) =>
     user?.isAuthenticated ? element : <Navigate to="/" />;

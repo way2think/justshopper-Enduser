@@ -14,6 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { error } from "jquery";
 
 // Create
 const createObject = async (
@@ -154,6 +155,41 @@ const getObjectByParam = async (
   }
 };
 
+const getMultiObjectParallellyByIds = async (
+  collectionId,
+  objects,
+  metaData = "getMultiObjectParallelly"
+) => {
+  try {
+    // console.log("objectIds: ", objects, collectionId);
+
+    // create promise array with collection id
+
+    const promises = [];
+    objects.forEach((obj) => {
+      const docRef = doc(db, collectionId, obj.id);
+      promises.push(getDoc(docRef));
+    });
+
+    const promiseResult = await Promise.all(promises);
+    const resultData = promiseResult.map((docSnap) => ({
+      id: docSnap.id,
+      ...docSnap.data(),
+    }));
+    // console.log("resultData: ", resultData);
+    return {
+      data: resultData,
+      error: null,
+    };
+  } catch (e) {
+    console.log(`error-${metaData}: `, e);
+    return {
+      data: null,
+      error: e,
+    };
+  }
+};
+
 // Update
 const updateObjectByParam = async (
   collectionId,
@@ -229,4 +265,5 @@ export {
   updateObjectByParam,
   updateAllObjectByParam,
   deleteObjectByParam,
+  getMultiObjectParallellyByIds,
 };
