@@ -47,6 +47,22 @@ const add = {
   },
 };
 
+const cancel = {
+  border: "1px solid #dc3237",
+  color: "#dc3237",
+  fontSize: "12px",
+  padding: "8px 16px",
+  height: "fit-content",
+  marginLeft: "auto",
+  "&:hover": {
+    border: "1px solid #dc3237",
+    color: "#dc3237",
+  },
+  "@media only screen and (max-width: 600px)": {
+    fontSize: "10px",
+  },
+};
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -259,7 +275,14 @@ export default function Profile() {
                   />
                 </Grid>
                 <Grid xs={12} mt={3} textAlign="end">
-                  <Button onClick={() => setShowModal(false)} sx={add}>
+                  <Button onClick={() => setShowModal(false)} sx={cancel}>
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={() => setShowModal(false)}
+                    sx={add}
+                    className="ml-2"
+                  >
                     Save
                   </Button>
                 </Grid>
