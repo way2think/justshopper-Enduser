@@ -165,6 +165,7 @@ export default function SignupModal({ open, setOpen }) {
             saved_addresses: [],
             favourites: [],
           });
+          
         })
         .catch((error) => {
           const errorCode = error.code;

@@ -207,13 +207,13 @@ const CartTable = () => {
             name: user.name,
             phone: user.phone,
             email: user.email,
-            billing_address: `${user}`,
+            billing_address: "",
             shipping_address: "",
           },
           notifications: {
             isConfirmationEmailSent: false,
-            isDeliveredEmailSent: false,
             isDispatchedEmailSent: false,
+            // isDeliveredEmailSent: false,
           },
         };
         // console.log("order: ", order);
