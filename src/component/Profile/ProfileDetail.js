@@ -100,7 +100,7 @@ const ProfileDetail = () => {
     email: "",
     address: {
       line: "",
-      district: "",
+      city: "",
       state: "",
       country: "",
       pincode: "",
@@ -310,21 +310,21 @@ const ProfileDetail = () => {
               <TextField
                 fullWidth
                 id="outlined-basic1"
-                label="District"
-                placeholder="District"
-                value={defaultValues.address.district}
+                label="City"
+                placeholder="City"
+                value={defaultValues.address.city}
                 onChange={(e) =>
                   setDefaultValues({
                     ...defaultValues,
                     address: {
                       ...defaultValues.address,
-                      district: e.target.value,
+                      city: e.target.value,
                     },
                   })
                 }
                 // disabled={true}
                 variant="outlined"
-                name="district"
+                name="city"
                 className="name"
                 sx={{ mb: 2 }}
               />

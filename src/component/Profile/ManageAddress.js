@@ -12,6 +12,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddAddress from "./AddAddress";
 import SignupModal from "../Signup/SignupModal";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../store/userSlice";
 
 const useStyles = styled((theme) => ({
   root: {
@@ -23,105 +25,65 @@ const useStyles = styled((theme) => ({
   },
 }));
 
-const items = [
-  {
-    name: "Choco Biscuit ",
-    image: "../images/biscuit.jpg",
-    price: "$413.00",
-  },
-  {
-    name: "Choco Biscuit",
-    image: "../images/biscuit.jpg",
-    price: "$413.00",
-  },
-  {
-    name: "Choco Biscuit",
-    image: "../images/biscuit.jpg",
-    price: "$413.00",
-  },
-  {
-    name: "Choco Biscuit",
-    image: "../images/biscuit.jpg",
-    price: "$413.00",
-  },
-  {
-    name: "Choco Biscuit",
-    image: "../images/biscuit.jpg",
-    price: "$413.00",
-  },
-  // {
-  //   name: "Choco Biscuit",
-  //   image: "../images/biscuit.jpg",
-  //   price: "$413.00",
-  // },
-];
 const ManageAddress = () => {
-  const [addresses, setAddresses] = useState([
-    {
-      name: "John Doe",
-      street: "123 Main Street",
-      city: "Anytown",
-      state: "CA",
-      zip: "12345",
-    },
-    {
-      name: "Jane Doe",
-      street: "456 Elm Street",
-      city: "Anytown",
-      state: "CA",
-      zip: "12345",
-    },
-  ]);
+  const user = useSelector(selectUser);
 
   const classes = useStyles();
 
-  const handleAddAddress = () => {
-    setAddresses([
-      ...addresses,
-      {
-        name: "",
-        street: "",
-        city: "",
-        state: "",
-        zip: "",
-      },
-    ]);
-  };
+  // const handleAddAddress = () => {
+  //   setAddresses([
+  //     ...addresses,
+  //     {
+  //       name: "",
+  //       street: "",
+  //       city: "",
+  //       state: "",
+  //       zip: "",
+  //     },
+  //   ]);
+  // };
 
   return (
     <div className={`${classes.root} container`}>
-    {/* <AddAddress handleAddAddress={handleAddAddress} /> */}
-    <SignupModal manageAddress={true} />
+      {/* <AddAddress handleAddAddress={handleAddAddress} /> */}
+      <SignupModal manageAddress={true} />
       <Grid container spacing={2}>
-        {items.map((item, index) => (
+        {user.shipping_address.length === 0 ? (
+          <Grid item sm={12}>
+            <div className="d-flex justify-content-between">No Addresses</div>
+          </Grid>
+        ) : null}
+        {user.shipping_address.map((address, index) => (
           <Grid item sm={12} xs={12} md={6} lg={6} key={index}>
-            <Card className={classes.card} style={{textAlign:"left"}}>
+            <Card className={classes.card} style={{ textAlign: "left" }}>
               {/* <CardMedia
                   component="img"
                   height="140"
                   image={item.image}
                   alt=""
                 /> */}
-              <CardContent >
-                <Typography
+              <CardContent>
+                {/* <Typography
                   gutterBottom
                   variant="h5"
                   component="h2"
                   color="#000"
-                 
                 >
                   Raji
-                </Typography>
+                </Typography> */}
 
                 <Typography variant="body" color="#000" component="p">
-                  104/21 Test Address, Katpadi,
+                  {address.line}
                 </Typography>
                 <Typography variant="body" color="#000" component="p">
-                  Vellore - 632004
+                  {address.city + ", " + address.state}
                 </Typography>
                 <Typography variant="body" color="#000" component="p">
+                  {address.country + " - " + address.pincode}
+                </Typography>
+                {/* <Typography variant="body" color="#000" component="p">
                   7339122971
-                </Typography>
+                </Typography> */}
 
                 <br />
                 <Button

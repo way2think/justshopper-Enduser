@@ -30,6 +30,7 @@ export const userSlice = createSlice({
       state.phone = payload.phone;
       state.role = payload.role;
       state.address = payload.address;
+      state.shipping_address = payload.shipping_address;
       state.favourite = payload.favourite;
       state.saved_address = payload.saved_address;
       state.isAuthenticated = payload.isAuthenticated;

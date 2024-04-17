@@ -290,6 +290,25 @@ const CartTable = () => {
     }
   };
 
+  function getAddress() {
+    let shippingAddress = null;
+    shippingAddress =
+      user.shipping_address.length > 0
+        ? user.shipping_address
+            .filter((add) => add.is_active)
+            .map((address) => {
+              return address;
+            })
+        : user.address;
+    return (
+      <>
+        <div>{shippingAddress.line}</div>
+        <div>{shippingAddress.city + ", " + shippingAddress.state}</div>
+        <div>{shippingAddress.country + " - " + shippingAddress.pincode}</div>
+      </>
+    );
+  }
+
   return (
     <div class="container m-auto mt-5">
       {cartItems.length === 0 ? (
@@ -463,7 +482,12 @@ const CartTable = () => {
             </tr>
             <tr className="total-row info">
               <td className="text-right price" colspan="3">
-                Total
+                <div className="d-flex p-0">
+                  Delivery Address:{" "}
+                  <span className="text-start ml-3">{getAddress()}</span>
+                  <small className="mt-auto text-primary" role="button">Change Address</small>
+                  <span className="ml-auto">Total</span>
+                </div>
               </td>
               <td className="text-right price">{totalPrice}</td>
             </tr>
