@@ -18,6 +18,7 @@ import {
   selectCartItems,
 } from "../../store/cartSlice";
 import { useEffect, useState } from "react";
+import ImageCarousel from "../../Reusable/ImageCarosuel";
 
 export default function CardNewArrival({ product }) {
   const cart = {
@@ -78,11 +79,13 @@ export default function CardNewArrival({ product }) {
         className="cardimage"
       /> */}
       {/* <span className="Sale">{props.sale}</span> */}
-      <img src={"../images/biscuit.jpg"} alt={name} className="cardimage" />
+      {/* <img src={"../images/biscuit.jpg"} alt={name} className="cardimage" /> */}
+      <ImageCarousel />
 
       <CardContent
         sx={{
           p: "5px 10px",
+          mt: 2,
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
             display: "flex",
             justifyContent: "center",
