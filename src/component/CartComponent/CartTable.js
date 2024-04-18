@@ -293,7 +293,7 @@ const CartTable = () => {
   function getAddress() {
     let shippingAddress = null;
     shippingAddress =
-      user.shipping_address.length > 0
+      user?.shipping_address?.length > 0
         ? user.shipping_address
             .filter((add) => add.is_active)
             .map((address) => {
@@ -485,7 +485,9 @@ const CartTable = () => {
                 <div className="d-flex p-0">
                   Delivery Address:{" "}
                   <span className="text-start ml-3">{getAddress()}</span>
-                  <small className="mt-auto text-primary" role="button">Change Address</small>
+                  <small className="mt-auto text-primary" role="button">
+                    Change Address
+                  </small>
                   <span className="ml-auto">Total</span>
                 </div>
               </td>
