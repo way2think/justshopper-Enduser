@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail as sendResetPasswordEmail,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -78,6 +79,24 @@ const sendPasswordResetEmail = async (email) => {
   }
 };
 
+const updateUserPassword = async (password) => {
+  const user = auth.currentUser();
+  try {
+    await updatePassword(user, password);
+    return {
+      data: {
+        isDone: true,
+      },
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error,
+    };
+  }
+};
+
 const signOutUser = async () => {
   console.log("signOutUser - api");
   try {
@@ -100,5 +119,6 @@ export {
   signupWithEmailAndPassword,
   signinWithEmailAndPassword,
   sendPasswordResetEmail,
+  updateUserPassword,
   signOutUser,
 };

@@ -29,6 +29,11 @@ import { auth, db } from "../../config/firebase";
 import { errorNotification } from "../../utils/notifications";
 
 import "./SignupModal.css";
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+} from "react-country-state-city";
 
 const style = {
   position: "absolute",
@@ -36,13 +41,13 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 440,
+  height: 630,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
   p: 4,
   "@media (max-width: 768px)": {
-    width: 400,
+    width: 350,
     maxHeight: "450px",
     overflowY: "scroll",
   },
@@ -85,14 +90,24 @@ const Signupbtn = {
 export default function SignupModal({ open, setOpen }) {
   // const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [countryid, setCountryid] = useState(0);
-  // const [stateid, setstateid] = useState(0);
+  const [countryid, setCountryid] = useState(0);
+  const [stateid, setstateid] = useState(0);
+  const [countryName, setCountryName] = useState("");
+  const [stateName, setstateName] = useState("");
+  const [cityName, setCityName] = useState("");
   const [signUpDetails, setSignUpDetails] = useState({
     name: "",
     email: "",
     phonenumber: "",
     createPassword: "",
     confirmPassword: "",
+    address: {
+      line: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: "",
+    },
   });
   // console.log("testing for name", signUpDetails);
   // const auth = getAuth();
@@ -118,8 +133,14 @@ export default function SignupModal({ open, setOpen }) {
   };
 
   const handleSignup = () => {
-    const { name, email, phonenumber, confirmPassword, createPassword } =
-      signUpDetails;
+    const {
+      name,
+      email,
+      phonenumber,
+      confirmPassword,
+      createPassword,
+      address,
+    } = signUpDetails;
 
     if (
       isValidName(name) &&
@@ -134,12 +155,13 @@ export default function SignupModal({ open, setOpen }) {
           const user = userCredential.user;
           console.log("user1", user);
           const { uid } = userCredential.user;
-          const docRef = doc(db, "users", uid);
+          const docRef = doc(db, "user", uid);
           await setDoc(docRef, {
             name,
             phone: phonenumber,
             email,
             role: "consumer",
+            address,
             saved_addresses: [],
             favourites: [],
           });
@@ -213,7 +235,7 @@ export default function SignupModal({ open, setOpen }) {
               Sign Up
             </Typography>
             <Grid container>
-              <Grid md={6} xs={12}>
+              <Grid md={6} xs={12} className="gridsignup">
                 <TextField
                   fullWidth
                   id="name"
@@ -226,10 +248,10 @@ export default function SignupModal({ open, setOpen }) {
                   onChange={handleInputChange}
                   sx={{
                     mb: 2,
-                    width: "90%",
-                    "@media (max-width: 768px)": {
-                      width: "100%",
-                    },
+                    // width: "90%",
+                    // "@media (max-width: 768px)": {
+                    //   width: "100%",
+                    // },
                   }}
                 />
               </Grid>
@@ -239,7 +261,7 @@ export default function SignupModal({ open, setOpen }) {
                   id="phone"
                   label="Phone Number"
                   variant="outlined"
-                  name="phone"
+                  name="phonenumber"
                   type="tel"
                   value={signUpDetails.phonenumber}
                   onChange={handleInputChange}
@@ -264,22 +286,186 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={12}>
+              <Grid xs={12}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Address Line"
+                  placeholder="Door / House No, Street Name, Area"
+                  name="addressLine"
+                  value={signUpDetails.address.line}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          line: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                />
+              </Grid>
+
+              <Grid md={6} xs={6} pr={2}>
+                <CountrySelect
+                  onChange={(e) => {
+                    setCountryid(e.id);
+                    setCountryName(e.name);
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          country: e.name,
+                        },
+                      };
+                    });
+                  }}
+                  placeHolder="Select Country"
+                />
+                {/* <TextField
+                  id="outlined-multiline-static"
+                  label="City"
+                  placeholder="City"
+                  name="city"
+                  value={signUpDetails.address.city}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          city: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                /> */}
+              </Grid>
+
+              <Grid md={6} xs={6}>
+                {/* <TextField
+                  id="outlined-multiline-static"
+                  label="State"
+                  placeholder="State"
+                  name="state"
+                  value={signUpDetails.address.state}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          state: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                /> */}
+                <StateSelect
+                  countryid={countryid}
+                  onChange={(e) => {
+                    setstateid(e.id);
+                    setstateName(e.name);
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          state: e.name,
+                        },
+                      };
+                    });
+                  }}
+                  placeHolder="Select State"
+                />
+              </Grid>
+
+              <Grid md={6} xs={6} pr={2} mt={2}>
+                {/* <TextField
+                  id="outlined-multiline-static"
+                  label="Pincode"
+                  multiline
+                  rows={1}
+                  name="country"
+                  value={signUpDetails.address.country}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          country: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                /> */}
+                <CitySelect
+                  countryid={countryid}
+                  stateid={stateid}
+                  onChange={(e) => {
+                    setCityName(e.name);
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          city: e.name,
+                        },
+                      };
+                    });
+                  }}
+                  placeHolder="Select City"
+                />
+              </Grid>
+
+              <Grid md={6} xs={6} mt={2}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Pincode"
+                  multiline
+                  rows={1}
+                  name="pincode"
+                  value={signUpDetails.address.pincode}
+                  onChange={(e) => {
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          pincode: e.target.value,
+                        },
+                      };
+                    });
+                  }}
+                  sx={{ mb: 2, width: "100%" }}
+                />
+              </Grid>
+
+              <Grid md={6} xs={12} className="gridsignup">
                 <FormControl
+                  fullWidth
                   sx={{
                     mb: 2,
-                    width: "90%",
-                    "@media (max-width: 768px)": {
-                      width: "100%",
-                    },
+                    // width: "90%",
+                    // "@media (max-width: 768px)": {
+                    //   width: "100%",
+                    // },
                   }}
                   variant="outlined"
                 >
                   <InputLabel htmlFor="password">Create Password</InputLabel>
                   <OutlinedInput
+                    label="Create Password"
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    name="password"
+                    name="createPassword"
                     value={signUpDetails.createPassword}
                     onChange={handleInputChange}
                     endAdornment={
@@ -303,6 +489,7 @@ export default function SignupModal({ open, setOpen }) {
                     Confirm Password
                   </InputLabel>
                   <OutlinedInput
+                    label="Confirm Password"
                     id="confirmPassword"
                     type={showPassword ? "text" : "password"}
                     name="confirmPassword"
@@ -328,56 +515,6 @@ export default function SignupModal({ open, setOpen }) {
               Sign up
             </Button>
           </>
-          {/* {manageAddress && (
-            <>
-              {" "}
-              <Typography
-                id="modal-modal-title"
-                variant="h5"
-                component="h2"
-                sx={{
-                  fontFamily: "amazonbold",
-                  marginBottom: 2,
-                  textAlign: "left",
-                  marginTop: 3,
-                }}
-              >
-                ADD ADDRESS
-              </Typography>
-              <Grid md={12} xs={12} sx={{ marginTop: 3 }}>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Address"
-                  multiline
-                  rows={1}
-                  name="address"
-                  value={signUpDetails.address}
-                  onChange={handleInputChange}
-                  sx={{ mb: 2, width: "100%" }}
-                />
-              </Grid>
-              <Grid md={12} xs={12}>
-                <CountryAndStates
-                  signUpDetails={signUpDetails}
-                  setSignUpDetails={setSignUpDetails}
-                  handleInputChange={handleInputChange}
-                  countryid={countryid}
-                  setCountryid={setCountryid}
-                  setCountryName={setCountryName}
-                  stateid={stateid}
-                  setstateid={setstateid}
-                  setstateName={setstateName}
-                  setCityName={setCityName}
-                />
-              </Grid>
-              <Button
-                sx={Signupbtn}
-                //   onClick={handleSignUP}
-              >
-                Add
-              </Button>
-            </>
-          )} */}
         </Box>
       </Modal>
     </div>

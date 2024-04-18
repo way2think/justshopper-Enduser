@@ -78,21 +78,30 @@ const ContactDetails = () => {
                 alignItems="center"
                 className="socialicons"
               >
-                <a href="">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61557129773638"
+                  target="_blank"
+                >
                   <img
                     src="../images/Facebook F.png"
                     alt=""
                     className="sociallink"
                   />
                 </a>
-                <a href="">
+                <a
+                  href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
+                  target="_blank"
+                >
                   <img
                     src="../images/YouTube.png"
                     alt=""
                     className="sociallink"
                   />
                 </a>
-                <a href="">
+                <a
+                  href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
+                  target="_blank"
+                >
                   <img
                     src="../images/Instagram.png"
                     alt=""

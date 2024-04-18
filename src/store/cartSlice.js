@@ -93,6 +93,24 @@ export const cartSlice = createSlice({
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },
+    removeItemOutOfStock: (state, action) => {
+      const cartItem = action.payload;
+      // console.log("removeItemOutOfStock:", cartItem);
+      const index = state.cartItems.findIndex(
+        (item) => item.id === cartItem.id
+      );
+
+      if (index !== -1) {
+        const cart_quantity = state.cartItems[index].cart_quantity;
+
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== cartItem.id
+        );
+        state.totalQuantity -= cart_quantity;
+
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      }
+    },
     setCartItems: (state, action) => {
       const cartItems = action.payload;
       console.log("cartItems: ", cartItems);
@@ -115,8 +133,15 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addItem, addItemQty, clearCart, removeItemQty, setCartItems } =
-  cartSlice.actions;
+export const {
+  addItem,
+  addItemQty,
+  clearCart,
+  removeItemQty,
+  setItemQty,
+  removeItemOutOfStock,
+  setCartItems,
+} = cartSlice.actions;
 
 export const selectCartItems = (state) => state.cart;
 export const selectCartSize = (state) => state.cart.totalQuantity;
