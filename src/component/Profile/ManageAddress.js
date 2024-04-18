@@ -27,6 +27,7 @@ const useStyles = styled((theme) => ({
 
 const ManageAddress = () => {
   const user = useSelector(selectUser);
+  console.log("user: ", user);
 
   const classes = useStyles();
 
@@ -48,12 +49,12 @@ const ManageAddress = () => {
       {/* <AddAddress handleAddAddress={handleAddAddress} /> */}
       <SignupModal manageAddress={true} />
       <Grid container spacing={2}>
-        {user.shipping_address.length === 0 ? (
+        {user.shipping_addresses?.length === 0 ? (
           <Grid item sm={12}>
             <div className="d-flex justify-content-between">No Addresses</div>
           </Grid>
         ) : null}
-        {user.shipping_address.map((address, index) => (
+        {user.shipping_addresses?.map((address, index) => (
           <Grid item sm={12} xs={12} md={6} lg={6} key={index}>
             <Card className={classes.card} style={{ textAlign: "left" }}>
               {/* <CardMedia

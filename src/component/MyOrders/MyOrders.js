@@ -199,7 +199,7 @@ const MyOrders = () => {
               </>
             )}
             {/* buy again */}
-            {currentTabContent == "buy_again" && (
+            {currentTabContent === "buy_again" && (
               <>
                 <BuyAgain />
                 {/* <div id="buy_again" className="orderCardWrap">

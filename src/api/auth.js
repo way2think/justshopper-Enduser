@@ -33,6 +33,8 @@ export const auth = api.injectEndpoints({
     signInWithEmailAndPassword: build.mutation({
       queryFn: async ({ email, password }) => {
         const result = await signinWithEmailAndPassword(email, password);
+        console.log("resulttt----", result);
+
         const user = result.data;
         if (user) {
           // return await getObjectByParam(collectionId, user.uid);

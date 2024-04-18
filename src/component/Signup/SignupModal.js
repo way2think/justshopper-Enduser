@@ -163,6 +163,7 @@ export default function SignupModal({ open, setOpen }) {
             role: "consumer",
             address,
             saved_addresses: [],
+            shipping_addresses: [],
             favourites: [],
           });
         })

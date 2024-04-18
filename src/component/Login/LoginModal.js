@@ -146,13 +146,14 @@ export default function LoginModal({ open, setOpen }) {
     if (isValidEmail(email) && isValidPassword(password)) {
       const result = await signInWithEmailAndPassword({ email, password });
       console.log("result: ", result);
-      if (result) {
+      if (result.data) {
         // getting user from db is handled in authListener
         dispatch(setIsLoading(false));
         successNotification(`Successfully Signed In!!!`);
         closeModal();
       } else {
         console.log("error: ", result);
+        dispatch(setIsLoading(false));
         errorNotification(result?.error?.message);
       }
     } else {

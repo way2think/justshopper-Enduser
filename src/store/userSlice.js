@@ -13,7 +13,8 @@ const initialState = {
     pincode: "",
   },
   favourite: [],
-  saved_address: [],
+  saved_addresses: [],
+  shipping_addresses: [],
   isAuthenticated: false,
 };
 
@@ -30,9 +31,9 @@ export const userSlice = createSlice({
       state.phone = payload.phone;
       state.role = payload.role;
       state.address = payload.address;
-      state.shipping_address = payload.shipping_address;
+      state.shipping_addresses = payload.shipping_addresses;
       state.favourite = payload.favourite;
-      state.saved_address = payload.saved_address;
+      state.saved_addresses = payload.saved_addresses;
       state.isAuthenticated = payload.isAuthenticated;
     },
     setUserLogout: (state) => {
@@ -42,7 +43,7 @@ export const userSlice = createSlice({
       state.phone = "";
       state.role = "";
       state.favourite = [];
-      state.saved_address = [];
+      state.saved_addresses = [];
       state.isAuthenticated = false;
     },
   },
@@ -54,6 +55,6 @@ export const { setUser, setUserLogout } = userSlice.actions;
 export const selectUser = (state) => state.user;
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
 export const selectFavourite = (state) => state.user.favourite;
-export const selectSavedAddress = (state) => state.user.saved_address;
+export const selectSavedAddress = (state) => state.user.saved_addresses;
 
 export default userSlice.reducer;
