@@ -47,7 +47,7 @@ const style = {
   boxShadow: 24,
   p: 4,
   "@media (max-width: 768px)": {
-    width: 400,
+    width: 350,
     maxHeight: "450px",
     overflowY: "scroll",
   },
@@ -165,7 +165,6 @@ export default function SignupModal({ open, setOpen }) {
             saved_addresses: [],
             favourites: [],
           });
-          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -236,7 +235,7 @@ export default function SignupModal({ open, setOpen }) {
               Sign Up
             </Typography>
             <Grid container>
-              <Grid md={6} xs={12} pr={2}>
+              <Grid md={6} xs={12} className="gridsignup">
                 <TextField
                   fullWidth
                   id="name"
@@ -449,7 +448,7 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={12} pr={2}>
+              <Grid md={6} xs={12} className="gridsignup">
                 <FormControl
                   fullWidth
                   sx={{
@@ -463,6 +462,7 @@ export default function SignupModal({ open, setOpen }) {
                 >
                   <InputLabel htmlFor="password">Create Password</InputLabel>
                   <OutlinedInput
+                    label="Create Password"
                     id="password"
                     type={showPassword ? "text" : "password"}
                     name="createPassword"
@@ -489,6 +489,7 @@ export default function SignupModal({ open, setOpen }) {
                     Confirm Password
                   </InputLabel>
                   <OutlinedInput
+                    label="Confirm Password"
                     id="confirmPassword"
                     type={showPassword ? "text" : "password"}
                     name="confirmPassword"

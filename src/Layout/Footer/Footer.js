@@ -1,4 +1,5 @@
 import React from "react";
+import { Grid, Stack } from "@mui/material";
 import {
   MDBFooter,
   MDBContainer,
@@ -145,79 +146,94 @@ export default function Footer() {
           </MDBRow>
         </MDBContainer>
       </section>
-      <section className="d-flex justify-content-center justify-content-lg-between p-4 align-items-center">
-        <section className="d-flex justify-content-start justify-content-lg-start copy col p-4 align-items-start">
-          <div className="text-center p-4  copy">
-            © 2024 Copyright JustShopper
-            {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
+
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          "@media only screen and (max-width: 600px)": {
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "start",
+          },
+        }}
+      >
+        <Grid item lg={6}>
+          <section className="d-flex justify-content-start justify-content-lg-start copy align-items-start">
+            <div className="text-center copy">
+              © 2024 Copyright JustShopper
+              {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
            
           </a> */}
-          </div>
-          <div className="socialflex d-flex">
-            <a
-              href="https://www.facebook.com/profile.php?id=61557129773638"
-              className="  socialicon"
-              target="_blank"
-            >
-              {/* <MDBIcon fab icon="facebook-f" /> */}
-              <img
-                src="../images/Facebook F.png"
-                alt=""
-                className="sociallink"
-              />
-            </a>
-            <a
-              href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
-              target="_blank"
-              className=" socialicon"
-            >
-              {/* <MDBIcon fab icon="twitter" /> */}
-              <img src="../images/YouTube.png" alt="" className="sociallink" />
-            </a>
-            {/* <a href="" className=" socialicon">
+            </div>
+            <div className="socialflex d-flex">
+              <a
+                href="https://www.facebook.com/profile.php?id=61557129773638"
+                className="  socialicon"
+                target="_blank"
+              >
+                {/* <MDBIcon fab icon="facebook-f" /> */}
+                <img
+                  src="../images/Facebook F.png"
+                  alt=""
+                  className="sociallink"
+                />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
+                target="_blank"
+                className=" socialicon"
+              >
+                {/* <MDBIcon fab icon="twitter" /> */}
+                <img
+                  src="../images/YouTube.png"
+                  alt=""
+                  className="sociallink"
+                />
+              </a>
+              {/* <a href="" className=" socialicon">
             <MDBIcon fab icon="google" />
             <img src="../images/TwitterX.png" alt="" className="sociallink"  />
           </a> */}
+              <a
+                href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
+                className=" socialicon"
+                target="_blank"
+              >
+                {/* <MDBIcon fab icon="instagram" /> */}
+                <img
+                  src="../images/Instagram.png"
+                  alt=""
+                  className="sociallink"
+                />
+              </a>
+            </div>
+          </section>
+        </Grid>
+        <Grid item lg={6}>
+          <div className="text-center   copy">
+            <br />
+            Designed and developed by <br />
             <a
-              href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
-              className=" socialicon"
+              href="https://way2think.com/"
               target="_blank"
+              style={{ color: "#dc3237" }}
             >
-              {/* <MDBIcon fab icon="instagram" /> */}
-              <img
-                src="../images/Instagram.png"
-                alt=""
-                className="sociallink"
-              />
-            </a>
-            <a href="" className=" socialicon">
-              {/* <MDBIcon fab icon="linkedin" /> */}
-              {/* <img src="../images/LinkedIn.png" alt="" className="sociallink"  /> */}
-            </a>
-            <a href="" className=" socialicon">
-              {/* <MDBIcon fab icon="github" /> */}
-            </a>
-          </div>
-        </section>
-        <div className="text-center p-4  copy">
-          <br />
-          Designed and developed by <br />
-          <a
-            href="https://way2think.com/"
-            target="_blank"
-            style={{ color: "#dc3237" }}
-          >
-            {" "}
-            {/* <img
+              {" "}
+              {/* <img
               src="../images/way2thinklogo.png"
               alt=""
               className="way2thinklogo"
             />{" "}
             <br /> */}
-            Way2Think Technologies
-          </a>
-        </div>
-      </section>
+              Way2Think Technologies
+            </a>
+          </div>
+        </Grid>
+      </Grid>
     </MDBFooter>
   );
 }

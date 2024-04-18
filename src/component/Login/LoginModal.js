@@ -38,8 +38,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 
-  "@media (max-width: 768px)": {
-    width: 400,
+  "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+    width: 350,
     maxHeight: "450px",
     overflowY: "scroll",
   },

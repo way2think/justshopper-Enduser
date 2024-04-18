@@ -17,9 +17,12 @@ export default function SimpleSlider({ products }) {
           display: "block",
           background: "#000",
           position: "absolute",
-          right: "-3rem",
+          right: "2px",
           borderRadius: "30px",
           padding: " 11px 27px 27px 8px",
+          "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+            right: "0rem",
+          },
         }}
         onClick={onClick}
       />
@@ -36,10 +39,13 @@ export default function SimpleSlider({ products }) {
           display: "block",
           background: "#000",
           position: "absolute",
-          right: "-5rem",
+          Left: "0px",
           borderRadius: "30px",
           padding: " 11px 27px 27px 8px",
           zIndex: 1,
+          "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+            Left: "0rem",
+          },
         }}
         onClick={onClick}
       />

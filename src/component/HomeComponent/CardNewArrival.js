@@ -88,8 +88,8 @@ export default function CardNewArrival({ product }) {
           mt: 2,
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: "Start",
+            alignItems: "Start",
             flexDirection: "column",
           },
         }}
@@ -114,8 +114,8 @@ export default function CardNewArrival({ product }) {
           p: "5px 10px",
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: "Start",
+            alignItems: "Start",
           },
         }}
       >
