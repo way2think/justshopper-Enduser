@@ -27,14 +27,16 @@ export default function MainBannerCarosuel() {
   };
 
   return (
-    <MDBCarousel showIndicators showControls fade>
-      {homeBanner.map((banner, index) => (
+    <MDBCarousel showIndicators fade interval={3000}>
+      {homeBanner.map((banner, id) => (
         <MDBCarouselItem
-          key={index}
-          itemId={index}
-          className="overall"
-          activeItem={activeItem}
+          key={id}
+          itemId={id}
+          className={id === activeItem ? "overall active" : "overall"}
+          // activeItem={activeItem}
+          interval={1000}
         >
+          {console.log("id", id + 1)}
           <img
             src={banner.images[0].url}
             className="d-block w-100 carousel-img"
@@ -55,6 +57,10 @@ export default function MainBannerCarosuel() {
         onClick={handlePrev}
         className="carousel-control-prev"
         aria-label="Previous"
+        style={{
+          backgroundColor: "transparent",
+          
+        }}
       >
         <span aria-hidden="true">&laquo;</span>
       </MDBBtn>
