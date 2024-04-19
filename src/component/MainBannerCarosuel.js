@@ -56,20 +56,20 @@ export default function MainBannerCarosuel() {
           </div> */}
         </MDBCarouselItem>
       ))}
-      <Stack justifyContent="space-between" direction="row">
+      <Stack justifyContent="space-between" direction="row" alignItems="center">
         <Button
           onClick={handlePrev}
           className="carousel-control-prev"
           aria-label="Previous"
         >
-          <ArrowBackIosIcon />
+          <ArrowBackIosIcon sx={{ color: "#Dc3237" }} />
         </Button>
         <Button
           onClick={handleNext}
           className="carousel-control-next"
           aria-label="Next"
         >
-          <ArrowForwardIosIcon />
+          <ArrowForwardIosIcon sx={{ color: "#Dc3237" }} />
         </Button>
       </Stack>
 
