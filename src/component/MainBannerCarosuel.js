@@ -5,8 +5,11 @@ import {
   MDBCarouselItem,
   MDBCarouselCaption,
 } from "mdb-react-ui-kit";
-import { useGetSettingsQuery } from "../api/api";
 import "./MainBannerCarosuel.css";
+import { useGetSettingsQuery } from "../api/api";
+import { Button, Stack } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function MainBannerCarosuel() {
   const { data } = useGetSettingsQuery();
@@ -53,7 +56,24 @@ export default function MainBannerCarosuel() {
           </div> */}
         </MDBCarouselItem>
       ))}
-      <MDBBtn
+      <Stack justifyContent="space-between" direction="row">
+        <Button
+          onClick={handlePrev}
+          className="carousel-control-prev"
+          aria-label="Previous"
+        >
+          <ArrowBackIosIcon />
+        </Button>
+        <Button
+          onClick={handleNext}
+          className="carousel-control-next"
+          aria-label="Next"
+        >
+          <ArrowForwardIosIcon />
+        </Button>
+      </Stack>
+
+      {/* <MDBBtn
         onClick={handlePrev}
         className="carousel-control-prev"
         aria-label="Previous"
@@ -63,14 +83,14 @@ export default function MainBannerCarosuel() {
         }}
       >
         <span aria-hidden="true">&laquo;</span>
-      </MDBBtn>
-      <MDBBtn
+      </MDBBtn> */}
+      {/* <MDBBtn
         onClick={handleNext}
         className="carousel-control-next"
         aria-label="Next"
       >
         <span aria-hidden="true">&raquo;</span>
-      </MDBBtn>
+      </MDBBtn> */}
     </MDBCarousel>
   );
 
