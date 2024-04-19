@@ -61,6 +61,13 @@ export default function SimpleSlider({ products }) {
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
+        breakpoint: 2560,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+      {
         breakpoint: 1535,
         settings: {
           slidesToShow: 5,
