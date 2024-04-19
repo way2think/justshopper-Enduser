@@ -70,7 +70,17 @@ export default function CardNewArrival({ product }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, boxShadow: "none", py: 2, margin: "auto" }}>
+    <Card
+      sx={{
+        maxWidth: 300,
+        boxShadow: "none",
+        py: 2,
+        margin: "auto",
+        "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+          maxWidth: 150,
+        },
+      }}
+    >
       {/* <CardMedia
         component="img"
         alt="green iguana"
@@ -79,8 +89,8 @@ export default function CardNewArrival({ product }) {
         className="cardimage"
       /> */}
       {/* <span className="Sale">{props.sale}</span> */}
-      {/* <img src={"../images/biscuit.jpg"} alt={name} className="cardimage" /> */}
-      <ImageCarousel />
+      <img src={"../images/biscuit.jpg"} alt={name} className="cardimage" />
+      {/* <ImageCarousel /> */}
 
       <CardContent
         sx={{
