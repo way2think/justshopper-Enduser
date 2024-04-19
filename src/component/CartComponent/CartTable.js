@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 // import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import { selectCategory } from "../../api/api";
 import { useCreateRazorpayPaymentOrderMutation } from "../../api/payment";
 import { useLazyGetMultiProductByIdsQuery } from "../../api/product";
+import AddressModal from "../../Reusable/AddressModal";
 
 const CartTable = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const CartTable = () => {
   const categoryList = useSelector(selectCategory);
   const { cartItems } = useSelector(selectCartItems);
   // console.log("cartItems: ", cartItems);
+  const [open, setOpen] = useState(false);
 
   const shipping = {
     shipping_type: "normal",
@@ -209,8 +211,8 @@ const CartTable = () => {
               name: user.name,
               phone: user.phone,
               email: user.email,
-              billing_address: "",
-              shipping_address: "",
+              billing_address: user.address,
+              shipping_addresses: "",
             },
             notifications: {
               isConfirmationEmailSent: false,
@@ -314,6 +316,7 @@ const CartTable = () => {
 
   return (
     <div class="container m-auto mt-5">
+      <AddressModal open={open} setOpen={(val) => setOpen(val)} />
       {cartItems.length === 0 ? (
         <>
           <p>No items in cart</p>
@@ -488,7 +491,11 @@ const CartTable = () => {
                 <div className="d-flex p-0">
                   Delivery Address:{" "}
                   <span className="text-start ml-3">{getAddress()}</span>
-                  <small className="mt-auto text-primary" role="button">
+                  <small
+                    className="mt-auto text-primary"
+                    role="button"
+                    onClick={() => setOpen(true)}
+                  >
                     Change Address
                   </small>
                   <span className="ml-auto">Total</span>

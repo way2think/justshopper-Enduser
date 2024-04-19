@@ -47,7 +47,6 @@ const ManageAddress = () => {
   return (
     <div className={`${classes.root} container`}>
       {/* <AddAddress handleAddAddress={handleAddAddress} /> */}
-      <SignupModal manageAddress={true} />
       <Grid container spacing={2}>
         {user.shipping_addresses?.length === 0 ? (
           <Grid item sm={12}>
