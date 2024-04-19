@@ -5,8 +5,8 @@ import {
   MDBCarouselItem,
   MDBCarouselCaption,
 } from "mdb-react-ui-kit";
-import "./MainBannerCarosuel.css";
 import { useGetSettingsQuery } from "../api/api";
+import "./MainBannerCarosuel.css";
 
 export default function MainBannerCarosuel() {
   const { data } = useGetSettingsQuery();
