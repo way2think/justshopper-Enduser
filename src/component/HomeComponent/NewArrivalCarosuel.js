@@ -63,7 +63,28 @@ export default function SimpleSlider({ products }) {
       {
         breakpoint: 2560,
         settings: {
-          slidesToShow: 5,
+          slidesToShow: 6,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 2300,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 2000,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1700,
+        settings: {
+          slidesToShow: 6,
           slidesToScroll: 1,
         },
       },
@@ -118,16 +139,16 @@ export default function SimpleSlider({ products }) {
   };
 
   return (
-    <div className="container new-arrivals ">
+    <div className="container-fluid new-arrivals ">
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="mt-5 container"
+        className="mt-5 container-fluid"
         direction="row"
       >
         <h3 className="arrivals">New Arrivals</h3>
       </Stack>
-      <Slider {...settings}>
+      <Slider className="new" {...settings}>
         {products.map((product) => (
           <div key={product.id}>
             <CardNewArrival product={product} />

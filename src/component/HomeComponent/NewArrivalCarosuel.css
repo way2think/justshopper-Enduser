@@ -55,6 +55,10 @@
   padding: 0 15px;
 }
 
+.new {
+  margin: 0 15px !important;
+}
+
 /* .Sale {
     background-color: #dc3237;
     color: #fff;
