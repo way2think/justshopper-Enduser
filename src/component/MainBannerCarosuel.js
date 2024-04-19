@@ -5,8 +5,11 @@ import {
   MDBCarouselItem,
   MDBCarouselCaption,
 } from "mdb-react-ui-kit";
-import { useGetSettingsQuery } from "../api/api";
 import "./MainBannerCarosuel.css";
+import { useGetSettingsQuery } from "../api/api";
+import { Button, Stack } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function MainBannerCarosuel() {
   const { data } = useGetSettingsQuery();
@@ -27,14 +30,16 @@ export default function MainBannerCarosuel() {
   };
 
   return (
-    <MDBCarousel showIndicators showControls fade>
-      {homeBanner.map((banner, index) => (
+    <MDBCarousel showIndicators fade interval={3000}>
+      {homeBanner.map((banner, id) => (
         <MDBCarouselItem
-          key={index}
-          itemId={index}
-          className="overall"
-          activeItem={activeItem}
+          key={id}
+          itemId={id}
+          className={id === activeItem ? "overall active" : "overall"}
+          // activeItem={activeItem}
+          interval={1000}
         >
+          {console.log("id", id + 1)}
           <img
             src={banner.images[0].url}
             className="d-block w-100 carousel-img"
@@ -51,20 +56,41 @@ export default function MainBannerCarosuel() {
           </div> */}
         </MDBCarouselItem>
       ))}
-      <MDBBtn
+      <Stack justifyContent="space-between" direction="row">
+        <Button
+          onClick={handlePrev}
+          className="carousel-control-prev"
+          aria-label="Previous"
+        >
+          <ArrowBackIosIcon />
+        </Button>
+        <Button
+          onClick={handleNext}
+          className="carousel-control-next"
+          aria-label="Next"
+        >
+          <ArrowForwardIosIcon />
+        </Button>
+      </Stack>
+
+      {/* <MDBBtn
         onClick={handlePrev}
         className="carousel-control-prev"
         aria-label="Previous"
+        style={{
+          backgroundColor: "transparent",
+          
+        }}
       >
         <span aria-hidden="true">&laquo;</span>
-      </MDBBtn>
-      <MDBBtn
+      </MDBBtn> */}
+      {/* <MDBBtn
         onClick={handleNext}
         className="carousel-control-next"
         aria-label="Next"
       >
         <span aria-hidden="true">&raquo;</span>
-      </MDBBtn>
+      </MDBBtn> */}
     </MDBCarousel>
   );
 
