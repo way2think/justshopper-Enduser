@@ -34,6 +34,16 @@
   max-height: 250px; /* Adjust the value to your desired height */
 }
 
+.carousel-control-prev {
+  position: absolute !important;
+  top: 0% !important;
+}
+
+.carousel-control-next {
+  position: absolute !important;
+  top: 0% !important;
+}
+
 /* .d-block {
   width: 100%;
   height: 40vh;
@@ -46,7 +56,7 @@
   .caption {
     display: block !important;
   }
- 
+
   .carousel-img {
     max-height: 300px; /* Adjust the value to your desired height */
   }
