@@ -6,4 +6,18 @@ const scrollToTop = () => {
   });
 };
 
-export { scrollToTop };
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  const options = {
+    year: "numeric",
+    day: "numeric",
+    month: "long",
+  };
+  return date.toLocaleDateString("en-US", options);
+};
+
+const formatAmount = (amount) => {
+  return amount.toFixed(2);
+};
+
+export { scrollToTop, formatDate, formatAmount };
