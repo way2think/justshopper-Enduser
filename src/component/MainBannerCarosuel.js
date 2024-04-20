@@ -15,7 +15,7 @@ export default function MainBannerCarosuel() {
   const { data } = useGetSettingsQuery();
   const [activeItem, setActiveItem] = useState(0);
   const homeBanner = data?.home_banner || [];
-  console.log("data for banner", homeBanner);
+  // console.log("data for banner", homeBanner);
 
   const handleNext = () => {
     setActiveItem((prevItem) =>
@@ -39,7 +39,6 @@ export default function MainBannerCarosuel() {
           // activeItem={activeItem}
           interval={1000}
         >
-          {console.log("id", id + 1)}
           <img
             src={banner.images[0].url}
             className="d-block w-100 carousel-img"

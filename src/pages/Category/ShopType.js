@@ -1,4 +1,4 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Path from "../../component/Path";
 import WorkDetailBlack from "../../component/HomeComponent/WorkDetailBlack";
 import Category from "../../component/ShopCategory/Category";
@@ -8,7 +8,7 @@ const ShopType = ({ path, pathName, type }) => {
   const searchParams = new URLSearchParams(search);
   const productType = searchParams.get(type);
 
-  console.log("searchParams: ", pathname, productType);
+  // console.log("searchParams: ", pathname, productType);
 
   return (
     <>

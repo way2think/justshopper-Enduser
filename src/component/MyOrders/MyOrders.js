@@ -21,7 +21,7 @@ const MyOrders = () => {
           <div className="customer_details orderList">
             <div className="orderTop">
               <h2 className="hidden-xs">My Orders</h2>
-              <div className="search-container">
+              {/* <div className="search-container">
                 <form action="/action_page.php">
                   <input
                     type="text"
@@ -32,7 +32,7 @@ const MyOrders = () => {
                     <i className="fa fa-search"></i>
                   </button>
                 </form>
-              </div>
+              </div> */}
             </div>
             <div className="order_tab">
               <ul className="tabs">

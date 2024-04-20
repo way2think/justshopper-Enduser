@@ -2,11 +2,13 @@ import { Box, Button, Grid, Stack } from "@mui/material";
 import OrderItem from "./OrderItem";
 import { useGetAllOrdersByUserIdQuery } from "../../api/order";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
 import BackDropWithLoader from "../Loader/BackDropWithLoader";
 import { formatAmount, formatDate } from "../../utils";
 import axios from "axios";
+import { setIsLoading } from "../../store/appSlice";
+import { errorNotification } from "../../utils/notifications";
 
 const today = new Date();
 const endOfDay = new Date(today);
@@ -14,6 +16,7 @@ const millisecondsPerDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
 const thirtyDaysAgo = endOfDay.getTime() - millisecondsPerDay * 30;
 
 const OrderList = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [filter, setFilter] = useState("30days");
 
@@ -83,22 +86,50 @@ const OrderList = () => {
   }, [filter]);
 
   const downloadInvoice = async (order) => {
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/payment/generate-invoice`,
-      // `http://127.0.0.1:5001/justshopper-dev/us-central1/payment/generate-invoice`,
-      { order_id: order.id },
-      { responseType: "arraybuffer" }
-    );
+    dispatch(setIsLoading(true));
+    try {
+      const result = await axios.post(
+        `${process.env.REACT_APP_API_URL}/payment/generate-invoice`,
+        { order_id: order.id },
+        { responseType: "arraybuffer" }
+      );
 
-    if (result.data) {
-      const blob = new Blob([result.data], { type: "application/pdf" });
-      // console.log("blob: ", blob);
-      const fileName = `Order-${order.id}.pdf`;
+      // console.log("downloadInvoice: ", result.status, result.data);
+      // dispatch(setIsLoading(false));
 
-      blobToSaveAs(fileName, blob);
+      if (result.status === 200) {
+        const blob = new Blob([result.data], { type: "application/pdf" });
+        // console.log("blob: ", blob);
+        const fileName = `Order-${order.id}.pdf`;
 
-      // const url = window.URL.createObjectURL(blob);
-      // window.open(url);
+        blobToSaveAs(fileName, blob);
+
+        dispatch(setIsLoading(false));
+
+        // const url = window.URL.createObjectURL(blob);
+        // window.open(url);
+      } else {
+        dispatch(setIsLoading(false));
+        console.log("downloadInvoice: ", result.data);
+        errorNotification(`Failed to download invoice`);
+      }
+    } catch (error) {
+      dispatch(setIsLoading(false));
+      console.log("downloadInvoice: ", error.response);
+
+      if (error.config.responseType === "arraybuffer") {
+        // If it's a CORS error, convert the ArrayBuffer to a string
+        const decoder = new TextDecoder("utf-8");
+        const errorMessage = decoder.decode(
+          new Uint8Array(error.response.data)
+        );
+        console.error("CORS error:", errorMessage);
+      } else {
+        // If it's not a CORS error, handle it normally
+        console.error("Error:", error);
+      }
+
+      errorNotification(`Failed to download invoice`);
     }
   };
 

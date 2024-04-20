@@ -1,6 +1,7 @@
 import {
   getAllObjects,
   getMultiObjectParallellyByIds,
+  getObjectByParam,
 } from "../services/firestore-http";
 import { api } from "./api";
 
@@ -24,6 +25,11 @@ export const product = api.injectEndpoints({
         return await getMultiObjectParallellyByIds(collectionId, cartItems);
       },
     }),
+    getProductById: build.query({
+      queryFn: async (id) => {
+        return await getObjectByParam(collectionId, id);
+      },
+    }),
   }),
 });
 
@@ -31,4 +37,5 @@ export const {
   useGetAllProductsQuery,
   useGetAllNewProductArrivalsQuery,
   useLazyGetMultiProductByIdsQuery,
+  useLazyGetProductByIdQuery,
 } = product;

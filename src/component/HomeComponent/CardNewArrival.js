@@ -19,6 +19,7 @@ import {
 } from "../../store/cartSlice";
 import { useEffect, useState } from "react";
 import ImageCarousel from "../../Reusable/ImageCarosuel";
+import { useNavigate } from "react-router-dom";
 
 export default function CardNewArrival({ product }) {
   const cart = {
@@ -45,6 +46,7 @@ export default function CardNewArrival({ product }) {
   const { name, discount_price, selling_price } = product;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cartItems } = useSelector(selectCartItems);
   const [noOfItems, setNoOfItems] = useState(0);
 
@@ -69,6 +71,10 @@ export default function CardNewArrival({ product }) {
     dispatch(removeItemQty(product));
   };
 
+  const handleNavigateToProductDetail = () => {
+    navigate(`/product/${product.id}`, { state: product });
+  };
+
   return (
     <Card
       sx={{
@@ -89,7 +95,12 @@ export default function CardNewArrival({ product }) {
         className="cardimage"
       /> */}
       {/* <span className="Sale">{props.sale}</span> */}
-      <img src={"../images/biscuit.jpg"} alt={name} className="cardimage" />
+      <img
+        src={"../images/biscuit.jpg"}
+        alt={name}
+        className="cardimage"
+        onClick={handleNavigateToProductDetail}
+      />
       {/* <ImageCarousel /> */}
 
       <CardContent

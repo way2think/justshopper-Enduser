@@ -65,7 +65,7 @@ export default function Router() {
             />
           ),
         },
-        { path: "product/:handle-id", element: <ProductDetails /> },
+        { path: "product/:id", element: <ProductDetails /> },
         { path: "favorites", element: <Wishlist /> },
         { path: "cart", element: <CartPage /> },
         {
