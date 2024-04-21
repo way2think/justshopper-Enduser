@@ -43,7 +43,7 @@ export default function CardNewArrival({ product }) {
       },
   };
 
-  const { name, discount_price, selling_price } = product;
+  const { name, discount_price, selling_price, images } = product;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -96,7 +96,7 @@ export default function CardNewArrival({ product }) {
       /> */}
       {/* <span className="Sale">{props.sale}</span> */}
       <img
-        src={"../images/biscuit.jpg"}
+        src={images[0] || "../images/dummy-image.jpg"}
         alt={name}
         className="cardimage"
         onClick={handleNavigateToProductDetail}

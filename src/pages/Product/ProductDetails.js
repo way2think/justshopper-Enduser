@@ -14,6 +14,7 @@ const ProductDetails = () => {
   const { state } = useLocation();
   // console.log("id: ", id, state);
   const [product, setProduct] = useState(null);
+  console.log("prod: ", product);
 
   const [getProductById, result, lastPromiseInfo] =
     useLazyGetProductByIdQuery();
@@ -35,7 +36,7 @@ const ProductDetails = () => {
   return (
     <>
       <Path link="/" pathhome="Home" pathdetails="Product Details" />
-      <Product />
+      {product && <Product product={product} />}
       <Divider
         sx={{
           borderBottomColor: "#000",
@@ -44,7 +45,7 @@ const ProductDetails = () => {
           borderBottomWidth: "2px",
         }}
       />
-      <ProductInfo />
+      {product && <ProductInfo product={product} />}
       <Divider
         sx={{
           borderBottomColor: "#000",
@@ -62,7 +63,9 @@ const ProductDetails = () => {
           borderBottomWidth: "2px",
         }}
       /> */}
-      <LatestCarousel />
+      {product && product.related_products.length > 0 && (
+        <LatestCarousel relatedProducts={product.related_products} />
+      )}
       <WorkDetailBlack />
     </>
   );

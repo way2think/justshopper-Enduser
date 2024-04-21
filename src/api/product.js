@@ -21,8 +21,8 @@ export const product = api.injectEndpoints({
       },
     }),
     getMultiProductByIds: build.query({
-      queryFn: async (cartItems) => {
-        return await getMultiObjectParallellyByIds(collectionId, cartItems);
+      queryFn: async (items) => {
+        return await getMultiObjectParallellyByIds(collectionId, items);
       },
     }),
     getProductById: build.query({
@@ -36,6 +36,7 @@ export const product = api.injectEndpoints({
 export const {
   useGetAllProductsQuery,
   useGetAllNewProductArrivalsQuery,
+  useGetMultiProductByIdsQuery,
   useLazyGetMultiProductByIdsQuery,
   useLazyGetProductByIdQuery,
 } = product;
