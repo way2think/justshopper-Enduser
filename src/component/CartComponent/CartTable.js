@@ -8,10 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemQty,
   clearCart,
-  removeItemOutOfStock,
+  removeItem,
   removeItemQty,
   selectCartItems,
-  setItemQty,
 } from "../../store/cartSlice";
 import { displayRazorpay } from "../../services/razorpay-http";
 import { selectUser, updateSelectedAddress } from "../../store/userSlice";
@@ -145,7 +144,7 @@ const CartTable = () => {
           let outOfStock = 0;
           products.forEach((product) => {
             if (product.total_quantity <= product.minimum_quantity) {
-              dispatch(removeItemOutOfStock(product));
+              dispatch(removeItem(product));
               errorNotification(`${product.name} is out of stock`);
               outOfStock++;
             }

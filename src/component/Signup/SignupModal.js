@@ -165,7 +165,6 @@ export default function SignupModal({ open, setOpen }) {
               ...address,
               id: new Date().getTime(),
             },
-            saved_addresses: [],
             shipping_addresses: [],
             favourites: [],
           });

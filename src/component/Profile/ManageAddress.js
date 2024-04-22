@@ -27,7 +27,7 @@ const useStyles = styled((theme) => ({
 
 const ManageAddress = () => {
   const user = useSelector(selectUser);
-  console.log("user: ", user);
+  // console.log("user: ", user);
 
   const classes = useStyles();
 

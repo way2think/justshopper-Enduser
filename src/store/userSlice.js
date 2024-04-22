@@ -14,7 +14,7 @@ const initialState = {
     country: "",
     pincode: "",
   },
-  favourite: [],
+  favourites: [],
   shipping_addresses: [],
   isAuthenticated: false,
   selected_address: {
@@ -60,8 +60,7 @@ export const userSlice = createSlice({
       state.role = payload.role;
       state.address = payload.address;
       state.shipping_addresses = payload.shipping_addresses;
-      state.favourite = payload.favourite;
-      state.saved_addresses = payload.saved_addresses;
+      state.favourites = payload.favourites;
       state.isAuthenticated = payload.isAuthenticated;
       state.selected_address = selectedAddress;
     },
@@ -79,7 +78,7 @@ export const userSlice = createSlice({
         country: "",
         pincode: "",
       };
-      state.favourite = [];
+      state.favourites = [];
       state.shipping_addresses = [];
       state.isAuthenticated = false;
       localStorage.removeItem("cartItems"); // to clear items, so another user can login
@@ -113,7 +112,7 @@ export const {
 // export const selectTable = (state) => state.app;
 export const selectUser = (state) => state.user;
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
-export const selectFavourite = (state) => state.user.favourite;
+export const selectFavourite = (state) => state.user.favourites;
 export const selectSavedAddress = (state) => state.user.selected_address;
 
 export default userSlice.reducer;

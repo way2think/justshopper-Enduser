@@ -93,9 +93,9 @@ export const cartSlice = createSlice({
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },
-    removeItemOutOfStock: (state, action) => {
+    removeItem: (state, action) => {
       const cartItem = action.payload;
-      // console.log("removeItemOutOfStock:", cartItem);
+      // console.log("removeItem:", cartItem);
       const index = state.cartItems.findIndex(
         (item) => item.id === cartItem.id
       );
@@ -139,7 +139,7 @@ export const {
   clearCart,
   removeItemQty,
   setItemQty,
-  removeItemOutOfStock,
+  removeItem,
   setCartItems,
 } = cartSlice.actions;
 
