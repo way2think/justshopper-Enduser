@@ -12,6 +12,8 @@ import {
   selectCartItems,
 } from "../../store/cartSlice";
 import { formatAmount } from "../../utils";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const ProductCard = ({ product }) => {
   const buy = {
@@ -32,6 +34,13 @@ const ProductCard = ({ product }) => {
     },
     "@media only screen and (min-width: 768px) and (max-width: 1023px)": {
       fontSize: "14px",
+    },
+  };
+  const favIcon = {
+    width: "40px",
+    height: "40px",
+    "& path": {
+      fill: "#dc3237",
     },
   };
   const addtocart = {
@@ -106,11 +115,8 @@ const ProductCard = ({ product }) => {
         >
           <h3 className={classes.productdetailsHeading}>{product.name}</h3>
           <Box className={classes.icons}>
-            <img
-              src="../images/Heartred.png"
-              alt=""
-              className={classes.redheart}
-            />
+            <FavoriteBorderIcon sx={favIcon} />
+            <FavoriteIcon sx={favIcon} />
             <img
               src="../images/Share.png"
               alt={`Share ${product.name}`}

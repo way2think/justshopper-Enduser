@@ -20,6 +20,18 @@
   border-radius: 5px;
 }
 
+.favImage {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  z-index: 99;
+  /* cursor: pointer; */
+}
+
+.favImage svg path {
+  fill: #dc3237;
+}
+
 .cardtitle {
   text-align: left;
   font-family: amazonbold;

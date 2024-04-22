@@ -20,6 +20,8 @@ import {
 import { useEffect, useState } from "react";
 import ImageCarousel from "../../Reusable/ImageCarosuel";
 import { useNavigate } from "react-router-dom";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function CardNewArrival({ product }) {
   const cart = {
@@ -78,6 +80,7 @@ export default function CardNewArrival({ product }) {
   return (
     <Card
       sx={{
+        position: "relative",
         maxWidth: 300,
         boxShadow: "none",
         py: 2,
@@ -101,6 +104,11 @@ export default function CardNewArrival({ product }) {
         className="cardimage"
         onClick={handleNavigateToProductDetail}
       />
+      <div className="favImage">
+        <FavoriteBorderIcon />
+        <FavoriteIcon />
+      </div>
+      {/* <img src="../images/heart.png" className="favImage" alt="" width={25} height={25} /> */}
       {/* <ImageCarousel /> */}
 
       <CardContent
