@@ -12,12 +12,21 @@ import { ManageAccounts } from "@mui/icons-material";
 import ManageAddress from "../../component/Profile/ManageAddress";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import { useDispatch, useSelector } from "react-redux";
 import TextField from "@mui/material/TextField";
 import {
   CitySelect,
   CountrySelect,
   StateSelect,
 } from "react-country-state-city";
+import { errorNotification } from "../../utils/notifications";
+import {
+  selectUser,
+  selectSavedAddress,
+  updateSelectedAddress,
+  updateShippingAddress,
+} from "../../store/userSlice";
+import { useAddNewShippingAddressMutation } from "../../api/user";
 
 const style = {
   position: "absolute",
@@ -97,12 +106,18 @@ function a11yProps(index) {
 }
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
   const [showModal, setShowModal] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const user = useSelector(selectUser);
+
+  const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
+    useAddNewShippingAddressMutation();
 
   const [countryid, setCountryid] = React.useState(0);
   const [stateid, setstateid] = React.useState(0);
@@ -111,13 +126,39 @@ export default function Profile() {
   const [cityName, setCityName] = React.useState("");
   const [addressDetails, setAddressDetails] = React.useState({
     name: "",
-    phone: "",
     line: "",
     city: "",
     state: "",
     country: "",
     pincode: "",
   });
+
+  const handleAddNewShippingAddress = async () => {
+    const updatedShippingAddresses = [
+      ...user.shipping_addresses,
+      {
+        id: new Date().getTime(),
+        ...addressDetails,
+        is_active: user.shipping_addresses.length === 0 ? true : false,
+      },
+    ];
+
+    const result = await addNewShippingAddress({
+      docId: user.id,
+      dataObject: {
+        shipping_addresses: updatedShippingAddresses,
+      },
+    });
+
+    console.log("result: ", result);
+    if (result.data) {
+      // udpate the result in local state
+      dispatch(updateShippingAddress(updatedShippingAddresses));
+      setShowModal(false);
+    } else {
+      errorNotification(result.error.message);
+    }
+  };
 
   return (
     <>
@@ -140,7 +181,7 @@ export default function Profile() {
             </Typography>
             <Box pt={2}>
               <Grid container style={{ width: "100%" }}>
-                <Grid md={6} pr={2}>
+                <Grid xs={12}>
                   <TextField
                     fullWidth
                     id="name"
@@ -165,27 +206,6 @@ export default function Profile() {
                       //   width: "100%",
                       // },
                     }}
-                  />
-                </Grid>
-                <Grid md={6}>
-                  <TextField
-                    fullWidth
-                    id="phone"
-                    label="Phone Number"
-                    variant="outlined"
-                    name="phonenumber"
-                    type="tel"
-                    value={addressDetails.phonenumber}
-                    onChange={(e) => {
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          phone: e.target.value,
-                        };
-                      });
-                    }}
-                    className="phone"
-                    sx={{ mb: 2 }}
                   />
                 </Grid>
                 <Grid xs={12}>
@@ -279,7 +299,7 @@ export default function Profile() {
                     Cancel
                   </Button>
                   <Button
-                    onClick={() => setShowModal(false)}
+                    onClick={handleAddNewShippingAddress}
                     sx={add}
                     className="ml-2"
                   >
