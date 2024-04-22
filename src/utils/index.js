@@ -20,4 +20,18 @@ const formatAmount = (amount) => {
   return amount.toFixed(2);
 };
 
-export { scrollToTop, formatDate, formatAmount };
+function formatAddress(address) {
+  return (
+    address.line +
+    ", " +
+    address.city +
+    ", " +
+    address.state +
+    ", " +
+    address.country +
+    " - " +
+    address.pincode
+  );
+}
+
+export { scrollToTop, formatDate, formatAmount, formatAddress };

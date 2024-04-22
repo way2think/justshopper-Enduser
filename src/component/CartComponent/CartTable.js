@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 // import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,7 +14,7 @@ import {
   setItemQty,
 } from "../../store/cartSlice";
 import { displayRazorpay } from "../../services/razorpay-http";
-import { selectUser } from "../../store/userSlice";
+import { selectUser, updateSelectedAddress } from "../../store/userSlice";
 import { useCreateOrderMutation } from "../../api/order";
 import { setIsLoading } from "../../store/appSlice";
 import {
@@ -26,6 +26,7 @@ import { selectCategory } from "../../api/api";
 import { useCreateRazorpayPaymentOrderMutation } from "../../api/payment";
 import { useLazyGetMultiProductByIdsQuery } from "../../api/product";
 import AddressModal from "../../Reusable/AddressModal";
+import { formatAddress } from "../../utils";
 
 const CartTable = () => {
   const dispatch = useDispatch();
@@ -212,8 +213,8 @@ const CartTable = () => {
                 name: user.name,
                 phone: user.phone,
                 email: user.email,
-                billing_address: user.address,
-                shipping_addresses: "",
+                billing_address: formatAddress(user.address),
+                shipping_addresses: formatAddress(user.selected_address),
               },
               notifications: {
                 isConfirmationEmailSent: false,
@@ -298,25 +299,6 @@ const CartTable = () => {
       errorNotification("Please login to checkout");
     }
   };
-
-  function getAddress() {
-    let shippingAddress = null;
-    shippingAddress =
-      user?.shipping_addresses?.length > 0
-        ? user.shipping_addresses
-            .filter((add) => add.is_active)
-            .map((address) => {
-              return address;
-            })
-        : user.address;
-    return (
-      <>
-        <div>{shippingAddress.line}</div>
-        <div>{shippingAddress.city + ", " + shippingAddress.state}</div>
-        <div>{shippingAddress.country + " - " + shippingAddress.pincode}</div>
-      </>
-    );
-  }
 
   return (
     <div class="container m-auto mt-5">
@@ -494,7 +476,19 @@ const CartTable = () => {
               <td className="text-right price" colspan="3">
                 <div className="d-flex p-0">
                   Delivery Address:{" "}
-                  <span className="text-start ml-3">{getAddress()}</span>
+                  <span className="text-start ml-3">
+                    <div>{user.selected_address.line}</div>
+                    <div>
+                      {user.selected_address.city +
+                        ", " +
+                        user.selected_address.state}
+                    </div>
+                    <div>
+                      {user.selected_address.country +
+                        " - " +
+                        user.selected_address.pincode}
+                    </div>
+                  </span>
                   <small
                     className="mt-auto text-primary"
                     role="button"

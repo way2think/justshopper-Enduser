@@ -3,7 +3,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, updateShippingAddress } from "../store/userSlice";
+import {
+  selectUser,
+  selectSavedAddress,
+  updateSelectedAddress,
+  updateShippingAddress,
+} from "../store/userSlice";
 import {
   FormControl,
   Grid,
@@ -55,23 +60,34 @@ const style = {
   },
 };
 
-const signup = {
-  // background: "#f19e38",
+const save = {
+  background: "#dc3237",
+  color: "#fff",
+  fontSize: "16px",
+  marginLeft: "8px",
+  "&:hover": {
+    background: "#dc3237",
+    color: "#fff",
+  },
+  "@media only screen and (max-width: 600px)": {
+    fontSize: "12px",
+    marginTop: "14px !important",
+  },
+};
+const cancel = {
+  border: "1px solid #dc3237",
   color: "#dc3237",
-  marginTop: "5px",
-  fontSize: "12px",
-  fontweight: 800,
-  fontfamily: "amazonbold",
-  // "&:hover": {
-  //   // background: "#f19e38",
-  //   color: "#fff",
-  //   fontsize: "14px",
-  //   fontweight: 500,
-  //   fontfamily: "'Poppins', sans-serif",
-  // },
+  fontSize: "16px",
+  "&:hover": {
+    border: "1px solid #dc3237",
+    color: "#dc3237",
+  },
+  "@media only screen and (max-width: 600px)": {
+    fontSize: "12px",
+  },
 };
 
-const Signupbtn = {
+const addNewBtn = {
   width: "100%",
   background: "#dc3237",
   color: "#fff",
@@ -112,18 +128,12 @@ export default function AddressModal({ open, setOpen }) {
   });
 
   const user = useSelector(selectUser);
-
-  useEffect(() => {}, [selectedAddress]);
+  const address = useSelector(selectSavedAddress);
 
   const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
     useAddNewShippingAddressMutation();
 
   const handleClose = () => setOpen(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSelectedAddress(value);
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -136,15 +146,6 @@ export default function AddressModal({ open, setOpen }) {
   };
 
   function reset() {
-    setSelectedAddress({
-      id: "",
-      name: "",
-      line: "",
-      city: "",
-      state: "",
-      country: "",
-      pincode: "",
-    });
     setAddressDetails({
       name: "",
       line: "",
@@ -162,6 +163,7 @@ export default function AddressModal({ open, setOpen }) {
       {
         id: new Date().getTime(),
         ...addressDetails,
+        is_active: user.shipping_addresses.length === 0 ? true : false,
       },
     ];
 
@@ -322,15 +324,18 @@ export default function AddressModal({ open, setOpen }) {
                   />
                 </Grid>
               </Grid>
-              <Grid container>
-                <button
+              <Grid sx={{ justifyContent: "end" }} container>
+                <Button
+                  sx={cancel}
                   onClick={() => {
                     reset();
                   }}
                 >
                   Cancel
-                </button>
-                <button onClick={handleAddNewShippingAddress}>Save</button>
+                </Button>
+                <Button sx={save} onClick={handleAddNewShippingAddress}>
+                  Save
+                </Button>
               </Grid>
             </>
           ) : (
@@ -338,7 +343,7 @@ export default function AddressModal({ open, setOpen }) {
               <div className="card my-2">
                 <div
                   className={`p-2 ${
-                    selectedAddress.id === user.address.id
+                    address.id === user.address.id
                       ? "bg-primary text-white"
                       : ""
                   }`}
@@ -346,6 +351,16 @@ export default function AddressModal({ open, setOpen }) {
                     boxShadow: "0 2px 5px #7d7d7d",
                     borderRadius: "8px",
                   }}
+                  onClick={() => {
+                    dispatch(
+                      updateSelectedAddress({
+                        name: user.name,
+                        ...user.address,
+                      })
+                    );
+                    handleClose();
+                  }}
+                  role="button"
                 >
                   <label
                     className="m-0 ms-2 me-4"
@@ -367,19 +382,28 @@ export default function AddressModal({ open, setOpen }) {
               {user.shipping_addresses &&
                 (user.shipping_addresses.length === 0 ? (
                   <div className="card my-2">
-                    <button onClick={() => setAddNewAddress(true)}>
+                    <Button
+                      sx={addNewBtn}
+                      onClick={() => setAddNewAddress(true)}
+                    >
                       Add New Address
-                    </button>
+                    </Button>
                   </div>
                 ) : (
                   <>
                     {user.shipping_addresses.map((add) => (
-                      <div className="card my-2" key={add.id}>
+                      <div
+                        className="card my-2"
+                        key={add.id}
+                        onClick={() => {
+                          dispatch(updateSelectedAddress(add));
+                          handleClose();
+                        }}
+                        role="button"
+                      >
                         <div
                           className={`p-2 ${
-                            selectedAddress.id === add.id
-                              ? "bg-primary text-white"
-                              : ""
+                            address.id === add.id ? "bg-primary text-white" : ""
                           }`}
                           style={{
                             boxShadow: "0 2px 5px #7d7d7d",
@@ -391,17 +415,20 @@ export default function AddressModal({ open, setOpen }) {
                             htmlFor="shipping"
                             role="button"
                           >
-                            <span>{add.name + ", " + add.line}</span>
+                            <span>{add.name + ": " + add.line}</span>
                             <div>{add.city + ", " + add.state}</div>
                             <div>{add.country + " - " + add.pincode}</div>
                           </label>
                         </div>
                       </div>
                     ))}
-                    <div className="card my-2">
-                      <button onClick={() => setAddNewAddress(true)}>
+                    <div className="card mt-3">
+                      <Button
+                        sx={addNewBtn}
+                        onClick={() => setAddNewAddress(true)}
+                      >
                         Add New Address
-                      </button>
+                      </Button>
                     </div>
                   </>
                 ))}
