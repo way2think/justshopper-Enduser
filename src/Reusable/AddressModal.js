@@ -109,9 +109,7 @@ export default function AddressModal({ open, setOpen }) {
   });
   const user = useSelector(selectUser);
 
-  useEffect(() => {
-    
-  },[selectedAddress])
+  useEffect(() => {}, [selectedAddress]);
 
   const handleClose = () => setOpen(false);
 
@@ -347,36 +345,45 @@ export default function AddressModal({ open, setOpen }) {
                     </button>
                   </div>
                 ) : (
-                  user.shipping_addresses.map((add) => (
-                    <div className="card my-2">
-                      <div
-                        className={`p-2 ${
-                          selectedAddress.id === add.address.id
-                            ? "bg-primary text-white"
-                            : ""
-                        }`}
-                        style={{
-                          boxShadow: "0 2px 5px #7d7d7d",
-                          borderRadius: "8px",
-                        }}
-                      >
-                        <label
-                          className="m-0 ms-2 me-4"
-                          htmlFor="shipping"
-                          role="button"
+                  <>
+                    {user.shipping_addresses.map((add) => (
+                      <div className="card my-2">
+                        <div
+                          className={`p-2 ${
+                            selectedAddress.id === add.address.id
+                              ? "bg-primary text-white"
+                              : ""
+                          }`}
+                          style={{
+                            boxShadow: "0 2px 5px #7d7d7d",
+                            borderRadius: "8px",
+                          }}
                         >
-                          <span>{add.name + ", " + add.address.line}</span>
-                          <div>
-                            {add.address.city + ", " + add.address.state}
-                          </div>
-                          <div>
-                            {add.address.country + " - " + add.address.pincode}{" "}
-                            (Same as Billing Address)
-                          </div>
-                        </label>
+                          <label
+                            className="m-0 ms-2 me-4"
+                            htmlFor="shipping"
+                            role="button"
+                          >
+                            <span>{add.name + ", " + add.address.line}</span>
+                            <div>
+                              {add.address.city + ", " + add.address.state}
+                            </div>
+                            <div>
+                              {add.address.country +
+                                " - " +
+                                add.address.pincode}{" "}
+                              (Same as Billing Address)
+                            </div>
+                          </label>
+                        </div>
                       </div>
+                    ))}
+                    <div className="card my-2">
+                      <button onClick={() => setAddNewAddress(true)}>
+                        Add New Address
+                      </button>
                     </div>
-                  ))
+                  </>
                 ))}
             </>
           )}
