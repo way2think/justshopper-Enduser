@@ -3,7 +3,11 @@ import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./WishlistCard.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../store/userSlice";
+import {
+  selectFavourite,
+  selectUser,
+  updateFavourites,
+} from "../../store/userSlice";
 import { useGetAllFavouritesQuery } from "../../api/user";
 import { formatAmount } from "../../utils";
 import { addItem, removeItem } from "../../store/cartSlice";
@@ -50,18 +54,20 @@ const WishlistCard = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(selectUser);
+  const favourites = useSelector(selectFavourite);
   const { data, isFetching, isLoading } = useGetAllFavouritesQuery({
-    favourites: user.favourites || [],
+    collectionId: "product",
+    favourites: favourites || [],
   });
-  console.log("fav products: ", data);
+  // console.log("fav products: ", data);
 
   const handleAddToCart = (item) => {
     dispatch(addItem(item));
   };
 
-  const handleRemoveFromCart = (item) => {
-    dispatch(removeItem(item));
+  const handleRemoveFromFavourites = (item) => {
+    const filteredFavourites = favourites.filter((fav) => fav.id !== item.id);
+    dispatch(updateFavourites(filteredFavourites));
   };
 
   return (
@@ -163,7 +169,7 @@ const WishlistCard = () => {
                   <Button
                     sx={deleteicon}
                     variant="contained"
-                    onClick={() => handleRemoveFromCart(item)}
+                    onClick={() => handleRemoveFromFavourites(item)}
                   >
                     <DeleteIcon />
                   </Button>

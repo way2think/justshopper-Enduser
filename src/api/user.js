@@ -25,7 +25,7 @@ export const user = api.injectEndpoints({
       },
     }),
     getAllFavourites: build.query({
-      queryFn: async ({ favourites }) => {
+      queryFn: async ({ collectionId, favourites }) => {
         return await getMultiObjectParallellyByIds(collectionId, favourites);
       },
     }),

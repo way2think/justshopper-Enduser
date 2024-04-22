@@ -22,7 +22,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import LoginModal from "../../component/Login/LoginModal";
-import { selectIsAuthenticated } from "../../store/userSlice";
+import {
+  selectFavouriteSize,
+  selectIsAuthenticated,
+} from "../../store/userSlice";
 import { useSignOutUserMutation } from "../../api/auth";
 import { selectCategory, selectTheme } from "../../api/api";
 import SignupModal from "../../component/Signup/SignupModal";
@@ -33,7 +36,7 @@ import { selectCartSize } from "../../store/cartSlice";
 export default function Navbar() {
   const location = useLocation();
   const cartTotalQuantity = useSelector(selectCartSize);
-  // console.log("cartTotalQuantity: ", cartTotalQuantity);
+  const favouriteTotalQuantity = useSelector(selectFavouriteSize);
 
   const [openBasic, setOpenBasic] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
@@ -141,12 +144,17 @@ export default function Navbar() {
                 <>
                   <MDBNavbarItem className="me-2 me-lg-0">
                     <MDBNavbarLink href="/favorites">
-                      <img
-                        src="../images/heart.png"
-                        alt=""
-                        width={25}
-                        height={25}
-                      />
+                      <StyledBadge
+                        badgeContent={favouriteTotalQuantity || 0}
+                        color="primary"
+                      >
+                        <img
+                          src="../images/heart.png"
+                          alt=""
+                          width={25}
+                          height={25}
+                        />
+                      </StyledBadge>
                     </MDBNavbarLink>
                   </MDBNavbarItem>
                   <MDBNavbarItem>
@@ -407,12 +415,17 @@ export default function Navbar() {
                             : "#000",
                         }}
                       >
-                        <img
-                          src="../images/heart.png"
-                          alt=""
-                          width={25}
-                          height={25}
-                        />
+                        <StyledBadge
+                          badgeContent={favouriteTotalQuantity || 0}
+                          color="primary"
+                        >
+                          <img
+                            src="../images/heart.png"
+                            alt=""
+                            width={25}
+                            height={25}
+                          />
+                        </StyledBadge>
                       </Link>
                     </MDBNavbarItem>
                     <MDBNavbarItem>
