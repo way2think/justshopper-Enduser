@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../store/userSlice";
+import { selectUser, updateShippingAddress } from "../store/userSlice";
 import {
   FormControl,
   Grid,
@@ -35,6 +35,7 @@ import {
   CountrySelect,
   StateSelect,
 } from "react-country-state-city";
+import { useAddNewShippingAddressMutation } from "../api/user";
 
 const style = {
   position: "absolute",
@@ -84,6 +85,7 @@ const Signupbtn = {
 };
 
 export default function AddressModal({ open, setOpen }) {
+  const dispatch = useDispatch();
   const [selectedAddress, setSelectedAddress] = useState({
     id: "",
     name: "",
@@ -106,10 +108,15 @@ export default function AddressModal({ open, setOpen }) {
     state: "",
     country: "",
     pincode: "",
+    is_active: false,
   });
+
   const user = useSelector(selectUser);
 
   useEffect(() => {}, [selectedAddress]);
+
+  const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
+    useAddNewShippingAddressMutation();
 
   const handleClose = () => setOpen(false);
 
@@ -148,6 +155,32 @@ export default function AddressModal({ open, setOpen }) {
     });
     setAddNewAddress(false);
   }
+
+  const handleAddNewShippingAddress = async () => {
+    const updatedShippingAddresses = [
+      ...user.shipping_addresses,
+      {
+        id: new Date().getTime(),
+        ...addressDetails,
+      },
+    ];
+
+    const result = await addNewShippingAddress({
+      docId: user.id,
+      dataObject: {
+        shipping_addresses: updatedShippingAddresses,
+      },
+    });
+
+    console.log("result: ", result);
+    if (result.data) {
+      // udpate the result in local state
+      dispatch(updateShippingAddress(updatedShippingAddresses));
+      reset();
+    } else {
+      errorNotification(result.error.message);
+    }
+  };
 
   return (
     <div>
@@ -297,13 +330,7 @@ export default function AddressModal({ open, setOpen }) {
                 >
                   Cancel
                 </button>
-                <button
-                  onClick={() => {
-                    reset();
-                  }}
-                >
-                  Save
-                </button>
+                <button onClick={handleAddNewShippingAddress}>Save</button>
               </Grid>
             </>
           ) : (
@@ -347,10 +374,10 @@ export default function AddressModal({ open, setOpen }) {
                 ) : (
                   <>
                     {user.shipping_addresses.map((add) => (
-                      <div className="card my-2">
+                      <div className="card my-2" key={add.id}>
                         <div
                           className={`p-2 ${
-                            selectedAddress.id === add.address.id
+                            selectedAddress.id === add.id
                               ? "bg-primary text-white"
                               : ""
                           }`}
@@ -364,16 +391,9 @@ export default function AddressModal({ open, setOpen }) {
                             htmlFor="shipping"
                             role="button"
                           >
-                            <span>{add.name + ", " + add.address.line}</span>
-                            <div>
-                              {add.address.city + ", " + add.address.state}
-                            </div>
-                            <div>
-                              {add.address.country +
-                                " - " +
-                                add.address.pincode}{" "}
-                              (Same as Billing Address)
-                            </div>
+                            <span>{add.name + ", " + add.line}</span>
+                            <div>{add.city + ", " + add.state}</div>
+                            <div>{add.country + " - " + add.pincode}</div>
                           </label>
                         </div>
                       </div>

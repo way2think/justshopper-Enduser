@@ -197,6 +197,7 @@ const updateObjectByParam = async (
   dataObject,
   metaData = "updateObjectByParam"
 ) => {
+  console.log(collectionId, docId, dataObject);
   try {
     const docRef = doc(db, collectionId, docId);
     await updateDoc(docRef, dataObject);

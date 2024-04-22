@@ -161,7 +161,10 @@ export default function SignupModal({ open, setOpen }) {
             phone: phonenumber,
             email,
             role: "consumer",
-            address,
+            address: {
+              ...address,
+              id: new Date().getTime(),
+            },
             saved_addresses: [],
             shipping_addresses: [],
             favourites: [],

@@ -42,14 +42,26 @@ export const userSlice = createSlice({
       state.email = "";
       state.phone = "";
       state.role = "";
+      state.address = {
+        door_no: "",
+        street_name: "",
+        district: "",
+        pincode: "",
+      };
       state.favourite = [];
       state.saved_addresses = [];
+      state.shipping_addresses = [];
       state.isAuthenticated = false;
+    },
+    updateShippingAddress: (state, action) => {
+      const payload = action.payload;
+      state.shipping_addresses = payload;
     },
   },
 });
 
-export const { setUser, setUserLogout } = userSlice.actions;
+export const { setUser, setUserLogout, updateShippingAddress } =
+  userSlice.actions;
 
 // export const selectTable = (state) => state.app;
 export const selectUser = (state) => state.user;

@@ -9,7 +9,6 @@ import {
 import {
   createObjectByParam,
   getObjectByParam,
-  updateObjectByParam
 } from "../services/firestore-http";
 import { api } from "./api";
 import { auth as firebaseAuth } from "../config/firebase";
@@ -55,16 +54,7 @@ export const auth = api.injectEndpoints({
         return await updateUserPassword(password);
       },
     }),
-    updateAddress: build.mutation({
-      queryFn: async (dataObject, state) => {
-        // console.log("docid and dataObject", dataObject.productDetail);
-        return await updateObjectByParam(
-          collectionId,
-          dataObject.state.id,
-          dataObject.addressDetails
-        );
-      },
-    }),
+
     signOutUser: build.mutation({
       queryFn: async (args, api) => {
         await signOutUser();
