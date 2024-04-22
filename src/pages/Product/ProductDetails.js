@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const { state } = useLocation();
   // console.log("id: ", id, state);
   const [product, setProduct] = useState(null);
-  console.log("prod: ", product);
+  // console.log("prod: ", product);
 
   const [getProductById, result, lastPromiseInfo] =
     useLazyGetProductByIdQuery();

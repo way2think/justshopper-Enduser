@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import classes from "../ProductDetails/ProductCard.module.css";
@@ -14,6 +14,13 @@ import {
 import { formatAmount } from "../../utils";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useUpdateFavouritesMutation } from "../../api/user";
+import {
+  selectFavourite,
+  selectUserId,
+  updateFavourites,
+} from "../../store/userSlice";
+import { errorNotification } from "../../utils/notifications";
 
 const ProductCard = ({ product }) => {
   const buy = {
@@ -65,16 +72,18 @@ const ProductCard = ({ product }) => {
 
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCartItems);
-  const [noOfItems, setNoOfItems] = useState(0);
+  const favourites = useSelector(selectFavourite);
+  const userId = useSelector(selectUserId);
+  const [updateFavouritesDB, {}] = useUpdateFavouritesMutation();
 
-  useEffect(() => {
+  const noOfItems = useMemo(() => {
     const item = cartItems.find((item) => item.id === product.id);
-    if (item) {
-      setNoOfItems(item.cart_quantity);
-    } else {
-      setNoOfItems(0);
-    }
+    return item ? item.cart_quantity : 0;
   }, [cartItems, product.id]);
+
+  const isFavourite = useMemo(() => {
+    return favourites.findIndex((fav) => fav.id === product.id) !== -1;
+  }, [favourites, product.id]);
 
   const handleAddCartItem = () => {
     dispatch(addItem(product));
@@ -105,6 +114,33 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  const handleUpdateFavourites = async (type) => {
+    const newFav = {
+      id: product.id,
+      name: product.name,
+    };
+
+    let updatedFavList = [];
+    if (type === "add") {
+      updatedFavList = [...favourites, newFav];
+    } else {
+      updatedFavList = favourites.filter((fav) => fav.id !== product.id);
+    }
+
+    const result = await updateFavouritesDB({
+      docId: userId,
+      dataObject: {
+        favourites: updatedFavList,
+      },
+    });
+
+    if (result.data) {
+      dispatch(updateFavourites(updatedFavList));
+    } else {
+      errorNotification(`Network error: ${result.error.message}`);
+    }
+  };
+
   return (
     <>
       <main>
@@ -115,8 +151,17 @@ const ProductCard = ({ product }) => {
         >
           <h3 className={classes.productdetailsHeading}>{product.name}</h3>
           <Box className={classes.icons}>
-            <FavoriteBorderIcon sx={favIcon} />
-            <FavoriteIcon sx={favIcon} />
+            {isFavourite ? (
+              <FavoriteIcon
+                sx={favIcon}
+                onClick={() => handleUpdateFavourites("remove")}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                sx={favIcon}
+                onClick={() => handleUpdateFavourites("add")}
+              />
+            )}
             <img
               src="../images/Share.png"
               alt={`Share ${product.name}`}
