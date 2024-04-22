@@ -15,11 +15,16 @@ export const user = api.injectEndpoints({
     }),
     addNewShippingAddress: build.mutation({
       queryFn: async ({ docId, dataObject }) => {
-        console.log("docid and dataObject", docId, dataObject);
+        return await updateObjectByParam(collectionId, docId, dataObject);
+      },
+    }),
+    updateFavourites: build.mutation({
+      queryFn: async ({ docId, dataObject }) => {
         return await updateObjectByParam(collectionId, docId, dataObject);
       },
     }),
   }),
 });
 
-export const { useAddNewShippingAddressMutation } = user;
+export const { useAddNewShippingAddressMutation, useUpdateFavouritesMutation } =
+  user;

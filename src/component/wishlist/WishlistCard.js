@@ -2,6 +2,8 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./WishlistCard.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/userSlice";
 
 const WishlistCard = () => {
   const cart = {
@@ -29,6 +31,10 @@ const WishlistCard = () => {
       color: "#000",
     },
   };
+
+  const user = useSelector(selectUser);
+  console.log("user: ", user);
+
   return (
     <>
       <Stack
