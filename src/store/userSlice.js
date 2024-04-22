@@ -52,6 +52,7 @@ export const userSlice = createSlice({
       state.saved_addresses = [];
       state.shipping_addresses = [];
       state.isAuthenticated = false;
+      localStorage.removeItem("cartItems"); // to clear items, so another user can login
     },
     updateShippingAddress: (state, action) => {
       const payload = action.payload;
