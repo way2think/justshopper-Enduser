@@ -25,7 +25,7 @@ const Category = ({ type, productType }) => {
   const { data, isLoading, isFetching } = useGetAllProductsQuery({
     conditions,
   });
-  console.log("all products: ", data, isLoading, isFetching);
+  // console.log("all products: ", data, isLoading, isFetching);
 
   return (
     <>

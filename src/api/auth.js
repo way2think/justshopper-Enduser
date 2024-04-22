@@ -83,15 +83,6 @@ export const auth = api.injectEndpoints({
               const userDet = await getObjectByParam(collectionId, user.uid);
               if (userDet.data) {
                 console.log("user: ", userDet.data);
-                // const {
-                //   id,
-                //   name,
-                //   email,
-                //   phone,
-                //   role,
-                //   favourite,
-                //   saved_address,
-                // } = userDet.data;
                 const updatedUser = {
                   ...userDet.data,
                   isAuthenticated: true,

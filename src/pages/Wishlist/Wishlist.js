@@ -9,7 +9,7 @@ const Wishlist = () => {
       <Path link="/" pathhome="Home" pathdetails="Favorites" />
 
       <WishlistCard />
-      
+
       {/* <NewArrival /> */}
       <WorkDetailBlack />
     </div>
