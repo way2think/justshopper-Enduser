@@ -9,6 +9,7 @@ import {
 import {
   createObjectByParam,
   getObjectByParam,
+  updateObjectByParam
 } from "../services/firestore-http";
 import { api } from "./api";
 import { auth as firebaseAuth } from "../config/firebase";
