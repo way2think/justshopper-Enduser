@@ -136,51 +136,54 @@ export default function Navbar() {
                   </StyledBadge>
                 </Link>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-2 me-lg-0">
-                <MDBNavbarLink href="/favorites">
-                  <img
-                    src="../images/heart.png"
-                    alt=""
-                    width={25}
-                    height={25}
-                  />
-                </MDBNavbarLink>
-              </MDBNavbarItem>
+
               {isAuthenticated ? (
-                <MDBNavbarItem>
-                  <MDBDropdown>
-                    <MDBDropdownToggle
-                      tag="a"
-                      className="nav-link"
-                      role="button"
-                    >
+                <>
+                  <MDBNavbarItem className="me-2 me-lg-0">
+                    <MDBNavbarLink href="/favorites">
                       <img
-                        src="../images/male User.png"
+                        src="../images/heart.png"
                         alt=""
                         width={25}
                         height={25}
                       />
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu>
-                      <Link to={"/profile"}>
-                        <MDBDropdownItem className="MDBDropdownItem">
-                          Profile
-                        </MDBDropdownItem>
-                      </Link>
-                      <Link to={"/orders"}>
-                        <MDBDropdownItem className="MDBDropdownItem">
-                          Orders
-                        </MDBDropdownItem>
-                      </Link>
-                      <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        onClick={() => signOutUser()}
+                    </MDBNavbarLink>
+                  </MDBNavbarItem>
+                  <MDBNavbarItem>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        tag="a"
+                        className="nav-link"
+                        role="button"
                       >
-                        Logout
-                      </MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavbarItem>
+                        <img
+                          src="../images/male User.png"
+                          alt=""
+                          width={25}
+                          height={25}
+                        />
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu>
+                        <Link to={"/profile"}>
+                          <MDBDropdownItem className="MDBDropdownItem">
+                            Profile
+                          </MDBDropdownItem>
+                        </Link>
+                        <Link to={"/orders"}>
+                          <MDBDropdownItem className="MDBDropdownItem">
+                            Orders
+                          </MDBDropdownItem>
+                        </Link>
+                        <MDBDropdownItem
+                          className="MDBDropdownItem"
+                          onClick={() => signOutUser()}
+                        >
+                          Logout
+                        </MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBNavbarItem>
+                </>
               ) : (
                 <MDBNavbarItem className="me-3 me-lg-0">
                   {/* <MDBNavbarLink href="#"> */}
@@ -382,23 +385,7 @@ export default function Navbar() {
                     </StyledBadge>
                   </Link>
                 </MDBNavbarItem>
-                <MDBNavbarItem className="me-3 mx-2 me-lg-0">
-                  <Link
-                    to="favorites"
-                    style={{
-                      color: location.pathname.includes("/favorites")
-                        ? "#dc3237"
-                        : "#000",
-                    }}
-                  >
-                    <img
-                      src="../images/heart.png"
-                      alt=""
-                      width={25}
-                      height={25}
-                    />
-                  </Link>
-                </MDBNavbarItem>
+
                 {/* <MDBNavbarItem className="me-3 me-lg-0">
               <MDBNavbarLink href="#">
                 <img
@@ -410,54 +397,73 @@ export default function Navbar() {
               </MDBNavbarLink>
             </MDBNavbarItem> */}
                 {isAuthenticated ? (
-                  <MDBNavbarItem>
-                    <MDBDropdown>
-                      <MDBDropdownToggle
-                        tag="a"
-                        className="nav-link p-0 mx-2"
-                        role="button"
+                  <>
+                    <MDBNavbarItem className="me-3 mx-2 me-lg-0">
+                      <Link
+                        to="favorites"
+                        style={{
+                          color: location.pathname.includes("/favorites")
+                            ? "#dc3237"
+                            : "#000",
+                        }}
                       >
                         <img
-                          src="../images/male User.png"
+                          src="../images/heart.png"
                           alt=""
                           width={25}
                           height={25}
                         />
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu>
-                        {/* <MDBDropdownItem
-                          className="MDBDropdownItem"
-                          link
-                          href="profile"
+                      </Link>
+                    </MDBNavbarItem>
+                    <MDBNavbarItem>
+                      <MDBDropdown>
+                        <MDBDropdownToggle
+                          tag="a"
+                          className="nav-link p-0 mx-2"
+                          role="button"
                         >
-                          Profile
-                        </MDBDropdownItem>
-                        <MDBDropdownItem
-                          className="MDBDropdownItem"
-                          link
-                          href="orders"
-                        >
-                          Orders
-                        </MDBDropdownItem> */}
-                        <Link to={"/profile"}>
-                          <MDBDropdownItem className="MDBDropdownItem">
-                            Profile
+                          <img
+                            src="../images/male User.png"
+                            alt=""
+                            width={25}
+                            height={25}
+                          />
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu>
+                          {/* <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        link
+                        href="profile"
+                      >
+                        Profile
+                      </MDBDropdownItem>
+                      <MDBDropdownItem
+                        className="MDBDropdownItem"
+                        link
+                        href="orders"
+                      >
+                        Orders
+                      </MDBDropdownItem> */}
+                          <Link to={"/profile"}>
+                            <MDBDropdownItem className="MDBDropdownItem">
+                              Profile
+                            </MDBDropdownItem>
+                          </Link>
+                          <Link to={"/orders"}>
+                            <MDBDropdownItem className="MDBDropdownItem">
+                              Orders
+                            </MDBDropdownItem>
+                          </Link>
+                          <MDBDropdownItem
+                            className="MDBDropdownItem"
+                            onClick={() => signOutUser()}
+                          >
+                            Logout
                           </MDBDropdownItem>
-                        </Link>
-                        <Link to={"/orders"}>
-                          <MDBDropdownItem className="MDBDropdownItem">
-                            Orders
-                          </MDBDropdownItem>
-                        </Link>
-                        <MDBDropdownItem
-                          className="MDBDropdownItem"
-                          onClick={() => signOutUser()}
-                        >
-                          Logout
-                        </MDBDropdownItem>
-                      </MDBDropdownMenu>
-                    </MDBDropdown>
-                  </MDBNavbarItem>
+                        </MDBDropdownMenu>
+                      </MDBDropdown>
+                    </MDBNavbarItem>
+                  </>
                 ) : (
                   <MDBNavbarItem className="me-3 me-lg-0">
                     {/* <MDBNavbarLink href="#"> */}
