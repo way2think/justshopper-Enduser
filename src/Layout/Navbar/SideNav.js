@@ -125,6 +125,7 @@ export default function SideNav() {
                                 handleMenuItemClick(index);
                                 setShowSubMenu2(false);
                                 navigate(`/shop-by-theme?theme=${item?.name}`);
+                                toggleDrawer();
                               }}
                             >
                               <Link>{item?.name}</Link>

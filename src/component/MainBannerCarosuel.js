@@ -30,7 +30,7 @@ export default function MainBannerCarosuel() {
   };
 
   return (
-    <MDBCarousel showIndicators fade interval={3000}>
+    <MDBCarousel showIndicators fade interval={3000} autoplay>
       {homeBanner.map((banner, id) => (
         <MDBCarouselItem
           key={id}
@@ -44,15 +44,15 @@ export default function MainBannerCarosuel() {
             className="d-block w-100 carousel-img"
             alt="..."
           />
-          {/* <div
+          <div
             className="mask"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.0)" }}
           >
             <MDBCarouselCaption className="caption">
-              <h1 className="slidercaption">{banner.description}</h1>
-              <MDBBtn className="sliderbtn">Shop Now</MDBBtn>
+              {/* <h1 className="slidercaption">{banner.description}</h1> */}
+              <MDBBtn className="sliderbtn ">Shop Now</MDBBtn>
             </MDBCarouselCaption>
-          </div> */}
+          </div>
         </MDBCarouselItem>
       ))}
       <Stack justifyContent="space-between" direction="row" alignItems="center">
