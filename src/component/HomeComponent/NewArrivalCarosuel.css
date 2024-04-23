@@ -22,7 +22,7 @@
 
 .favImage {
   position: absolute;
-  top: 20px;
+  top: 5px;
   right: 5px;
   z-index: 99;
   /* cursor: pointer; */
@@ -64,7 +64,7 @@
   box-shadow: 0 2px 5px #7d7d7d;
 }
 .new-arrivals .slick-slide {
-  padding: 0 15px;
+  padding: 15px;
 }
 
 .new {
