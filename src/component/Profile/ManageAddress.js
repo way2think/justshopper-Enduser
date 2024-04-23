@@ -13,7 +13,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddAddress from "./AddAddress";
 import SignupModal from "../Signup/SignupModal";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../store/userSlice";
+import { selectUser, updateShippingAddress } from "../../store/userSlice";
+import { useAddNewShippingAddressMutation } from "../../api/user";
+import { errorNotification } from "../utils/notifications";
 
 const useStyles = styled((theme) => ({
   root: {
@@ -26,10 +28,14 @@ const useStyles = styled((theme) => ({
 }));
 
 const ManageAddress = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   // console.log("user: ", user);
 
   const classes = useStyles();
+
+  const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
+    useAddNewShippingAddressMutation();
 
   // const handleAddAddress = () => {
   //   setAddresses([
@@ -43,6 +49,26 @@ const ManageAddress = () => {
   //     },
   //   ]);
   // };
+  const handleAddNewShippingAddress = async (address) => {
+    const updatedShippingAddresses = user.shipping_addresses.filter(
+      (add) => add.id !== address.id
+    );
+
+    const result = await addNewShippingAddress({
+      docId: user.id,
+      dataObject: {
+        shipping_addresses: updatedShippingAddresses,
+      },
+    });
+
+    console.log("result: ", result);
+    if (result.data) {
+      // udpate the result in local state
+      dispatch(updateShippingAddress(updatedShippingAddresses));
+    } else {
+      errorNotification(result.error.message);
+    }
+  };
 
   return (
     <div className={`${classes.root} container`}>
@@ -110,6 +136,7 @@ const ManageAddress = () => {
                     marginTop: 5,
                     marginLeft: 4,
                   }}
+                  onClick={handleAddNewShippingAddress(address)}
                 >
                   <DeleteIcon />
                 </Button>
