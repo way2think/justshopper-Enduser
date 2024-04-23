@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -15,8 +15,7 @@ import "./Navbar.css";
 
 export default function SideNav() {
   const [open, setOpen] = React.useState(false);
-  const [anchorEl1, setAnchorEl1] = React.useState(null);
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const [subMenuOpen, setSubMenuOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const toggleDrawer = () => {
@@ -25,24 +24,6 @@ export default function SideNav() {
 
   const handleMenuItemClick = (index) => {
     setSelectedIndex(index);
-    setAnchorEl1(null);
-    setAnchorEl2(null);
-  };
-
-  const handleMenuOpen1 = (event, index) => {
-    setAnchorEl1(event.currentTarget);
-    setSelectedIndex(index);
-  };
-
-  const handleMenuOpen2 = (event, index) => {
-    setAnchorEl2(event.currentTarget);
-    setSelectedIndex(index);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl1(null);
-    setAnchorEl2(null);
-    setSelectedIndex(null);
   };
 
   return (
@@ -54,27 +35,28 @@ export default function SideNav() {
             {["Home", "Shop by Category", "Shop by Theme", "Contact Us"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
-                  {index === 1 ? (
-                    <>
+                  {index === 1 || index === 2 ? (
+                    <div>
                       <ListItemButton
-                        onClick={(event) => handleMenuOpen1(event, index)}
+                        onClick={() => handleMenuItemClick(index)}
                       >
                         <ListItemText primary={text} />
                         <ArrowDropDownIcon />
                       </ListItemButton>
-                      <Menu
-                        anchorEl={anchorEl1}
-                        open={selectedIndex === index && Boolean(anchorEl1)}
-                        onClose={handleMenuClose}
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        getContentAnchorEl={null}
+
+                      <div
+                        className={
+                          selectedIndex === index ? "d-block" : "d-none"
+                        }
+                        // anchorReference="anchorPosition"
+                        // anchorPosition={{ top: 0, left: 200 }} // Adjust left position according to your layout
+                        // open={selectedIndex === index && open}
+                        // onClose={() => handleMenuItemClick(null)}
+                        // PaperProps={{
+                        //   style: {
+                        //     marginTop: "8px",
+                        //   },
+                        // }}
                       >
                         <MenuItem onClick={() => handleMenuItemClick(index)}>
                           <Link to="/pen">Pen</Link>
@@ -85,33 +67,8 @@ export default function SideNav() {
                         <MenuItem onClick={() => handleMenuItemClick(index)}>
                           <Link to="/notebook">Notebook</Link>
                         </MenuItem>
-                      </Menu>
-                    </>
-                  ) : index === 2 ? (
-                    <>
-                      <ListItemButton
-                        onClick={(event) => handleMenuOpen2(event, index)}
-                      >
-                        <ListItemText primary={text} />
-                        <ArrowDropDownIcon />
-                      </ListItemButton>
-                      <Menu
-                        anchorEl={anchorEl2}
-                        open={selectedIndex === index && Boolean(anchorEl2)}
-                        onClose={handleMenuClose}
-                        getContentAnchorEl={null}
-                      >
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
-                          <Link to="/pen">Pen</Link>
-                        </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
-                          <Link to="/pencil">Pencil</Link>
-                        </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
-                          <Link to="/notebook">Notebook</Link>
-                        </MenuItem>
-                      </Menu>
-                    </>
+                      </div>
+                    </div>
                   ) : (
                     <Link
                       to={index === 0 ? "/" : "contact-us"}

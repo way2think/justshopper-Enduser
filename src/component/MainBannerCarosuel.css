@@ -58,7 +58,10 @@
   }
 
   .carousel-img {
-    max-height: 300px; /* Adjust the value to your desired height */
+    max-height: 300px;
+    min-height: 250px;
+    object-fit: cover;
+    object-position: left;
   }
 }
 
