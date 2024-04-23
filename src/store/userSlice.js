@@ -33,6 +33,7 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       const payload = action.payload;
+      // console.log("act: ", payload);
       let selectedAddress = {
         id: "",
         line: "",
