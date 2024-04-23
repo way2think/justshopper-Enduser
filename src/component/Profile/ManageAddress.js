@@ -15,7 +15,7 @@ import SignupModal from "../Signup/SignupModal";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, updateShippingAddress } from "../../store/userSlice";
 import { useAddNewShippingAddressMutation } from "../../api/user";
-import { errorNotification } from "../utils/notifications";
+import { errorNotification } from "../../utils/notifications";
 
 const useStyles = styled((theme) => ({
   root: {
