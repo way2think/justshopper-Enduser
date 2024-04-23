@@ -15,6 +15,8 @@ import "./Navbar.css";
 
 export default function SideNav() {
   const [open, setOpen] = React.useState(false);
+  const [showSubMenu1, setShowSubMenu1] = React.useState(false);
+  const [showSubMenu2, setShowSubMenu2] = React.useState(false);
   const [anchorEl1, setAnchorEl1] = React.useState(null);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
@@ -53,64 +55,102 @@ export default function SideNav() {
           <List>
             {["Home", "Shop by Category", "Shop by Theme", "Contact Us"].map(
               (text, index) => (
-                <ListItem key={text} disablePadding>
+                <ListItem key={text} disablePadding sx={{ display: "block" }}>
                   {index === 1 ? (
                     <>
                       <ListItemButton
-                        onClick={(event) => handleMenuOpen1(event, index)}
+                        onClick={() => {
+                          setShowSubMenu1(!showSubMenu1);
+                          setShowSubMenu2(false);
+                        }}
                       >
                         <ListItemText primary={text} />
                         <ArrowDropDownIcon />
                       </ListItemButton>
-                      <Menu
-                        anchorEl={anchorEl1}
-                        open={selectedIndex === index && Boolean(anchorEl1)}
-                        onClose={handleMenuClose}
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        getContentAnchorEl={null}
+                      <div
+                        className={showSubMenu1 ? "d-block" : "d-none"}
+                        // anchorEl={anchorEl1}
+                        // open={selectedIndex === index && Boolean(anchorEl1)}
+                        // onClose={handleMenuClose}
+                        // anchorOrigin={{
+                        //   vertical: "bottom",
+                        //   horizontal: "left",
+                        // }}
+                        // transformOrigin={{
+                        //   vertical: "top",
+                        //   horizontal: "left",
+                        // }}
+                        // getContentAnchorEl={null}
                       >
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
+                        <MenuItem
+                          onClick={() => {
+                            handleMenuItemClick(index);
+                            setShowSubMenu1(false);
+                          }}
+                        >
                           <Link to="/pen">Pen</Link>
                         </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
+                        <MenuItem
+                          onClick={() => {
+                            handleMenuItemClick(index);
+                            setShowSubMenu1(false);
+                          }}
+                        >
                           <Link to="/pencil">Pencil</Link>
                         </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
+                        <MenuItem
+                          onClick={() => {
+                            handleMenuItemClick(index);
+                            setShowSubMenu1(false);
+                          }}
+                        >
                           <Link to="/notebook">Notebook</Link>
                         </MenuItem>
-                      </Menu>
+                      </div>
                     </>
                   ) : index === 2 ? (
                     <>
                       <ListItemButton
-                        onClick={(event) => handleMenuOpen2(event, index)}
+                        onClick={() => {
+                          setShowSubMenu1(false);
+                          setShowSubMenu2(!showSubMenu2);
+                        }}
                       >
                         <ListItemText primary={text} />
                         <ArrowDropDownIcon />
                       </ListItemButton>
-                      <Menu
-                        anchorEl={anchorEl2}
-                        open={selectedIndex === index && Boolean(anchorEl2)}
-                        onClose={handleMenuClose}
-                        getContentAnchorEl={null}
+                      <div
+                        className={showSubMenu2 ? "d-block" : "d-none"}
+                        // anchorEl={anchorEl2}
+                        // open={selectedIndex === index && Boolean(anchorEl2)}
+                        // onClose={handleMenuClose}
+                        // getContentAnchorEl={null}
                       >
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
+                        <MenuItem
+                          onClick={() => {
+                            handleMenuItemClick(index);
+                            setShowSubMenu2(false);
+                          }}
+                        >
                           <Link to="/pen">Pen</Link>
                         </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
+                        <MenuItem
+                          onClick={() => {
+                            handleMenuItemClick(index);
+                            setShowSubMenu2(false);
+                          }}
+                        >
                           <Link to="/pencil">Pencil</Link>
                         </MenuItem>
-                        <MenuItem onClick={() => handleMenuItemClick(index)}>
+                        <MenuItem
+                          onClick={() => {
+                            handleMenuItemClick(index);
+                            setShowSubMenu2(false);
+                          }}
+                        >
                           <Link to="/notebook">Notebook</Link>
                         </MenuItem>
-                      </Menu>
+                      </div>
                     </>
                   ) : (
                     <Link
