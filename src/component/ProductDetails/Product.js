@@ -1,9 +1,9 @@
-import { Box, Divider, Grid, Stack } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import React from "react";
 import ProductGallery from "./ProductGallery";
 import ProductCard from "./ProductCard";
 
-const Product = () => {
+const Product = ({ product }) => {
   return (
     <>
       <Stack
@@ -15,7 +15,10 @@ const Product = () => {
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2}>
             <Grid item sm={6} xs={12} md={6} lg={6}>
-              <ProductGallery />
+              <ProductGallery
+                name={product.name}
+                images={product.images || []}
+              />
             </Grid>
             <Grid
               item
@@ -25,7 +28,7 @@ const Product = () => {
               lg={6}
               sx={{ paddingRight: "30px" }}
             >
-              <ProductCard />
+              <ProductCard product={product} />
             </Grid>
           </Grid>
         </Box>

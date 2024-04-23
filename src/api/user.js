@@ -1,4 +1,8 @@
-import { getObjectByParam } from "../services/firestore-http";
+import {
+  getMultiObjectParallellyByIds,
+  getObjectByParam,
+  updateObjectByParam,
+} from "../services/firestore-http";
 import { api } from "./api";
 
 const collectionId = "user";
@@ -10,5 +14,26 @@ export const user = api.injectEndpoints({
         return await getObjectByParam(collectionId, userId);
       },
     }),
+    addNewShippingAddress: build.mutation({
+      queryFn: async ({ docId, dataObject }) => {
+        return await updateObjectByParam(collectionId, docId, dataObject);
+      },
+    }),
+    updateFavourites: build.mutation({
+      queryFn: async ({ docId, dataObject }) => {
+        return await updateObjectByParam(collectionId, docId, dataObject);
+      },
+    }),
+    getAllFavourites: build.query({
+      queryFn: async ({ collectionId, favourites }) => {
+        return await getMultiObjectParallellyByIds(collectionId, favourites);
+      },
+    }),
   }),
 });
+
+export const {
+  useAddNewShippingAddressMutation,
+  useUpdateFavouritesMutation,
+  useGetAllFavouritesQuery,
+} = user;

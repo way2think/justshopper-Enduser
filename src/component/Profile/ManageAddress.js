@@ -27,7 +27,7 @@ const useStyles = styled((theme) => ({
 
 const ManageAddress = () => {
   const user = useSelector(selectUser);
-  console.log("user: ", user);
+  // console.log("user: ", user);
 
   const classes = useStyles();
 
@@ -47,7 +47,6 @@ const ManageAddress = () => {
   return (
     <div className={`${classes.root} container`}>
       {/* <AddAddress handleAddAddress={handleAddAddress} /> */}
-      <SignupModal manageAddress={true} />
       <Grid container spacing={2}>
         {user.shipping_addresses?.length === 0 ? (
           <Grid item sm={12}>
@@ -56,7 +55,13 @@ const ManageAddress = () => {
         ) : null}
         {user.shipping_addresses?.map((address, index) => (
           <Grid item sm={12} xs={12} md={6} lg={6} key={index}>
-            <Card className={classes.card} style={{ textAlign: "left" }}>
+            <Card
+              className={classes.card}
+              style={{
+                textAlign: "left",
+                // background: address.is_active ? "#3b71ca" : "",
+              }}
+            >
               {/* <CardMedia
                   component="img"
                   height="140"
@@ -74,7 +79,7 @@ const ManageAddress = () => {
                 </Typography> */}
 
                 <Typography variant="body" color="#000" component="p">
-                  {address.line}
+                  {address.name + ", " + address.line}
                 </Typography>
                 <Typography variant="body" color="#000" component="p">
                   {address.city + ", " + address.state}

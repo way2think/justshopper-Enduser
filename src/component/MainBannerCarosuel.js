@@ -54,7 +54,6 @@ export default function MainBannerCarosuel() {
           // activeItem={activeItem}
           interval={1000}
         >
-          {console.log("id", id + 1)}
           <img
             src={banner.images[0].url}
             className="d-block w-100 carousel-img"

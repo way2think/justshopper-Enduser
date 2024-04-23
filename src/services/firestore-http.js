@@ -161,7 +161,7 @@ const getMultiObjectParallellyByIds = async (
   metaData = "getMultiObjectParallelly"
 ) => {
   try {
-    // console.log("objectIds: ", objects, collectionId);
+    console.log("objectIds: ", objects, collectionId);
 
     // create promise array with collection id
 
@@ -176,7 +176,7 @@ const getMultiObjectParallellyByIds = async (
       id: docSnap.id,
       ...docSnap.data(),
     }));
-    // console.log("resultData: ", resultData);
+    console.log("resultData: ", resultData);
     return {
       data: resultData,
       error: null,
@@ -197,6 +197,7 @@ const updateObjectByParam = async (
   dataObject,
   metaData = "updateObjectByParam"
 ) => {
+  // console.log(collectionId, docId, dataObject);
   try {
     const docRef = doc(db, collectionId, docId);
     await updateDoc(docRef, dataObject);

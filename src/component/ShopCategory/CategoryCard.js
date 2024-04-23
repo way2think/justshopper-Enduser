@@ -14,7 +14,7 @@ const CategoryCard = ({ products }) => {
         direction="row"
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
-          <Grid container spacing={2} sx={{ mb: 10 }}>
+          <Grid className="new-arrivals" container spacing={2} sx={{ mb: 10 }}>
             {products.length === 0 ? (
               <Typography align="center">No Products</Typography>
             ) : (

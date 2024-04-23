@@ -25,20 +25,7 @@ const Category = ({ type, productType }) => {
   const { data, isLoading, isFetching } = useGetAllProductsQuery({
     conditions,
   });
-  console.log("all products: ", data, isLoading, isFetching);
-
-  // useEffect(() => {
-  //   setConditions([
-  //     { type: "where", field: "status", operator: "==", value: "published" },
-  //     { type: "where", field: type, operator: "==", value: productType },
-  //     // { type: "orderBy", field: "population", order: "asc | desc" },
-  //     // { type: "limit", value: 10 },
-  //   ]);
-  // }, [type, productType]);
-
-  // const searchHandler = () => {
-  //   console.log("searchHandler: ", search);
-  // };
+  // console.log("all products: ", data, isLoading, isFetching);
 
   return (
     <>

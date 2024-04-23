@@ -1,4 +1,4 @@
-import { createObject } from "../services/firestore-http";
+import { createObject, getAllObjects } from "../services/firestore-http";
 import { api } from "./api";
 
 const collectionId = "order";
@@ -11,7 +11,14 @@ export const order = api.injectEndpoints({
         return await createObject(collectionId, order);
       },
     }),
+    getAllOrdersByUserId: build.query({
+      providesTags: ["orders"],
+      queryFn: async ({ conditions }) => {
+        // console.log("cond: ", conditions);
+        return await getAllObjects(collectionId, conditions);
+      },
+    }),
   }),
 });
 
-export const { useCreateOrderMutation } = order;
+export const { useCreateOrderMutation, useGetAllOrdersByUserIdQuery } = order;

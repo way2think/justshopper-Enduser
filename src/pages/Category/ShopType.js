@@ -1,14 +1,23 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Path from "../../component/Path";
 import WorkDetailBlack from "../../component/HomeComponent/WorkDetailBlack";
 import Category from "../../component/ShopCategory/Category";
-
+import { useGetSettingsQuery } from "../../api/api";
 const ShopType = ({ path, pathName, type }) => {
   const { pathname, search } = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(search);
   const productType = searchParams.get(type);
 
-  console.log("searchParams: ", pathname, productType);
+  const { data } = useGetSettingsQuery();
+  // console.log("searchParams: ", pathname, productType, type, data);
+
+  useEffect(() => {
+    if (productType === null && data?.[type]) {
+      navigate(`/shop-by-${type}?${type}=${data?.[type][0].name}`);
+    }
+  }, [data, navigate, productType, type]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProductGallery.css";
 
-const ProductGallery = () => {
+const ProductGallery = ({ name, images }) => {
   const imgs = document.querySelectorAll(".img-select a");
   const imgBtns = [...imgs];
   let imgId = 1;
@@ -25,6 +25,7 @@ const ProductGallery = () => {
   }
 
   window.addEventListener("resize", slideImage);
+
   return (
     <>
       <div className="card-wrappergellery">
@@ -33,123 +34,64 @@ const ProductGallery = () => {
           <div className="product-imgs">
             <div className="img-display">
               <div className="img-showcase">
-                <img
-                  src="../images/biscuit.jpg"
-                  alt="shoe image"
-                  className="galleryimage"
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    borderRadius: "5px",
-                  }}
-                />
-                <img
-                  src="../images/biscuit.jpg"
-                  alt="shoe image"
-                  className="galleryimage"
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    borderRadius: "5px",
-                  }}
-                />
-                <img
-                  src="../images/biscuit.jpg"
-                  alt="shoe image"
-                  className="galleryimage"
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    borderRadius: "5px",
-                  }}
-                />
-                <img
-                  src="../images/biscuit.jpg"
-                  alt="shoe image"
-                  className="galleryimage"
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    borderRadius: "5px",
-                  }}
-                />
-                <img
-                  src="../images/biscuit.jpg"
-                  alt="shoe image"
-                  className="galleryimage"
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    borderRadius: "5px",
-                  }}
-                />
+                {images.length > 0
+                  ? images.map((image) => (
+                      <img
+                        src={image}
+                        alt={image}
+                        className="galleryimage"
+                        style={{
+                          width: "100%",
+                          display: "block",
+                          borderRadius: "5px",
+                        }}
+                      />
+                    ))
+                  : Array.from(Array(5).keys()).map(() => (
+                      <img
+                        src="../images/dummy-image.jpg"
+                        alt={name}
+                        className="galleryimage"
+                        style={{
+                          width: "100%",
+                          display: "block",
+                          borderRadius: "5px",
+                        }}
+                      />
+                    ))}
               </div>
               <div className="img-select">
-                <div className="img-item">
-                  <a href="#" data-id="1">
-                    <img
-                      src="../images/biscuit.jpg"
-                      alt="shoe image"
-                      style={{
-                        width: "100%",
-                        display: "block",
-                        borderRadius: "5px",
-                      }}
-                    />
-                  </a>
-                </div>
-                <div className="img-item">
-                  <a href="#" data-id="2">
-                    <img
-                      src="../images/biscuit.jpg"
-                      alt="shoe image"
-                      style={{
-                        width: "100%",
-                        display: "block",
-                        borderRadius: "5px",
-                      }}
-                    />
-                  </a>
-                </div>
-                <div className="img-item">
-                  <a href="#" data-id="3">
-                    <img
-                      src="../images/biscuit.jpg"
-                      alt="shoe image"
-                      style={{
-                        width: "100%",
-                        display: "block",
-                        borderRadius: "5px",
-                      }}
-                    />
-                  </a>
-                </div>
-                <div className="img-item">
-                  <a href="#" data-id="4">
-                    <img
-                      src="../images/biscuit.jpg"
-                      alt="shoe image"
-                      style={{
-                        width: "100%",
-                        display: "block",
-                        borderRadius: "5px",
-                      }}
-                    />
-                  </a>
-                </div>
-                <div className="img-item">
-                  <a href="#" data-id="5">
-                    <img
-                      src="../images/biscuit.jpg"
-                      alt="shoe image"
-                      style={{
-                        width: "100%",
-                        display: "block",
-                        borderRadius: "5px",
-                      }}
-                    />
-                  </a>
-                </div>
+                {images.length > 0
+                  ? images.map((image, i) => (
+                      <div className="img-item">
+                        <a href="#" data-id={i + 1}>
+                          <img
+                            src={image}
+                            alt={image}
+                            style={{
+                              width: "100%",
+                              display: "block",
+                              borderRadius: "5px",
+                            }}
+                          />
+                        </a>
+                      </div>
+                    ))
+                  : Array.from(Array(5).keys()).map((_, i) => (
+                      <div className="img-item">
+                        <a href="#" data-id={i + 1}>
+                          <img
+                            src="../images/dummy-image.jpg"
+                            alt={name}
+                            style={{
+                              width: "100%",
+                              display: "block",
+                              borderRadius: "5px",
+                            }}
+                          />
+                        </a>
+                      </div>
+                    ))}
               </div>
             </div>
             {/* <!-- card right --> */}
