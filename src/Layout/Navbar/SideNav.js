@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
+import "./SideNav.css";
 
 export default function SideNav() {
   const [open, setOpen] = React.useState(false);
