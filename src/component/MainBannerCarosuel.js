@@ -65,7 +65,7 @@ export default function MainBannerCarosuel() {
           >
             <MDBCarouselCaption className="caption">
               {/* <h1 className="slidercaption">{banner.description}</h1> */}
-              <MDBBtn className="sliderbtn ">Shop Now</MDBBtn>
+              <MDBBtn className="sliderbtn">Shop Now</MDBBtn>
             </MDBCarouselCaption>
           </div>
         </MDBCarouselItem>
