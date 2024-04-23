@@ -58,20 +58,6 @@ const CartTable = () => {
     shipping_price: (40.5).toFixed(2), // tamil nadu
   };
 
-  const shipping1 = useMemo(() => {
-    const { selected_address } = user;
-    const isCountry = shipping_charges.countries[selected_address.country];
-    console.log("sl:", selected_address);
-    if (isCountry) {
-      
-    } else {
-      setCheckout({
-        canCheckout: false,
-        message: `Currently we don't support Country: ${selected_address.country} `,
-      });
-    }
-  }, [user]);
-
   const {
     subtotalPrice,
     totalPrice,
@@ -115,6 +101,81 @@ const CartTable = () => {
       totalProfitPrice: totalProfitPrice.toFixed(2),
     };
   }, [cartItems, shipping.shipping_price, tax.total_tax_price]);
+
+  const shipping1 = useMemo(() => {
+    const totalWeight = parseFloat(totalWeightInGrams);
+    const { selected_address } = user;
+    const isCountry = shipping_charges.countries[selected_address.country];
+    console.log(
+      "sl:",
+      selected_address,
+      oneDayDelivery,
+      parseFloat(totalWeightInGrams)
+    );
+    console.log("isCountry", isCountry);
+    if (isCountry) {
+      const isState = isCountry.states[selected_address.state];
+      console.log("isState: ", isState);
+      if (isState) {
+        const isCity = isState.cities[selected_address.city];
+        console.log("isCity: ", isCity);
+        if (isCity) {
+        } else {
+          // take others value based on weight
+          // if (totalWeight > 1000) {
+          // } else {
+          // }
+          const weightCalc =
+            totalWeight < 250
+              ? "250g"
+              : totalWeight > 250 && totalWeight <= 500
+              ? "500g"
+              : totalWeight > 500 && totalWeight <= 1000
+              ? "1kg"
+              : "";
+          const price = isState.cities["others"][weightCalc];
+
+          console.log("price: ", price);
+
+          if (oneDayDelivery) {
+            const oneDayDeliveryPrice = price.one_day_delivery_charge;
+            console.log("oneDayDeliveryPrice: ", oneDayDeliveryPrice);
+            if (oneDayDeliveryPrice === "NA") {
+              setCheckout({
+                canCheckout: false,
+                message: `One Day Delivery is not available for this address, please try standard delivery or try with other shipping address`,
+              });
+              // return {
+              //   shipping_type: "one_day_delivery", // one_day || standard
+              //   shipping_price: oneDayDeliveryPrice.toFixed(2),
+              // };
+            } else {
+              return {
+                shipping_type: "one_day_delivery", // one_day || standard
+                shipping_price: oneDayDeliveryPrice.toFixed(2),
+              };
+            }
+          } else {
+            const standardDeliveryPrice = price.standard_delivery_charge;
+            console.log("standardDeliveryPrice: ", standardDeliveryPrice);
+            return {
+              shipping_type: "standard_delivery", // one_day || standard
+              shipping_price: standardDeliveryPrice.toFixed(2),
+            };
+          }
+        }
+      } else {
+        //take others value
+        const otherState = isCountry.states["others"];
+        console.log("otherState", otherState);
+      }
+    } else {
+      setCheckout({
+        canCheckout: false,
+        message: `Currently we don't support Country: ${selected_address.country}`,
+      });
+    }
+  }, [totalWeightInGrams, user, oneDayDelivery]);
 
   const handleAddItemQty = (product) => {
     dispatch(addItemQty(product));
