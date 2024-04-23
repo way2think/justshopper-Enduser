@@ -15,7 +15,7 @@ export default function MainBannerCarosuel() {
   const { data } = useGetSettingsQuery();
   const [activeItem, setActiveItem] = useState(0);
   const homeBanner = data?.home_banner || [];
-  console.log("data for banner", homeBanner);
+  // console.log("data for banner", homeBanner);
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();

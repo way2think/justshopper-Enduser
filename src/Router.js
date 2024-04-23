@@ -23,15 +23,15 @@ export default function Router() {
 
   useEffect(() => {
     // console.log("data: ", user);
-    if (user) {
-      const cartItems = localStorage.getItem("cartItems");
-      if (cartItems) {
-        dispatch(setCartItems(JSON.parse(cartItems)));
-      }
+    // if (user) {
+    const cartItems = localStorage.getItem("cartItems");
+    if (cartItems) {
+      dispatch(setCartItems(JSON.parse(cartItems)));
     }
+    // }
 
     setAuthChecked(true);
-  }, [user]);
+  }, [dispatch, user]);
 
   // console.log("Route - user?.isAuthenticated: ", user?.isAuthenticated);
 

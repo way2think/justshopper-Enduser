@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, memo } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 // import DeleteIcon from "@mui/icons-material/Delete";
@@ -53,14 +53,16 @@ const CartTable = () => {
     tax_total_percentage: 0,
   }; // for India
 
-  const shipping = {
-    shipping_type: "standard", //one_day
-    shipping_price: (40.5).toFixed(2), // tamil nadu
-  };
+  // const shipping = {
+  //   shipping_type: "standard", //one_day
+  //   shipping_price: (40.5).toFixed(2), // tamil nadu
+  // };
+
+  // console.log(shipping);
 
   const {
     subtotalPrice,
-    totalPrice,
+    // totalPrice,
     totalWeightInGrams,
     totalQuantity,
     totalActualPrice,
@@ -85,14 +87,14 @@ const CartTable = () => {
       totalDiscountPrice += parseFloat(item.discount_price) * qty;
     });
 
-    const totalPrice =
-      subtotalPrice + +shipping.shipping_price + tax.total_tax_price;
+    // const totalPrice =
+    //   subtotalPrice + +shipping.shipping_price + tax.total_tax_price;
 
     const totalProfitPrice = totalDiscountPrice - totalActualPrice;
 
     return {
       subtotalPrice: subtotalPrice.toFixed(2),
-      totalPrice: totalPrice.toFixed(2),
+      // totalPrice: totalPrice.toFixed(2),
       totalWeightInGrams: totalWeightInGrams.toFixed(2),
       totalQuantity,
       totalActualPrice: totalActualPrice.toFixed(2),
@@ -100,82 +102,96 @@ const CartTable = () => {
       totalDiscountPrice: totalDiscountPrice.toFixed(2),
       totalProfitPrice: totalProfitPrice.toFixed(2),
     };
-  }, [cartItems, shipping.shipping_price, tax.total_tax_price]);
+  }, [cartItems]);
 
-  const shipping1 = useMemo(() => {
+  const shipping = useMemo(() => {
+    // const totalWeight = 1000;
     const totalWeight = parseFloat(totalWeightInGrams);
     const { selected_address } = user;
-    const isCountry = shipping_charges.countries[selected_address.country];
-    console.log(
-      "sl:",
-      selected_address,
-      oneDayDelivery,
-      parseFloat(totalWeightInGrams)
-    );
-    console.log("isCountry", isCountry);
-    if (isCountry) {
-      const isState = isCountry.states[selected_address.state];
-      console.log("isState: ", isState);
-      if (isState) {
-        const isCity = isState.cities[selected_address.city];
-        console.log("isCity: ", isCity);
-        if (isCity) {
-        } else {
-          // take others value based on weight
-          // if (totalWeight > 1000) {
-          // } else {
-          // }
-          const weightCalc =
-            totalWeight < 250
-              ? "250g"
-              : totalWeight > 250 && totalWeight <= 500
-              ? "500g"
-              : totalWeight > 500 && totalWeight <= 1000
-              ? "1kg"
-              : "";
-          const price = isState.cities["others"][weightCalc];
+    const country = shipping_charges.countries[selected_address.country];
 
-          console.log("price: ", price);
-
-          if (oneDayDelivery) {
-            const oneDayDeliveryPrice = price.one_day_delivery_charge;
-            console.log("oneDayDeliveryPrice: ", oneDayDeliveryPrice);
-            if (oneDayDeliveryPrice === "NA") {
-              setCheckout({
-                canCheckout: false,
-                message: `One Day Delivery is not available for this address, please try standard delivery or try with other shipping address`,
-              });
-              // return {
-              //   shipping_type: "one_day_delivery", // one_day || standard
-              //   shipping_price: oneDayDeliveryPrice.toFixed(2),
-              // };
-            } else {
-              return {
-                shipping_type: "one_day_delivery", // one_day || standard
-                shipping_price: oneDayDeliveryPrice.toFixed(2),
-              };
-            }
-          } else {
-            const standardDeliveryPrice = price.standard_delivery_charge;
-            console.log("standardDeliveryPrice: ", standardDeliveryPrice);
-            return {
-              shipping_type: "standard_delivery", // one_day || standard
-              shipping_price: standardDeliveryPrice.toFixed(2),
-            };
-          }
-        }
-      } else {
-        //take others value
-        const otherState = isCountry.states["others"];
-        console.log("otherState", otherState);
-      }
-    } else {
+    if (!country) {
       setCheckout({
         canCheckout: false,
         message: `Currently we don't support Country: ${selected_address.country}`,
       });
+      return;
     }
+
+    const state =
+      country.states[selected_address.state] || country.states["others"];
+
+    const city = state.cities[selected_address.city] || state.cities["others"];
+
+    let weightBracket = "1kg";
+    let price = 0;
+    let multiplier = 1;
+
+    if (totalWeight > 1000) {
+      // 2000, 5500
+      multiplier = Math.ceil(totalWeight / 1000); // 2, 5.5 -> 2, 6
+    } else {
+      weightBracket =
+        totalWeight < 250
+          ? "250g"
+          : totalWeight <= 500
+          ? "500g"
+          : totalWeight <= 1000 && "1kg";
+    }
+
+    price = city[weightBracket];
+
+    if (!price) {
+      setCheckout({
+        canCheckout: false,
+        message: `Shipping charges not available for this address.`,
+      });
+      return;
+    }
+
+    const deliveryType = oneDayDelivery
+      ? "one_day_delivery"
+      : "standard_delivery";
+    const deliveryPrice = oneDayDelivery
+      ? price.one_day_delivery_charge
+      : price.standard_delivery_charge;
+
+    if (deliveryPrice === "NA") {
+      setCheckout({
+        canCheckout: false,
+        message: `One Day Delivery is not available for this address, please try standard delivery or try with another shipping address`,
+      });
+      return { shipping_type: deliveryType, shipping_price: "NA" };
+    }
+
+    setCheckout({
+      canCheckout: true,
+      message: "",
+    });
+
+    return {
+      shipping_type: deliveryType,
+      shipping_price: parseFloat(deliveryPrice * multiplier).toFixed(2),
+    };
   }, [totalWeightInGrams, user, oneDayDelivery]);
+
+  const { totalPrice } = useMemo(() => {
+    const totalPrice =
+      parseFloat(subtotalPrice) +
+        parseFloat(shipping?.shipping_price) +
+        parseFloat(tax.total_tax_price) || 0;
+
+    return {
+      totalPrice:
+        totalPrice === 0
+          ? (
+              parseFloat(subtotalPrice) + parseFloat(tax.total_tax_price)
+            ).toFixed(2)
+          : parseFloat(totalPrice).toFixed(2),
+    };
+  }, [shipping?.shipping_price, subtotalPrice, tax.total_tax_price]);
+
+  // console.log("shipping price: ", shipping);
 
   const handleAddItemQty = (product) => {
     dispatch(addItemQty(product));
@@ -210,8 +226,8 @@ const CartTable = () => {
   };
 
   const handleCheckout = async () => {
-    if (checkout.canCheckout) {
-      if (user.isAuthenticated) {
+    if (user.isAuthenticated) {
+      if (checkout.canCheckout) {
         if (totalPrice < 100) {
           errorNotification("Total order amount should be greater than Rs.100");
         } else {
@@ -377,10 +393,10 @@ const CartTable = () => {
           }
         }
       } else {
-        errorNotification("Please login to checkout");
+        errorNotification(checkout.message);
       }
     } else {
-      errorNotification(checkout.message);
+      errorNotification("Please login to checkout");
     }
   };
 
@@ -492,40 +508,51 @@ const CartTable = () => {
               <td className="text-right price" colspan="3">
                 Delivery Price
               </td>
-              <td className="text-right price">{shipping.shipping_price}</td>
+              <td className="text-right price">
+                {shipping?.shipping_price || "NA"}
+              </td>
             </tr>
+
             <tr className="total-row info">
               <td className="text-right price" colspan="3">
-                <div className="d-flex align-items-center">
-                  {/* Checkbox for one-day delivery */}
-                  <Checkbox
-                    checked={oneDayDelivery}
-                    onChange={(e) => setOneDayDelivery(e.target.checked)}
-                  />
-                  <label>One-Day Delivery</label>
-                </div>
+                {user.isAuthenticated && (
+                  <div className="d-flex align-items-center">
+                    {/* Checkbox for one-day delivery */}
+                    <Checkbox
+                      checked={oneDayDelivery}
+                      onChange={(e) => setOneDayDelivery(e.target.checked)}
+                    />
+                    <label>One-Day Delivery</label>
+                  </div>
+                )}
+
                 <div className="d-flex p-0">
-                  Delivery Address:{" "}
-                  <span className="text-start ml-3">
-                    <div>{user?.selected_address?.line}</div>
-                    <div>
-                      {user?.selected_address?.city +
-                        ", " +
-                        user?.selected_address?.state}
-                    </div>
-                    <div>
-                      {user?.selected_address?.country +
-                        " - " +
-                        user?.selected_address?.pincode}
-                    </div>
-                  </span>
-                  <small
-                    className="mt-auto text-primary"
-                    role="button"
-                    onClick={() => setOpen(true)}
-                  >
-                    Change Address
-                  </small>
+                  {user.isAuthenticated && (
+                    <>
+                      Delivery Address:{" "}
+                      <span className="text-start ml-3">
+                        <div>{user?.selected_address?.line}</div>
+                        <div>
+                          {user?.selected_address?.city +
+                            ", " +
+                            user?.selected_address?.state}
+                        </div>
+                        <div>
+                          {user?.selected_address?.country +
+                            " - " +
+                            user?.selected_address?.pincode}
+                        </div>
+                      </span>
+                      <small
+                        className="mt-auto text-primary"
+                        role="button"
+                        onClick={() => setOpen(true)}
+                      >
+                        Change Address
+                      </small>
+                    </>
+                  )}
+
                   <span className="ml-auto">Total</span>
                 </div>
               </td>
@@ -549,4 +576,4 @@ const CartTable = () => {
   );
 };
 
-export default CartTable;
+export default memo(CartTable);
