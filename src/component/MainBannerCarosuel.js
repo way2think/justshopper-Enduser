@@ -45,11 +45,7 @@ export default function MainBannerCarosuel() {
   };
 
   return (
-<<<<<<< HEAD
-    <MDBCarousel showIndicators fade interval={3000} autoplay>
-=======
     <MDBCarousel length={3} showControls={false} showIndicators={false} slide>
->>>>>>> f52f10898e869d0a411c111221be5ef5b6167fac
       {homeBanner.map((banner, id) => (
         <MDBCarouselItem
           key={id}
