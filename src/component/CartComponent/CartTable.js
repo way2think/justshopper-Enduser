@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 // import DeleteIcon from "@mui/icons-material/Delete";
 import "./CartTable.css";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Checkbox, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addItemQty,
@@ -13,7 +13,7 @@ import {
   selectCartItems,
 } from "../../store/cartSlice";
 import { displayRazorpay } from "../../services/razorpay-http";
-import { selectUser, updateSelectedAddress } from "../../store/userSlice";
+import { selectUser } from "../../store/userSlice";
 import { useCreateOrderMutation } from "../../api/order";
 import { setIsLoading } from "../../store/appSlice";
 import {
@@ -26,6 +26,7 @@ import { useCreateRazorpayPaymentOrderMutation } from "../../api/payment";
 import { useLazyGetMultiProductByIdsQuery } from "../../api/product";
 import AddressModal from "../../Reusable/AddressModal";
 import { formatAddress } from "../../utils";
+import { shipping_charges } from "../../utils/constants";
 
 const CartTable = () => {
   const dispatch = useDispatch();
@@ -39,11 +40,11 @@ const CartTable = () => {
   const { cartItems } = useSelector(selectCartItems);
   // console.log("user: ", user);
   const [open, setOpen] = useState(false);
-
-  const shipping = {
-    shipping_type: "normal",
-    shipping_price: (40.5).toFixed(2), // tamil nadu
-  };
+  const [oneDayDelivery, setOneDayDelivery] = useState(false);
+  const [checkout, setCheckout] = useState({
+    canCheckout: true,
+    message: "",
+  });
 
   const tax = {
     total_tax_price: 0,
@@ -51,6 +52,25 @@ const CartTable = () => {
     tax_sgst_percentage: 0,
     tax_total_percentage: 0,
   }; // for India
+
+  const shipping = {
+    shipping_type: "standard", //one_day
+    shipping_price: (40.5).toFixed(2), // tamil nadu
+  };
+
+  const shipping1 = useMemo(() => {
+    const { selected_address } = user;
+    const isCountry = shipping_charges.countries[selected_address.country];
+    console.log("sl:", selected_address);
+    if (isCountry) {
+      
+    } else {
+      setCheckout({
+        canCheckout: false,
+        message: `Currently we don't support Country: ${selected_address.country} `,
+      });
+    }
+  }, [user]);
 
   const {
     subtotalPrice,
@@ -104,7 +124,7 @@ const CartTable = () => {
     dispatch(removeItemQty(product));
   };
 
-  const checkout = {
+  const checkoutStyle = {
     background: "#dc3237",
     color: "#fff",
     fontSize: "18px",
@@ -129,173 +149,177 @@ const CartTable = () => {
   };
 
   const handleCheckout = async () => {
-    if (user.isAuthenticated) {
-      if (totalPrice < 100) {
-        errorNotification("Total order amount should be greater than Rs.100");
-      } else {
-        dispatch(setIsLoading(true));
-        // console.log("cartItems: ", cartItems);
-        // 1. check whether the items in cart is available, if yes, proceed payment, in webhook, decrement the total_quantity
-        const result = await getMultiProductByIds(cartItems);
-        if (result.data) {
-          // console.log("result: ", result.data);
-
-          const products = result.data;
-          let outOfStock = 0;
-          products.forEach((product) => {
-            if (product.total_quantity <= product.minimum_quantity) {
-              dispatch(removeItem(product));
-              errorNotification(`${product.name} is out of stock`);
-              outOfStock++;
-            }
-          });
-
-          // console.log("outOfStock: ", outOfStock);
-
-          if (outOfStock > 0) {
-            dispatch(setIsLoading(false));
-            return;
-          } else {
-            const items = cartItems.map((item) => ({
-              id: item.id,
-              name: item.name,
-              pack_of: item.pack_of,
-              category: item.category,
-              theme: item.theme,
-              description: item.description,
-              dimensions: item.dimensions,
-              actual_price: item.actual_price,
-              selling_price: item.selling_price,
-              discount_price: item.discount_price,
-              discount_percentage: item.discount_percentage,
-              images: item.images,
-              color: item?.color || "", // "" - if not multi-color
-              quantity: item.cart_quantity,
-              total_price: item.cart_total_price,
-            }));
-            const order = {
-              type: "online",
-              device: "website",
-              ordered_items: [...items],
-              order_pending_timestamp: new Date().getTime(),
-              order_booked_timestamp: null,
-              order_dispatched_timestamp: null,
-              order_cancelled_timestamp: null,
-              status: "pending", // pending(only opened to pay, but didn't pay), booked(paid & order booked), dispatched, cancelled
-              total_weight_in_grams: +totalWeightInGrams,
-              total_quantity: +totalQuantity,
-              price_unit: "INR",
-              total_price: +totalPrice, // total_item_price + shipping_price + total_tax_price
-              total_actual_price: +totalActualPrice,
-              total_selling_price: +totalSellingPrice,
-              total_discount_price: +totalDiscountPrice,
-              total_item_price: +subtotalPrice, // equal to total_discount_price
-              total_profit_price: +totalProfitPrice, // total_discount_price - total_actual_price
-              total_tax_price: +tax.total_tax_price,
-              tax_cgst_percentage: +tax.tax_cgst_percentage,
-              tax_sgst_percentage: +tax.tax_sgst_percentage,
-              tax_total_percentage: +tax.tax_total_percentage,
-              shipping_type: shipping.shipping_type,
-              shipping_price: +shipping.shipping_price,
-              cancel_reason: "",
-              logistics: {
-                carrier_name: "",
-                estimated_delivery_date: "",
-                tracking_number: "",
-                tracking_url: "",
-              },
-              payment_status: "",
-              payment_method: "",
-              payment_details: {},
-              user_details: {
-                user_id: user.id,
-                name: user.name,
-                phone: user.phone,
-                email: user.email,
-                billing_address: formatAddress(user.address),
-                shipping_addresses: formatAddress(user.selected_address),
-              },
-              notifications: {
-                isConfirmationEmailSent: false,
-                isDispatchedEmailSent: false,
-                // isDeliveredEmailSent: false,
-              },
-            };
-            // console.log("order: ", order);
-            // 2. create order in firebase - order_id
-            const resultOrderCreation = await createOrder(order);
-            if (resultOrderCreation.data) {
-              console.log("resultOrderCreation: ", resultOrderCreation.data);
-              const { data: resultOrder } = resultOrderCreation;
-              // 3. create razorpay payment order using firebase functions - get razorpay payment: order_id
-              const resultRzpOrderCreation = await createRazorpayOrder({
-                order_id: resultOrder.id,
-                amount: resultOrder.total_price,
-              });
-              if (resultRzpOrderCreation.data) {
-                const { data: resultRzpOrder } = resultRzpOrderCreation;
-                // 4. pass it to razorpay checkout api, to open modal
-                const options = {
-                  key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-                  amount: resultRzpOrder.amount,
-                  currency: resultRzpOrder.currency,
-                  name: "Just Shopper",
-                  description: `Payment for you order no: ${resultOrder.id}`, // receipt from razorpay order response
-                  image:
-                    "https://firebasestorage.googleapis.com/v0/b/justshopper-dev.appspot.com/o/JS%20logo%20png.png?alt=media&token=4d5bf95f-cb69-44c4-936d-8368d1df0689",
-                  order_id: resultRzpOrder.id,
-                  handler: function (response) {
-                    // 5. in handler, just show the payment success or failure
-                    // 6. after completing, in webhook, we will get success or failure, update the firebase order with the payment details - done in server
-                    // 7. add the order in notifications for real-time listener - done in server
-                    console.log("rzp: ", response.razorpay_payment_id);
-                    console.log(response.razorpay_order_id);
-                    console.log(response.razorpay_signature);
-                    dispatch(clearCart());
-                    successNotification(
-                      "Order Successfully Placed, You'll receive receipt in email shortly. Have a great day!"
-                    );
-                    navigate("/orders");
-                  },
-                  prefill: {
-                    name: user.name,
-                    email: user.email,
-                    contact: user.phone,
-                  },
-                  notes: {
-                    order_id: resultOrder.id,
-                  },
-                  theme: {
-                    color: "#dc3237",
-                  },
-                  retry: {
-                    enabled: false,
-                  },
-                  timeout: 300,
-                };
-                await displayRazorpay(options);
-                dispatch(setIsLoading(false));
-              } else {
-                console.log(
-                  "resultRzpOrderCreation-error: ",
-                  resultRzpOrderCreation.error
-                );
-                dispatch(setIsLoading(false));
-                errorNotification(resultRzpOrderCreation.error.message);
-              }
-            } else {
-              // console.log("resultOrderCreation-error: ", resultOrderCreation.error);
-              dispatch(setIsLoading(false));
-              errorNotification(resultOrderCreation.error.message);
-            }
-          }
+    if (checkout.canCheckout) {
+      if (user.isAuthenticated) {
+        if (totalPrice < 100) {
+          errorNotification("Total order amount should be greater than Rs.100");
         } else {
-          console.log("err: ", result.error);
-          errorNotification("Network error, please try after sometime");
+          dispatch(setIsLoading(true));
+          // console.log("cartItems: ", cartItems);
+          // 1. check whether the items in cart is available, if yes, proceed payment, in webhook, decrement the total_quantity
+          const result = await getMultiProductByIds(cartItems);
+          if (result.data) {
+            // console.log("result: ", result.data);
+
+            const products = result.data;
+            let outOfStock = 0;
+            products.forEach((product) => {
+              if (product.total_quantity <= product.minimum_quantity) {
+                dispatch(removeItem(product));
+                errorNotification(`${product.name} is out of stock`);
+                outOfStock++;
+              }
+            });
+
+            // console.log("outOfStock: ", outOfStock);
+
+            if (outOfStock > 0) {
+              dispatch(setIsLoading(false));
+              return;
+            } else {
+              const items = cartItems.map((item) => ({
+                id: item.id,
+                name: item.name,
+                pack_of: item.pack_of,
+                category: item.category,
+                theme: item.theme,
+                description: item.description,
+                dimensions: item.dimensions,
+                actual_price: item.actual_price,
+                selling_price: item.selling_price,
+                discount_price: item.discount_price,
+                discount_percentage: item.discount_percentage,
+                images: item.images,
+                color: item?.color || "", // "" - if not multi-color
+                quantity: item.cart_quantity,
+                total_price: item.cart_total_price,
+              }));
+              const order = {
+                type: "online",
+                device: "website",
+                ordered_items: [...items],
+                order_pending_timestamp: new Date().getTime(),
+                order_booked_timestamp: null,
+                order_dispatched_timestamp: null,
+                order_cancelled_timestamp: null,
+                status: "pending", // pending(only opened to pay, but didn't pay), booked(paid & order booked), dispatched, cancelled
+                total_weight_in_grams: +totalWeightInGrams,
+                total_quantity: +totalQuantity,
+                price_unit: "INR",
+                total_price: +totalPrice, // total_item_price + shipping_price + total_tax_price
+                total_actual_price: +totalActualPrice,
+                total_selling_price: +totalSellingPrice,
+                total_discount_price: +totalDiscountPrice,
+                total_item_price: +subtotalPrice, // equal to total_discount_price
+                total_profit_price: +totalProfitPrice, // total_discount_price - total_actual_price
+                total_tax_price: +tax.total_tax_price,
+                tax_cgst_percentage: +tax.tax_cgst_percentage,
+                tax_sgst_percentage: +tax.tax_sgst_percentage,
+                tax_total_percentage: +tax.tax_total_percentage,
+                shipping_type: shipping.shipping_type,
+                shipping_price: +shipping.shipping_price,
+                cancel_reason: "",
+                logistics: {
+                  carrier_name: "",
+                  estimated_delivery_date: "",
+                  tracking_number: "",
+                  tracking_url: "",
+                },
+                payment_status: "",
+                payment_method: "",
+                payment_details: {},
+                user_details: {
+                  user_id: user.id,
+                  name: user.name,
+                  phone: user.phone,
+                  email: user.email,
+                  billing_address: formatAddress(user.address),
+                  shipping_addresses: formatAddress(user.selected_address),
+                },
+                notifications: {
+                  isConfirmationEmailSent: false,
+                  isDispatchedEmailSent: false,
+                  // isDeliveredEmailSent: false,
+                },
+              };
+              // console.log("order: ", order);
+              // 2. create order in firebase - order_id
+              const resultOrderCreation = await createOrder(order);
+              if (resultOrderCreation.data) {
+                console.log("resultOrderCreation: ", resultOrderCreation.data);
+                const { data: resultOrder } = resultOrderCreation;
+                // 3. create razorpay payment order using firebase functions - get razorpay payment: order_id
+                const resultRzpOrderCreation = await createRazorpayOrder({
+                  order_id: resultOrder.id,
+                  amount: resultOrder.total_price,
+                });
+                if (resultRzpOrderCreation.data) {
+                  const { data: resultRzpOrder } = resultRzpOrderCreation;
+                  // 4. pass it to razorpay checkout api, to open modal
+                  const options = {
+                    key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+                    amount: resultRzpOrder.amount,
+                    currency: resultRzpOrder.currency,
+                    name: "Just Shopper",
+                    description: `Payment for you order no: ${resultOrder.id}`, // receipt from razorpay order response
+                    image:
+                      "https://firebasestorage.googleapis.com/v0/b/justshopper-dev.appspot.com/o/JS%20logo%20png.png?alt=media&token=4d5bf95f-cb69-44c4-936d-8368d1df0689",
+                    order_id: resultRzpOrder.id,
+                    handler: function (response) {
+                      // 5. in handler, just show the payment success or failure
+                      // 6. after completing, in webhook, we will get success or failure, update the firebase order with the payment details - done in server
+                      // 7. add the order in notifications for real-time listener - done in server
+                      console.log("rzp: ", response.razorpay_payment_id);
+                      console.log(response.razorpay_order_id);
+                      console.log(response.razorpay_signature);
+                      dispatch(clearCart());
+                      successNotification(
+                        "Order Successfully Placed, You'll receive receipt in email shortly. Have a great day!"
+                      );
+                      navigate("/orders");
+                    },
+                    prefill: {
+                      name: user.name,
+                      email: user.email,
+                      contact: user.phone,
+                    },
+                    notes: {
+                      order_id: resultOrder.id,
+                    },
+                    theme: {
+                      color: "#dc3237",
+                    },
+                    retry: {
+                      enabled: false,
+                    },
+                    timeout: 300,
+                  };
+                  await displayRazorpay(options);
+                  dispatch(setIsLoading(false));
+                } else {
+                  console.log(
+                    "resultRzpOrderCreation-error: ",
+                    resultRzpOrderCreation.error
+                  );
+                  dispatch(setIsLoading(false));
+                  errorNotification(resultRzpOrderCreation.error.message);
+                }
+              } else {
+                // console.log("resultOrderCreation-error: ", resultOrderCreation.error);
+                dispatch(setIsLoading(false));
+                errorNotification(resultOrderCreation.error.message);
+              }
+            }
+          } else {
+            console.log("err: ", result.error);
+            errorNotification("Network error, please try after sometime");
+          }
         }
+      } else {
+        errorNotification("Please login to checkout");
       }
     } else {
-      errorNotification("Please login to checkout");
+      errorNotification(checkout.message);
     }
   };
 
@@ -328,10 +352,6 @@ const CartTable = () => {
 
             {cartItems.map((item) => (
               <tr className="item-row" key={item.id}>
-                {/* <td>
-            {" "}
-            <img src="../images/chocolate.jpg" alt="" className="imagecion" />
-          </td> */}
                 <td
                   className="Items"
                   style={{
@@ -388,13 +408,6 @@ const CartTable = () => {
                           onClick={() => handleAddItemQty(item)}
                         />
                       </Stack>
-                      {/* <Button
-                    sx={deleteicon}
-                    variant="contained"
-                    className="delete"
-                  >
-                    <DeleteIcon />
-                  </Button> */}
                     </div>
                   </Box>
                 </td>
@@ -408,57 +421,6 @@ const CartTable = () => {
               </tr>
             ))}
 
-            {/* <tr className="item-row item-row-last">
-          <td
-            className="Items"
-            style={{ display: "flex", flexDirection: "row", padding: "4px" }}
-          >
-            <img
-              src="../images/biscuit.jpg"
-              alt=""
-              style={{ maxWidth: "180px", borderRadius: 30 }}
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <p className="itemname">
-                {" "}
-                <strong>Choco Bar</strong>
-              </p>
-              <p className="itemdesc">STATIONERY - Notes</p>
-            </div>
-          </td>
-          <td className="text-right" title="Amount">
-            <Box style={{ position: "relative" }}>
-              <Stack
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-                className="cartqty"
-                sx={{
-                  width: "50%",
-                }}
-              >
-                <RemoveIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
-                <p className="qty">1</p>
-                <AddIcon htmlColor="#dc3237" sx={{ cursor: "pointer" }} />
-              </Stack>
-              <Button sx={deleteicon} variant="contained" className="delete">
-                <DeleteIcon />
-              </Button>
-            </Box>
-          </td>
-          <td className="text-right price" title="Price">
-            499.00
-          </td>
-          <td className="text-right price" title="Total">
-            499.00
-          </td>
-        </tr> */}
             <tr className="total-row info">
               <td className="text-right price" colspan="3">
                 Sub Total
@@ -473,19 +435,27 @@ const CartTable = () => {
             </tr>
             <tr className="total-row info">
               <td className="text-right price" colspan="3">
+                <div className="d-flex align-items-center">
+                  {/* Checkbox for one-day delivery */}
+                  <Checkbox
+                    checked={oneDayDelivery}
+                    onChange={(e) => setOneDayDelivery(e.target.checked)}
+                  />
+                  <label>One-Day Delivery</label>
+                </div>
                 <div className="d-flex p-0">
                   Delivery Address:{" "}
                   <span className="text-start ml-3">
-                    <div>{user.selected_address.line}</div>
+                    <div>{user?.selected_address?.line}</div>
                     <div>
-                      {user.selected_address.city +
+                      {user?.selected_address?.city +
                         ", " +
-                        user.selected_address.state}
+                        user?.selected_address?.state}
                     </div>
                     <div>
-                      {user.selected_address.country +
+                      {user?.selected_address?.country +
                         " - " +
-                        user.selected_address.pincode}
+                        user?.selected_address?.pincode}
                     </div>
                   </span>
                   <small
@@ -502,10 +472,8 @@ const CartTable = () => {
             </tr>
           </table>
           <Stack direction="row" justifyContent="end" alignItems="center">
-            {/* <td className="text-right price">Checkout</td> */}
-            {/* <td className="text-right price">898.00</td> */}
             <Button
-              sx={checkout}
+              sx={checkoutStyle}
               className="checkoutbtn"
               variant="contained"
               type="button"
