@@ -136,7 +136,7 @@ const ManageAddress = () => {
                     marginTop: 5,
                     marginLeft: 4,
                   }}
-                  onClick={handleAddNewShippingAddress(address)}
+                  onClick={() => handleAddNewShippingAddress(address)}
                 >
                   <DeleteIcon />
                 </Button>
