@@ -1,0 +1,25 @@
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .Sidenav {
+    display: block !important;
+  }
+
+  /* .mobileviewcart {
+      display: block;
+    } */
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .Sidenav {
+    display: none !important;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1535px) {
+  .Sidenav {
+    display: none !important;
+  }
+}
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2560px) {
+  .Sidenav {
+    display: none !important;
+  }
+}

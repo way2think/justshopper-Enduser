@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -10,8 +10,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Link } from "react-router-dom";
-import "./Navbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import "./SideNav.css";
+import { useSelector } from "react-redux";
+import { selectCategory, selectTheme } from "../../api/api";
 
 export default function SideNav() {
   const [open, setOpen] = React.useState(false);
@@ -21,35 +23,36 @@ export default function SideNav() {
   const [anchorEl2, setAnchorEl2] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
+  const navigate = useNavigate();
+
+  const categoryListDetail = useSelector(selectCategory);
+  const themeListDetail = useSelector(selectTheme);
+
+  const categoryList = useMemo(() => {
+    return categoryListDetail?.filter((cat) => cat.show_in_top_navbar === true);
+  }, [categoryListDetail]);
+
+  const themeList = useMemo(() => {
+    return themeListDetail?.filter(
+      (theme) => theme.show_in_top_navbar === true
+    );
+  }, [themeListDetail]);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   const handleMenuItemClick = (index) => {
     setSelectedIndex(index);
-    setAnchorEl1(null);
-    setAnchorEl2(null);
-  };
-
-  const handleMenuOpen1 = (event, index) => {
-    setAnchorEl1(event.currentTarget);
-    setSelectedIndex(index);
-  };
-
-  const handleMenuOpen2 = (event, index) => {
-    setAnchorEl2(event.currentTarget);
-    setSelectedIndex(index);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl1(null);
-    setAnchorEl2(null);
-    setSelectedIndex(null);
   };
 
   return (
     <div>
-      <MenuIcon sx={{ marginRight: "10px" }} onClick={toggleDrawer} />
+      <MenuIcon
+        className="Sidenav"
+        sx={{ marginRight: "10px" }}
+        onClick={toggleDrawer}
+      />
       <Drawer open={open} onClose={toggleDrawer}>
         <Box sx={{ width: 250 }}>
           <List>
@@ -67,45 +70,32 @@ export default function SideNav() {
                         <ListItemText primary={text} />
                         <ArrowDropDownIcon />
                       </ListItemButton>
-                      <div
-                        className={showSubMenu1 ? "d-block" : "d-none"}
-                        // anchorEl={anchorEl1}
-                        // open={selectedIndex === index && Boolean(anchorEl1)}
-                        // onClose={handleMenuClose}
-                        // anchorOrigin={{
-                        //   vertical: "bottom",
-                        //   horizontal: "left",
-                        // }}
-                        // transformOrigin={{
-                        //   vertical: "top",
-                        //   horizontal: "left",
-                        // }}
-                        // getContentAnchorEl={null}
-                      >
-                        <MenuItem
+                      <div className={showSubMenu1 ? "d-block" : "d-none"}>
+                        {/* <MenuItem
                           onClick={() => {
                             handleMenuItemClick(index);
                             setShowSubMenu1(false);
                           }}
                         >
                           <Link to="/pen">Pen</Link>
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => {
-                            handleMenuItemClick(index);
-                            setShowSubMenu1(false);
-                          }}
-                        >
-                          <Link to="/pencil">Pencil</Link>
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => {
-                            handleMenuItemClick(index);
-                            setShowSubMenu1(false);
-                          }}
-                        >
-                          <Link to="/notebook">Notebook</Link>
-                        </MenuItem>
+                        </MenuItem> */}
+                        {categoryList?.map((item) =>
+                          item?.show_in_top_navbar ? (
+                            <MenuItem
+                              key={item?.name}
+                              onClick={() => {
+                                handleMenuItemClick(index);
+                                setShowSubMenu1(false);
+                                navigate(
+                                  `/shop-by-category?category=${item?.name}`
+                                );
+                                toggleDrawer();
+                              }}
+                            >
+                              <Link key={item?.name}>{item?.name}</Link>
+                            </MenuItem>
+                          ) : null
+                        )}
                       </div>
                     </>
                   ) : index === 2 ? (
@@ -126,7 +116,23 @@ export default function SideNav() {
                         // onClose={handleMenuClose}
                         // getContentAnchorEl={null}
                       >
-                        <MenuItem
+                        {themeList?.map((item) =>
+                          item?.show_in_top_navbar ? (
+                            <MenuItem
+                              key={item?.name}
+                              to={`/shop-by-theme?theme=${item?.name}`}
+                              onClick={() => {
+                                handleMenuItemClick(index);
+                                setShowSubMenu2(false);
+                                navigate(`/shop-by-theme?theme=${item?.name}`);
+                                toggleDrawer();
+                              }}
+                            >
+                              <Link>{item?.name}</Link>
+                            </MenuItem>
+                          ) : null
+                        )}
+                        {/* <MenuItem
                           onClick={() => {
                             handleMenuItemClick(index);
                             setShowSubMenu2(false);
@@ -149,7 +155,7 @@ export default function SideNav() {
                           }}
                         >
                           <Link to="/notebook">Notebook</Link>
-                        </MenuItem>
+                        </MenuItem> */}
                       </div>
                     </>
                   ) : (

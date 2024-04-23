@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBBtn,
   MDBCarousel,
@@ -15,7 +15,22 @@ export default function MainBannerCarosuel() {
   const { data } = useGetSettingsQuery();
   const [activeItem, setActiveItem] = useState(0);
   const homeBanner = data?.home_banner || [];
-  // console.log("data for banner", homeBanner);
+  console.log("data for banner", homeBanner);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000); // Change slide every 3 seconds (adjust as needed)
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [activeItem]);
+
+  const nextSlide = () => {
+    if (activeItem < 3) {
+      setActiveItem(activeItem + 1);
+    } else {
+      setActiveItem(1); // Go back to the first slide after the last one
+    }
+  };
 
   const handleNext = () => {
     setActiveItem((prevItem) =>
@@ -30,7 +45,7 @@ export default function MainBannerCarosuel() {
   };
 
   return (
-    <MDBCarousel showIndicators fade interval={3000}>
+    <MDBCarousel length={3} showControls={false} showIndicators={false} slide>
       {homeBanner.map((banner, id) => (
         <MDBCarouselItem
           key={id}
@@ -44,15 +59,15 @@ export default function MainBannerCarosuel() {
             className="d-block w-100 carousel-img"
             alt="..."
           />
-          {/* <div
+          <div
             className="mask"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.0)" }}
           >
             <MDBCarouselCaption className="caption">
-              <h1 className="slidercaption">{banner.description}</h1>
+              {/* <h1 className="slidercaption">{banner.description}</h1> */}
               <MDBBtn className="sliderbtn">Shop Now</MDBBtn>
             </MDBCarouselCaption>
-          </div> */}
+          </div>
         </MDBCarouselItem>
       ))}
       <Stack justifyContent="space-between" direction="row" alignItems="center">

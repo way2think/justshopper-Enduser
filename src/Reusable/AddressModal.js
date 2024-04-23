@@ -1,38 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useDispatch, useSelector } from "react-redux";
 import {
   selectUser,
   selectSavedAddress,
   updateSelectedAddress,
   updateShippingAddress,
 } from "../store/userSlice";
-import {
-  FormControl,
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Grid, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 
-// import CountryAndStates from "./CountryAndStates";
-import {
-  isValidEmail,
-  isValidName,
-  isValidPassword,
-  isValidPhoneNumber,
-} from "../utils/validator";
-
-import { auth, db } from "../config/firebase";
 import { errorNotification } from "../utils/notifications";
 
 import {
@@ -343,7 +322,7 @@ export default function AddressModal({ open, setOpen }) {
               <div className="card my-2">
                 <div
                   className={`p-2 ${
-                    address.id === user.address.id
+                    address?.id === user?.address?.id
                       ? "bg-primary text-white"
                       : ""
                   }`}
@@ -403,7 +382,9 @@ export default function AddressModal({ open, setOpen }) {
                       >
                         <div
                           className={`p-2 ${
-                            address.id === add.id ? "bg-primary text-white" : ""
+                            address?.id === add?.id
+                              ? "bg-primary text-white"
+                              : ""
                           }`}
                           style={{
                             boxShadow: "0 2px 5px #7d7d7d",

@@ -87,29 +87,30 @@ export default function CardNewArrival({ product }) {
   };
 
   const handleUpdateFavourites = async (type) => {
-    const newFav = {
-      id: product.id,
-      name: product.name,
-    };
-
-    let updatedFavList = [];
-    if (type === "add") {
-      updatedFavList = [...favourites, newFav];
+    if (userId) {
+      const newFav = {
+        id: product.id,
+        name: product.name,
+      };
+      let updatedFavList = [];
+      if (type === "add") {
+        updatedFavList = [...favourites, newFav];
+      } else {
+        updatedFavList = favourites.filter((fav) => fav.id !== product.id);
+      }
+      const result = await updateFavouritesDB({
+        docId: userId,
+        dataObject: {
+          favourites: updatedFavList,
+        },
+      });
+      if (result.data) {
+        dispatch(updateFavourites(updatedFavList));
+      } else {
+        errorNotification(`Network error: ${result.error.message}`);
+      }
     } else {
-      updatedFavList = favourites.filter((fav) => fav.id !== product.id);
-    }
-
-    const result = await updateFavouritesDB({
-      docId: userId,
-      dataObject: {
-        favourites: updatedFavList,
-      },
-    });
-
-    if (result.data) {
-      dispatch(updateFavourites(updatedFavList));
-    } else {
-      errorNotification(`Network error: ${result.error.message}`);
+      errorNotification(`Please login to add favourites`);
     }
   };
 

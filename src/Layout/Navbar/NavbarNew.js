@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
 import SignupModal from "../../component/Signup/SignupModal";
 import { Badge, Stack } from "@mui/material";
@@ -14,9 +14,16 @@ import { useSignOutUserMutation } from "../../api/auth";
 import { selectCategory, selectTheme } from "../../api/api";
 import "./Navbar.css";
 import SideNav from "./SideNav";
+import {
+  MDBDropdown,
+  MDBDropdownItem,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+} from "mdb-react-ui-kit";
 
 const NavbarNew = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const cartTotalQuantity = useSelector(selectCartSize);
   const favouriteTotalQuantity = useSelector(selectFavouriteSize);
 
@@ -138,11 +145,9 @@ const NavbarNew = () => {
                     <Link
                       key={item?.name}
                       to={`/shop-by-category?category=${item?.name}`}
-                      // onClick={() =>
-                      //   navigate("/shop-by-category", {
-                      //     state: item,
-                      //   })
-                      // }
+                      onClick={() => {
+                        navigate(`/shop-by-category?category=${item?.name}`);
+                      }}
                     >
                       <li className="nav-item dropdown">
                         <Link className="nav-link">{item?.name}</Link>
@@ -177,11 +182,9 @@ const NavbarNew = () => {
                     <Link
                       key={item?.name}
                       to={`/shop-by-theme?theme=${item?.name}`}
-                      // onClick={() =>
-                      //   navigate("/shop-by-category", {
-                      //     state: item,
-                      //   })
-                      // }
+                      onClick={() =>
+                        navigate(`/shop-by-theme?theme=${item?.name}`)
+                      }
                     >
                       <li className="nav-item dropdown">
                         <Link className="nav-link">{item?.name}</Link>
@@ -228,35 +231,97 @@ const NavbarNew = () => {
               </StyledBadge>
             </Link>
           </li>
-          <li className="nav-item  navitem">
-            <LoginModal
-              open={open.login}
-              setOpen={(isOpen, type) =>
-                setOpen((prevState) => {
-                  if (type === "login") {
-                    return {
-                      signup: false,
-                      login: isOpen,
-                    };
-                  } else {
-                    return {
-                      signup: isOpen,
-                      login: false,
-                    };
-                  }
-                })
-              }
-            />
-            <SignupModal
-              open={open.signup}
-              setOpen={(isOpen, type) =>
-                setOpen((prevState) => ({
-                  ...prevState,
-                  signup: isOpen,
-                }))
-              }
-            />
-          </li>
+          {isAuthenticated ? (
+            <>
+              <li className="nav-item  navitem">
+                <Link
+                  to="favorites"
+                  style={{
+                    color: location.pathname.includes("/favorites")
+                      ? "#dc3237"
+                      : "#000",
+                  }}
+                >
+                  <StyledBadge
+                    badgeContent={favouriteTotalQuantity || 0}
+                    color="primary"
+                  >
+                    <img
+                      src="../images/heart.png"
+                      alt=""
+                      width={25}
+                      height={25}
+                    />
+                  </StyledBadge>
+                </Link>
+              </li>
+              <li className="nav-item  navitem">
+                <MDBDropdown>
+                  <MDBDropdownToggle
+                    tag="a"
+                    className="nav-link p-0 mx-2"
+                    role="button"
+                  >
+                    <img
+                      src="../images/male User.png"
+                      alt=""
+                      width={25}
+                      height={25}
+                    />
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu>
+                    <Link to={"/profile"}>
+                      <MDBDropdownItem className="MDBDropdownItem">
+                        Profile
+                      </MDBDropdownItem>
+                    </Link>
+                    <Link to={"/orders"}>
+                      <MDBDropdownItem className="MDBDropdownItem">
+                        Orders
+                      </MDBDropdownItem>
+                    </Link>
+                    <MDBDropdownItem
+                      className="MDBDropdownItem"
+                      onClick={() => signOutUser()}
+                    >
+                      Logout
+                    </MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item  navitem">
+              <LoginModal
+                open={open.login}
+                setOpen={(isOpen, type) =>
+                  setOpen((prevState) => {
+                    if (type === "login") {
+                      return {
+                        signup: false,
+                        login: isOpen,
+                      };
+                    } else {
+                      return {
+                        signup: isOpen,
+                        login: false,
+                      };
+                    }
+                  })
+                }
+              />
+              <SignupModal
+                open={open.signup}
+                setOpen={(isOpen, type) =>
+                  setOpen((prevState) => ({
+                    ...prevState,
+                    signup: isOpen,
+                  }))
+                }
+              />
+            </li>
+          )}
+
           <SideNav />
         </ul>
       </nav>
