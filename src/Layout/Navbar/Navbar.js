@@ -443,20 +443,6 @@ export default function Navbar() {
                           />
                         </MDBDropdownToggle>
                         <MDBDropdownMenu>
-                          {/* <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        link
-                        href="profile"
-                      >
-                        Profile
-                      </MDBDropdownItem>
-                      <MDBDropdownItem
-                        className="MDBDropdownItem"
-                        link
-                        href="orders"
-                      >
-                        Orders
-                      </MDBDropdownItem> */}
                           <Link to={"/profile"}>
                             <MDBDropdownItem className="MDBDropdownItem">
                               Profile
