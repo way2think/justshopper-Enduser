@@ -351,7 +351,7 @@ const CartTable = () => {
                   phone: user.phone,
                   email: user.email,
                   billing_address: formatAddress(user.address),
-                  shipping_addresses: formatAddress(user.selected_address),
+                  shipping_address: formatAddress(user.selected_address),
                 },
                 notifications: {
                   isConfirmationEmailSent: false,

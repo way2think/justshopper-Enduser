@@ -93,6 +93,73 @@ const ProductGallery = ({ name, images }) => {
                       </div>
                     ))}
               </div>
+              {/* <div className="img-select">
+                <div className="img-item">
+                  <a href="#" data-id="1">
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  </a>
+                </div>
+                <div className="img-item">
+                  <a href="#" data-id="2">
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  </a>
+                </div>
+                <div className="img-item">
+                  <a href="#" data-id="3">
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  </a>
+                </div>
+                <div className="img-item">
+                  <a href="#" data-id="4">
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  </a>
+                </div>
+                <div className="img-item">
+                  <a href="#" data-id="5">
+                    <img
+                      src="../images/biscuit.jpg"
+                      alt="shoe image"
+                      style={{
+                        width: "100%",
+                        display: "block",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  </a>
+                </div>
+              </div> */}
             </div>
             {/* <!-- card right --> */}
           </div>
