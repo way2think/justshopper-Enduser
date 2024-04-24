@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -137,10 +137,28 @@ export default function LoginModal({ open, setOpen }) {
     });
   };
 
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        // console.log("Enter key was pressed. Run your function.");
+        event.preventDefault();
+        // callMyFunction();
+        handleLogin(userCred);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [userCred]);
+
   //for user verificationa nd login(submit)
 
-  const handleLogin = async () => {
+  const handleLogin = async (userCred) => {
     dispatch(setIsLoading(true));
+
+    console.log("userCred: ", userCred);
+    dispatch(setIsLoading(false));
 
     const { email, password } = userCred;
     if (isValidEmail(email) && isValidPassword(password)) {
@@ -158,6 +176,7 @@ export default function LoginModal({ open, setOpen }) {
       }
     } else {
       errorNotification("Invalid Email/Password");
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -280,7 +299,7 @@ export default function LoginModal({ open, setOpen }) {
                   Forgot password?
                 </Link>
               </Stack>
-              <Button sx={loginbtn} onClick={handleLogin}>
+              <Button sx={loginbtn} onClick={handleLogin} type="button">
                 Login
               </Button>
 
