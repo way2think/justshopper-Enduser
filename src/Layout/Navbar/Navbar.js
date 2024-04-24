@@ -97,7 +97,7 @@ export default function Navbar() {
   }));
 
   return (
-    <MDBNavbar expand="lg" light bgColor="light">
+    <MDBNavbar expand="lg" style={{ background: "#fdf8f0" }}>
       <MDBContainer fluid>
         <MDBNavbarBrand href="/">
           <img src="../images/JS logo png.png" className="logo" alt="" />

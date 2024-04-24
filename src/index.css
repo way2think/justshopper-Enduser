@@ -1,6 +1,6 @@
 body {
   margin: 0;
-
+  background: #fdf8f0 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

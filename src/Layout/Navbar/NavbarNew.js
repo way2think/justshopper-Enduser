@@ -89,7 +89,6 @@ const NavbarNew = () => {
     <>
       <nav
         className="navbar navbar-expand-lg navbar-light navbarnew"
-        style={{ background: "#fff" }}
       >
         <Link className="navbar-brand" to="/">
           <img src="../images/JS logo png.png" className="logo" alt="" />
