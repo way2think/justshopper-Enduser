@@ -215,6 +215,9 @@ const CartTable = () => {
       background: "transparent",
       color: "#dc3237",
       fontSize: "18px",
+      "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+        width: "100%",
+      },
     },
   };
 
@@ -560,8 +563,8 @@ const CartTable = () => {
               </td>
               <td className="text-right price">{totalPrice}</td>
             </tr>
-            <tr className="total-row info">
-              <td className="text-right price ">
+            <tr className="total-row  info">
+              <td className="text-right price  ">
                 <Stack
                   direction="row"
                   justifyContent="start"
@@ -621,7 +624,7 @@ const CartTable = () => {
                   </div>
                 </Stack>
               </td>
-              <td className="text-right price" colspan="9">
+              <td className="text-right price " colspan="9">
                 <Stack
                   direction="row"
                   justifyContent="end"

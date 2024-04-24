@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import { formatAmount } from "../../utils";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/cartSlice";
+import ReviewModal from "../../Reusable/ReviewModal";
 
 const useStyles = styled((theme) => ({
   card: {
@@ -60,7 +61,8 @@ const OrderItem = ({ item }) => {
             {/* <ReturnIcon /> */}
             {/* <button className="buy_again">Return or replace items</button> */}
 
-            <button className="gift_btn">Write product review </button>
+            {/* <button className="gift_btn">Write product review </button> */}
+            <ReviewModal />
 
             <button
               className="gift_btn"
