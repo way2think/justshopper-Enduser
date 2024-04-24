@@ -265,7 +265,7 @@ const NavbarNew = () => {
                     role="button"
                   >
                     <img
-                      src="../images/male User.png"
+                      src="../images/man.png"
                       alt=""
                       width={25}
                       height={25}

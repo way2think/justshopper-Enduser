@@ -41,7 +41,11 @@
   cursor: pointer;
 }
 
-.linkproduct{
+.MDBDropdownItem:hover {
+  color: #dc3237;
+}
+
+.linkproduct {
   font-size: 16px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
@@ -49,7 +53,6 @@
   color: #000;
   cursor: pointer;
 }
-
 
 .logo {
   width: 50px;
