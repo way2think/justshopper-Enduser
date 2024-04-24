@@ -8,6 +8,7 @@ import Testimonial from "../../component/HomeComponent/Testimonial";
 import NewArrivalCarosuel from "../../component/HomeComponent/NewArrivalCarosuel";
 import { selectCategory, selectTheme } from "../../api/api";
 import { useGetAllNewProductArrivalsQuery } from "../../api/product";
+import NewMainBanner from "../../component/NewMainBanner";
 
 const Home = () => {
   const conditions = [
@@ -31,8 +32,9 @@ const Home = () => {
 
   return (
     <>
-      <MainBannerCarosuel />
+      {/* <MainBannerCarosuel /> */}
       {/* <NewArrival /> */}
+      <NewMainBanner />
       <NewArrivalCarosuel products={newArrivals || []} />
       <ShopByType
         type="category"

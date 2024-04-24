@@ -45,7 +45,7 @@ export default function MainBannerCarosuel() {
   };
 
   return (
-    <MDBCarousel length={3} showControls={false} showIndicators={false} slide>
+    <MDBCarousel showControls={false} showIndicators={false}>
       {homeBanner.map((banner, id) => (
         <MDBCarouselItem
           key={id}

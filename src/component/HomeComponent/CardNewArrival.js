@@ -143,9 +143,15 @@ export default function CardNewArrival({ product }) {
       />
       <div className="favImage">
         {isFavourite ? (
-          <FavoriteIcon onClick={() => handleUpdateFavourites("remove")} />
+          <FavoriteIcon
+            sx={{ cursor: "pointer" }}
+            onClick={() => handleUpdateFavourites("remove")}
+          />
         ) : (
-          <FavoriteBorderIcon onClick={() => handleUpdateFavourites("add")} />
+          <FavoriteBorderIcon
+            sx={{ cursor: "pointer" }}
+            onClick={() => handleUpdateFavourites("add")}
+          />
         )}
       </div>
       {/* <img src="../images/heart.png" className="favImage" alt="" width={25} height={25} /> */}
