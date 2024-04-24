@@ -11,6 +11,7 @@ import {
   removeItem,
   removeItemQty,
   selectCartItems,
+  setCartItems,
 } from "../../store/cartSlice";
 import { displayRazorpay } from "../../services/razorpay-http";
 import { selectUser } from "../../store/userSlice";
@@ -19,6 +20,7 @@ import { setIsLoading } from "../../store/appSlice";
 import {
   errorNotification,
   successNotification,
+  warningNotification,
 } from "../../utils/notifications";
 import { useNavigate } from "react-router-dom";
 import { selectCategory } from "../../api/api";
@@ -53,12 +55,12 @@ const CartTable = () => {
     tax_total_percentage: 0,
   }; // for India
 
-  // const shipping = {
-  //   shipping_type: "standard", //one_day
-  //   shipping_price: (40.5).toFixed(2), // tamil nadu
-  // };
-
-  // console.log(shipping);
+  useEffect(() => {
+    // console.log("selectedaddre: ", user.selected_address.state);
+    if (user.selected_address.state !== "Tamil Nadu") {
+      setOneDayDelivery(false);
+    }
+  }, [user.selected_address.state]);
 
   const {
     subtotalPrice,
@@ -148,6 +150,8 @@ const CartTable = () => {
       });
       return;
     }
+
+    console.log("oneDayDelivery shipping: ", oneDayDelivery);
 
     const deliveryType = oneDayDelivery
       ? "one_day_delivery"
@@ -242,10 +246,45 @@ const CartTable = () => {
             const products = result.data;
             let outOfStock = 0;
             products.forEach((product) => {
-              if (product.total_quantity <= product.minimum_quantity) {
+              if (product.total_quantity <= 0) {
                 dispatch(removeItem(product));
                 errorNotification(`${product.name} is out of stock`);
                 outOfStock++;
+              } else {
+                // more than 0, that is stock available.
+                // now we have to check the cart_quantity for each product, if its exceeds the current stock, then update the value to the current quantity
+                const currentCartItems = [...cartItems];
+                const cartItemIndex = currentCartItems.findIndex(
+                  (item) => item.id === product.id
+                );
+
+                if (
+                  currentCartItems[cartItemIndex].cart_quantity >
+                  product.total_quantity
+                ) {
+                  warningNotification(
+                    `Current stock quantity is greater than available stock, stock quantity recalculated`
+                  );
+                  console.log(
+                    currentCartItems,
+                    cartItemIndex,
+                    currentCartItems[cartItemIndex].cart_quantity
+                  );
+                  const updatedCartItem = {
+                    ...currentCartItems[cartItemIndex],
+                    cart_quantity: product.total_quantity,
+                  };
+
+                  const updatedCartItems = [
+                    ...currentCartItems.slice(0, cartItemIndex),
+                    updatedCartItem,
+                    ...currentCartItems.slice(cartItemIndex + 1),
+                  ];
+
+                  dispatch(setCartItems(updatedCartItems));
+                  dispatch(setIsLoading(false));
+                  return;
+                }
               }
             });
 
@@ -529,19 +568,23 @@ const CartTable = () => {
                   alignItems="start"
                   flexDirection="column"
                 >
-                  {user.isAuthenticated && (
-                    <div className="d-flex align-items-center">
-                      {/* Checkbox for one-day delivery */}
-                      <Checkbox
-                        checked={oneDayDelivery}
-                        onChange={(e) => setOneDayDelivery(e.target.checked)}
-                      />
-                      <label className="oneday">
-                        One-Day Delivery
-                        <span className="tamilnadu">(only available in Tamil Nadu)</span>
-                      </label>
-                    </div>
-                  )}
+                  {user.isAuthenticated &&
+                    user?.selected_address?.state === "Tamil Nadu" && (
+                      <div className="d-flex align-items-center">
+                        {/* Checkbox for one-day delivery */}
+                        <Checkbox
+                          checked={oneDayDelivery}
+                          onChange={(e) => setOneDayDelivery(e.target.checked)}
+                        />
+                        <label className="oneday">
+                          One-Day Delivery
+                          <span className="tamilnadu">
+                            {" "}
+                            (only available in Tamil Nadu)
+                          </span>
+                        </label>
+                      </div>
+                    )}
                   <div className="d-flex justify-content-center align-items-start flex-direction-column p-0">
                     {user.isAuthenticated && (
                       <>

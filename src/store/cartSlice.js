@@ -113,7 +113,7 @@ export const cartSlice = createSlice({
     },
     setCartItems: (state, action) => {
       const cartItems = action.payload;
-      console.log("cartItems: ", cartItems);
+      // console.log("cartItems: ", cartItems);
       if (cartItems) {
         if (cartItems.length > 0) {
           if (cartItems.length === 1) {
@@ -122,11 +122,12 @@ export const cartSlice = createSlice({
             const totalQty = cartItems.reduce(
               (a, b) => a.cart_quantity + b.cart_quantity
             );
-            console.log("totalQuantity: ", totalQty);
+            // console.log("totalQuantity: ", totalQty);
             state.totalQuantity = totalQty;
           }
         }
         state.cartItems = [...cartItems];
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
       // console.log("cartItems--:", cartItems, state.totalQuantity);
     },
