@@ -6,7 +6,7 @@ const CatergoryCard = (props) => {
     <>
       <div className="bg-image">
         <img src={props.catergoryimage} className="category" alt="Sample" />
-        <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}>
+        <div className="mask">
           <div className="d-flex justify-content-center align-items-center h-100">
             <a href="" className="text-white mb-0 productname">
               {props.catergoryname}
