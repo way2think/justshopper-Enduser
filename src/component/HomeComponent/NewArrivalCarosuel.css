@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: amazonheavy;
   src: url(../../../public/Ember/AmazonEmber_He.ttf);
@@ -9,6 +11,9 @@
 
 .arrivals {
   margin-bottom: 30px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .cardimage {
@@ -34,7 +39,9 @@
 
 .cardtitle {
   text-align: left;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
   font-size: 18px;
   margin-bottom: 0px;
 }

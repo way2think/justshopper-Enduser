@@ -515,51 +515,84 @@ const CartTable = () => {
 
             <tr className="total-row info">
               <td className="text-right price" colspan="3">
-                {user.isAuthenticated && (
-                  <div className="d-flex align-items-center">
-                    {/* Checkbox for one-day delivery */}
-                    <Checkbox
-                      checked={oneDayDelivery}
-                      onChange={(e) => setOneDayDelivery(e.target.checked)}
-                    />
-                    <label>One-Day Delivery</label>
-                  </div>
-                )}
-
-                <div className="d-flex p-0">
-                  {user.isAuthenticated && (
-                    <>
-                      Delivery Address:{" "}
-                      <span className="text-start ml-3">
-                        <div>{user?.selected_address?.line}</div>
-                        <div>
-                          {user?.selected_address?.city +
-                            ", " +
-                            user?.selected_address?.state}
-                        </div>
-                        <div>
-                          {user?.selected_address?.country +
-                            " - " +
-                            user?.selected_address?.pincode}
-                        </div>
-                      </span>
-                      <small
-                        className="mt-auto text-primary"
-                        role="button"
-                        onClick={() => setOpen(true)}
-                      >
-                        Change Address
-                      </small>
-                    </>
-                  )}
-
-                  <span className="ml-auto">Total</span>
-                </div>
+                <span className="ml-auto">Total</span>
               </td>
               <td className="text-right price">{totalPrice}</td>
             </tr>
+            <tr className="total-row info">
+              <td className="text-right price" colspan="4">
+                <Stack
+                  direction="row"
+                  justifyContent="end"
+                  alignItems="center"
+                  sx={{ pl: 0 }}
+                >
+                  <Button
+                    sx={checkoutStyle}
+                    className="checkoutbtn"
+                    variant="contained"
+                    type="button"
+                    onClick={handleCheckout}
+                  >
+                    Checkout
+                  </Button>
+                </Stack>
+              </td>
+              {/* <td className="text-right price">{totalPrice}</td> */}
+            </tr>
           </table>
-          <Stack direction="row" justifyContent="end" alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="start"
+            alignItems="start"
+            flexDirection="column"
+          >
+            {user.isAuthenticated && (
+              <div className="d-flex align-items-center">
+                {/* Checkbox for one-day delivery */}
+                <Checkbox
+                  checked={oneDayDelivery}
+                  onChange={(e) => setOneDayDelivery(e.target.checked)}
+                />
+                <label className="oneday">One-Day Delivery</label>
+              </div>
+            )}
+            <div className="d-flex justify-content-center align-items-start flex-direction-column p-0">
+              {user.isAuthenticated && (
+                <>
+                  <p className="delivery-address">Delivery Address:</p>
+                  <Stack
+                    direction="row"
+                    justifyContent="start"
+                    alignItems="start"
+                    flexDirection="column"
+                  >
+                    <span className="text-start ml-3 address">
+                      <div>{user?.selected_address?.line}</div>
+                      <div>
+                        {user?.selected_address?.city +
+                          ", " +
+                          user?.selected_address?.state}
+                      </div>
+                      <div>
+                        {user?.selected_address?.country +
+                          " - " +
+                          user?.selected_address?.pincode}
+                      </div>
+                    </span>
+                    <small
+                      className="changeaddress "
+                      role="button"
+                      onClick={() => setOpen(true)}
+                    >
+                      Change Address
+                    </small>
+                  </Stack>
+                </>
+              )}
+            </div>
+          </Stack>
+          {/* <Stack direction="row" justifyContent="end" alignItems="center">
             <Button
               sx={checkoutStyle}
               className="checkoutbtn"
@@ -569,7 +602,7 @@ const CartTable = () => {
             >
               Checkout
             </Button>
-          </Stack>
+          </Stack> */}
         </>
       )}
     </div>
