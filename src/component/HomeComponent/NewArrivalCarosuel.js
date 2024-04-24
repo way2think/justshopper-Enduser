@@ -57,6 +57,7 @@ export default function SimpleSlider({ products }) {
     speed: 500,
     slidesToShow: 8,
     slidesToScroll: 1,
+    autoplay: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [

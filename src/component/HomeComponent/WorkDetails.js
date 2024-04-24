@@ -10,11 +10,10 @@ const WorkDetails = () => {
         alignItems="center"
         className="mainworkdetail py-4 container-fluid"
         direction="row"
-        bgcolor="#fff"
       >
         <Box
           sx={{ flexGrow: 1, position: "relative" }}
-          className="workdetail  "
+          className="workdetail"
         >
           <Grid container spacing={2}>
             <Grid item xs={6} md={3}>

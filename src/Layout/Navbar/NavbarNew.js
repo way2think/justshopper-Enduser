@@ -89,7 +89,6 @@ const NavbarNew = () => {
     <>
       <nav
         className="navbar navbar-expand-lg navbar-light navbarnew"
-        style={{ background: "#fff" }}
       >
         <Link className="navbar-brand" to="/">
           <img src="../images/JS logo png.png" className="logo" alt="" />
@@ -210,7 +209,10 @@ const NavbarNew = () => {
           </ul>
         </div>
         <ul className="shopingnavbar">
-          <li className="nav-item navitem" style={{ marginBottom: "6px" }}>
+          <li
+            className="nav-item navitem"
+            style={{ marginBottom: "3px", marginRight: 0 }}
+          >
             <Link
               to="cart"
               style={{
@@ -225,8 +227,8 @@ const NavbarNew = () => {
                 <img
                   src="../images/Shopping Bag.png"
                   alt=""
-                  width={25}
-                  height={25}
+                  width={24}
+                  height={24}
                 />
               </StyledBadge>
             </Link>
@@ -292,7 +294,7 @@ const NavbarNew = () => {
               </li>
             </>
           ) : (
-            <li className="nav-item  navitem">
+            <li className="nav-item navitem" style={{ margin: "0 3px" }}>
               <LoginModal
                 open={open.login}
                 setOpen={(isOpen, type) =>
