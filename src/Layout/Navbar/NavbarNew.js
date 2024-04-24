@@ -87,9 +87,7 @@ const NavbarNew = () => {
 
   return (
     <>
-      <nav
-        className="navbar navbar-expand-lg navbar-light navbarnew"
-      >
+      <nav className="navbar navbar-expand-lg navbar-light navbarnew">
         <Link className="navbar-brand" to="/">
           <img src="../images/JS logo png.png" className="logo" alt="" />
         </Link>
@@ -142,6 +140,7 @@ const NavbarNew = () => {
                 {categoryList?.map((item) =>
                   item?.show_in_top_navbar ? (
                     <Link
+                      className="linkproduct"
                       key={item?.name}
                       to={`/shop-by-category?category=${item?.name}`}
                       onClick={() => {
@@ -179,6 +178,7 @@ const NavbarNew = () => {
                 {themeList?.map((item) =>
                   item?.show_in_top_navbar ? (
                     <Link
+                      className="linkproduct"
                       key={item?.name}
                       to={`/shop-by-theme?theme=${item?.name}`}
                       onClick={() =>

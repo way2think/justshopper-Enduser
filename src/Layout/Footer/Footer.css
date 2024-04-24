@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: amazonbold;
   src: url(../../../public/Ember/AmazonEmber_Bd.ttf);
@@ -34,19 +36,25 @@
 
 .producthead {
   font-size: 18px;
-  font-family: amazonheavy;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   color: #fff;
 }
 
 .linkcontent {
   font-size: 16px;
-  font-family: amazonlight;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   color: #fff;
 }
 
 .copy {
   font-size: 18px;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   color: #fff;
 }
 

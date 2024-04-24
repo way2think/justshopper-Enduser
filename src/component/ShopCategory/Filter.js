@@ -24,7 +24,9 @@ const Filter = ({ type, productType }) => (
           textAlign: "left",
           fontWeight: "bold",
           color: "#000",
-          fontFamily: "amazonheavy",
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 600,
+          fontStyle: "normal",
         }}
       >
         Filter

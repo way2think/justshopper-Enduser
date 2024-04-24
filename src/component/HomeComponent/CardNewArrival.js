@@ -35,14 +35,13 @@ export default function CardNewArrival({ product }) {
     background: "#dc3237",
     color: "#fff",
     fontSize: "14px",
-
     padding: "5px 10px",
-    fontFamily: "amazonbold",
+    fontFamily: "Poppins",
     "&:hover": {
       background: "#dc3237",
       color: "#fff",
       fontSize: "14px",
-      fontFamily: "amazonbold",
+      fontFamily: "Poppins",
       padding: "5px 10px",
     },
 

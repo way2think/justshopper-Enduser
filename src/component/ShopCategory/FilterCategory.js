@@ -27,12 +27,14 @@ const FilterCategory = ({ type, productType }) => {
     background: "#dc3237",
     color: "#fff",
     fontSize: "13px",
+    fontFamily: "Poppins",
     marginTop: 1,
     width: "80%",
     display: "flex",
     "&:hover": {
       background: "#dc3237",
       color: "#fff",
+      fontFamily: "Poppins",
       fontSize: "14px",
     },
   };
