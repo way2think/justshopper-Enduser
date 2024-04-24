@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: amazonheavy;
   src: url(../../../public/Ember/AmazonEmber_He.ttf);
@@ -9,7 +11,9 @@
 
 .navitem {
   margin: 0 10px;
-  font-family: amazonheavy;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: 16px;
   display: flex;
   justify-content: start;
@@ -18,8 +22,9 @@
 }
 .listitems {
   width: 100%;
-
-  font-family: amazonheavy;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   font-size: 16px;
   display: flex;
   justify-content: start;
@@ -29,7 +34,11 @@
 
 .MDBDropdownItem {
   font-size: 16px;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #000;
+  cursor: pointer;
 }
 
 .logo {
@@ -51,9 +60,6 @@
   margin: 0;
   padding: 0;
 }
-
-
-
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .logo {

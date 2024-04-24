@@ -107,17 +107,21 @@ const shipping_charges = {
           },
         },
         others: {
-          "250g": {
-            standard_delivery_charge: 120,
-            one_day_delivery_charge: "NA",
-          },
-          "500g": {
-            standard_delivery_charge: 150,
-            one_day_delivery_charge: "NA",
-          },
-          "1kg": {
-            standard_delivery_charge: 230,
-            one_day_delivery_charge: "NA",
+          cities: {
+            others: {
+              "250g": {
+                standard_delivery_charge: 120,
+                one_day_delivery_charge: "NA",
+              },
+              "500g": {
+                standard_delivery_charge: 150,
+                one_day_delivery_charge: "NA",
+              },
+              "1kg": {
+                standard_delivery_charge: 230,
+                one_day_delivery_charge: "NA",
+              },
+            },
           },
         },
       },

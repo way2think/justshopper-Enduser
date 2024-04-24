@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 .mainshopbycatergory {
   margin-top: 100px;
   margin-bottom: 40px;
@@ -5,13 +7,17 @@
 
 .shopCategoryhead {
   font-size: 36px;
-  font-family: amazonheavy;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   color: #000;
 }
 .shopCategorydesc {
   font-size: 18px;
-
   color: #aaa;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .viewmore {

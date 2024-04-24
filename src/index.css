@@ -19,10 +19,11 @@ code {
   color: #dc3237 !important;
 }
 
-.table>:not(caption)>*>* {
-  padding-left:0 !important;
+.table > :not(caption) > * > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
-.css-1m6gwg1-MuiButtonBase-root-MuiButton-root{
+.css-1m6gwg1-MuiButtonBase-root-MuiButton-root {
   margin-bottom: 0 !important;
 }

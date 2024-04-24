@@ -269,7 +269,7 @@ const NavbarNew = () => {
                       height={25}
                     />
                   </MDBDropdownToggle>
-                  <MDBDropdownMenu>
+                  <MDBDropdownMenu style={{ padding: "10px 10px" }}>
                     <Link to={"/profile"}>
                       <MDBDropdownItem className="MDBDropdownItem">
                         Profile
@@ -280,12 +280,13 @@ const NavbarNew = () => {
                         Orders
                       </MDBDropdownItem>
                     </Link>
-                    <MDBDropdownItem
+                    <Link
                       className="MDBDropdownItem"
                       onClick={() => signOutUser()}
+                      style={{ cursor: "pointer" }}
                     >
                       Logout
-                    </MDBDropdownItem>
+                    </Link>
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </li>
