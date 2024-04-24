@@ -54,9 +54,9 @@ const loginModalBtn = {
 
   fontFamily: "amazonbold",
   "@media (max-width: 768px)": {
-    marginBottom: "10px",
+    marginBottom: "0",
     marginLeft: "0px",
-    marginRight: "10px",
+    marginRight: "0",
     border: "none",
     fontWeight: "bold",
   },
