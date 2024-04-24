@@ -13,6 +13,7 @@
   border-radius: 5px;
   width: 250px; /* Adjust this value as needed */
   height: 250px; /* Adjust this value as needed */
+  box-shadow: 0 2px 5px #7d7d7d;
 }
 
 .category {
