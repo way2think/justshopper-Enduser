@@ -210,7 +210,7 @@ const NavbarNew = () => {
           </ul>
         </div>
         <ul className="shopingnavbar">
-          <li className="nav-item  navitem">
+          <li className="nav-item navitem" style={{ marginBottom: "6px" }}>
             <Link
               to="cart"
               style={{

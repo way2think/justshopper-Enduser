@@ -121,6 +121,7 @@ export default function Profile() {
 
   const [countryid, setCountryid] = React.useState(0);
   const [stateid, setstateid] = React.useState(0);
+  const [cityid, setcityid] = React.useState(0);
   const [countryName, setCountryName] = React.useState("");
   const [stateName, setstateName] = React.useState("");
   const [cityName, setCityName] = React.useState("");
@@ -139,6 +140,9 @@ export default function Profile() {
       {
         id: new Date().getTime(),
         ...addressDetails,
+        country_id: countryid,
+        state_id: stateid,
+        city_id: cityid,
         is_active: user.shipping_addresses.length === 0 ? true : false,
       },
     ];
@@ -229,6 +233,7 @@ export default function Profile() {
 
                 <Grid md={6} xs={6} pr={2}>
                   <CountrySelect
+                    value={countryid}
                     onChange={(e) => {
                       setCountryid(e.id);
                       setCountryName(e.name);
@@ -246,6 +251,7 @@ export default function Profile() {
                 <Grid md={6} xs={6}>
                   <StateSelect
                     countryid={countryid}
+                    value={stateid}
                     onChange={(e) => {
                       setstateid(e.id);
                       setstateName(e.name);
@@ -264,7 +270,9 @@ export default function Profile() {
                   <CitySelect
                     countryid={countryid}
                     stateid={stateid}
+                    value={cityid}
                     onChange={(e) => {
+                      setcityid(e.id);
                       setCityName(e.name);
                       setAddressDetails((prevState) => {
                         return {
