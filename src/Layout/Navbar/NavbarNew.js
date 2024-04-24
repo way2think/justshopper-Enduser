@@ -267,8 +267,8 @@ const NavbarNew = () => {
                     <img
                       src="../images/man.png"
                       alt=""
-                      width={30}
-                      height={30}
+                      width={25}
+                      height={25}
                     />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu style={{ padding: "10px 10px" }}>
