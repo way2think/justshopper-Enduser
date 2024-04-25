@@ -1,61 +1,55 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import "./NewMainBanner.css";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
-export default function App() {
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import { useGetSettingsQuery } from "../api/api";
+import { Button } from "@mui/material";
+
+export default function NewMainBanner() {
+  const { data } = useGetSettingsQuery();
+  const homeBanner = data?.home_banner || [];
+  console.log("homeBanner: ", homeBanner);
   return (
     <>
-      <div
-        id="carouselExampleControls"
-        className="carousel slide"
-        data-ride="carousel"
+      <Swiper
+        navigation={false}
+        className="mySwiper"
+        autoplay={{ delay: "3000" }}
+        modules={[Autoplay, Navigation]}
       >
-        <div className="carousel-inner">
-          <div className="carousel-item active" data-interval="5000">
+        {homeBanner.map((banner) => (
+          <SwiperSlide>
             <img
-              src="../images/web banner dino Theme.jpg"
-              className="d-block w-100"
-              alt="..."
+              src={banner.images[0].url}
+              class="d-block w-100"
+              alt={banner.images[0].url}
             />
-          </div>
-          <div className="carousel-item" data-interval="5000">
-            <img
-              src="../images/web banner teddy Theme.jpg"
-              className="d-block w-100"
-              alt="..."
-            />
-          </div>
-          <div className="carousel-item" data-interval="5000">
-            <img
-              src="../images/web banner Unicorn Theme.jpg"
-              className="d-block w-100"
-              alt="..."
-            />
-          </div>
-        </div>
-        <a
-          className="carousel-control-prev"
-          href="#carouselExampleControls"
-          role="button"
-          data-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">Previous</span>
-        </a>
-        <a
-          className="carousel-control-next"
-          href="#carouselExampleControls"
-          role="button"
-          data-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">Next</span>
-        </a>
-      </div>
+            <Button className="shopnow">Order Now</Button>
+          </SwiperSlide>
+        ))}
+
+        {/* <SwiperSlide>
+          {" "}
+          <img
+            src="../images/web banner teddy Theme.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          {" "}
+          <img
+            src="../images/web banner Unicorn Theme.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+        </SwiperSlide> */}
+      </Swiper>
     </>
   );
 }

@@ -64,8 +64,8 @@
   .carousel-img {
     max-height: 300px;
     min-height: 250px;
-    object-fit: cover;
-    object-position: left;
+    /* object-fit: cover;
+    object-position: left; */
   }
 }
 

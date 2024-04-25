@@ -209,15 +209,15 @@ const CartTable = () => {
     background: "#dc3237",
     color: "#fff",
     fontSize: "18px",
-    width: "65%",
+    marginTop: "10px",
     "&:hover": {
       border: "2px solid #dc3237",
       background: "transparent",
       color: "#dc3237",
       fontSize: "18px",
-      "@media only screen and (min-width: 320px) and (max-width: 600px)": {
-        width: "100%",
-      },
+      // "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      //   width: "100%",
+      // },
     },
   };
 
@@ -519,7 +519,21 @@ const CartTable = () => {
                   </div>
                 </td>
                 <td className="text-right" title="Amount">
-                  <Box style={{ position: "relative" }}>
+                  <Box
+                    className="boxitems"
+                    style={{
+                      position: "relative",
+                      // display: "flex",
+                      // justifyContent: "left",
+                      // alignItems: "center",
+                      // "@media only screen and (min-width: 320px) and (max-width: 768px)":
+                      //   {
+                      //     display: "flex",
+                      //     justifyContent: "flex-end",
+                      //     alignItems: "center",
+                      //   },
+                    }}
+                  >
                     <div className="qtyFlex">
                       <Stack
                         direction="row"
@@ -527,11 +541,11 @@ const CartTable = () => {
                         alignItems="center"
                         className="cartqty"
                         sx={{
-                          width: "50%",
-                          // "@media only screen and (min-width: 320px) and (max-width: 600px)":
-                          //   {
-                          //     width: "100%",
-                          //   },
+                          width: "100%",
+                          "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                            {
+                              width: "100%",
+                            },
                         }}
                       >
                         <RemoveIcon
@@ -580,74 +594,76 @@ const CartTable = () => {
               </td>
               <td className="text-right price">{totalPrice}</td>
             </tr>
-            <tr className="total-row  info">
-              <td className="text-right price  ">
+            <tr className="total-row info">
+              <td className="text-right price" colspan="10">
+                {" "}
+                {/* Adjust colspan to cover all columns */}
                 <Stack
-                  direction="row"
-                  justifyContent="start"
-                  alignItems="start"
-                  flexDirection="column"
+                  direction={{ xs: "column", sm: "row" }} // Switch to column layout on extra small screens (mobile)
+                  justifyContent="space-between"
+                  alignItems="flex-start"
                 >
-                  {user.isAuthenticated &&
-                    user?.selected_address?.state === "Tamil Nadu" && (
-                      <div className="d-flex align-items-center">
-                        {/* Checkbox for one-day delivery */}
-                        <Checkbox
-                          checked={oneDayDelivery}
-                          onChange={(e) => setOneDayDelivery(e.target.checked)}
-                        />
-                        <label className="oneday">
-                          One-Day Delivery
-                          <span className="tamilnadu">
-                            {" "}
-                            (only available in Tamil Nadu)
-                          </span>
-                        </label>
-                      </div>
-                    )}
-                  <div className="d-flex justify-content-center align-items-start flex-direction-column p-0">
+                  <Stack
+                    direction="column" // Switch to column layout on extra small screens (mobile)
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                  >
+                    <div>
+                      {user.isAuthenticated &&
+                        user?.selected_address?.state === "Tamil Nadu" && (
+                          <div className="d-flex align-items-center">
+                            {/* Checkbox for one-day delivery */}
+                            <Checkbox
+                              checked={oneDayDelivery}
+                              onChange={(e) =>
+                                setOneDayDelivery(e.target.checked)
+                              }
+                            />
+                            <label className="oneday">
+                              One-Day Delivery
+                              <span className="tamilnadu">
+                                {" "}
+                                (only available in Tamil Nadu)
+                              </span>
+                            </label>
+                          </div>
+                        )}
+                    </div>
+
                     {user.isAuthenticated && (
                       <>
-                        <p className="delivery-address">Delivery Address:</p>
                         <Stack
-                          direction="row"
-                          justifyContent="start"
-                          alignItems="start"
-                          flexDirection="column"
+                          direction={{ sm: "column", md: "row", lg: "row" }} // Switch to column layout on extra small screens (mobile)
+                          justifyContent="space-between"
+                          alignItems="flex-start"
                         >
-                          <span className="text-start ml-3 address">
-                            <div>{user?.selected_address?.line}</div>
-                            <div>
-                              {user?.selected_address?.city +
-                                ", " +
-                                user?.selected_address?.state}
-                            </div>
-                            <div>
-                              {user?.selected_address?.country +
-                                " - " +
-                                user?.selected_address?.pincode}
-                            </div>
-                          </span>
-                          <small
-                            className="changeaddress "
-                            role="button"
-                            onClick={() => setOpen(true)}
-                          >
-                            Change Address
-                          </small>
+                          <p className="delivery-address">Delivery Address:</p>
+                          <div className="d-flex flex-column justify-content-start">
+                            <span className="text-start ml-3 address">
+                              <div>{user?.selected_address?.line}</div>
+                              <div>
+                                {user?.selected_address?.city +
+                                  ", " +
+                                  user?.selected_address?.state}
+                              </div>
+                              <div>
+                                {user?.selected_address?.country +
+                                  " - " +
+                                  user?.selected_address?.pincode}
+                              </div>
+                            </span>
+                            <small
+                              className="changeaddress"
+                              role="button"
+                              onClick={() => setOpen(true)}
+                            >
+                              Change Address
+                            </small>
+                          </div>
                         </Stack>
                       </>
                     )}
-                  </div>
-                </Stack>
-              </td>
-              <td className="text-right price " colspan="9">
-                <Stack
-                  direction="row"
-                  justifyContent="end"
-                  alignItems="center"
-                  sx={{ pl: 0 }}
-                >
+                  </Stack>
                   <Button
                     sx={checkoutStyle}
                     className="checkoutbtn"
@@ -659,7 +675,6 @@ const CartTable = () => {
                   </Button>
                 </Stack>
               </td>
-              {/* <td className="text-right price">{totalPrice}</td> */}
             </tr>
           </table>
 

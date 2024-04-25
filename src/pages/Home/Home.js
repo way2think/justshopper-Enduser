@@ -4,7 +4,7 @@ import MainBannerCarosuel from "../../component/MainBannerCarosuel";
 import NewArrival from "../../component/HomeComponent/NewArrival";
 import ShopByType from "../../component/HomeComponent/ShopByType";
 import WorkDetails from "../../component/HomeComponent/WorkDetails";
-import Testimonial from "../../component/HomeComponent/Testimonial";
+
 import NewArrivalCarosuel from "../../component/HomeComponent/NewArrivalCarosuel";
 import { selectCategory, selectTheme } from "../../api/api";
 import { useGetAllNewProductArrivalsQuery } from "../../api/product";
@@ -48,7 +48,6 @@ const Home = () => {
         subTitle="Love is a letter on pink stationery"
         dataList={themeList || []}
       />
-      {/* <Testimonial /> */}
       <WorkDetails />
     </>
   );

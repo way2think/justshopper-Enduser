@@ -1,0 +1,23 @@
+/* .mySwiper img {
+  max-width: 250px !important;
+} */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+.MuiButton-root.shopnow {
+  background-color: #fff;
+  color: #000;
+  font-size: 20px;
+  padding: 3px 10px;
+  position: absolute !important;
+  top: 60%;
+  right: 15%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.MuiButton-root.shopnow:hover {
+  background-color: #fff;
+  color: #000;
+}
