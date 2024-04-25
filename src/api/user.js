@@ -29,6 +29,12 @@ export const user = api.injectEndpoints({
         return await getMultiObjectParallellyByIds(collectionId, favourites);
       },
     }),
+    updateProfileDetail: build.mutation({
+      queryFn: async ({ docId, dataObject }) => {
+        console.log("updateProfileDetail: ", docId, dataObject);
+        return await updateObjectByParam(collectionId, docId, dataObject);
+      },
+    }),
   }),
 });
 
@@ -36,4 +42,5 @@ export const {
   useAddNewShippingAddressMutation,
   useUpdateFavouritesMutation,
   useGetAllFavouritesQuery,
+  useUpdateProfileDetailMutation,
 } = user;
