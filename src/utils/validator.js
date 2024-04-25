@@ -37,6 +37,19 @@ function isValidAddress(address) {
   return addressRegex.test(address);
 }
 
+function isValidAddressObject(address) {
+  if (
+    address.line !== "" &&
+    address.country !== "" &&
+    address.state !== "" &&
+    address.city !== "" &&
+    address.pincode !== ""
+  ) {
+    return true;
+  }
+  return false;
+}
+
 function isValidNumber(num) {
   // contains only 10 digit number
   const numberRegex = /^\d+$/;
@@ -52,4 +65,5 @@ export {
   isValidPhoneNumber,
   isValidName,
   isValidNumber,
+  isValidAddressObject,
 };

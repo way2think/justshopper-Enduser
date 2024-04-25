@@ -22,28 +22,27 @@ import {
   CitySelect,
   CountrySelect,
   StateSelect,
-} from "react-country-state-city";
-import "react-country-state-city/dist/react-country-state-city.css";
-import {
   GetCountries,
   GetState,
   GetCity,
-  GetLanguages, //async functions
 } from "react-country-state-city";
+import "react-country-state-city/dist/react-country-state-city.css";
+
 import classes from "./ProfileDetail.module.css";
-import { selectUser } from "../../store/userSlice";
-// import {
-//   isValidName,
-//   isValidAddress,
-//   isValidPassword,
-//   isValidPhoneNumber,
-// } from "../../utils/validator";
+import { selectUser, updateProfileDetail } from "../../store/userSlice";
+
 import {
   errorNotification,
   successNotification,
 } from "../../utils/notifications";
-// import { getAuth, updatePassword } from "firebase/auth";
-// import { logout } from "../../api/auth";
+import {
+  isValidAddress,
+  isValidAddressObject,
+  isValidName,
+  isValidPhoneNumber,
+} from "../../utils/validator";
+import { useUpdateProfileDetailMutation } from "../../api/user";
+import { setIsLoading } from "../../store/appSlice";
 
 const save = {
   background: "#dc3237",
@@ -85,15 +84,10 @@ const sechalf = {
 };
 
 const ProfileDetail = () => {
-  //   const dispatch = useDispatch();
-  //   const { id } = userDetail;
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  console.log("user Details", user);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showCPassword, setShowCPassword] = useState(true);
-  const [disableProfileEdit, setDisableProfileEdit] = useState(false);
-  const [disableSettingsEdit, setDisableSettingsEdit] = useState(true);
+  const [disableProfileEdit, setDisableProfileEdit] = useState(true);
   const [defaultValues, setDefaultValues] = useState({
     name: "",
     phone: "",
@@ -106,12 +100,16 @@ const ProfileDetail = () => {
       pincode: "",
     },
   });
-  console.log("defaultValues", defaultValues);
+  const [country, setCountry] = useState({});
+  const [state, setState] = useState({});
+  const [city, setCity] = useState({});
+
+  const [updateProfile, {}] = useUpdateProfileDetailMutation();
 
   useEffect(() => {
-    setDefaultValues((prev) => {
+    setDefaultValues((prevState) => {
       return {
-        ...defaultValues,
+        ...prevState,
         name: user.name,
         phone: user.phone,
         email: user.email,
@@ -121,90 +119,100 @@ const ProfileDetail = () => {
   }, [user]);
 
   useEffect(() => {
-    // GetCountries().then((result) => {
-    //   setCountriesList(result);
-    // });
-    // GetLanguages().then((result) => {
-    //   setLanguageList(result);
-    // });
-  }, []);
+    if (user.address.country && user.address.state && user.address.city) {
+      GetCountries().then((result) => {
+        const countryObj = result.find(
+          (country) => country.name === user.address.country
+        );
+        // console.log("countryObj: ", countryObj);
+        setCountry(countryObj);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+        GetState(countryObj.id).then((resultState) => {
+          const stateObj = resultState.find(
+            (state) => state.name === user.address.state
+          );
+          // console.log("stateObj: ", stateObj);
+          setState(stateObj);
+          GetCity(countryObj.id, stateObj.id).then((resultCity) => {
+            const cityObj = resultCity.find(
+              (state) => state.name === user.address.city
+            );
+            // console.log("cityObj: ", cityObj);
+            setCity(cityObj);
+          });
+        });
+      });
+    }
+  }, [user.address]);
 
-  const handleClickShowCPassword = () => setShowCPassword((show) => !show);
+  const onChangeHandler = (e) => {
+    setDefaultValues((prevState) => {
+      const { name, value } = e.target;
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+      if (name === "addressLine" || name === "pincode") {
+        return {
+          ...prevState,
+          address: {
+            ...defaultValues.address,
+            [name]: value,
+          },
+        };
+      }
 
-  const handleEditValues = (e) => {
-    const { name, value } = e.target;
-    setDefaultValues((prev) => {
       return {
-        ...defaultValues,
+        ...prevState,
         [name]: value,
       };
     });
   };
 
-  //   const { name, address, phone, country, state, city, pincode } = defaultValues;
+  const onChangeDropdown = (type, object) => {
+    if (type === "country") {
+      setCountry(object);
+    } else if (type === "state") {
+      setState(object);
+    } else if (type === "city") {
+      setCity(object);
+    }
 
-  //   async function saveChanges() {
-  //     const docRef = doc(db, "users", id);
-  //     await updateDoc(docRef, { name, phone, address });
-  //     setDisableProfileEdit(true);
-  //   }
+    setDefaultValues((prevState) => ({
+      ...prevState,
+      address: {
+        ...prevState.address,
+        [type]: object.name,
+      },
+    }));
+  };
 
-  //   const handleSaveChanges = () => {
-  //     const { name, address, phone } = defaultValues;
+  const handleSaveChanges = async () => {
+    dispatch(setIsLoading(true));
+    const { name, phone, address } = defaultValues;
+    // console.log("handleSaveChanges: ", defaultValues);
 
-  //     !isValidName(name)
-  //       ? errorNotification("Invalid Name")
-  //       : !isValidPhoneNumber(phone)
-  //       ? errorNotification("Invalid phone")
-  //       : !isValidAddress(address)
-  //       ? errorNotification("Invalid Address ")
-  //       : saveChanges();
-  //   };
+    if (
+      isValidName(name) &&
+      isValidPhoneNumber(phone) &&
+      isValidAddressObject(address)
+    ) {
+      const result = await updateProfile({
+        docId: user.id,
+        dataObject: { name, phone, address },
+      });
+      // console.log("result: ", result);
 
-  //   const updateUserPassword = () => {
-  //     if (!isValidPassword(pwd)) {
-  //       errorNotification(
-  //         "Invalid, Password must be 6 characters or more in length"
-  //       );
-  //       return;
-  //     }
-  //     if (pwd !== cpwd) {
-  //       errorNotification(
-  //         "Invalid, Password must be 6 characters or more in length"
-  //       );
-  //       return;
-  //     }
-
-  //     console.log("updateUserPassword", isValidPassword, pwd, cpwd);
-  //     const auth = getAuth();
-
-  //     const user = auth.currentUser;
-  //     console.log("user: ", user);
-
-  //     updatePassword(user, pwd)
-  //       .then(() => {
-  //         successNotification("Password updated successfully!!!");
-  //         setDisableSettingsEdit(true);
-  //         setPwd("");
-  //         setCpwd("");
-  //       })
-  //       .catch((error) => {
-  //         errorNotification(error.message);
-  //         console.log("updateUserPassword error: ", error.message);
-  //         setPwd("");
-  //         setCpwd("");
-  //         if (error.code === "auth/requires-recent-login") {
-  //           // logout the user
-  //           dispatch(logout);
-  //         }
-  //       });
-  //   };
+      if (result.data) {
+        successNotification(`Profile Updated Successfully!!!`);
+        dispatch(updateProfileDetail(defaultValues));
+        dispatch(setIsLoading(false));
+      } else {
+        errorNotification(result.error.message);
+        dispatch(setIsLoading(false));
+      }
+    } else {
+      errorNotification(`Invalid details!!!`);
+      dispatch(setIsLoading(false));
+    }
+  };
 
   return (
     <>
@@ -240,9 +248,7 @@ const ProfileDetail = () => {
                 id="outlined-basic1"
                 label="Name"
                 disabled={disableProfileEdit}
-                onChange={(e) =>
-                  setDefaultValues({ ...defaultValues, name: e.target.value })
-                }
+                onChange={onChangeHandler}
                 value={defaultValues.name}
                 variant="outlined"
                 name="name"
@@ -257,12 +263,10 @@ const ProfileDetail = () => {
                 id="outlined-basic1"
                 label="Email"
                 value={defaultValues.email}
-                onChange={(e) =>
-                  setDefaultValues({ ...defaultValues, email: e.target.value })
-                }
+                onChange={onChangeHandler}
                 disabled
                 variant="outlined"
-                name="mail"
+                name="email"
                 type="mail"
                 className="name"
                 sx={{ mb: 2 }}
@@ -274,9 +278,7 @@ const ProfileDetail = () => {
                 id="outlined-basic1"
                 label="Phone Number"
                 value={defaultValues.phone}
-                onChange={(e) =>
-                  setDefaultValues({ ...defaultValues, phone: e.target.value })
-                }
+                onChange={onChangeHandler}
                 disabled={disableProfileEdit}
                 variant="outlined"
                 name="phone"
@@ -292,85 +294,34 @@ const ProfileDetail = () => {
                 label="Address Line"
                 placeholder="Door / House No, Street Name, Area"
                 value={defaultValues.address.line}
-                onChange={(e) =>
-                  setDefaultValues({
-                    ...defaultValues,
-                    address: {
-                      ...defaultValues.address,
-                      line: e.target.value,
-                    },
-                  })
-                }
+                onChange={onChangeHandler}
                 disabled={disableProfileEdit}
                 name="addressLine"
                 sx={{ mb: 2, width: "100%" }}
               />
             </Grid>
             <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                id="outlined-basic1"
-                label="City"
-                placeholder="City"
-                value={defaultValues.address.city}
-                onChange={(e) =>
-                  setDefaultValues({
-                    ...defaultValues,
-                    address: {
-                      ...defaultValues.address,
-                      city: e.target.value,
-                    },
-                  })
-                }
-                // disabled={true}
-                variant="outlined"
-                name="city"
-                className="name"
-                sx={{ mb: 2 }}
+              <CountrySelect
+                defaultValue={country}
+                onChange={(object) => onChangeDropdown("country", object)}
+                placeHolder="Select Country"
               />
             </Grid>
             <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                id="outlined-basic1"
-                label="State"
-                placeholder="State"
-                value={defaultValues.address.state}
-                onChange={(e) =>
-                  setDefaultValues({
-                    ...defaultValues,
-                    address: {
-                      ...defaultValues.address,
-                      state: e.target.value,
-                    },
-                  })
-                }
-                // disabled={true}
-                variant="outlined"
-                name="state"
-                className="name"
-                sx={{ mb: 2 }}
+              <StateSelect
+                defaultValue={state}
+                countryid={country.id}
+                onChange={(object) => onChangeDropdown("state", object)}
+                placeHolder="Select State"
               />
             </Grid>
             <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                id="outlined-basic1"
-                name="country"
-                value={defaultValues.address.country}
-                onChange={(e) =>
-                  setDefaultValues({
-                    ...defaultValues,
-                    address: {
-                      ...defaultValues.address,
-                      country: e.target.value,
-                    },
-                  })
-                }
-                // disabled={true}
-                variant="outlined"
-                className="name"
-                sx={{ mb: 2 }}
+              <CitySelect
+                defaultValue={city}
+                countryid={country.id}
+                stateid={state.id}
+                onChange={(object) => onChangeDropdown("city", object)}
+                placeHolder="Select City"
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -379,16 +330,8 @@ const ProfileDetail = () => {
                 id="outlined-basic1"
                 name="pincode"
                 value={defaultValues.address.pincode}
-                onChange={(e) =>
-                  setDefaultValues({
-                    ...defaultValues,
-                    address: {
-                      ...defaultValues.address,
-                      pincode: e.target.value,
-                    },
-                  })
-                }
-                // disabled={true}
+                onChange={onChangeHandler}
+                disabled={disableProfileEdit}
                 variant="outlined"
                 className="name"
                 sx={{ mb: 2 }}
@@ -403,11 +346,7 @@ const ProfileDetail = () => {
               justifyContent="end"
               alignItems="end"
             >
-              <Button
-                variant="contained"
-                sx={save}
-                //   onClick={handleSaveChanges}
-              >
+              <Button variant="contained" sx={save} onClick={handleSaveChanges}>
                 Save Changes
               </Button>
               <Button

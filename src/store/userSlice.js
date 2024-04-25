@@ -104,6 +104,13 @@ export const userSlice = createSlice({
       const payload = action.payload;
       state.favourites = payload;
     },
+    updateProfileDetail: (state, action) => {
+      const payload = action.payload;
+      state.name = payload.name;
+      state.email = payload.email;
+      state.phone = payload.phone;
+      state.address = payload.address;
+    },
   },
 });
 
@@ -113,6 +120,7 @@ export const {
   updateShippingAddress,
   updateSelectedAddress,
   updateFavourites,
+  updateProfileDetail,
 } = userSlice.actions;
 
 // export const selectTable = (state) => state.app;
