@@ -21,6 +21,7 @@ import {
   updateFavourites,
 } from "../../store/userSlice";
 import { errorNotification } from "../../utils/notifications";
+import DoneIcon from "@mui/icons-material/Done";
 
 const ProductCard = ({ product }) => {
   const buy = {
@@ -75,6 +76,24 @@ const ProductCard = ({ product }) => {
   const favourites = useSelector(selectFavourite);
   const userId = useSelector(selectUserId);
   const [updateFavouritesDB, {}] = useUpdateFavouritesMutation();
+  // const [colorBasedQuantity, setColorBasedQuantity] = useState([]);
+  const [color, setColor] = useState("");
+
+  // useEffect(() => {
+  //   const colorQuantity = JSON.parse(
+  //     JSON.stringify(product?.color_based_quantity)
+  //   );
+
+  //   colorQuantity[0].is_choosen = true;
+
+  //   setColorBasedQuantity(colorQuantity);
+  // }, [product?.color_based_quantity]);
+
+  useEffect(() => {
+    if (product?.color_based_quantity) {
+      setColor(product?.color_based_quantity[0]?.color_name);
+    }
+  }, [product?.color_based_quantity]);
 
   const noOfItems = useMemo(() => {
     const item = cartItems.find((item) => item.id === product.id);
@@ -86,7 +105,7 @@ const ProductCard = ({ product }) => {
   }, [favourites, product.id]);
 
   const handleAddCartItem = () => {
-    dispatch(addItem(product));
+    dispatch(addItem({ ...product, color }));
   };
 
   const handleAddItemQty = () => {
@@ -141,6 +160,18 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  const handleColorChange = (colorItem) => {
+    // setColorBasedQuantity((prevState) => {
+    //   const colorItems = [...prevState];
+    //   const updatedColorItems = colorItems.map((item) => ({
+    //     ...item,
+    //     is_choosen: item.color_name === colorItem.color_name,
+    //   }));
+    //   return updatedColorItems;
+    // });
+    setColor(colorItem.color_name);
+  };
+
   return (
     <>
       <main>
@@ -181,11 +212,21 @@ const ProductCard = ({ product }) => {
             <Box className={classes.maincolors}>
               <h3 className={classes.colors}>Colors : </h3>
               <Box className={classes.colorsCircle}>
-                <span className={classes.color1}></span>
-                <span className={classes.color2}></span>
-                <span className={classes.color3}></span>
-                <span className={classes.color4}></span>
-                <span className={classes.color5}></span>
+                {product?.color_based_quantity?.map((item) => (
+                  <span
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      borderRadius: "50%",
+                      backgroundColor: item.color_name,
+                      cursor: "pointer",
+                      marginRight: "10px",
+                      border:
+                        color === item.color_name ? "3px solid black" : "none",
+                    }}
+                    onClick={() => handleColorChange(item)}
+                  ></span>
+                ))}
               </Box>
             </Box>
           </Stack>

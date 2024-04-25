@@ -72,47 +72,6 @@
   align-items: center;
 }
 
-.color1 {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #dc3237;
-  cursor: pointer;
-  margin-right: 10px;
-}
-.color2 {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #8d28ad;
-  cursor: pointer;
-  margin-right: 10px;
-}
-.color3 {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #fcd425;
-  cursor: pointer;
-  margin-right: 10px;
-}
-.color4 {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #ff006b;
-  cursor: pointer;
-  margin-right: 10px;
-}
-.color5 {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: brown;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
 .price {
   display: flex;
   justify-content: flex-start;

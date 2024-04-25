@@ -497,8 +497,25 @@ const CartTable = () => {
                       {" "}
                       <strong>{item.name}</strong>
                     </p>
-                    <p className="itemdesc">Category - {item.category}</p>
-                    {/* <p className="itemdesc">Theme - {item.theme}</p> */}
+                    <p className="itemdesc">Category: {item.category}</p>
+                    {item.theme && (
+                      <p className="itemdesc">Theme: {item.theme}</p>
+                    )}
+                    {item.color && (
+                      <p className="itemdesc">
+                        Color: {item.color}{" "}
+                        <span
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            borderRadius: "50%",
+                            backgroundColor: item.color,
+                            cursor: "pointer",
+                            marginRight: "10px",
+                          }}
+                        ></span>
+                      </p>
+                    )}
                   </div>
                 </td>
                 <td className="text-right" title="Amount">

@@ -46,7 +46,11 @@ const OrderItem = ({ item }) => {
             />
           </div>
           <div className="itemDesc">
-            <h5 className="titlename">{item.name}</h5>
+            <h5 className="titlename">
+              {item.name}{" "}
+              {item.color &&
+                `(${item.color[0].toUpperCase() + item.color.substring(1)})`}
+            </h5>
             <p>Sold by: Just Shopper</p>
             <p>Quantity: {item.quantity}</p>
             <p>Item price: &#8377;{formatAmount(item.discount_price)}</p>
