@@ -9,11 +9,13 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import { useGetSettingsQuery } from "../api/api";
 import { Button } from "@mui/material";
+import { Padding } from "@mui/icons-material";
 
 export default function NewMainBanner() {
   const { data } = useGetSettingsQuery();
   const homeBanner = data?.home_banner || [];
   console.log("homeBanner: ", homeBanner);
+
   return (
     <>
       <Swiper
