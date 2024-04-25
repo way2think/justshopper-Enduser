@@ -32,9 +32,9 @@ const Home = () => {
 
   return (
     <>
-      <MainBannerCarosuel />
+      {/* <MainBannerCarosuel /> */}
       {/* <NewArrival /> */}
-      {/* <NewMainBanner /> */}
+      <NewMainBanner />
       <NewArrivalCarosuel products={newArrivals || []} />
       <ShopByType
         type="category"

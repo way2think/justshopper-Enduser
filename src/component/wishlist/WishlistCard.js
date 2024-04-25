@@ -45,6 +45,9 @@ const WishlistCard = () => {
     marginLeft: 2,
     bgcolor: "#DC3237",
     fontWeight: 600,
+    fontFamily: "Poppins",
+    fontWeight: 600,
+    fontStyle: "normal",
     "&:hover": {
       border: "2px solid #DC3237",
       bgcolor: "#fff",
