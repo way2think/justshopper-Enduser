@@ -4,6 +4,7 @@ import {
   sendPasswordResetEmail as sendResetPasswordEmail,
   signOut,
   updatePassword,
+  getAuth,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -80,7 +81,9 @@ const sendPasswordResetEmail = async (email) => {
 };
 
 const updateUserPassword = async (password) => {
-  const user = auth.currentUser();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log("updateUserPassword: ", user);
   try {
     await updatePassword(user, password);
     return {

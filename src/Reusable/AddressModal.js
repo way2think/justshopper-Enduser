@@ -19,7 +19,7 @@ import {
   CountrySelect,
   StateSelect,
 } from "react-country-state-city";
-import { useAddNewShippingAddressMutation } from "../api/user";
+import { useUpdateShippingAddressMutation } from "../api/user";
 
 const style = {
   position: "absolute",
@@ -110,7 +110,7 @@ export default function AddressModal({ open, setOpen }) {
   const address = useSelector(selectSavedAddress);
 
   const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
-    useAddNewShippingAddressMutation();
+    useUpdateShippingAddressMutation();
 
   const handleClose = () => setOpen(false);
 

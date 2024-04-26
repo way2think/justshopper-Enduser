@@ -1,8 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { collection, doc, updateDoc } from "firebase/firestore";
-// import { db } from "../../services/firebase";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -12,39 +8,22 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  TextField,
   Typography,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { Stack } from "@mui/system";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {
-  CitySelect,
-  CountrySelect,
-  StateSelect,
-} from "react-country-state-city";
+
 import "react-country-state-city/dist/react-country-state-city.css";
-import {
-  GetCountries,
-  GetState,
-  GetCity,
-  GetLanguages, //async functions
-} from "react-country-state-city";
+
 import classes from "./ProfileDetail.module.css";
-// import { selectUser } from "../../store/userSlice";
-import {
-  isValidName,
-  isValidAddress,
-  isValidPassword,
-  isValidPhoneNumber,
-} from "../../utils/validator";
+import { isValidPassword } from "../../utils/validator";
 import {
   errorNotification,
   successNotification,
 } from "../../utils/notifications";
-import { updatePassword } from "firebase/auth";
-// import { logout } from "../../api/auth";
+import { getAuth, updatePassword } from "firebase/auth";
 
 const save = {
   background: "#dc3237",
@@ -78,33 +57,56 @@ const sechalf = {
     padding: "0",
   },
 };
+
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [disableSettingsEdit, setDisableSettingsEdit] = useState(true);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const handleUpdatePassword = () => {
+
+  const handleUpdatePassword = async () => {
     if (isValidPassword(password) && isValidPassword(confirmPassword)) {
-      updatePassword({ password })
-        .then(() => {
-          successNotification("Password updated successfully!!!");
-          // setDisableSettingsEdit(true);
-          setPassword("");
-          setConfirmPassword("");
-        })
-        .catch((error) => {
-          errorNotification(error.message);
-          console.log("updatePassword error: ", error.message);
-          setPassword("");
-          setConfirmPassword("");
-          if (error.code === "auth/requires-recent-login") {
-            // logout the user
-            // dispatch(logout);
-          }
-        });
+      if (password === confirmPassword) {
+        const auth = getAuth();
+        await updatePassword(auth.currentUser, password)
+          .then(() => {
+            successNotification(
+              "Password Updated Successfully, Please login again!!!"
+            );
+            setShowPassword(false);
+            setPassword("");
+            setConfirmPassword("");
+            setDisableSettingsEdit(true);
+            window.location.href = "/";
+          })
+          .catch((e) => console.log(e));
+
+        // // --- it is not working ---
+        // const result = await updatePassword(password);
+        // if (result.data) {
+        //   if (result.data.isDone) {
+        //     successNotification(
+        //       "Password Updated Successfully, Please login again!!!"
+        //     );
+        //     // signout();
+        //     // window.location.href = "/";
+        //   }
+        // } else {
+        //   errorNotification(
+        //     `Update Password Error: `,
+        //     result.error.message || ""
+        //   );
+        // }
+      } else {
+        errorNotification("Password & Confirm Password is not matching!!!");
+      }
+    } else {
+      errorNotification("Password Invalid!!!");
     }
   };
 
@@ -124,115 +126,92 @@ const ChangePassword = () => {
         >
           Settings
         </Typography>
-        {/* {disableSettingsEdit && ( */}
-        {/* <IconButton
-          aria-label="Edit"
-          // onClick={() => setDisableSettingsEdit(false)}
-        >
-          <EditIcon sx={{ color: "#dc3237" }} />
-        </IconButton> */}
-        {/* )} */}
+        {disableSettingsEdit && (
+          <IconButton
+            aria-label="Edit"
+            onClick={() => setDisableSettingsEdit(false)}
+          >
+            <EditIcon sx={{ color: "#dc3237" }} />
+          </IconButton>
+        )}
       </Stack>
       <Grid container spacing={2} sx={sechalf}>
-        {/* <Grid item md={6} xs={12}>
-        <FormControl sx={{ mb: 1, width: "100%" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Current Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Current Password"
-          />
-        </FormControl>
-      </Grid> */}
         <Grid item md={12} xs={12}>
           <FormControl sx={{ mb: 1, width: "100%" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              New Password
-            </InputLabel>
+            <InputLabel htmlFor="password">New Password</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
-              //   disabled={disableSettingsEdit}
-              type={"text"}
+              id="password"
+              disabled={disableSettingsEdit}
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <IconButton
-              //       // disabled={disableSettingsEdit}
-              //       aria-label="toggle password visibility"
-              //       onClick={handleClickShowPassword}
-              //       onMouseDown={handleMouseDownPassword}
-              //       edge="end"
-              //     >
-              //       {showPassword ? <VisibilityOff /> : <Visibility />}
-              //     </IconButton>
-              //   </InputAdornment>
-              // }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    disabled={disableSettingsEdit}
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
               label="New Password"
             />
           </FormControl>
         </Grid>
         <Grid item md={12} xs={12}>
           <FormControl sx={{ mb: 1, width: "100%" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Confirm Password
-            </InputLabel>
+            <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
-              type={"text"}
-              //   disabled={disableSettingsEdit}
+              id="confirm-password"
+              type={showPassword ? "text" : "password"}
+              disabled={disableSettingsEdit}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <IconButton
-              //       // disabled={disableSettingsEdit}
-              //       aria-label="toggle password visibility"
-              //       onClick={handleClickShowPassword}
-              //       onMouseDown={handleMouseDownPassword}
-              //       edge="end"
-              //     >
-              //       {showPassword ? <VisibilityOff /> : <Visibility />}
-              //     </IconButton>
-              //   </InputAdornment>
-              // }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    disabled={disableSettingsEdit}
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
               label="Confirm Password"
             />
           </FormControl>
         </Grid>
       </Grid>
-      {/* {!disableSettingsEdit && ( */}
-      <Stack spacing={2} direction="row" justifyContent="end" alignItems="end">
-        <Button variant="contained" sx={save} onClick={handleUpdatePassword}>
-          Update Password
-        </Button>
-        <Button
-          variant="outlined"
-          sx={Cancel}
-          onClick={() => {
-            // setDisableSettingsEdit(true);
-            setPassword("");
-            setConfirmPassword("");
-          }}
+      {!disableSettingsEdit && (
+        <Stack
+          spacing={2}
+          direction="row"
+          justifyContent="end"
+          alignItems="end"
         >
-          Cancel
-        </Button>
-      </Stack>
-      {/* )} */}
+          <Button variant="contained" sx={save} onClick={handleUpdatePassword}>
+            Update Password
+          </Button>
+          <Button
+            variant="outlined"
+            sx={Cancel}
+            onClick={() => {
+              setDisableSettingsEdit(true);
+              setPassword("");
+              setConfirmPassword("");
+            }}
+          >
+            Cancel
+          </Button>
+        </Stack>
+      )}
     </Box>
   );
 };

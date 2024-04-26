@@ -154,7 +154,7 @@ export default function LoginModal({ open, setOpen }) {
 
   //for user verificationa nd login(submit)
 
-  const handleLogin = async (userCred) => {
+  const handleLogin = async () => {
     dispatch(setIsLoading(true));
 
     console.log("userCred: ", userCred);

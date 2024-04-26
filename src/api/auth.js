@@ -12,7 +12,7 @@ import {
 } from "../services/firestore-http";
 import { api } from "./api";
 import { auth as firebaseAuth } from "../config/firebase";
-import { setUser, setUserLogout } from "../store/userSlice";
+import { setAuthUser, setUser, setUserLogout } from "../store/userSlice";
 
 const collectionId = "user";
 
@@ -54,7 +54,6 @@ export const auth = api.injectEndpoints({
         return await updateUserPassword(password);
       },
     }),
-
     signOutUser: build.mutation({
       queryFn: async (args, api) => {
         await signOutUser();
@@ -88,6 +87,7 @@ export const auth = api.injectEndpoints({
                   isAuthenticated: true,
                 };
                 dispatch(setUser(updatedUser));
+                // dispatch(setAuthUser(user));
                 updateCachedData((draft) => updatedUser);
               } else {
                 return userDet.error;
@@ -112,6 +112,7 @@ export const {
   useCreateUserWithEmailAndPasswordMutation,
   useSignInWithEmailAndPasswordMutation,
   useSendPasswordResetEmailMutation,
+  useUpdatePasswordMutation,
   useSignOutUserMutation,
   useOnAuthListenerQuery,
 } = auth;

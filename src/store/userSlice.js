@@ -25,12 +25,17 @@ const initialState = {
     country: "",
     pincode: "",
   },
+  // authUser: {},
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // setAuthUser: (state, action) => {
+    //   const payload = action.payload;
+    //   state.authUser = payload;
+    // },
     setUser: (state, action) => {
       const payload = action.payload;
       // console.log("act: ", payload);
@@ -115,6 +120,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  // setAuthUser,
   setUser,
   setUserLogout,
   updateShippingAddress,
@@ -125,6 +131,7 @@ export const {
 
 // export const selectTable = (state) => state.app;
 export const selectUser = (state) => state.user;
+// export const selectAuthUser = (state) => state.user.authUser;
 export const selectUserId = (state) => state.user.id;
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
 export const selectFavourite = (state) => state.user.favourites;

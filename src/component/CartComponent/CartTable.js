@@ -30,6 +30,34 @@ import AddressModal from "../../Reusable/AddressModal";
 import { formatAddress } from "../../utils";
 import { shipping_charges } from "../../utils/constants";
 
+const checkoutStyle = {
+  background: "#dc3237",
+  color: "#fff",
+  fontSize: "18px",
+  marginTop: "10px",
+  "&:hover": {
+    border: "2px solid #dc3237",
+    background: "transparent",
+    color: "#dc3237",
+    fontSize: "18px",
+    // "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+    //   width: "100%",
+    // },
+  },
+};
+
+const deleteicon = {
+  padding: "8px 15px",
+  marginLeft: 2,
+  bgcolor: "#000",
+  fontWeight: 600,
+  "&:hover": {
+    border: "2px solid #000",
+    bgcolor: "#fff",
+    color: "#000",
+  },
+};
+
 const CartTable = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -203,34 +231,6 @@ const CartTable = () => {
 
   const handleRemoveItemQty = (product) => {
     dispatch(removeItemQty(product));
-  };
-
-  const checkoutStyle = {
-    background: "#dc3237",
-    color: "#fff",
-    fontSize: "18px",
-    marginTop: "10px",
-    "&:hover": {
-      border: "2px solid #dc3237",
-      background: "transparent",
-      color: "#dc3237",
-      fontSize: "18px",
-      // "@media only screen and (min-width: 320px) and (max-width: 600px)": {
-      //   width: "100%",
-      // },
-    },
-  };
-
-  const deleteicon = {
-    padding: "8px 15px",
-    marginLeft: 2,
-    bgcolor: "#000",
-    fontWeight: 600,
-    "&:hover": {
-      border: "2px solid #000",
-      bgcolor: "#fff",
-      color: "#000",
-    },
   };
 
   const handleCheckout = async () => {

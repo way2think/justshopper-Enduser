@@ -1,14 +1,12 @@
-import * as React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import ProfileDetail, { temp } from "../../component/Profile/ProfileDetail";
+import ProfileDetail from "../../component/Profile/ProfileDetail";
 import ChangePassword from "../../component/Profile/ChangePassword";
 import Path from "../../component/Path";
-import { ManageAccounts } from "@mui/icons-material";
 import ManageAddress from "../../component/Profile/ManageAddress";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -17,16 +15,15 @@ import TextField from "@mui/material/TextField";
 import {
   CitySelect,
   CountrySelect,
+  GetCity,
+  GetCountries,
+  GetState,
   StateSelect,
 } from "react-country-state-city";
 import { errorNotification } from "../../utils/notifications";
-import {
-  selectUser,
-  selectSavedAddress,
-  updateSelectedAddress,
-  updateShippingAddress,
-} from "../../store/userSlice";
-import { useAddNewShippingAddressMutation } from "../../api/user";
+import { selectUser, updateShippingAddress } from "../../store/userSlice";
+import { useUpdateShippingAddressMutation } from "../../api/user";
+import { useEffect, useState } from "react";
 
 const style = {
   position: "absolute",
@@ -107,54 +104,113 @@ function a11yProps(index) {
 
 export default function Profile() {
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState(0);
-  const [showModal, setShowModal] = React.useState(false);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const user = useSelector(selectUser);
 
-  const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
-    useAddNewShippingAddressMutation();
+  const [updateShippingAddressDB, { isLoading, isSuccess, isError, error }] =
+    useUpdateShippingAddressMutation();
 
-  const [countryid, setCountryid] = React.useState(0);
-  const [stateid, setstateid] = React.useState(0);
-  const [cityid, setcityid] = React.useState(0);
-  const [countryName, setCountryName] = React.useState("");
-  const [stateName, setstateName] = React.useState("");
-  const [cityName, setCityName] = React.useState("");
-  const [addressDetails, setAddressDetails] = React.useState({
+  const [value, setValue] = useState(0);
+  const [showModal, setShowModal] = useState({
+    isOpen: false,
+    isEdit: false,
+  });
+
+  const [addressDetails, setAddressDetails] = useState({
+    id: "",
     name: "",
     line: "",
     city: "",
     state: "",
     country: "",
     pincode: "",
+    is_active: false,
   });
 
-  const handleAddNewShippingAddress = async () => {
-    const updatedShippingAddresses = [
-      ...user.shipping_addresses,
-      {
-        id: new Date().getTime(),
-        ...addressDetails,
-        country_id: countryid,
-        state_id: stateid,
-        city_id: cityid,
-        is_active: user.shipping_addresses.length === 0 ? true : false,
-      },
-    ];
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
 
-    const result = await addNewShippingAddress({
+  useEffect(() => {
+    if (addressDetails.country && addressDetails.state && addressDetails.city) {
+      GetCountries().then((result) => {
+        const countryObj = result.find(
+          (country) => country.name === addressDetails.country
+        );
+        setCountry(countryObj);
+
+        GetState(countryObj.id).then((resultState) => {
+          const stateObj = resultState.find(
+            (state) => state.name === addressDetails.state
+          );
+          setState(stateObj);
+          GetCity(countryObj.id, stateObj.id).then((resultCity) => {
+            const cityObj = resultCity.find(
+              (state) => state.name === addressDetails.city
+            );
+            setCity(cityObj);
+          });
+        });
+      });
+    }
+  }, [addressDetails]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const onChangeHandler = (e) => {
+    setAddressDetails((prevState) => {
+      const { name, value } = e.target;
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+
+  const onChangeDropdown = (type, object) => {
+    if (type === "country") {
+      setCountry(object);
+    } else if (type === "state") {
+      setState(object);
+    } else if (type === "city") {
+      setCity(object);
+    }
+
+    setAddressDetails((prevState) => ({
+      ...prevState,
+      [type]: object.name,
+    }));
+  };
+
+  const handleUpdateShippingAddress = async (type) => {
+    let updatedShippingAddresses = [...user.shipping_addresses];
+
+    if (type === "add") {
+      updatedShippingAddresses = [
+        ...updatedShippingAddresses,
+        {
+          ...addressDetails,
+          id: new Date().getTime(),
+          is_active: user.shipping_addresses.length === 0 ? true : false,
+        },
+      ];
+    } else if (type === "edit") {
+      const findIndex = updatedShippingAddresses.findIndex(
+        (address) => address.id === addressDetails.id
+      );
+      updatedShippingAddresses[findIndex] = addressDetails;
+    }
+
+    const result = await updateShippingAddressDB({
       docId: user.id,
       dataObject: {
         shipping_addresses: updatedShippingAddresses,
       },
     });
 
-    console.log("result: ", result);
+    // console.log("result: ", result);
     if (result.data) {
       // udpate the result in local state
       dispatch(updateShippingAddress(updatedShippingAddresses));
@@ -164,12 +220,32 @@ export default function Profile() {
     }
   };
 
+  const onCloseHandler = () => {
+    setShowModal({
+      isOpen: false,
+      isEdit: false,
+    });
+    setAddressDetails({
+      id: "",
+      name: "",
+      line: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: "",
+      is_active: false,
+    });
+    setCountry(null);
+    setState(null);
+    setCity(null);
+  };
+
   return (
     <>
-      {showModal && (
+      {showModal.isOpen && (
         <Modal
-          open={showModal}
-          onClose={() => setShowModal(false)}
+          open={showModal.isOpen}
+          onClose={onCloseHandler}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -181,7 +257,7 @@ export default function Profile() {
               component="h2"
               sx={{ textAlign: "left !important" }}
             >
-              Add New Address
+              {showModal.isEdit ? "Edit Address" : "Add New Address"}
             </Typography>
             <Box pt={2}>
               <Grid container style={{ width: "100%" }}>
@@ -195,14 +271,7 @@ export default function Profile() {
                     type="text"
                     className="name"
                     value={addressDetails.name}
-                    onChange={(e) => {
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          name: e.target.value,
-                        };
-                      });
-                    }}
+                    onChange={onChangeHandler}
                     sx={{
                       mb: 2,
                       // width: "90%",
@@ -219,70 +288,66 @@ export default function Profile() {
                     placeholder="Door / House No, Street Name, Area"
                     name="addressLine"
                     value={addressDetails.line}
-                    onChange={(e) => {
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          line: e.target.value,
-                        };
-                      });
-                    }}
+                    onChange={onChangeHandler}
                     sx={{ mb: 2, width: "100%" }}
                   />
                 </Grid>
 
                 <Grid md={6} xs={6} pr={2}>
-                  <CountrySelect
-                    value={countryid}
-                    onChange={(e) => {
-                      setCountryid(e.id);
-                      setCountryName(e.name);
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          country: e.name,
-                        };
-                      });
-                    }}
-                    placeHolder="Select Country"
-                  />
+                  {country ? (
+                    <CountrySelect
+                      defaultValue={country}
+                      value={country?.id}
+                      onChange={(e) => onChangeDropdown("country", e)}
+                      placeHolder="Select Country"
+                    />
+                  ) : (
+                    <CountrySelect
+                      value={country?.id}
+                      onChange={(e) => onChangeDropdown("country", e)}
+                      placeHolder="Select Country"
+                    />
+                  )}
                 </Grid>
 
                 <Grid md={6} xs={6}>
-                  <StateSelect
-                    countryid={countryid}
-                    value={stateid}
-                    onChange={(e) => {
-                      setstateid(e.id);
-                      setstateName(e.name);
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          state: e.name,
-                        };
-                      });
-                    }}
-                    placeHolder="Select State"
-                  />
+                  {state ? (
+                    <StateSelect
+                      defaultValue={state}
+                      countryid={country?.id}
+                      value={state?.id}
+                      onChange={(e) => onChangeDropdown("state", e)}
+                      placeHolder="Select State"
+                    />
+                  ) : (
+                    <StateSelect
+                      countryid={country?.id}
+                      value={state?.id}
+                      onChange={(e) => onChangeDropdown("state", e)}
+                      placeHolder="Select State"
+                    />
+                  )}
                 </Grid>
 
                 <Grid md={6} xs={6} pr={2} mt={2}>
-                  <CitySelect
-                    countryid={countryid}
-                    stateid={stateid}
-                    value={cityid}
-                    onChange={(e) => {
-                      setcityid(e.id);
-                      setCityName(e.name);
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          city: e.name,
-                        };
-                      });
-                    }}
-                    placeHolder="Select City"
-                  />
+                  {city ? (
+                    <CitySelect
+                      defaultValue={city}
+                      countryid={country?.id}
+                      stateid={state?.id}
+                      value={city?.id}
+                      onChange={(e) => onChangeDropdown("city", e)}
+                      placeHolder="Select City"
+                    />
+                  ) : (
+                    <CitySelect
+                      countryid={country?.id}
+                      stateid={state?.id}
+                      value={city?.id}
+                      onChange={(e) => onChangeDropdown("city", e)}
+                      placeHolder="Select City"
+                    />
+                  )}
                 </Grid>
 
                 <Grid md={6} xs={6} mt={2}>
@@ -291,23 +356,20 @@ export default function Profile() {
                     label="Pincode"
                     name="pincode"
                     value={addressDetails.pincode}
-                    onChange={(e) => {
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          pincode: e.target.value,
-                        };
-                      });
-                    }}
+                    onChange={onChangeHandler}
                     sx={{ width: "100%", height: "50px" }}
                   />
                 </Grid>
                 <Grid xs={12} mt={3} textAlign="end">
-                  <Button onClick={() => setShowModal(false)} sx={cancel}>
+                  <Button onClick={onCloseHandler} sx={cancel}>
                     Cancel
                   </Button>
                   <Button
-                    onClick={handleAddNewShippingAddress}
+                    onClick={() =>
+                      handleUpdateShippingAddress(
+                        showModal.isEdit ? "edit" : "add"
+                      )
+                    }
                     sx={add}
                     className="ml-2"
                   >
@@ -356,7 +418,12 @@ export default function Profile() {
             {value === 2 && (
               <Button
                 variant="contained"
-                onClick={() => setShowModal(true)}
+                onClick={() =>
+                  setShowModal({
+                    isOpen: true,
+                    data: null,
+                  })
+                }
                 sx={add}
               >
                 Add Address
@@ -371,8 +438,13 @@ export default function Profile() {
           <ChangePassword />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <ManageAddress />
-          {/* <ChangePassword /> */}
+          <ManageAddress
+            openAddressModal={({ isOpen, isEdit, data }) => {
+              setShowModal({ isOpen, isEdit });
+
+              setAddressDetails(data);
+            }}
+          />
         </CustomTabPanel>
       </Box>
     </>

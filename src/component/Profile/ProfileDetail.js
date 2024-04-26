@@ -153,7 +153,7 @@ const ProfileDetail = () => {
         return {
           ...prevState,
           address: {
-            ...defaultValues.address,
+            ...prevState.address,
             [name]: value,
           },
         };

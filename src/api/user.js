@@ -14,7 +14,7 @@ export const user = api.injectEndpoints({
         return await getObjectByParam(collectionId, userId);
       },
     }),
-    addNewShippingAddress: build.mutation({
+    updateShippingAddress: build.mutation({
       queryFn: async ({ docId, dataObject }) => {
         return await updateObjectByParam(collectionId, docId, dataObject);
       },
@@ -31,7 +31,6 @@ export const user = api.injectEndpoints({
     }),
     updateProfileDetail: build.mutation({
       queryFn: async ({ docId, dataObject }) => {
-        console.log("updateProfileDetail: ", docId, dataObject);
         return await updateObjectByParam(collectionId, docId, dataObject);
       },
     }),
@@ -39,7 +38,7 @@ export const user = api.injectEndpoints({
 });
 
 export const {
-  useAddNewShippingAddressMutation,
+  useUpdateShippingAddressMutation,
   useUpdateFavouritesMutation,
   useGetAllFavouritesQuery,
   useUpdateProfileDetailMutation,
