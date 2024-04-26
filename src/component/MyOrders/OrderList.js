@@ -218,6 +218,7 @@ const OrderList = () => {
                         <Button
                           variant="text"
                           onClick={() => downloadInvoice(order)}
+                          sx={{ color: "#dc3227" }}
                         >
                           Download Invoice
                           {/* <i

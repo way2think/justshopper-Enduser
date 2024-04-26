@@ -76,3 +76,7 @@ body {
 .css-1m6gwg1-MuiButtonBase-root-MuiButton-root {
   margin-bottom: 0 !important;
 }
+
+.css-dqr9h-MuiRating-label {
+  top: 2px;
+}

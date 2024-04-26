@@ -6,7 +6,12 @@ export default function Start() {
   return (
     <Stack spacing={1}>
       <label>Start Rating:</label>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+      <Rating
+        name="half-rating"
+        defaultValue={2.5}
+        precision={0.5}
+        sx={{ top: "2px" }}
+      />
     </Stack>
   );
 }
