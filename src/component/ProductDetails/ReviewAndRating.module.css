@@ -22,6 +22,10 @@
   margin-top: 1em;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .navi {
   display: flex;
   justify-content: center;

@@ -73,7 +73,7 @@ const OrderItem = ({ item, userDetail }) => {
         value: userDetail.user_id,
       },
     ];
-    const result = await getReviewByUserAndProduct({ conditions });
+    const result = await getReviewByUserAndProduct({ conditions }, true); // true is preferCacheValue
     // console.log("result review: ", result.data);
     const reviews = result.data;
     if (reviews) {

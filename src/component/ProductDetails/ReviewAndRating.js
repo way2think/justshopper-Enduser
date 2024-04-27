@@ -23,6 +23,8 @@ const ReviewAndRating = ({ product }) => {
   const [getReviews, { data, isFetching: reviewFetching }, lastPromise] =
     useLazyGetReviewsQuery();
 
+  console.log(isFetching, reviewFetching);
+
   useEffect(() => {
     const getReviewByUser = async () => {
       const condition1 = [
@@ -64,12 +66,19 @@ const ReviewAndRating = ({ product }) => {
       ];
 
       const promises = [
-        getReviewByUserAndProduct({
-          conditions: condition1,
-        }),
-        getReviews({
-          conditions: condition2,
-        }),
+        getReviewByUserAndProduct(
+          {
+            conditions: condition1,
+          },
+          true
+        ),
+        getReviews(
+          {
+            conditions: condition2,
+          },
+          true
+        ),
+        // true is preferCacheValue
       ];
 
       try {
@@ -83,6 +92,10 @@ const ReviewAndRating = ({ product }) => {
 
     product && user && getReviewByUser();
   }, [getReviewByUserAndProduct, getReviews, product, user]);
+
+  const handleEditReview = (review) => {
+    console.log("review: ", review);
+  };
 
   return (
     <div className={`${classes.review}`} id="review">
@@ -118,10 +131,26 @@ const ReviewAndRating = ({ product }) => {
                 <Fragment key={reviewObj.id}>
                   <div className={`${classes.rev} review`}>
                     <div className={`${classes.row} row`}>
-                      <div className={`${classes.col9} col-sm-9`}>
-                        <h5 className={classes.subtitle}>
-                          {reviewObj.user_details.name}
-                        </h5>
+                      <div className={`${classes.col9} col-sm-12`}>
+                        <Stack
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center"
+                        >
+                          <h5 className={classes.subtitle}>
+                            {reviewObj.user_details.name}{" "}
+                            {user.id === reviewObj.user_details.user_id &&
+                              `(Your Review)`}
+                          </h5>
+                          {user.id === reviewObj.user_details.user_id && (
+                            <div className={classes.pointer}>
+                              <EditIcon
+                                sx={{ mr: 3 }}
+                                onClick={() => handleEditReview(reviewObj)}
+                              />
+                            </div>
+                          )}
+                        </Stack>
                         <Rating
                           name="review-read-only"
                           value={reviewObj.rating}

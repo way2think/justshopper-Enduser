@@ -23,7 +23,7 @@ const ProductDetails = () => {
       if (state) {
         setProduct(state);
       } else {
-        const result = await getProductById(id);
+        const result = await getProductById(id, true); // true is preferCacheValue
         setProduct(result.data);
       }
     };
