@@ -51,7 +51,10 @@ export default function CardNewArrival({ product }) {
       },
   };
 
-  const { name, discount_price, selling_price, images } = product;
+  // console.log("product: ", product);
+
+  const { name, discount_price, selling_price, images, is_multi_color } =
+    product;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,7 +73,14 @@ export default function CardNewArrival({ product }) {
   }, [favourites, product.id]);
 
   const handleAddCartItem = () => {
-    dispatch(addItem(product));
+    is_multi_color
+      ? dispatch(
+          addItem({
+            ...product,
+            color: product.color_based_quantity[0].color_name,
+          })
+        )
+      : dispatch(addItem(product));
   };
 
   const handleAddItemQty = () => {

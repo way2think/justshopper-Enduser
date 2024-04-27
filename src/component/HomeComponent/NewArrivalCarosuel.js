@@ -51,6 +51,7 @@ export default function SimpleSlider({ products }) {
       />
     );
   }
+
   var settings = {
     dots: false,
     infinite: true,
@@ -120,6 +121,7 @@ export default function SimpleSlider({ products }) {
       },
     ],
   };
+
   const cart = {
     background: "#dc3237",
     color: "#fff",

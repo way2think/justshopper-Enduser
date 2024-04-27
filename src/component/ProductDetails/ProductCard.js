@@ -8,6 +8,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import {
   addItem,
   addItemQty,
+  changeColor,
   removeItemQty,
   selectCartItems,
 } from "../../store/cartSlice";
@@ -21,7 +22,7 @@ import {
   updateFavourites,
 } from "../../store/userSlice";
 import { errorNotification } from "../../utils/notifications";
-import DoneIcon from "@mui/icons-material/Done";
+// import DoneIcon from "@mui/icons-material/Done";
 
 const ProductCard = ({ product }) => {
   const buy = {
@@ -76,24 +77,19 @@ const ProductCard = ({ product }) => {
   const favourites = useSelector(selectFavourite);
   const userId = useSelector(selectUserId);
   const [updateFavouritesDB, {}] = useUpdateFavouritesMutation();
-  // const [colorBasedQuantity, setColorBasedQuantity] = useState([]);
   const [color, setColor] = useState("");
 
-  // useEffect(() => {
-  //   const colorQuantity = JSON.parse(
-  //     JSON.stringify(product?.color_based_quantity)
-  //   );
-
-  //   colorQuantity[0].is_choosen = true;
-
-  //   setColorBasedQuantity(colorQuantity);
-  // }, [product?.color_based_quantity]);
-
   useEffect(() => {
-    if (product?.color_based_quantity) {
-      setColor(product?.color_based_quantity[0]?.color_name);
+    const index = cartItems.findIndex((item) => item.id === product.id);
+
+    if (index !== -1) {
+      setColor(cartItems[index].color);
+    } else {
+      if (product?.color_based_quantity) {
+        !color && setColor(product?.color_based_quantity[0]?.color_name);
+      }
     }
-  }, [product?.color_based_quantity]);
+  }, [cartItems, color, product?.color_based_quantity, product.id]);
 
   const noOfItems = useMemo(() => {
     const item = cartItems.find((item) => item.id === product.id);
@@ -161,15 +157,8 @@ const ProductCard = ({ product }) => {
   };
 
   const handleColorChange = (colorItem) => {
-    // setColorBasedQuantity((prevState) => {
-    //   const colorItems = [...prevState];
-    //   const updatedColorItems = colorItems.map((item) => ({
-    //     ...item,
-    //     is_choosen: item.color_name === colorItem.color_name,
-    //   }));
-    //   return updatedColorItems;
-    // });
     setColor(colorItem.color_name);
+    dispatch(changeColor({ cartItem: product, color: colorItem.color_name }));
   };
 
   return (
