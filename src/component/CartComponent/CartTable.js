@@ -134,6 +134,8 @@ const CartTable = () => {
     };
   }, [cartItems]);
 
+  // console.log("subtotalPrice: ", subtotalPrice, totalDiscountPrice);
+
   const shipping = useMemo(() => {
     // const totalWeight = 1000;
     const totalWeight = parseFloat(totalWeightInGrams);
@@ -236,7 +238,7 @@ const CartTable = () => {
   const handleCheckout = async () => {
     if (user.isAuthenticated) {
       if (checkout.canCheckout) {
-        if (totalPrice < 100) {
+        if (subtotalPrice < 100) {
           errorNotification("Total order amount should be greater than Rs.100");
         } else {
           dispatch(setIsLoading(true));
