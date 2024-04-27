@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import classes from "../ProductDetails/ReviewAndRating.module.css";
 import ReviewStars from "./ReviewStars";
 
@@ -80,9 +81,15 @@ const ReviewAndRating = () => {
           <Box className={classes.overflow}>
             <div className={`${classes.rev} review`}>
               <div className={`${classes.row} row`}>
-                <div className={`${classes.col9} col-sm-9`}>
-                  <h4 className={classes.stars}>★★★☆☆</h4>
-
+                <div className={`${classes.col9} col-sm-12`}>
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <h4 className={classes.stars}>★★★☆☆</h4>
+                    <EditIcon sx={{ mr: 3 }} />
+                  </Stack>
                   <h4 className={classes.title}>
                     Regione mentitum legendos ne usu
                   </h4>

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: amazonheavy;
   src: url(../../../public/Ember/AmazonEmber_He.ttf);
@@ -13,7 +15,8 @@
 
 .productdetailsHeading {
   font-size: 40px;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   color: #000;
   font-weight: 600 !important;
 }
@@ -44,13 +47,17 @@
 .Subtitle {
   font-size: 20px;
   color: #7b7979;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .descripation {
   text-align: left;
   font-size: 16px;
-  font-family: amazonlight;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
   color: #aaa;
   margin-top: 30px;
 }
@@ -63,7 +70,9 @@
 .colors {
   font-size: 20px;
   color: #7b7979;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .colorsCircle {
@@ -81,13 +90,17 @@
 
 .price1 {
   font-size: 30px;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 600;
   color: #7b7979;
   margin-right: 10px;
 }
 .price2 {
   font-size: 18px;
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
   color: #aaaa;
   text-decoration: line-through;
 }
@@ -106,6 +119,9 @@
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .productdetailsHeading {
     font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 700;
   }
   .redheart {
     width: 30px;

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: amazonheavy;
   src: url(../../../public/Ember/AmazonEmber_He.ttf);
@@ -51,15 +53,17 @@
   text-align: left;
   border: none;
   outline: none;
-
-  font-family: amazonbold;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
 }
 .gridItemWhite {
   list-style-type: none;
   padding-left: 0;
   height: inherit;
   text-transform: capitalize;
-  font-family: amazonlight;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
   padding-top: 7px;
   color: #000;
   font-weight: bolder;
@@ -89,12 +93,16 @@
 @media only screen and (max-width: 767px) {
   .gridItem {
     font-size: 16px;
-    font-family: amazonbold;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 600;
   }
   .gridItemWhite {
     padding: 5px;
     font-size: 14px;
-    font-family: amazonlight;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 500;
   }
   .productInfo {
     padding: 20px;

@@ -51,6 +51,10 @@ const ProductCard = ({ product }) => {
     "& path": {
       fill: "#dc3237",
     },
+    "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      width: "30px",
+      height: "30px",
+    },
   };
   const addtocart = {
     border: "1px solid #dc3237",

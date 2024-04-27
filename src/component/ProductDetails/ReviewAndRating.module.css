@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: amazonheavy;
   src: url(../../../public/Ember/AmazonEmber_He.ttf);
@@ -47,8 +49,8 @@
 
 .col9 {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  /* justify-content: flex-start; */
+  /* align-items: flex-start; */
   flex-direction: column;
   text-align: left;
 }
@@ -77,15 +79,21 @@
   }
   .title {
     font-size: 20px;
-    font-family: amazonheavy;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 700;
   }
   .subtitle {
     font-size: 16px;
-    font-family: amazonbold;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 500;
   }
   .customerdesc {
     font-size: 14px;
-    font-family: amazonlight;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 400;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -99,15 +107,15 @@
   }
   .title {
     font-size: 20px;
-    font-family: amazonheavy;
+    font-family: "Poppins", sans-serif;
   }
   .subtitle {
     font-size: 16px;
-    font-family: amazonbold;
+    font-family: "Poppins", sans-serif;
   }
   .customerdesc {
     font-size: 14px;
-    font-family: amazonlight;
+    font-family: "Poppins", sans-serif;
   }
 }
 @media only screen and (min-width: 1024px) and (max-width: 1535px) {
@@ -121,15 +129,15 @@
   }
   .title {
     font-size: 24px;
-    font-family: amazonheavy;
+    font-family: "Poppins", sans-serif;
   }
   .subtitle {
     font-size: 18px;
-    font-family: amazonbold;
+    font-family: "Poppins", sans-serif;
   }
   .customerdesc {
     font-size: 16px;
-    font-family: amazonlight;
+    font-family: "Poppins", sans-serif;
   }
 }
 @media only screen and (min-width: 1536px) and (max-width: 2560px) {
@@ -143,14 +151,14 @@
   }
   .title {
     font-size: 20px;
-    font-family: amazonheavy;
+    font-family: "Poppins", sans-serif;
   }
   .subtitle {
     font-size: 26px;
-    font-family: amazonbold;
+    font-family: "Poppins", sans-serif;
   }
   .customerdesc {
     font-size: 20px;
-    font-family: amazonlight;
+    font-family: "Poppins", sans-serif;
   }
 }
