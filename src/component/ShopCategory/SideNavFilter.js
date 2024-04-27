@@ -6,6 +6,7 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import SearchBar from "./SearchBar";
 import FilterTheme from "./FilterTheme";
 import FilterCategory from "./FilterCategory";
+import CloseIcon from '@mui/icons-material/Close';
 import "../ShopCategory/Category.css";
 import classes from "./SideNavFilter.module.css"; // Import your CSS module
 import FilterRange from "./FilterRange";
@@ -25,7 +26,7 @@ const SideNavFilter = ({
   return (
     <div className={classes.overallsidenav}>
       <span className={classes.openButton} onClick={openNav}>
-        <FilterListIcon fontSize="40px" />
+        <FilterListIcon sx={{ color: "#dc3237" }} fontSize="40px" />
       </span>
       {/* Sidebar */}
       <div
@@ -38,7 +39,7 @@ const SideNavFilter = ({
           onClick={closeNav}
         >
           <Stack direction="row" justifyContent="end" alignItems="center">
-            <FilterListOffIcon />
+            <CloseIcon sx={{ color: "#dc3237" }} />
           </Stack>
 
           <Box

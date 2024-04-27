@@ -17,7 +17,7 @@ const style = {
   p: 4,
   borderRadius: "10px",
   "@media only screen and (min-width: 320px) and (max-width: 600px)": {
-    width: "400px",
+    width: "350px",
   },
 };
 

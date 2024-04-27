@@ -71,9 +71,9 @@
   }
   .titleghead {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: start;
-    flex-direction: column;
+    flex-direction: row;
   }
   .titledesc {
     text-align: left;

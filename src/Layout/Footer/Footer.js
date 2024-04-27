@@ -159,6 +159,12 @@ export default function Footer() {
             justifyContent: "start",
             alignItems: "start",
           },
+          "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+            {
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            },
         }}
       >
         <Grid item lg={6}>
