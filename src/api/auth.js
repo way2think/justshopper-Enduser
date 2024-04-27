@@ -38,9 +38,17 @@ export const auth = api.injectEndpoints({
         const user = result.data;
         if (user) {
           // return await getObjectByParam(collectionId, user.uid);
-          return user;
+          return {
+            data: "success",
+            error: null,
+          };
         } else {
-          return result;
+          return {
+            data: "failed",
+            error: {
+              message: result.error.message,
+            },
+          };
         }
       },
     }),

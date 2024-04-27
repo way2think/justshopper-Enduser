@@ -238,8 +238,11 @@ const CartTable = () => {
   const handleCheckout = async () => {
     if (user.isAuthenticated) {
       if (checkout.canCheckout) {
+        console.log("subtotalPrice: ", subtotalPrice);
         if (subtotalPrice < 100) {
-          errorNotification("Total order amount should be greater than Rs.100");
+          errorNotification(
+            "Total product amount should be greater than Rs.100"
+          );
         } else {
           dispatch(setIsLoading(true));
           // console.log("cartItems: ", cartItems);
@@ -586,9 +589,9 @@ const CartTable = () => {
               <td className="text-right price">{subtotalPrice}</td>
             </tr>
             <tr className="total-row info">
-              {/* <td className="text-right price" colspan="3">
-                Delivery Price (Total Weight: {totalWeightInGrams} Grams)
-              </td> */}
+              <td className="text-right price" colspan="3">
+                Delivery Price
+              </td>
               <td className="text-right price">
                 {shipping?.shipping_price || "NA"}
               </td>
