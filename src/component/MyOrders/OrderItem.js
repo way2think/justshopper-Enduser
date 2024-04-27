@@ -7,6 +7,7 @@ import { formatAmount } from "../../utils";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/cartSlice";
 import ReviewModal from "../../Reusable/ReviewModal";
+import { successNotification } from "../../utils/notifications";
 
 const useStyles = styled((theme) => ({
   card: {
@@ -26,7 +27,12 @@ const OrderItem = ({ item }) => {
   const handleBuyItAgain = () => {
     // console.log("handleBuyItAgain: ", item);
     dispatch(addItem(item));
+    successNotification(`${item.name} added to cart`);
   };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <Grid container spacing={2}>
@@ -66,7 +72,11 @@ const OrderItem = ({ item }) => {
             {/* <button className="buy_again">Return or replace items</button> */}
 
             {/* <button className="gift_btn">Write product review </button> */}
-            <ReviewModal />
+            <ReviewModal
+              open={open}
+              handleOpen={handleOpen}
+              handleClose={handleClose}
+            />
 
             <button
               className="gift_btn"

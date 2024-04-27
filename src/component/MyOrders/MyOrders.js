@@ -56,15 +56,6 @@ const MyOrders = () => {
                 </li> */}
                 {/* <li
                   className={`tab-link ${
-                    currentTab === "open_orders" && "current"
-                  }`}
-                  onClick={() => handleTabClick("open_orders")}
-                  data-tab="open_orders"
-                >
-                  Open Orders
-                </li> */}
-                {/* <li
-                  className={`tab-link ${
                     currentTab === "cancelled_orders" && "current"
                   }`}
                   onClick={() => handleTabClick("cancelled_orders")}
@@ -81,57 +72,8 @@ const MyOrders = () => {
             {currentTabContent === "buy_again" && (
               <>
                 <BuyAgain />
-                {/* <div id="buy_again" className="orderCardWrap">
-                <div className="again">
-                  <h2>Frequently repurchased </h2>
-                  <ul>
-                    <li>
-                      <img src="../images/biscuit.jpg" alt="" />
-                      <h4>
-                        Pigeon Stainless Steel Swig Water Bottle 750ml (Set of
-                        2)
-                      </h4>
-                      <span>$413.00</span>
-                      <button className="buy_again">Add to Cart</button>
-                    </li>
-                    <li>
-                      <img src="../images/biscuit.jpg" alt="" />
-                      <h4 style={{textAlign:"left"}}>
-                        Pigeon Stainless Steel Swig Water Bottle 750ml (Set of
-                        2)
-                      </h4>
-                      <span>$413.00</span>
-                      <button className="buy_again">Add to Cart</button>
-                    </li>
-                    <li>
-                      <img src="../images/biscuit.jpg" alt="" />
-                      <h4>
-                        Pigeon Stainless Steel Swig Water Bottle 750ml (Set of
-                        2)
-                      </h4>
-                      <span>$413.00</span>
-                      <button className="buy_again">Add to Cart</button>
-                    </li>
-                    <li>
-                      <img src="../images/biscuit.jpg" alt="" />
-                      <h4>
-                        Pigeon Stainless Steel Swig Water Bottle 750ml (Set of
-                        2)
-                      </h4>
-                      <span>$413.00</span>
-                      <button className="buy_again">Add to Cart</button>
-                    </li>
-                  </ul>
-                </div>
-              </div> */}
               </>
             )}
-            {/* open orders */}
-            {/* {currentTabContent == "open_orders" && (
-              <div id="open_orders" className="orderCardWrap">
-                Lorem1
-              </div>
-            )} */}
             {/* cancel order */}
             {currentTabContent === "cancelled_orders" && (
               <>

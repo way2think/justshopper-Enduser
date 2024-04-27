@@ -11,11 +11,11 @@ const shipping_charges = {
               },
               "500g": {
                 standard_delivery_charge: 35,
-                one_day_delivery_charge: 220,
+                one_day_delivery_charge: 180,
               },
               "1kg": {
                 standard_delivery_charge: 40,
-                one_day_delivery_charge: "NA",
+                one_day_delivery_charge: 230,
               },
             },
             others: {
@@ -25,11 +25,11 @@ const shipping_charges = {
               },
               "500g": {
                 standard_delivery_charge: 60,
-                one_day_delivery_charge: 220,
+                one_day_delivery_charge: 180,
               },
               "1kg": {
                 standard_delivery_charge: 60,
-                one_day_delivery_charge: "NA",
+                one_day_delivery_charge: 230,
               },
             },
           },
