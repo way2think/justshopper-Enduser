@@ -5,7 +5,7 @@ import ReviewStars from "./ReviewStars";
 
 const ReviewAndRating = () => {
   return (
-    <div className={`${classes.review} `}>
+    <div className={`${classes.review}`} id="review">
       <Typography
         variant="h6"
         sx={{ textAlign: "left", fontWeight: 800, color: "#000" }}

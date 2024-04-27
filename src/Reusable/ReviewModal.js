@@ -3,7 +3,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Stack, TextField } from "@mui/material";
-import Start from "./Start";
+import StarRating from "./StarRating";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -38,7 +39,15 @@ const cancel = {
   },
 };
 
-export default function ReviewModal({ open, handleClose }) {
+export default function ReviewModal({
+  title,
+  open,
+  handleClose,
+  handleCreateNewReview,
+}) {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+
   return (
     <div>
       <Modal
@@ -58,17 +67,17 @@ export default function ReviewModal({ open, handleClose }) {
             variant="h5"
             component="h2"
           >
-            Review
+            {title}
           </Typography>
           <hr />
-          <br />
-          <Start />
+          <StarRating rating={rating} setRating={setRating} />
           <TextField
             multiline
             rows={3}
-            // maxRows={8}
             label="Description*"
             fullWidth
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
           />
           <Stack
             spacing={2}
@@ -77,7 +86,11 @@ export default function ReviewModal({ open, handleClose }) {
             alignItems="center"
             className="mt-4"
           >
-            <Button variant="contained" sx={save}>
+            <Button
+              variant="contained"
+              sx={save}
+              onClick={() => handleCreateNewReview({ rating, review })}
+            >
               Save
             </Button>
             <Button variant="outlined" sx={cancel} onClick={handleClose}>

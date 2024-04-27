@@ -17,14 +17,12 @@ const ProductGallery = ({ name, images }) => {
   function slideImage() {
     const displayWidth = document.querySelector(
       ".img-showcase img:first-child"
-    ).clientWidth;
+    )?.clientWidth;
 
     document.querySelector(".img-showcase").style.transform = `translateX(${
       -(imgId - 1) * displayWidth
     }px)`;
   }
-
-  window.addEventListener("resize", slideImage);
 
   useEffect(() => {
     const imgSelect = document.getElementById("img-select");
@@ -32,31 +30,47 @@ const ProductGallery = ({ name, images }) => {
     let startX;
     let scrollLeft;
 
-    imgSelect.addEventListener("mousedown", (e) => {
+    const handleMouseDown = (e) => {
       isDragging = true;
       imgSelect.style.cursor = "grabbing";
       startX = e.pageX - imgSelect.offsetLeft;
       scrollLeft = imgSelect.scrollLeft;
-    });
+    };
 
-    imgSelect.addEventListener("mouseleave", () => {
+    const handleMouseLeave = () => {
       isDragging = false;
       imgSelect.style.cursor = "grab";
-    });
+    };
 
-    imgSelect.addEventListener("mouseup", () => {
+    const handleMouseUp = () => {
       isDragging = false;
       imgSelect.style.cursor = "grab";
-    });
+    };
 
-    imgSelect.addEventListener("mousemove", (e) => {
+    const handleMouseMove = (e) => {
       if (!isDragging) return;
       e.preventDefault();
       const x = e.pageX - imgSelect.offsetLeft;
       const walk = (x - startX) * 3; // Adjust scrolling speed
       imgSelect.scrollLeft = scrollLeft - walk;
-    });
-  }, [window]);
+    };
+
+    imgSelect.addEventListener("mousedown", handleMouseDown);
+    imgSelect.addEventListener("mouseleave", handleMouseLeave);
+    imgSelect.addEventListener("mouseup", handleMouseUp);
+    imgSelect.addEventListener("mousemove", handleMouseMove);
+
+    window.addEventListener("resize", slideImage);
+
+    // Cleanup function to remove event listeners
+    return () => {
+      imgSelect.removeEventListener("mousedown", handleMouseDown);
+      imgSelect.removeEventListener("mouseleave", handleMouseLeave);
+      imgSelect.removeEventListener("mouseup", handleMouseUp);
+      imgSelect.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", slideImage);
+    };
+  }, []);
 
   return (
     <>
@@ -69,6 +83,7 @@ const ProductGallery = ({ name, images }) => {
                 {images.length > 0
                   ? images.map((image) => (
                       <img
+                        key={image}
                         src={image}
                         alt={image}
                         className="galleryimage"
@@ -79,8 +94,9 @@ const ProductGallery = ({ name, images }) => {
                         }}
                       />
                     ))
-                  : Array.from(Array(5).keys()).map(() => (
+                  : Array.from(Array(5).keys()).map((_, i) => (
                       <img
+                        key={i}
                         src="../images/dummy-image.jpg"
                         alt={name}
                         className="galleryimage"
