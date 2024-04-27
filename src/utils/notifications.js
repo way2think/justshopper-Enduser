@@ -1,15 +1,23 @@
 import { toast } from "react-toastify";
 
 const successNotification = (message) => {
-  toast.success(message, {
-    position: "top-right",
-  });
+  // toast.success(message, {
+  //   position: "top-right",
+  // });
+  if (message) {
+    alert(message);
+  } else {
+    toast.success(message, {
+      position: "top-right",
+    });
+  }
 };
 
 const errorNotification = (message) => {
-  toast.error(message, {
-    position: "top-right",
-  });
+  // toast.error(message, {
+  //   position: "bottom-center",
+  // });
+  alert(message);
 };
 
 const infoNotification = (message) => {

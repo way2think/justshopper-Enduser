@@ -71,7 +71,11 @@ const createRazorpayOrder = async (dataObject) => {
     //     body: dataObject,
     //   }
     // ).then((t) => t.json());
-    console.log("http: createRazorpayOrder: ", dataObject);
+    console.log(
+      "http: createRazorpayOrder: ",
+      process.env.REACT_APP_API_URL,
+      dataObject
+    );
 
     const result = await axios.post(
       `${process.env.REACT_APP_API_URL}/payment/create-order`,

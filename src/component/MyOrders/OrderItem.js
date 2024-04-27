@@ -1,13 +1,23 @@
 import React from "react";
 import "./MyOrders.css";
 
-import { Grid, Stack } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import styled from "@emotion/styled";
-import { formatAmount } from "../../utils";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { formatAmount } from "../../utils";
 import { addItem } from "../../store/cartSlice";
 import ReviewModal from "../../Reusable/ReviewModal";
-import { successNotification } from "../../utils/notifications";
+import {
+  errorNotification,
+  successNotification,
+} from "../../utils/notifications";
+import {
+  useCreateReviewMutation,
+  useLazyGetReviewByUserAndProductQuery,
+} from "../../api/review";
+import { useRTKLocalUpdate } from "../../hooks/rtk-hooks";
+import { review as reviewApi } from "../../api/review";
 
 const useStyles = styled((theme) => ({
   card: {
@@ -20,9 +30,23 @@ const useStyles = styled((theme) => ({
   },
 }));
 
-const OrderItem = ({ item }) => {
+const review = {
+  background: "#fff",
+  color: "#000",
+  fontFamily: "Poppins",
+};
+
+const OrderItem = ({ item, userDetail }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const classes = useStyles();
+
+  const [getReviewByUserAndProduct, { data: resultQuery }, lastPromiseInfo] =
+    useLazyGetReviewByUserAndProductQuery();
+
+  const [createNewReview, {}] = useCreateReviewMutation();
+
+  // console.log("result: ", resultQuery);
 
   const handleBuyItAgain = () => {
     // console.log("handleBuyItAgain: ", item);
@@ -33,6 +57,72 @@ const OrderItem = ({ item }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [handleLocalRTKUpdate] = useRTKLocalUpdate();
+
+  const handleProductReview = async () => {
+    // check if any review is written from this user to this product, if yes, then route to that product and show the review
+    // else he can write a new review, after dispatched (D + 2 days)
+    // console.log(item, userDetail);
+    const conditions = [
+      { type: "where", field: "product_id", operator: "==", value: item.id },
+      {
+        type: "where",
+        field: "user_details.user_id",
+        operator: "==",
+        value: userDetail.user_id,
+      },
+    ];
+    const result = await getReviewByUserAndProduct({ conditions });
+    // console.log("result review: ", result.data);
+    const reviews = result.data;
+    if (reviews) {
+      if (reviews.length === 0) {
+        // write review after dispatched
+        handleOpen(); // show this write review button, only after dispatched
+      } else if (reviews.length > 0) {
+        // route to that product and show the review
+        alert("Already review given to this product, please edit if you need.");
+        navigate(`/product/${item.id}#review`);
+      }
+    } else {
+      errorNotification(result.error.message || "Network error");
+    }
+  };
+
+  const handleCreateNewReview = async ({ rating, review }) => {
+    const timestamp = new Date().getTime();
+
+    const { name, email, phone, user_id } = userDetail;
+
+    const result = await createNewReview({
+      created_timestamp: timestamp,
+      images: [], // later if required
+      product_id: item.id,
+      review,
+      rating,
+      updated_timestamp: timestamp,
+      user_details: {
+        name,
+        email,
+        phone,
+        user_id,
+      },
+    });
+
+    console.log("check: ", result);
+
+    if (result.data) {
+      successNotification("Review submitted!!!");
+      handleLocalRTKUpdate(reviewApi, "getReviewByUserAndProduct", [
+        result.data,
+      ]);
+      handleClose();
+    } else {
+      console.log("handleCreateNewReview: ", result.error);
+      errorNotification(result.error.message);
+    }
+  };
 
   return (
     <Grid container spacing={2}>
@@ -72,11 +162,21 @@ const OrderItem = ({ item }) => {
             {/* <button className="buy_again">Return or replace items</button> */}
 
             {/* <button className="gift_btn">Write product review </button> */}
-            <ReviewModal
-              open={open}
-              handleOpen={handleOpen}
-              handleClose={handleClose}
-            />
+            <Button onClick={handleProductReview} className="mb-3" sx={review}>
+              Write product review
+            </Button>
+
+            {open && (
+              <ReviewModal
+                title={`Write Review for ${item.name} (${
+                  item.color[0].toUpperCase() + item.color.substring(1)
+                })`}
+                open={open}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                handleCreateNewReview={handleCreateNewReview}
+              />
+            )}
 
             <button
               className="gift_btn"
