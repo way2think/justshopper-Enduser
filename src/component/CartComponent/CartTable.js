@@ -584,9 +584,9 @@ const CartTable = () => {
               <td className="text-right price">{subtotalPrice}</td>
             </tr>
             <tr className="total-row info">
-              <td className="text-right price" colspan="3">
+              {/* <td className="text-right price" colspan="3">
                 Delivery Price (Total Weight: {totalWeightInGrams} Grams)
-              </td>
+              </td> */}
               <td className="text-right price">
                 {shipping?.shipping_price || "NA"}
               </td>
