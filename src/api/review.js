@@ -16,13 +16,17 @@ export const review = api.injectEndpoints({
         return await getAllObjects(collectionId, conditions);
       },
     }),
+    getReviews: build.query({
+      queryFn: async ({ conditions }) => {
+        return await getAllObjects(collectionId, conditions);
+      },
+    }),
     createReview: build.mutation({
       queryFn: async (dataObject) => {
-        console.log("createAPi: ", dataObject);
-
+        // console.log("createAPi: ", dataObject);
         const updateObject = {
           no_of_reviews: increment(1),
-          ["rating." + numberToWord(dataObject.rating)]: increment(1),
+          ["rating." + dataObject.rating]: increment(1),
         };
 
         const promises = [
@@ -32,7 +36,7 @@ export const review = api.injectEndpoints({
 
         try {
           const result = await Promise.all(promises);
-          console.log("result: ", result);
+          // console.log("result: ", result);
           return {
             data: result[0].data,
             error: null,
@@ -50,5 +54,6 @@ export const review = api.injectEndpoints({
 
 export const {
   useLazyGetReviewByUserAndProductQuery,
+  useLazyGetReviewsQuery,
   useCreateReviewMutation,
 } = review;

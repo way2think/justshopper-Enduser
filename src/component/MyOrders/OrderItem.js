@@ -101,6 +101,7 @@ const OrderItem = ({ item, userDetail }) => {
       product_id: item.id,
       review,
       rating,
+      status: "pending",
       updated_timestamp: timestamp,
       user_details: {
         name,
@@ -110,7 +111,7 @@ const OrderItem = ({ item, userDetail }) => {
       },
     });
 
-    console.log("check: ", result);
+    // console.log("check: ", result);
 
     if (result.data) {
       successNotification("Review submitted!!!");
@@ -168,9 +169,10 @@ const OrderItem = ({ item, userDetail }) => {
 
             {open && (
               <ReviewModal
-                title={`Write Review for ${item.name} (${
-                  item.color[0].toUpperCase() + item.color.substring(1)
-                })`}
+                title={`Write Review for ${item.name} ${
+                  item.color &&
+                  `(${item.color[0].toUpperCase() + item.color.substring(1)})`
+                }`}
                 open={open}
                 handleOpen={handleOpen}
                 handleClose={handleClose}

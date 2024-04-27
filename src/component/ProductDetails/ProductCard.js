@@ -207,6 +207,7 @@ const ProductCard = ({ product }) => {
               <Box className={classes.colorsCircle}>
                 {product?.color_based_quantity?.map((item) => (
                   <span
+                    key={item._id + item.color_name}
                     style={{
                       width: "35px",
                       height: "35px",
