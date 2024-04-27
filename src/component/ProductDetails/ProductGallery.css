@@ -30,13 +30,34 @@ img {
 }
 .img-showcase .galleryimage {
   min-width: 100%;
-  max-height: 400px;
+  max-height: 450px;
   margin-bottom: 20px;
   border-radius: 5px;
 }
+
+.img-scroll {
+  overflow-x: auto; /* Hide the default scrollbar */
+  width: 100%; /* Set the width of the scrollable area */
+}
+
 .img-select {
   display: flex;
+  cursor: grab; /* Change cursor to grab when hovering over the images */
+  user-select: none; /* Disable text selection when dragging */
 }
+
+.img-item {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.img-item img {
+  width: 100%;
+  height: 100px;
+  display: block;
+  border-radius: 5px;
+}
+
 .img-item {
   margin: 0.3rem;
 }
@@ -202,7 +223,6 @@ img {
     border-radius: 5px;
   }
 }
-
 
 @media screen and (min-width: 992px) {
   .card {

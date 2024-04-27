@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProductGallery.css";
 
 const ProductGallery = ({ name, images }) => {
@@ -25,6 +25,38 @@ const ProductGallery = ({ name, images }) => {
   }
 
   window.addEventListener("resize", slideImage);
+
+  useEffect(() => {
+    const imgSelect = document.getElementById("img-select");
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+
+    imgSelect.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      imgSelect.style.cursor = "grabbing";
+      startX = e.pageX - imgSelect.offsetLeft;
+      scrollLeft = imgSelect.scrollLeft;
+    });
+
+    imgSelect.addEventListener("mouseleave", () => {
+      isDragging = false;
+      imgSelect.style.cursor = "grab";
+    });
+
+    imgSelect.addEventListener("mouseup", () => {
+      isDragging = false;
+      imgSelect.style.cursor = "grab";
+    });
+
+    imgSelect.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - imgSelect.offsetLeft;
+      const walk = (x - startX) * 3; // Adjust scrolling speed
+      imgSelect.scrollLeft = scrollLeft - walk;
+    });
+  }, [window]);
 
   return (
     <>
@@ -54,44 +86,50 @@ const ProductGallery = ({ name, images }) => {
                         className="galleryimage"
                         style={{
                           width: "100%",
+
                           display: "block",
                           borderRadius: "5px",
                         }}
                       />
                     ))}
               </div>
-              <div className="img-select">
-                {images.length > 0
-                  ? images.map((image, i) => (
-                      <div className="img-item">
-                        <a href="#" data-id={i + 1}>
-                          <img
-                            src={image}
-                            alt={image}
-                            style={{
-                              width: "100%",
-                              display: "block",
-                              borderRadius: "5px",
-                            }}
-                          />
-                        </a>
-                      </div>
-                    ))
-                  : Array.from(Array(5).keys()).map((_, i) => (
-                      <div className="img-item">
-                        <a href="#" data-id={i + 1}>
-                          <img
-                            src="../images/dummy-image.jpg"
-                            alt={name}
-                            style={{
-                              width: "100%",
-                              display: "block",
-                              borderRadius: "5px",
-                            }}
-                          />
-                        </a>
-                      </div>
-                    ))}
+              <div className="img-scroll-container">
+                <div className="img-scroll" id="img-scroll">
+                  <div className="img-select" id="img-select">
+                    {images.length > 0
+                      ? images.map((image, i) => (
+                          <div className="img-item">
+                            <a href="#" data-id={i + 1}>
+                              <img
+                                src={image}
+                                alt={image}
+                                style={{
+                                  width: "100%",
+                                  height: "100px",
+                                  display: "block",
+                                  borderRadius: "5px",
+                                }}
+                              />
+                            </a>
+                          </div>
+                        ))
+                      : Array.from(Array(5).keys()).map((_, i) => (
+                          <div className="img-item">
+                            <a href="#" data-id={i + 1}>
+                              <img
+                                src="../images/dummy-image.jpg"
+                                alt={name}
+                                style={{
+                                  width: "100%",
+                                  display: "block",
+                                  borderRadius: "5px",
+                                }}
+                              />
+                            </a>
+                          </div>
+                        ))}
+                  </div>
+                </div>
               </div>
               {/* <div className="img-select">
                 <div className="img-item">
