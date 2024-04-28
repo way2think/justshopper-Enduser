@@ -63,22 +63,22 @@ export default function Footer() {
                 Products
               </h6>
               <p className="linkcontent">
-                <a href="#!" className="text-reset">
+                <a href="/" className="text-reset">
                   Home
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="#!" className="text-reset">
+                <a href="/shop-by-category" className="text-reset">
                   Shop by Category
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="#!" className="text-reset">
+                <a href="/shop-by-theme" className="text-reset">
                   Shop by Theme
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="#!" className="text-reset">
+                <a href="/contact-us" className="text-reset">
                   Contact Us
                 </a>
               </p>
