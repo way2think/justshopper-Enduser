@@ -4,16 +4,18 @@ import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.min.css";
 import Router from "./Router";
 import BackDropWithLoader from "./component/Loader/BackDropWithLoader";
-import { selectIsLoading } from "./store/appSlice";
+import { selectIsLoadingWithMessage } from "./store/appSlice";
 
 function App() {
-  const isLoading = useSelector(selectIsLoading);
+  const { isLoading, isLoadingMessage } = useSelector(
+    selectIsLoadingWithMessage
+  );
 
   return (
     <div className="App">
       <Router />
       <ToastContainer />
-      {!isLoading ? <BackDropWithLoader /> : null}
+      {isLoading && <BackDropWithLoader message={isLoadingMessage} />}
     </div>
   );
 }

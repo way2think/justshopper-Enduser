@@ -9,6 +9,11 @@ import {
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../store/appSlice";
 import { scrollToTop } from "../../utils";
+import {
+  isValidEmail,
+  isValidName,
+  isValidPhoneNumber,
+} from "../../utils/validator";
 
 const ContactDetails = () => {
   const dispatch = useDispatch();
@@ -33,23 +38,34 @@ const ContactDetails = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(setIsLoading(true));
-    const result = await sendEnquiry(contactInfo);
-    console.log("result: ", result);
-    if (result.data) {
-      dispatch(setIsLoading(false));
-      successNotification(
-        "Enquiry Successfully sent, we will reach to you asap!!!"
-      );
-      setContactInfo({
-        name: "",
-        email: "",
-        phone: "",
-        description: "",
-      });
-      scrollToTop();
+
+    if (
+      isValidName(contactInfo.name) &&
+      isValidEmail(contactInfo.email) &&
+      isValidPhoneNumber(contactInfo.phone) &&
+      contactInfo.description !== ""
+    ) {
+      const result = await sendEnquiry(contactInfo);
+      // console.log("result: ", result);
+      if (result.data) {
+        dispatch(setIsLoading(false));
+        successNotification(
+          "Enquiry Successfully sent, we will reach to you asap!!!"
+        );
+        setContactInfo({
+          name: "",
+          email: "",
+          phone: "",
+          description: "",
+        });
+        scrollToTop();
+      } else {
+        dispatch(setIsLoading(false));
+        errorNotification("Enquiry failed, try after sometime!!!");
+      }
     } else {
       dispatch(setIsLoading(false));
-      errorNotification("Enquiry failed, try after sometime!!!");
+      errorNotification("Invalid details!!!");
     }
   };
 

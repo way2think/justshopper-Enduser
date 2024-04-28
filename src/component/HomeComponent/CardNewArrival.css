@@ -13,7 +13,7 @@
   /* margin: auto; */
   background-position: center;
   object-fit: cover;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .cardtitle {

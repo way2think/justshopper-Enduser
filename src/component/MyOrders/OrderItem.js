@@ -51,7 +51,8 @@ const OrderItem = ({ item, userDetail }) => {
   const handleBuyItAgain = () => {
     // console.log("handleBuyItAgain: ", item);
     dispatch(addItem(item));
-    successNotification(`${item.name} added to cart`);
+    navigate(`/cart`);
+    // successNotification(`${item.name} added to cart`);
   };
 
   const [open, setOpen] = React.useState(false);

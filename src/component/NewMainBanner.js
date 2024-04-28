@@ -14,7 +14,7 @@ import { Padding } from "@mui/icons-material";
 export default function NewMainBanner() {
   const { data } = useGetSettingsQuery();
   const homeBanner = data?.home_banner || [];
-  console.log("homeBanner: ", homeBanner);
+  // console.log("homeBanner: ", homeBanner);
 
   return (
     <>
@@ -28,8 +28,9 @@ export default function NewMainBanner() {
           <SwiperSlide>
             <img
               src={banner.images[0].url}
-              class="d-block w-100"
+              className="d-block w-100 banner-image"
               alt={banner.images[0].url}
+              // style={{ height: "150px" }}
             />
             <Button className="shopnow">Order Now</Button>
           </SwiperSlide>

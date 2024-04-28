@@ -136,7 +136,9 @@ export default function CardNewArrival({ product }) {
         "@media only screen and (min-width: 320px) and (max-width: 600px)": {
           maxWidth: 150,
         },
+        cursor: "pointer",
       }}
+      onClick={handleNavigateToProductDetail}
     >
       {/* <CardMedia
         component="img"
@@ -150,7 +152,7 @@ export default function CardNewArrival({ product }) {
         src={images[0] || "../images/dummy-image.jpg"}
         alt={name}
         className="cardimage"
-        onClick={handleNavigateToProductDetail}
+        // onClick={handleNavigateToProductDetail}
       />
       <div className="favImage">
         {isFavourite ? (
@@ -197,7 +199,7 @@ export default function CardNewArrival({ product }) {
           <CurrencyRupeeIcon fontSize="16px" /> {selling_price}
         </p>
       </CardContent>
-      <CardActions
+      {/* <CardActions
         sx={{
           p: "5px 10px",
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
@@ -228,7 +230,7 @@ export default function CardNewArrival({ product }) {
             </Button>
           </>
         )}
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

@@ -30,7 +30,9 @@ export default function Router() {
     }
     // }
 
-    setAuthChecked(true);
+    if (user) {
+      setAuthChecked(true);
+    }
   }, [dispatch, user]);
 
   // console.log("Route - user?.isAuthenticated: ", user?.isAuthenticated);

@@ -23,8 +23,6 @@ const ReviewAndRating = ({ product }) => {
   const [getReviews, { data, isFetching: reviewFetching }, lastPromise] =
     useLazyGetReviewsQuery();
 
-  console.log(isFetching, reviewFetching);
-
   useEffect(() => {
     const getReviewByUser = async () => {
       const condition1 = [

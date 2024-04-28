@@ -22,6 +22,7 @@ import {
   updateFavourites,
 } from "../../store/userSlice";
 import { errorNotification } from "../../utils/notifications";
+import { useNavigate } from "react-router-dom";
 // import DoneIcon from "@mui/icons-material/Done";
 
 const ProductCard = ({ product }) => {
@@ -77,6 +78,7 @@ const ProductCard = ({ product }) => {
   };
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cartItems } = useSelector(selectCartItems);
   const favourites = useSelector(selectFavourite);
   const userId = useSelector(selectUserId);
@@ -163,6 +165,11 @@ const ProductCard = ({ product }) => {
   const handleColorChange = (colorItem) => {
     setColor(colorItem.color_name);
     dispatch(changeColor({ cartItem: product, color: colorItem.color_name }));
+  };
+
+  const handleBuyNow = () => {
+    handleAddCartItem();
+    navigate(`/cart`);
   };
 
   return (
@@ -264,7 +271,9 @@ const ProductCard = ({ product }) => {
             </>
           )}
 
-          {/* <Button sx={buy}>Buy Now</Button> */}
+          <Button sx={buy} onClick={handleBuyNow}>
+            Buy Now
+          </Button>
         </Stack>
       </main>
     </>
