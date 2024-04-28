@@ -104,6 +104,7 @@ const Category = ({ type, productType }) => {
                 <FilterTheme />
               </Box>
             </Grid> */}
+
             <Filter type={type} productType={productType} />
             <Grid item xs={12} sm={12} md={9} lg={9}>
               <Stack
@@ -111,36 +112,17 @@ const Category = ({ type, productType }) => {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Grid container spacing={2} className="overallheading">
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <Box className="titleghead">
-                      <h4 className="productheading">
-                        {productType}{" "}
-                        {type[0].toUpperCase() + type.substring(1)}
-                      </h4>
-                      {/* <p className="titledesc">
+                <Box className="titleghead">
+                  <h4 className="productheading">
+                    {productType} {type[0].toUpperCase() + type.substring(1)}
+                  </h4>
+
+                  {/* <p className="titledesc">
                         Love is Letter on pick Stationery
                       </p> */}
-                    </Box>
-                  </Grid>
-                  {/* <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <Stack className="searchandfilter">
-                      <div className="search-container">
-                        <input
-                          type="text"
-                          placeholder="Search all orders"
-                          name="search"
-                          value={search}
-                          onChange={(e) => setSearch(e.target.value)}
-                        />
-                        <button type="button" onClick={searchHandler}>
-                          <i className="fa fa-search"></i>
-                        </button>
-                      </div>
-                      <SideNavFilter />
-                    </Stack>
-                  </Grid> */}
-                </Grid>
+                </Box>
+
+                <SideNavFilter />
               </Stack>
               {/* -- Product listing -- */}
               <CategoryCard products={data || []} />

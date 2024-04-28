@@ -75,8 +75,8 @@ export default function Router() {
         },
         {
           path: "orders",
-          // element: <AuthenticatedRoute element={<Order />} key="Profile" />,
-          element: <Order />,
+          element: <AuthenticatedRoute element={<Order />} key="Profile" />,
+          // element: <Order />,
         },
       ],
     },

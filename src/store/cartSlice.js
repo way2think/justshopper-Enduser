@@ -15,13 +15,18 @@ export const cartSlice = createSlice({
       const newItem = action.payload;
       const index = state.cartItems.findIndex((item) => item.id === newItem.id);
       if (index === -1 || state.cartItems.length === 0) {
-        console.log(";newItem: ", newItem);
+        // console.log(";newItem: ", newItem);
         const updatedNewItem = {
           ...newItem,
           cart_quantity: 1,
           // discount_price: newItem.discount_price || newItem.item_price, // from orders page
           cart_total_price: newItem.discount_price, // item_price - from orders page
         };
+
+        if (newItem.is_multi_color) {
+          updatedNewItem.color = newItem.color;
+        }
+
         state.totalQuantity += 1;
         // console.log("totalQuantity-ad:", state.totalQuantity);
         state.cartItems.push(updatedNewItem);
@@ -131,6 +136,19 @@ export const cartSlice = createSlice({
       }
       // console.log("cartItems--:", cartItems, state.totalQuantity);
     },
+    changeColor: (state, action) => {
+      const { cartItem, color } = action.payload;
+
+      const index = state.cartItems.findIndex(
+        (item) => item.id === cartItem.id
+      );
+
+      if (index !== -1) {
+        state.cartItems[index].color = color;
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
@@ -142,6 +160,7 @@ export const {
   setItemQty,
   removeItem,
   setCartItems,
+  changeColor,
 } = cartSlice.actions;
 
 export const selectCartItems = (state) => state.cart;

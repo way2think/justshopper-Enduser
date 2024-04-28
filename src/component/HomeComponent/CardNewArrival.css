@@ -56,6 +56,12 @@
 /* mobile */
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
+  .cardtitle {
+    font-size: 14px;
+  }
+  .cardamount {
+    font-size: 14px !important;
+  }
   .cardimage {
     height: 200px;
     width: 200px;
@@ -63,6 +69,9 @@
   }
   .cardtitle {
     font-size: 14px;
+  }
+  .cardamountstrickout {
+    font-size: 12px !important;
   }
 }
 

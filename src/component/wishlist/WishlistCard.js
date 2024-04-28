@@ -65,7 +65,14 @@ const WishlistCard = () => {
   // console.log("fav products: ", data);
 
   const handleAddToCart = (item) => {
-    dispatch(addItem(item));
+    item.is_multi_color
+      ? dispatch(
+          addItem({
+            ...item,
+            color: item.color_based_quantity[0].color_name,
+          })
+        )
+      : dispatch(addItem(item));
   };
 
   const handleRemoveFromFavourites = (item) => {

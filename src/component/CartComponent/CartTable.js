@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, memo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 // import DeleteIcon from "@mui/icons-material/Delete";
@@ -125,7 +125,7 @@ const CartTable = () => {
     return {
       subtotalPrice: subtotalPrice.toFixed(2),
       // totalPrice: totalPrice.toFixed(2),
-      totalWeightInGrams: totalWeightInGrams.toFixed(2),
+      totalWeightInGrams: totalWeightInGrams,
       totalQuantity,
       totalActualPrice: totalActualPrice.toFixed(2),
       totalSellingPrice: totalSellingPrice.toFixed(2),
@@ -133,6 +133,8 @@ const CartTable = () => {
       totalProfitPrice: totalProfitPrice.toFixed(2),
     };
   }, [cartItems]);
+
+  // console.log("subtotalPrice: ", subtotalPrice, totalDiscountPrice);
 
   const shipping = useMemo(() => {
     // const totalWeight = 1000;
@@ -236,8 +238,11 @@ const CartTable = () => {
   const handleCheckout = async () => {
     if (user.isAuthenticated) {
       if (checkout.canCheckout) {
-        if (totalPrice < 100) {
-          errorNotification("Total order amount should be greater than Rs.100");
+        console.log("subtotalPrice: ", subtotalPrice);
+        if (subtotalPrice < 100) {
+          errorNotification(
+            "Total product amount should be greater than Rs.100"
+          );
         } else {
           dispatch(setIsLoading(true));
           // console.log("cartItems: ", cartItems);
@@ -481,9 +486,14 @@ const CartTable = () => {
                   }}
                 >
                   <img
-                    src="../images/biscuit.jpg"
-                    alt=""
-                    style={{ maxWidth: "180px", borderRadius: 30 }}
+                    src={item.images[0] || "../images/dummy-image.jpg"}
+                    alt={item.name}
+                    style={{
+                      maxWidth: "180px",
+                      borderRadius: 30,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => navigate(`/product/${item.id}`)}
                   />
                   <div
                     style={{
@@ -494,7 +504,6 @@ const CartTable = () => {
                     }}
                   >
                     <p className="itemname">
-                      {" "}
                       <strong>{item.name}</strong>
                     </p>
                     <p className="itemdesc">Category: {item.category}</p>
@@ -695,4 +704,4 @@ const CartTable = () => {
   );
 };
 
-export default memo(CartTable);
+export default CartTable;
