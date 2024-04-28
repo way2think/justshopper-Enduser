@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Router />
       <ToastContainer />
-      {isLoading ? <BackDropWithLoader /> : null}
+      {!isLoading ? <BackDropWithLoader /> : null}
     </div>
   );
 }

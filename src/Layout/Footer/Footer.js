@@ -78,7 +78,7 @@ export default function Footer() {
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="/contact-us" className="text-reset">
+                <a href="/contact-us`" className="text-reset">
                   Contact Us
                 </a>
               </p>
@@ -94,12 +94,12 @@ export default function Footer() {
                 Useful links
               </h6>
               <p className="linkcontent">
-                <a href="#!" className="text-reset ">
+                <a href="/cart" className="text-reset ">
                   Cart
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="#!" className="text-reset">
+                <a href="/favorites" className="text-reset">
                   Wishlist
                 </a>
               </p>
@@ -159,12 +159,6 @@ export default function Footer() {
             justifyContent: "start",
             alignItems: "start",
           },
-          "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-            {
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            },
         }}
       >
         <Grid item lg={6}>

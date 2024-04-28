@@ -311,7 +311,7 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={6} pr={2}>
+              <Grid md={6} xs={12} sx={{ marginBottom: "9px" }}>
                 <CountrySelect
                   onChange={(e) => {
                     setCountryid(e.id);
@@ -349,7 +349,7 @@ export default function SignupModal({ open, setOpen }) {
                 /> */}
               </Grid>
 
-              <Grid md={6} xs={6}>
+              <Grid md={6} xs={12}>
                 {/* <TextField
                   id="outlined-multiline-static"
                   label="State"
@@ -388,7 +388,7 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={6} pr={2} mt={2}>
+              <Grid md={6} xs={12}  mt={2}>
                 {/* <TextField
                   id="outlined-multiline-static"
                   label="Pincode"
@@ -428,7 +428,7 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={6} mt={2}>
+              <Grid md={6} xs={12} mt={2}>
                 <TextField
                   id="outlined-multiline-static"
                   label="Pincode"
