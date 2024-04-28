@@ -9,9 +9,15 @@ export default function BackDropWithLoader({ message }) {
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open
     >
-      <CircularProgress color="inherit" />
+      <CircularProgress color="inherit" style={{ position: "absolute" }} />
+
       {message && (
-        <Typography>Your payment is loading, Please wait!!!</Typography>
+        <>
+          <Typography style={{ marginTop: "60px" }}>
+            Your payment is loading, Please wait!!!
+          </Typography>
+        </>
+
         // <Typography>{message}</Typography>
       )}
     </Backdrop>

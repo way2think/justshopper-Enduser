@@ -30,7 +30,7 @@ export default function NewMainBanner() {
               src={banner.images[0].url}
               className="d-block w-100 banner-image"
               alt={banner.images[0].url}
-              // style={{ height: "150px" }}
+              // style={{ height: "150px" }
             />
             <Button className="shopnow">Order Now</Button>
           </SwiperSlide>

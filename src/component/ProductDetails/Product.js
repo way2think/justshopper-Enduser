@@ -9,7 +9,7 @@ const Product = ({ product }) => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="my-4 container-fluid py-4"
+        className="mb-4 container-fluid pb-4"
         direction="row"
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
