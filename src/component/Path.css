@@ -30,7 +30,13 @@
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
   .mainpath {
-    padding: 20px;
+    padding: 10px;
+  }
+  .pathhome {
+    font-size: 14px;
+  }
+  .pathdetails {
+    font-size: 14px;
   }
   .mainpadding {
   }

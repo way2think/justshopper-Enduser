@@ -394,6 +394,9 @@ ul.tabs li.current {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+  .titlename {
+    font-size: 14px;
+  }
   .customer_details.orderList {
     padding: 0;
   }
@@ -410,17 +413,18 @@ ul.tabs li.current {
     position: relative;
   }
   .itemDetails h3 {
-    font-size: 16px;
-  }
-  .itemDetails p {
     font-size: 14px;
   }
+  .itemDetails p {
+    font-size: 12px;
+  }
   .orderplaced {
-    font-size: 16px;
+    font-size: 12px;
     color: #000;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-style: normal;
+    margin-bottom: 0px;
   }
   .orderTop {
     padding-bottom: 0 !important;
