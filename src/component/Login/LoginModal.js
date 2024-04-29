@@ -22,7 +22,10 @@ import {
   errorNotification,
   successNotification,
 } from "../../utils/notifications";
-import { useSignInWithEmailAndPasswordMutation } from "../../api/auth";
+import {
+  useSignInWithEmailAndPasswordMutation,
+  useSendPasswordResetEmailMutation,
+} from "../../api/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { setIsLoading } from "../../store/appSlice";
@@ -102,9 +105,12 @@ const signup = {
 export default function LoginModal({ open, setOpen }) {
   const dispatch = useDispatch();
 
+  const [resetPassword, setResetPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [signInWithEmailAndPassword, { isLoading, isError, data, error }] =
     useSignInWithEmailAndPasswordMutation();
+
+  const [sendPasswordResetEmail] = useSendPasswordResetEmailMutation();
 
   // console.log("result: ", isLoading, data, error);
 
@@ -155,28 +161,48 @@ export default function LoginModal({ open, setOpen }) {
   //for user verificationa nd login(submit)
 
   const handleLogin = async () => {
-    dispatch(setIsLoading(true));
-
-    console.log("userCred: ", userCred);
-    dispatch(setIsLoading(false));
-
-    const { email, password } = userCred;
-    if (isValidEmail(email) && isValidPassword(password)) {
-      const result = await signInWithEmailAndPassword({ email, password });
-      // console.log("result: ", result);
-      if (result.data) {
-        // getting user from db is handled in authListener
-        dispatch(setIsLoading(false));
-        successNotification(`Successfully Signed In!!!`);
-        closeModal();
+    if (resetPassword) {
+      if (isValidEmail(userCred.email)) {
+        const result = await sendPasswordResetEmail({ email: userCred.email });
+        // console.log("result: ", result);
+        if (result.data) {
+          // getting user from db is handled in authListener
+          dispatch(setIsLoading(false));
+          successNotification(`Password Reset Mail sent !!!`);
+          closeModal();
+          setResetPassword(false);
+        } else {
+          // console.log("error: ", result);
+          dispatch(setIsLoading(false));
+          errorNotification(result?.error?.message);
+        }
       } else {
-        // console.log("error: ", result);
+        errorNotification("Invalid Email");
         dispatch(setIsLoading(false));
-        errorNotification(result?.error?.message);
       }
     } else {
-      errorNotification("Invalid Email/Password");
+      dispatch(setIsLoading(true));
+
+      console.log("userCred: ", userCred);
       dispatch(setIsLoading(false));
+      const { email, password } = userCred;
+      if (isValidEmail(email) && isValidPassword(password)) {
+        const result = await signInWithEmailAndPassword({ email, password });
+        // console.log("result: ", result);
+        if (result.data) {
+          // getting user from db is handled in authListener
+          dispatch(setIsLoading(false));
+          successNotification(`Successfully Signed In!!!`);
+          closeModal();
+        } else {
+          // console.log("error: ", result);
+          dispatch(setIsLoading(false));
+          errorNotification(result?.error?.message);
+        }
+      } else {
+        errorNotification("Invalid Email/Password");
+        dispatch(setIsLoading(false));
+      }
     }
   };
 
@@ -240,7 +266,7 @@ export default function LoginModal({ open, setOpen }) {
                   fontFamily: "amazonbold",
                 }}
               >
-                Login
+                {resetPassword ? "Reset Password" : "Login"}
               </Typography>
               <Grid container>
                 <Grid item md={12} xs={12}>
@@ -256,33 +282,42 @@ export default function LoginModal({ open, setOpen }) {
                     onChange={handleInputChange}
                   />
                 </Grid>
-                <Grid item md={12} xs={12}>
-                  <FormControl sx={{ mb: 2, width: "100%" }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      Password
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      value={userCred.password}
-                      onChange={handleInputChange}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Password"
-                    />
-                  </FormControl>
-                </Grid>
+                {!resetPassword && (
+                  <Grid item md={12} xs={12}>
+                    <FormControl
+                      sx={{ mb: 2, width: "100%" }}
+                      variant="outlined"
+                    >
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        value={userCred.password}
+                        onChange={handleInputChange}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Password"
+                      />
+                    </FormControl>
+                  </Grid>
+                )}
               </Grid>
               <Stack
                 direction="row"
@@ -291,16 +326,20 @@ export default function LoginModal({ open, setOpen }) {
                 sx={{ mb: 2 }}
               >
                 {/* <Checkbox name="remember" label="Remember me" /> */}
-                <Link
+                <Typography
+                  id="modal-modal-title"
                   variant="subtitle2"
                   underline="hover"
                   sx={{ color: "#9F3239" }}
+                  onClick={() => {
+                    setResetPassword(!resetPassword);
+                  }}
                 >
-                  Forgot password?
-                </Link>
+                  {resetPassword ? "Login" : "Forgot password?"}
+                </Typography>
               </Stack>
               <Button sx={loginbtn} onClick={handleLogin} type="button">
-                Login
+                {resetPassword ? "Reset Password" : "Login"}
               </Button>
 
               <Button onClick={() => handleOpen(true, "signup")} sx={signup}>
