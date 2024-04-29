@@ -5,7 +5,6 @@ import {
   updateObjectByParam,
 } from "../services/firestore-http";
 import { api } from "./api";
-import { numberToWord } from "../utils";
 
 const collectionId = "reviews";
 
@@ -49,6 +48,57 @@ export const review = api.injectEndpoints({
         }
       },
     }),
+    updateReview: build.mutation({
+      queryFn: async ({ dataObject }) => {
+        const { old: oldReview, new: newReview } = dataObject;
+
+        console.log("updateReview: ", oldReview, newReview);
+
+        const updatedReviewObject = {
+          rating: newReview.rating,
+          review: newReview.review,
+        };
+
+        const updatedProductObject = {
+          ["rating." + oldReview.rating]: increment(-1),
+          ["rating." + newReview.rating]: increment(1),
+        };
+
+        const promises = [
+          updateObjectByParam(collectionId, oldReview.id, updatedReviewObject),
+        ];
+
+        if (newReview.rating !== oldReview.rating) {
+          promises.push(
+            updateObjectByParam(
+              "product",
+              oldReview.product_id,
+              updatedProductObject
+            )
+          );
+        }
+
+        try {
+          const result = await Promise.all(promises);
+          // console.log("result: ", result[0].data);
+          return {
+            data: {
+              ...oldReview,
+              ...result[0].data,
+            },
+            error: null,
+          };
+        } catch (e) {
+          return {
+            data: null,
+            error: {
+              data: e,
+              message: "Network error",
+            },
+          };
+        }
+      },
+    }),
   }),
 });
 
@@ -56,4 +106,5 @@ export const {
   useLazyGetReviewByUserAndProductQuery,
   useLazyGetReviewsQuery,
   useCreateReviewMutation,
+  useUpdateReviewMutation,
 } = review;

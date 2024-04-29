@@ -8,14 +8,117 @@ import { Divider } from "@mui/material";
 import ReviewAndRating from "../../component/ProductDetails/ReviewAndRating";
 import { useLocation, useParams } from "react-router-dom";
 import { useLazyGetProductByIdQuery } from "../../api/product";
+import ReviewModal from "../../Reusable/ReviewModal";
+import {
+  errorNotification,
+  successNotification,
+} from "../../utils/notifications";
+import {
+  useLazyGetReviewByUserAndProductQuery,
+  useLazyGetReviewsQuery,
+  useUpdateReviewMutation,
+} from "../../api/review";
+import { useRTKLocalUpdate } from "../../hooks/rtk-hooks";
+import { review as reviewApi } from "../../api/review";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/userSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const [product, setProduct] = useState(null);
+  const [reviewModal, setReviewModal] = useState({
+    isOpen: false,
+    review: null,
+  });
+
+  const [handleLocalRTKUpdate] = useRTKLocalUpdate();
 
   const [getProductById, result, lastPromiseInfo] =
     useLazyGetProductByIdQuery();
+
+  const [updateReview, {}] = useUpdateReviewMutation();
+
+  const [
+    getReviewByUserAndProduct,
+    { data: resultQuery, isFetching },
+    lastPromiseInfo1,
+  ] = useLazyGetReviewByUserAndProductQuery();
+
+  const [getReviews, { data, isFetching: reviewFetching }, lastPromise] =
+    useLazyGetReviewsQuery();
+
+  // console.log("resultQuery: ", resultQuery, isFetching);
+
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    const getReviewByUser = async () => {
+      const condition1 = [
+        {
+          type: "where",
+          field: "product_id",
+          operator: "==",
+          value: product?.id,
+        },
+        {
+          type: "where",
+          field: "user_details.user_id",
+          operator: "==",
+          value: user?.id,
+        },
+      ];
+
+      const condition2 = [
+        {
+          type: "where",
+          field: "product_id",
+          operator: "==",
+          value: product?.id,
+        },
+        {
+          type: "where",
+          field: "user_details.user_id",
+          operator: "!=",
+          value: user?.id,
+        },
+        {
+          type: "where",
+          field: "status",
+          operator: "==",
+          value: "approved", // pending, approved, rejected
+        },
+        { type: "orderBy", field: "created_timestamp", order: "desc" },
+        { type: "limit", value: 5 },
+      ];
+
+      const promises = [
+        getReviewByUserAndProduct(
+          {
+            conditions: condition1,
+          },
+          true
+        ),
+        getReviews(
+          {
+            conditions: condition2,
+          },
+          true
+        ),
+        // true is preferCacheValue
+      ];
+
+      try {
+        await Promise.all(promises);
+        // console.log("result: ", result);
+      } catch (e) {
+        console.log("err-reviewandrating: ", e);
+        errorNotification("Network Error");
+      }
+    };
+
+    product && user && getReviewByUser();
+  }, [getReviewByUserAndProduct, getReviews, product, user]);
 
   // tried lot, to get in query, state may be null sometime and it can't be handled in api, so created a lazy query and called it.
   useEffect(() => {
@@ -30,6 +133,48 @@ const ProductDetails = () => {
 
     checkProduct();
   }, [getProductById, id, state]);
+
+  const handleUpdateReview = async ({ rating, review }) => {
+    console.log("handleUpdateReview: ", reviewModal.review, rating, review);
+    // // same rating & review don't update
+    if (
+      reviewModal.review.rating === rating &&
+      reviewModal.review.review === review
+    ) {
+      errorNotification(`No changes to update!!!`);
+    } else {
+      // update rating, review
+      // if rating is different, then decrement the old, increment the new
+      // update review in reviews collection
+      const result = await updateReview({
+        dataObject: {
+          old: {
+            ...reviewModal.review,
+          },
+          new: {
+            rating,
+            review,
+          },
+        },
+      });
+      // console.log("result: ", result.data);
+      if (result.data) {
+        successNotification(`Review Updated, Will be published asap!!!`);
+
+        handleLocalRTKUpdate(reviewApi, "getReviewByUserAndProduct", [
+          // ...result.data,
+          { ...reviewModal.review, review, rating },
+        ]);
+
+        setReviewModal({
+          isOpen: false,
+          review: null,
+        });
+      } else {
+        errorNotification(`${result.error.message}`);
+      }
+    }
+  };
 
   return (
     <>
@@ -52,7 +197,25 @@ const ProductDetails = () => {
           borderBottomWidth: "2px",
         }}
       />
-      <ReviewAndRating product={product} />
+      <ReviewAndRating
+        product={product}
+        setOpen={setReviewModal}
+        resultQuery={resultQuery}
+        data={data}
+        user={user}
+      />
+      <ReviewModal
+        title={`Edit Review for ${product?.name}`}
+        open={reviewModal.isOpen}
+        review={reviewModal.review}
+        handleClose={() =>
+          setReviewModal({
+            isOpen: false,
+            review: null,
+          })
+        }
+        handleUpdateReview={handleUpdateReview}
+      />
       {/* <Divider
         sx={{
           borderBottomColor: "#000",

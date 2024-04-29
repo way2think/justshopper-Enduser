@@ -131,8 +131,12 @@ const WishlistCard = () => {
                     alignItems="center"
                   >
                     <img
-                      src={item.images[0] || "../images/dummy-image.jpg"}
-                      alt={item.name}
+                      src={
+                        item?.images && item?.images.length > 0
+                          ? item?.images[0]
+                          : "../images/dummy-image.jpg"
+                      }
+                      alt={item?.name}
                       className="product-img"
                     />
                     <Box

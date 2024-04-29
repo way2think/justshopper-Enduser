@@ -9,6 +9,7 @@ const useRTKLocalUpdate = () => {
       apiObjectRef.util.updateQueryData(endpoint, undefined, (draft) => {
         if (field) {
           draft[field] = args;
+          // write for multi fields
         } else {
           Object.assign(draft, args);
         }

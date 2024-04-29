@@ -1,98 +1,16 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Box, Grid, Stack, Typography, Rating } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import classes from "../ProductDetails/ReviewAndRating.module.css";
 import ReviewStars from "./ReviewStars";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../store/userSlice";
-import {
-  useLazyGetReviewByUserAndProductQuery,
-  useLazyGetReviewsQuery,
-} from "../../api/review";
-import { errorNotification } from "../../utils/notifications";
 
-const ReviewAndRating = ({ product }) => {
-  const user = useSelector(selectUser);
-
-  const [
-    getReviewByUserAndProduct,
-    { data: resultQuery, isFetching },
-    lastPromiseInfo,
-  ] = useLazyGetReviewByUserAndProductQuery();
-
-  const [getReviews, { data, isFetching: reviewFetching }, lastPromise] =
-    useLazyGetReviewsQuery();
-
-  useEffect(() => {
-    const getReviewByUser = async () => {
-      const condition1 = [
-        {
-          type: "where",
-          field: "product_id",
-          operator: "==",
-          value: product?.id,
-        },
-        {
-          type: "where",
-          field: "user_details.user_id",
-          operator: "==",
-          value: user?.id,
-        },
-      ];
-
-      const condition2 = [
-        {
-          type: "where",
-          field: "product_id",
-          operator: "==",
-          value: product?.id,
-        },
-        {
-          type: "where",
-          field: "user_details.user_id",
-          operator: "!=",
-          value: user?.id,
-        },
-        {
-          type: "where",
-          field: "status",
-          operator: "==",
-          value: "approved", // pending, approved, rejected
-        },
-        { type: "orderBy", field: "created_timestamp", order: "desc" },
-        { type: "limit", value: 5 },
-      ];
-
-      const promises = [
-        getReviewByUserAndProduct(
-          {
-            conditions: condition1,
-          },
-          true
-        ),
-        getReviews(
-          {
-            conditions: condition2,
-          },
-          true
-        ),
-        // true is preferCacheValue
-      ];
-
-      try {
-        await Promise.all(promises);
-        // console.log("result: ", result);
-      } catch (e) {
-        console.log("err-reviewandrating: ", e);
-        errorNotification("Network Error");
-      }
-    };
-
-    product && user && getReviewByUser();
-  }, [getReviewByUserAndProduct, getReviews, product, user]);
-
+const ReviewAndRating = ({ product, setOpen, resultQuery, data, user }) => {
   const handleEditReview = (review) => {
-    console.log("review: ", review);
+    // console.log("review: ", review);
+    setOpen({
+      isOpen: true,
+      review,
+    });
   };
 
   return (

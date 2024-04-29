@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Stack, TextField } from "@mui/material";
 import StarRating from "./StarRating";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const style = {
   position: "absolute",
@@ -42,11 +42,21 @@ const cancel = {
 export default function ReviewModal({
   title,
   open,
+  review: existingReview,
   handleClose,
   handleCreateNewReview,
+  handleUpdateReview,
 }) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+
+  useEffect(() => {
+    console.log("existingReview: ", existingReview);
+    if (existingReview) {
+      setRating(existingReview.rating);
+      setReview(existingReview.review);
+    }
+  }, [existingReview]);
 
   return (
     <div>
@@ -86,16 +96,33 @@ export default function ReviewModal({
             alignItems="center"
             className="mt-4"
           >
-            <Button
-              variant="contained"
-              sx={save}
-              onClick={() => handleCreateNewReview({ rating, review })}
-            >
-              Save
-            </Button>
-            <Button variant="outlined" sx={cancel} onClick={handleClose}>
-              Cancel
-            </Button>
+            {existingReview ? (
+              <>
+                <Button
+                  variant="contained"
+                  sx={save}
+                  onClick={() => handleUpdateReview({ rating, review })}
+                >
+                  Update Review
+                </Button>
+                <Button variant="outlined" sx={cancel} onClick={handleClose}>
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="contained"
+                  sx={save}
+                  onClick={() => handleCreateNewReview({ rating, review })}
+                >
+                  Save
+                </Button>
+                <Button variant="outlined" sx={cancel} onClick={handleClose}>
+                  Cancel
+                </Button>
+              </>
+            )}
           </Stack>
         </Box>
       </Modal>
