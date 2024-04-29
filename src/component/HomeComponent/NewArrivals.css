@@ -41,6 +41,7 @@
   .arrivals {
     font-size: 22px;
     margin: 0;
+    margin-bottom: 6px !important;
   }
   .view {
     padding: 5px;

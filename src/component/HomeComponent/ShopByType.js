@@ -19,7 +19,7 @@ const ShopByType = ({ type, title, subTitle, dataList }) => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="my-4 container"
+        className="mt-3 container"
         direction="row"
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>

@@ -31,10 +31,10 @@
   font-style: normal;
 }
 
-@media only screen and (min-width: 320px) and (max-width: 600px) {
+@media only screen and (min-width: 320px) and (max-width: 767px) {
   .mainworkdetail {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: -30px;
+    margin-bottom: 0px;
   }
   .iconwork {
     width: 50px;

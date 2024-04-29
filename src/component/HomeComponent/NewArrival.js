@@ -23,7 +23,7 @@ const NewArrival = () => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="mt-5 container"
+        className="mt-4 container"
         direction="row"
       >
         <h3 className="arrivals">New Arrivals</h3>
