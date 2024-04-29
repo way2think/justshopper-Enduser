@@ -12,7 +12,7 @@ import {
 } from "../services/firestore-http";
 import { api } from "./api";
 import { auth as firebaseAuth } from "../config/firebase";
-import { setAuthUser, setUser, setUserLogout } from "../store/userSlice";
+import { setUser, setUserLogout } from "../store/userSlice";
 
 const collectionId = "user";
 
@@ -38,9 +38,17 @@ export const auth = api.injectEndpoints({
         const user = result.data;
         if (user) {
           // return await getObjectByParam(collectionId, user.uid);
-          return user;
+          return {
+            data: "success",
+            error: null,
+          };
         } else {
-          return result;
+          return {
+            data: "failed",
+            error: {
+              message: result.error.message,
+            },
+          };
         }
       },
     }),
@@ -94,6 +102,7 @@ export const auth = api.injectEndpoints({
               }
             } else {
               console.log("User logged out or not yet logged in");
+              updateCachedData((draft) => "unauthenticated");
             }
           });
         } catch (error) {

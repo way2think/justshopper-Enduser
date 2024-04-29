@@ -22,6 +22,7 @@ import {
   updateFavourites,
 } from "../../store/userSlice";
 import { errorNotification } from "../../utils/notifications";
+import { useNavigate } from "react-router-dom";
 // import DoneIcon from "@mui/icons-material/Done";
 
 const ProductCard = ({ product }) => {
@@ -51,6 +52,10 @@ const ProductCard = ({ product }) => {
     "& path": {
       fill: "#dc3237",
     },
+    "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      width: "30px",
+      height: "30px",
+    },
   };
   const addtocart = {
     border: "1px solid #dc3237",
@@ -73,6 +78,7 @@ const ProductCard = ({ product }) => {
   };
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cartItems } = useSelector(selectCartItems);
   const favourites = useSelector(selectFavourite);
   const userId = useSelector(selectUserId);
@@ -161,6 +167,11 @@ const ProductCard = ({ product }) => {
     dispatch(changeColor({ cartItem: product, color: colorItem.color_name }));
   };
 
+  const handleBuyNow = () => {
+    handleAddCartItem();
+    navigate(`/cart`);
+  };
+
   return (
     <>
       <main>
@@ -203,6 +214,7 @@ const ProductCard = ({ product }) => {
               <Box className={classes.colorsCircle}>
                 {product?.color_based_quantity?.map((item) => (
                   <span
+                    key={item._id + item.color_name}
                     style={{
                       width: "35px",
                       height: "35px",
@@ -259,7 +271,9 @@ const ProductCard = ({ product }) => {
             </>
           )}
 
-          {/* <Button sx={buy}>Buy Now</Button> */}
+          <Button sx={buy} onClick={handleBuyNow}>
+            Buy Now
+          </Button>
         </Stack>
       </main>
     </>

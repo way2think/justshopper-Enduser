@@ -29,6 +29,8 @@ import {
 } from "../../store/userSlice";
 import { useUpdateFavouritesMutation } from "../../api/user";
 import { errorNotification } from "../../utils/notifications";
+import ColorPicker from "../../Reusable/ColorPicker";
+import Color from "../../Reusable/ColorPicker";
 
 export default function CardNewArrival({ product }) {
   const cart = {
@@ -45,10 +47,10 @@ export default function CardNewArrival({ product }) {
       padding: "5px 10px",
     },
 
-    "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-      {
-        fontSize: "12px",
-      },
+    "@media only screen and (min-width: 320px) and (max-width: 600px)": {
+      fontSize: "10px",
+      padding: "5px",
+    },
   };
 
   // console.log("product: ", product);
@@ -134,7 +136,9 @@ export default function CardNewArrival({ product }) {
         "@media only screen and (min-width: 320px) and (max-width: 600px)": {
           maxWidth: 150,
         },
+        cursor: "pointer",
       }}
+      onClick={handleNavigateToProductDetail}
     >
       {/* <CardMedia
         component="img"
@@ -148,7 +152,7 @@ export default function CardNewArrival({ product }) {
         src={images[0] || "../images/dummy-image.jpg"}
         alt={name}
         className="cardimage"
-        onClick={handleNavigateToProductDetail}
+        // onClick={handleNavigateToProductDetail}
       />
       <div className="favImage">
         {isFavourite ? (
@@ -181,19 +185,21 @@ export default function CardNewArrival({ product }) {
         <p className="cardtitle">{name}</p>
         <Stack
           direction="row"
-          justifyContent="flex-start"
-          alignItems="start"
-        ></Stack>
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <p className="cardamount">
+            <CurrencyRupeeIcon fontSize="18px" />
+            {discount_price}
+          </p>
+          <Color />
+        </Stack>
 
-        <p className="cardamount">
-          <CurrencyRupeeIcon fontSize="18px" />
-          {discount_price}
-        </p>
         <p className="cardamountstrickout">
           <CurrencyRupeeIcon fontSize="16px" /> {selling_price}
         </p>
       </CardContent>
-      <CardActions
+      {/* <CardActions
         sx={{
           p: "5px 10px",
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
@@ -224,7 +230,7 @@ export default function CardNewArrival({ product }) {
             </Button>
           </>
         )}
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

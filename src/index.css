@@ -80,3 +80,8 @@ body {
 .css-dqr9h-MuiRating-label {
   top: 2px;
 }
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}

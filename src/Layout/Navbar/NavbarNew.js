@@ -4,8 +4,9 @@ import LoginModal from "../../component/Login/LoginModal";
 import SignupModal from "../../component/Signup/SignupModal";
 import { Badge, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { selectCartSize } from "../../store/cartSlice";
 import { useSelector } from "react-redux";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { selectCartSize } from "../../store/cartSlice";
 import {
   selectFavouriteSize,
   selectIsAuthenticated,
@@ -261,15 +262,16 @@ const NavbarNew = () => {
                 <MDBDropdown>
                   <MDBDropdownToggle
                     tag="a"
-                    className="nav-link p-0 mx-2"
+                    className="nav-link p-0 mx-0"
                     role="button"
                   >
-                    <img
-                      src="../images/man.png"
-                      alt=""
-                      width={25}
-                      height={25}
-                    />
+                    {/* <img
+                        src="../images/man.png"
+                        alt=""
+                        width={25}
+                        height={25}
+                      /> */}
+                    <AccountCircleIcon sx={{ width: 30, height: 30 }} />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu style={{ padding: "10px 10px" }}>
                     <Link to={"/profile"}>

@@ -202,18 +202,12 @@ const OrderList = () => {
                     <span className="customerName">
                       {order.user_details.name}
                     </span>
-                    {/* <span className="cstmrInfo">
-                      <strong>Raji</strong>
-                    </span> */}
                   </p>
                 </div>
                 <div className="orderHead col-12 col-md-3 col-lg-3">
                   <div className="invoiceDetails">
                     <p className="orderplaced">
                       ID: {order.id}
-                      {/* <span>
-                        <a href="#">Order Details</a>
-                      </span>{" "} */}
                       <span className="showInvoice">
                         <Button
                           variant="text"
@@ -221,35 +215,15 @@ const OrderList = () => {
                           sx={{ color: "#dc3227" }}
                         >
                           Download Invoice
-                          {/* <i
-                            className="fa fa-chevron-down"
-                            aria-hidden="true"
-                          ></i> */}
                         </Button>
                       </span>
                     </p>
-                    {/* <div className="invioceModel">
-                      <ul>
-                        <li>
-                          <a href="#">Invoice 1</a>
-                        </li>
-                        <li>
-                          <a href="#">Invoice 1</a>
-                        </li>
-                        <li>
-                          <a href="#">Invoice 1</a>
-                        </li>
-                      </ul>
-                      <span className="modelClose">
-                        <i className="fa fa-times" aria-hidden="true"></i>
-                      </span>
-                    </div> */}
                   </div>
                 </div>
 
                 <div className="itemDetails">
                   {order.ordered_items.map((item) => (
-                    <OrderItem item={item} />
+                    <OrderItem item={item} userDetail={order?.user_details} />
                   ))}
 
                   <hr />

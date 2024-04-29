@@ -1,10 +1,10 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Divider, Stack, TextField } from "@mui/material";
-import Start from "./Start";
+import { Stack, TextField } from "@mui/material";
+import StarRating from "./StarRating";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -20,37 +20,36 @@ const style = {
     width: "350px",
   },
 };
-
-export default function ReviewModal({ open, handleOpen, handleClose }) {
-  const review = {
-    background: "#fff",
-    color: "#000",
-    fontFamily: "Poppins",
-  };
-  const save = {
+const save = {
+  background: "#dc3237",
+  color: "#fff",
+  fontFamily: "Poppins",
+  "&:hover": {
     background: "#dc3237",
     color: "#fff",
-    fontFamily: "Poppins",
-    "&:hover": {
-      background: "#dc3237",
-      color: "#fff",
-    },
-  };
-  const cancel = {
+  },
+};
+const cancel = {
+  border: "1px solid #dc3237",
+  color: "#dc3237",
+  fontFamily: "Poppins",
+  "&:hover": {
     border: "1px solid #dc3237",
     color: "#dc3237",
-    fontFamily: "Poppins",
-    "&:hover": {
-      border: "1px solid #dc3237",
-      color: "#dc3237",
-    },
-  };
+  },
+};
+
+export default function ReviewModal({
+  title,
+  open,
+  handleClose,
+  handleCreateNewReview,
+}) {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
 
   return (
     <div>
-      <Button onClick={handleOpen} className="mb-3" sx={review}>
-        Write product review
-      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -68,17 +67,17 @@ export default function ReviewModal({ open, handleOpen, handleClose }) {
             variant="h5"
             component="h2"
           >
-            Review
+            {title}
           </Typography>
           <hr />
-          <br />
-          <Start />
+          <StarRating rating={rating} setRating={setRating} />
           <TextField
             multiline
             rows={3}
-            // maxRows={8}
             label="Description*"
             fullWidth
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
           />
           <Stack
             spacing={2}
@@ -87,10 +86,14 @@ export default function ReviewModal({ open, handleOpen, handleClose }) {
             alignItems="center"
             className="mt-4"
           >
-            <Button variant="contained" sx={save}>
+            <Button
+              variant="contained"
+              sx={save}
+              onClick={() => handleCreateNewReview({ rating, review })}
+            >
               Save
             </Button>
-            <Button variant="outlined" sx={cancel}>
+            <Button variant="outlined" sx={cancel} onClick={handleClose}>
               Cancel
             </Button>
           </Stack>

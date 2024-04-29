@@ -9,12 +9,12 @@ const Product = ({ product }) => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="my-4 container-fluid py-4"
+        className="mb-4 container-fluid pb-4"
         direction="row"
       >
         <Box sx={{ flexGrow: 1, position: "relative" }}>
           <Grid container spacing={2}>
-            <Grid item sm={6} xs={12} md={6} lg={6}>
+            <Grid item sm={6} xs={12} md={5} lg={5}>
               <ProductGallery
                 name={product.name}
                 images={product.images || []}
@@ -24,9 +24,15 @@ const Product = ({ product }) => {
               item
               sm={6}
               xs={12}
-              md={6}
-              lg={6}
-              sx={{ paddingRight: "30px" }}
+              md={7}
+              lg={7}
+              sx={{
+                paddingRight: "30px",
+                "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                  {
+                    paddingRight: "0px",
+                  },
+              }}
             >
               <ProductCard product={product} />
             </Grid>

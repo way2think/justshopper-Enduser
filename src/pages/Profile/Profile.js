@@ -35,6 +35,9 @@ const style = {
   // border: "2px solid #000",
   boxShadow: "0 2px 7px #000",
   p: 4,
+  "@media(max-width:768px)": {
+    width: 400,
+  },
 };
 
 const add = {
@@ -387,7 +390,10 @@ export default function Profile() {
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs example"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+            allowScrollButtonsMobile
             //   textColor="secondary"
             //   indicatorColor="secondary"
             TabIndicatorProps={{

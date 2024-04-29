@@ -17,13 +17,13 @@ const ProductDetails = () => {
   const [getProductById, result, lastPromiseInfo] =
     useLazyGetProductByIdQuery();
 
+  // tried lot, to get in query, state may be null sometime and it can't be handled in api, so created a lazy query and called it.
   useEffect(() => {
     const checkProduct = async () => {
       if (state) {
         setProduct(state);
       } else {
-        const result = await getProductById(id);
-        console.log("res: ", result.data);
+        const result = await getProductById(id, true); // true is preferCacheValue
         setProduct(result.data);
       }
     };
@@ -52,7 +52,7 @@ const ProductDetails = () => {
           borderBottomWidth: "2px",
         }}
       />
-      <ReviewAndRating />
+      <ReviewAndRating product={product} />
       {/* <Divider
         sx={{
           borderBottomColor: "#000",

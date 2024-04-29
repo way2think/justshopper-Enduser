@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
+  isLoadingMessage: "",
 };
 
 export const appSlice = createSlice({
@@ -19,12 +20,17 @@ export const appSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    setIsLoadingWithMessage: (state, action) => {
+      const obj = action.payload;
+      state.isLoading = obj.isLoading;
+      state.isLoadingMessage = obj.isLoadingMessage;
+    },
   },
 });
 
-export const { setIsLoading } = appSlice.actions;
+export const { setIsLoading, setIsLoadingWithMessage } = appSlice.actions;
 
 // export const selectTable = (state) => state.app;
-export const selectIsLoading = (state) => state.app.isLoading;
+export const selectIsLoadingWithMessage = (state) => state.app;
 
 export default appSlice.reducer;

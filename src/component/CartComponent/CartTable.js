@@ -16,7 +16,7 @@ import {
 import { displayRazorpay } from "../../services/razorpay-http";
 import { selectUser } from "../../store/userSlice";
 import { useCreateOrderMutation } from "../../api/order";
-import { setIsLoading } from "../../store/appSlice";
+import { setIsLoading, setIsLoadingWithMessage } from "../../store/appSlice";
 import {
   errorNotification,
   successNotification,
@@ -89,6 +89,8 @@ const CartTable = () => {
       setOneDayDelivery(false);
     }
   }, [user.selected_address.state]);
+
+  // console.log("cartItems: ", cartItems);
 
   const {
     subtotalPrice,
@@ -238,14 +240,24 @@ const CartTable = () => {
   const handleCheckout = async () => {
     if (user.isAuthenticated) {
       if (checkout.canCheckout) {
+        console.log("subtotalPrice: ", subtotalPrice);
         if (subtotalPrice < 100) {
-          errorNotification("Total order amount should be greater than Rs.100");
+          errorNotification(
+            "Minimum order value must be Rs. 100, Please add more products."
+          );
         } else {
-          dispatch(setIsLoading(true));
+          // dispatch(setIsLoading(true));
+          dispatch(
+            setIsLoadingWithMessage({
+              isLoading: true,
+              isLoadingMessage: "Your payment is loading, Please wait!!!",
+            })
+          );
           // console.log("cartItems: ", cartItems);
           // 1. check whether the items in cart is available, if yes, proceed payment, in webhook, decrement the total_quantity
           const result = await getMultiProductByIds(cartItems);
           if (result.data) {
+            let proceedPayment = true;
             // console.log("result: ", result.data);
 
             const products = result.data;
@@ -278,6 +290,8 @@ const CartTable = () => {
                   const updatedCartItem = {
                     ...currentCartItems[cartItemIndex],
                     cart_quantity: product.total_quantity,
+                    cart_total_price:
+                      product.total_quantity * product.discount_price,
                   };
 
                   const updatedCartItems = [
@@ -288,14 +302,15 @@ const CartTable = () => {
 
                   dispatch(setCartItems(updatedCartItems));
                   dispatch(setIsLoading(false));
+                  proceedPayment = false;
                   return;
                 }
               }
             });
 
-            // console.log("outOfStock: ", outOfStock);
+            console.log("outOfStock: ", outOfStock, proceedPayment);
 
-            if (outOfStock > 0) {
+            if (outOfStock > 0 || !proceedPayment) {
               dispatch(setIsLoading(false));
               return;
             } else {
@@ -586,9 +601,9 @@ const CartTable = () => {
               <td className="text-right price">{subtotalPrice}</td>
             </tr>
             <tr className="total-row info">
-              {/* <td className="text-right price" colspan="3">
-                Delivery Price (Total Weight: {totalWeightInGrams} Grams)
-              </td> */}
+              <td className="text-right price" colspan="3">
+                Delivery Price
+              </td>
               <td className="text-right price">
                 {shipping?.shipping_price || "NA"}
               </td>
@@ -677,7 +692,7 @@ const CartTable = () => {
                     type="button"
                     onClick={handleCheckout}
                   >
-                    Checkout
+                    Buy
                   </Button>
                 </Stack>
               </td>

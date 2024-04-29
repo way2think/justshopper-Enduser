@@ -14,7 +14,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { error } from "jquery";
 
 // Create
 const createObject = async (

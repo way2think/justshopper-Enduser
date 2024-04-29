@@ -31,9 +31,10 @@ export const cartSlice = createSlice({
         // console.log("totalQuantity-ad:", state.totalQuantity);
         state.cartItems.push(updatedNewItem);
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      } else {
-        errorNotification("Already added, check cart page!!!");
       }
+      // else {
+      //   errorNotification("Already added, check cart page!!!");
+      // }
       // } else {
       //   errorNotification(
       //     "Only 5 items, you can add. For bulk/foriegn orders, please contact Agan Adhigaram (+91 9363123828)"
