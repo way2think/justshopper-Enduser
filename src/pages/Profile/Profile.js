@@ -35,8 +35,9 @@ const style = {
   // border: "2px solid #000",
   boxShadow: "0 2px 7px #000",
   p: 4,
+  borderRadius: "10px",
   "@media(max-width:768px)": {
-    width: 400,
+    width: "345px",
   },
 };
 
@@ -46,13 +47,16 @@ const add = {
   fontSize: "12px",
   padding: "8px 16px",
   height: "fit-content",
+  float: "right",
   marginLeft: "auto",
   "&:hover": {
     background: "#dc3237",
     color: "#fff",
   },
-  "@media only screen and (max-width: 600px)": {
+  "@media only screen and (max-width: 767px)": {
     fontSize: "10px",
+    padding: "12px 40px",
+    // width: "10%",
   },
 };
 
@@ -296,7 +300,7 @@ export default function Profile() {
                   />
                 </Grid>
 
-                <Grid md={6} xs={6} pr={2}>
+                <Grid md={6} xs={12} mb={2}>
                   {country ? (
                     <CountrySelect
                       defaultValue={country}
@@ -313,7 +317,7 @@ export default function Profile() {
                   )}
                 </Grid>
 
-                <Grid md={6} xs={6}>
+                <Grid md={6} xs={12}>
                   {state ? (
                     <StateSelect
                       defaultValue={state}
@@ -332,7 +336,7 @@ export default function Profile() {
                   )}
                 </Grid>
 
-                <Grid md={6} xs={6} pr={2} mt={2}>
+                <Grid md={6} xs={12} mt={2}>
                   {city ? (
                     <CitySelect
                       defaultValue={city}
@@ -353,7 +357,7 @@ export default function Profile() {
                   )}
                 </Grid>
 
-                <Grid md={6} xs={6} mt={2}>
+                <Grid md={6} xs={12} mt={2}>
                   <TextField
                     id="outlined-multiline-static"
                     label="Pincode"
@@ -421,7 +425,7 @@ export default function Profile() {
               {...a11yProps(1)}
               // sx={{ color: "#dc3237" }}
             />
-            {value === 2 && (
+            {/* {value === 2 && (
               <Button
                 variant="contained"
                 onClick={() =>
@@ -434,7 +438,7 @@ export default function Profile() {
               >
                 Add Address
               </Button>
-            )}
+            )} */}
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
@@ -444,12 +448,29 @@ export default function Profile() {
           <ChangePassword />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
+          {/* {value === 2 && (
+            <Button
+              variant="contained"
+              onClick={() =>
+                setShowModal({
+                  isOpen: true,
+                  data: null,
+                })
+              }
+              sx={add}
+            >
+              Add Address
+            </Button>
+          )} */}
           <ManageAddress
             openAddressModal={({ isOpen, isEdit, data }) => {
               setShowModal({ isOpen, isEdit });
 
               setAddressDetails(data);
             }}
+            value={value}
+            setShowModal={setShowModal}
+            add={add}
           />
         </CustomTabPanel>
       </Box>

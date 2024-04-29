@@ -13,7 +13,7 @@ export default function BackDropWithLoader({ message }) {
 
       {message && (
         <>
-          <Typography style={{ marginTop: "60px" }}>
+          <Typography style={{ marginTop: "70px" }}>
             Your payment is loading, Please wait!!!
           </Typography>
         </>

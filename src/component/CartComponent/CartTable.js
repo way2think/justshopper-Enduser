@@ -461,7 +461,7 @@ const CartTable = () => {
   };
 
   return (
-    <div class="container m-auto mt-5">
+    <div class="container m-auto mt-3">
       <AddressModal open={open} setOpen={(val) => setOpen(val)} />
       {cartItems.length === 0 ? (
         <>

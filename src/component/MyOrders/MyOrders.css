@@ -393,9 +393,9 @@ ul.tabs li.current {
   padding: 40px;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 600px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .customer_details.orderList {
-    padding: 10px 0 0 0;
+    padding: 0;
   }
   .overallorderpage {
     padding: 10px;
@@ -421,6 +421,12 @@ ul.tabs li.current {
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-style: normal;
+  }
+  .orderTop {
+    padding-bottom: 0 !important;
+  }
+  .orderFilter {
+    padding: 15px 0;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {

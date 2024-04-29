@@ -388,7 +388,7 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={12}  mt={2}>
+              <Grid md={6} xs={12} mt={2}>
                 {/* <TextField
                   id="outlined-multiline-static"
                   label="Pincode"
