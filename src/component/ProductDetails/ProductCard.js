@@ -41,6 +41,10 @@ const ProductCard = ({ product }) => {
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
       fontSize: "14px",
+      width: "100%",
+      marginRight: "0px",
+      marginBottom: "10px",
+      "&:hover": { marginRight: "0px" },
     },
     "@media only screen and (min-width: 768px) and (max-width: 1023px)": {
       fontSize: "14px",
@@ -63,6 +67,7 @@ const ProductCard = ({ product }) => {
     fontSize: "18px",
     fontFamily: "amazonbold",
     marginRight: "30px",
+
     "&:hover": {
       border: "1px solid #dc3237",
       color: "#dc3237",
@@ -71,6 +76,10 @@ const ProductCard = ({ product }) => {
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
       fontSize: "14px",
+      width: "100%",
+      marginRight: "0px",
+      marginBottom: "10px",
+      "&:hover": { marginRight: "0px" },
     },
     "@media only screen and (min-width: 768px) and (max-width: 1023px)": {
       fontSize: "14px",
@@ -246,7 +255,7 @@ const ProductCard = ({ product }) => {
           </Box>
         </Stack>
         <Stack
-          direction="row"
+          direction={{ sm: "column", md: "row" }}
           justifyContent="start"
           alignItems="center"
           className={classes.overallbtn}
@@ -257,17 +266,36 @@ const ProductCard = ({ product }) => {
             </Button>
           ) : (
             <>
-              <Button
-                size="small"
-                className="cart"
-                onClick={handleRemoveItemQty}
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                    {
+                      border: "1px solid #dc3237",
+                      mb: 2,
+                      borderRadius: "5px",
+                      width: "100%",
+                    },
+                }}
               >
-                <RemoveIcon sx={{ color: "#dc3237" }} />
-              </Button>
-              {noOfItems}
-              <Button size="small" className="cart" onClick={handleAddItemQty}>
-                <AddIcon sx={{ color: "#dc3237" }} />
-              </Button>
+                <Button
+                  size="small"
+                  className="cart"
+                  onClick={handleRemoveItemQty}
+                >
+                  <RemoveIcon sx={{ color: "#dc3237" }} />
+                </Button>
+                {noOfItems}
+                <Button
+                  size="small"
+                  className="cart"
+                  onClick={handleAddItemQty}
+                >
+                  <AddIcon sx={{ color: "#dc3237" }} />
+                </Button>
+              </Stack>
             </>
           )}
 

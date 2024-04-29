@@ -37,6 +37,17 @@
 /* mobile */
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
+  .bg-image {
+    border-radius: 5px;
+    width: 150px; /* Adjust this value as needed */
+    height: 150px; /* Adjust this value as needed */
+    box-shadow: 0 2px 5px #7d7d7d;
+  }
+  .productname {
+    padding: 0 5px;
+    font-size: 16px !important;
+    font-weight: 400;
+  }
 }
 
 /* tablet */
