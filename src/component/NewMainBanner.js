@@ -10,6 +10,7 @@ import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import { useGetSettingsQuery } from "../api/api";
 import { Button } from "@mui/material";
 import { Padding } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export default function NewMainBanner() {
   const { data } = useGetSettingsQuery();
@@ -32,7 +33,11 @@ export default function NewMainBanner() {
               alt={banner.images[0].url}
               // style={{ height: "150px" }
             />
-            <Button className="shopnow">Order Now</Button>
+            <Button className="shopnow">
+              <a href={banner.url} target="_blank" style={{ color: "black" }}>
+                Order Now
+              </a>
+            </Button>
           </SwiperSlide>
         ))}
 

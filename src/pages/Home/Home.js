@@ -1,7 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import MainBannerCarosuel from "../../component/MainBannerCarosuel";
-import NewArrival from "../../component/HomeComponent/NewArrival";
 import ShopByType from "../../component/HomeComponent/ShopByType";
 import WorkDetails from "../../component/HomeComponent/WorkDetails";
 
