@@ -14,7 +14,7 @@ const ShopByType = ({ type, title, subTitle, dataList }) => {
         className="mainshopbycatergory"
       >
         <h3 className="shopCategoryhead">{title}</h3>
-        <p className="shopCategorydesc">{subTitle}</p>
+        {/* <p className="shopCategorydesc">{subTitle}</p> */}
       </Stack>
       <Stack
         justifyContent="space-between"
@@ -29,7 +29,7 @@ const ShopByType = ({ type, title, subTitle, dataList }) => {
                 item?.show_in_home ? (
                   <Grid
                     item
-                    xs={12}
+                    xs={6}
                     sm={4}
                     md={4}
                     lg={4}
