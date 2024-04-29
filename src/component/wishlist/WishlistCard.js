@@ -123,7 +123,7 @@ const WishlistCard = () => {
             </Stack>
           ) : (
             data?.map((item) => (
-              <Grid container spacing={2} sx={{ mb: 10 }}>
+              <Grid key={item.id} container spacing={2} sx={{ mb: 10 }}>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <Stack
                     direction="row"

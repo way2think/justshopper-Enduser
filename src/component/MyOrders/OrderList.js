@@ -223,7 +223,11 @@ const OrderList = () => {
 
                 <div className="itemDetails">
                   {order.ordered_items.map((item) => (
-                    <OrderItem item={item} userDetail={order?.user_details} />
+                    <OrderItem
+                      key={item.id}
+                      item={item}
+                      userDetail={order?.user_details}
+                    />
                   ))}
 
                   <hr />
