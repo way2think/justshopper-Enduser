@@ -16,6 +16,8 @@ const SideNavFilter = ({
   search,
   selectedItem,
   setSelectedItem,
+  type,
+  productType 
 }) => {
   const [isSidenavOpen, setIsSidenavOpen] = useState("");
 
@@ -48,15 +50,15 @@ const SideNavFilter = ({
           >
             <Grid container spacing={2} sx={{ mb: 10 }}>
               <Grid item xs={12} className={classes.filtersidenav}>
-                <Box>
+                {/* <Box>
                   <h4 className="searchproducthead">Search Product</h4>
                   <SearchBar />
                 </Box>
                 <Box className="filter">
                   <h4 className="filterheading">Filter by Price</h4>
-                  {/* <FilterPrice /> */}
+                  // <FilterPrice />
                   <FilterRange />
-                </Box>
+                </Box> */}
                 <Box className="filter">
                   <Typography
                     variant="h4"
@@ -83,7 +85,7 @@ const SideNavFilter = ({
                     Pick a category
                   </Typography>
 
-                  <FilterCategory />
+                  <FilterCategory type={type} productType={productType} />
                 </Box>
                 <Box className="filter">
                   <Typography
@@ -111,7 +113,7 @@ const SideNavFilter = ({
                     Pick a Theme
                   </Typography>
 
-                  <FilterTheme />
+                  <FilterTheme type={type} productType={productType} />
                 </Box>
               </Grid>
             </Grid>

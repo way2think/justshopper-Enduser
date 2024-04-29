@@ -122,7 +122,7 @@ const Category = ({ type, productType }) => {
                       </p> */}
                 </Box>
 
-                <SideNavFilter />
+                <SideNavFilter type={type} productType={productType} />
               </Stack>
               {/* -- Product listing -- */}
               <CategoryCard products={data || []} />
