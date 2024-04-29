@@ -293,7 +293,7 @@ export default function Profile() {
                     id="outlined-multiline-static"
                     label="Address Line"
                     placeholder="Door / House No, Street Name, Area"
-                    name="addressLine"
+                    name="line"
                     value={addressDetails.line}
                     onChange={onChangeHandler}
                     sx={{ mb: 2, width: "100%" }}
