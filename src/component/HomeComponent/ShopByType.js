@@ -40,6 +40,7 @@ const ShopByType = ({ type, title, subTitle, dataList }) => {
                     <CatergoryCard
                       catergoryname={item?.name}
                       catergoryimage={item?.image}
+                      type={type}
                     />
                   </Grid>
                 ) : null
