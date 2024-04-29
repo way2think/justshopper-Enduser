@@ -210,6 +210,55 @@ const ProductCard = ({ product }) => {
             />
           </Box>
         </Stack>
+        <Stack
+          direction={{ sm: "column", md: "row" }}
+          justifyContent="start"
+          alignItems="center"
+          className={classes.overallbtnmobile}
+        >
+          {noOfItems <= 0 ? (
+            <Button sx={addtocart} onClick={handleAddCartItem}>
+              Add to Cart
+            </Button>
+          ) : (
+            <>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                    {
+                      border: "1px solid #dc3237",
+                      mb: 2,
+                      borderRadius: "5px",
+                      width: "100%",
+                    },
+                }}
+              >
+                <Button
+                  size="small"
+                  className="cart"
+                  onClick={handleRemoveItemQty}
+                >
+                  <RemoveIcon sx={{ color: "#dc3237" }} />
+                </Button>
+                {noOfItems}
+                <Button
+                  size="small"
+                  className="cart"
+                  onClick={handleAddItemQty}
+                >
+                  <AddIcon sx={{ color: "#dc3237" }} />
+                </Button>
+              </Stack>
+            </>
+          )}
+
+          <Button sx={buy} onClick={handleBuyNow}>
+            Buy Now
+          </Button>
+        </Stack>
         <Stack direction="row" justifyContent="start" alignItems="center">
           <Box className={classes.mainSubtitle}>
             <h3 className={classes.Subtitle}>{product.category}</h3>

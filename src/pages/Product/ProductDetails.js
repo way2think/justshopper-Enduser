@@ -197,6 +197,7 @@ const ProductDetails = () => {
           borderBottomWidth: "2px",
         }}
       />
+
       <ReviewAndRating
         product={product}
         setOpen={setReviewModal}
