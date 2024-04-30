@@ -8,7 +8,8 @@ const useRTKLocalUpdate = () => {
     endpoint,
     args = undefined,
     updateReceipe,
-    field = undefined
+    field = undefined,
+    isArray = false
   ) => {
     // console.log("handleLocalUpdate", apiObjectRef, endpoint, updateReceipe, args, field);
     dispatch(
