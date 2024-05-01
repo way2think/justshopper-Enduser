@@ -41,7 +41,7 @@ const ProductCard = ({ product }) => {
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
       fontSize: "14px",
-      width: "100%",
+      width: "35%",
       marginRight: "0px",
       marginBottom: "10px",
       "&:hover": { marginRight: "0px" },
@@ -53,8 +53,9 @@ const ProductCard = ({ product }) => {
   const favIcon = {
     width: "40px",
     height: "40px",
+    mr: 1,
     "& path": {
-      fill: "#dc3237",
+      fill: "#000",
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
       width: "30px",
@@ -76,8 +77,8 @@ const ProductCard = ({ product }) => {
     },
     "@media only screen and (min-width: 320px) and (max-width: 600px)": {
       fontSize: "14px",
-      width: "100%",
-      marginRight: "0px",
+      width: "35%",
+      marginRight: "10px",
       marginBottom: "10px",
       "&:hover": { marginRight: "0px" },
     },
@@ -186,6 +187,55 @@ const ProductCard = ({ product }) => {
       <main>
         <Stack
           direction="row"
+          justifyContent="space-evenly"
+          alignItems="center"
+          className={classes.overallbtnmobile}
+        >
+          {noOfItems <= 0 ? (
+            <Button sx={addtocart} onClick={handleAddCartItem}>
+              Add to Cart
+            </Button>
+          ) : (
+            <>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                    {
+                      border: "1px solid #dc3237",
+                      mb: 2,
+                      borderRadius: "5px",
+                      // width: "100%",
+                    },
+                }}
+              >
+                <Button
+                  size="small"
+                  className="cart"
+                  onClick={handleRemoveItemQty}
+                >
+                  <RemoveIcon sx={{ color: "#dc3237" }} />
+                </Button>
+                {noOfItems}
+                <Button
+                  size="small"
+                  className="cart"
+                  onClick={handleAddItemQty}
+                >
+                  <AddIcon sx={{ color: "#dc3237" }} />
+                </Button>
+              </Stack>
+            </>
+          )}
+
+          <Button sx={buy} onClick={handleBuyNow}>
+            Buy Now
+          </Button>
+        </Stack>
+        <Stack
+          direction="row"
           justifyContent="space-between"
           alignItems="center"
         >
@@ -203,13 +253,14 @@ const ProductCard = ({ product }) => {
               />
             )}
             <img
-              src="../images/Share.png"
+              src="../images/share (2).png"
               alt={`Share ${product.name}`}
               className={classes.yellowshare}
               onClick={handleShare}
             />
           </Box>
         </Stack>
+
         <Stack direction="row" justifyContent="start" alignItems="center">
           <Box className={classes.mainSubtitle}>
             <h3 className={classes.Subtitle}>{product.category}</h3>
@@ -223,6 +274,7 @@ const ProductCard = ({ product }) => {
               <Box className={classes.colorsCircle}>
                 {product?.color_based_quantity?.map((item) => (
                   <span
+                    className={classes.colorcircle}
                     key={item._id + item.color_name}
                     style={{
                       width: "35px",

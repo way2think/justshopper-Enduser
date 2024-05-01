@@ -117,6 +117,7 @@ const ProductGallery = ({ name, images }) => {
                           <div className="img-item">
                             <a href="#" data-id={i + 1}>
                               <img
+                                className="bottomimage"
                                 src={image}
                                 alt={image}
                                 style={{
@@ -124,11 +125,6 @@ const ProductGallery = ({ name, images }) => {
                                   height: "100px",
                                   display: "block",
                                   borderRadius: "5px",
-                                  "@media only screen and (min-width: 320px) and (max-width: 600px)":
-                                    {
-                                      width: "100px",
-                                      height: "100px",
-                                    },
                                 }}
                               />
                             </a>

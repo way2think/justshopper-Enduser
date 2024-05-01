@@ -135,8 +135,12 @@ export default function Footer() {
               </p>
               <p className="linkcontent">
                 <MDBIcon icon="phone" className="me-3" />{" "}
-                <a href="tel:+91 7760888801" className="linkcontent">
+                <a href="tel:+917760888801" className="linkcontent">
                   +91 77608 88801
+                </a>
+                {", "}
+                <a href="tel:+919500231901" className="linkcontent">
+                  +91 95002 31901
                 </a>
               </p>
               {/* <p>

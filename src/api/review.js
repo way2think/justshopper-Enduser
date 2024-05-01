@@ -11,13 +11,49 @@ const collectionId = "reviews";
 export const review = api.injectEndpoints({
   endpoints: (build) => ({
     getReviewByUserAndProduct: build.query({
-      queryFn: async ({ conditions }) => {
-        return await getAllObjects(collectionId, conditions);
+      queryFn: async ({ productId, userId }) => {
+        const condition = [
+          {
+            type: "where",
+            field: "product_id",
+            operator: "==",
+            value: productId,
+          },
+          {
+            type: "where",
+            field: "user_details.user_id",
+            operator: "==",
+            value: userId,
+          },
+        ];
+        return await getAllObjects(collectionId, condition);
       },
     }),
     getReviews: build.query({
-      queryFn: async ({ conditions }) => {
-        return await getAllObjects(collectionId, conditions);
+      queryFn: async ({ productId, userId }) => {
+        const condition = [
+          {
+            type: "where",
+            field: "product_id",
+            operator: "==",
+            value: productId,
+          },
+          {
+            type: "where",
+            field: "user_details.user_id",
+            operator: "!=",
+            value: userId,
+          },
+          {
+            type: "where",
+            field: "status",
+            operator: "==",
+            value: "approved", // pending, approved, rejected
+          },
+          { type: "orderBy", field: "created_timestamp", order: "desc" },
+          { type: "limit", value: 5 },
+        ];
+        return await getAllObjects(collectionId, condition);
       },
     }),
     createReview: build.mutation({

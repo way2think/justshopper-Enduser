@@ -501,8 +501,8 @@ const CartTable = () => {
                     src={item.images[0] || "../images/dummy-image.jpg"}
                     alt={item.name}
                     style={{
-                      maxWidth: "180px",
-                      borderRadius: 30,
+                      maxWidth: "100px",
+                      borderRadius: 5,
                       cursor: "pointer",
                     }}
                     onClick={() => navigate(`/product/${item.id}`)}
@@ -518,10 +518,10 @@ const CartTable = () => {
                     <p className="itemname">
                       <strong>{item.name}</strong>
                     </p>
-                    <p className="itemdesc">Category: {item.category}</p>
+                    {/* <p className="itemdesc">Category: {item.category}</p>
                     {item.theme && (
                       <p className="itemdesc">Theme: {item.theme}</p>
-                    )}
+                    )} */}
                     {item.color && (
                       <p className="itemdesc">
                         Color: {item.color}{" "}
@@ -585,7 +585,7 @@ const CartTable = () => {
                   </Box>
                 </td>
 
-                <td className="text-right price" title="Price">
+                <td className="text-right price discount" title="Price">
                   {item.discount_price}
                 </td>
                 <td className="text-right price" title="Total">
@@ -609,7 +609,7 @@ const CartTable = () => {
               </td>
             </tr>
 
-            <tr className="total-row info">
+            <tr className="total-row info" style={{ background: "#eee" }}>
               <td className="text-right price" colspan="3">
                 <span className="ml-auto">Total</span>
               </td>

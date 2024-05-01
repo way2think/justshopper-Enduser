@@ -38,7 +38,7 @@ export const userSlice = createSlice({
     // },
     setUser: (state, action) => {
       const payload = action.payload;
-      // console.log("act: ", payload);
+      console.log("act: ", payload);
       let selectedAddress = {
         id: "",
         line: "",
@@ -47,8 +47,8 @@ export const userSlice = createSlice({
         country: "",
         pincode: "",
       };
-      if (payload.shipping_addresses.length > 0) {
-        let activeAddress = payload.shipping_addresses.filter(
+      if (payload.shipping_addresses?.length > 0) {
+        let activeAddress = payload.shipping_addresses?.filter(
           (add) => add.is_active
         );
         selectedAddress = activeAddress[0];

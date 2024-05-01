@@ -115,9 +115,15 @@ const OrderItem = ({ item, userDetail }) => {
 
     if (result.data) {
       successNotification("Review submitted!!!");
-      handleLocalRTKUpdate(reviewApi, "getReviewByUserAndProduct", [
-        result.data,
-      ]);
+      handleLocalRTKUpdate(
+        reviewApi,
+        "getReviewByUserAndProduct",
+        {
+          productId: item.id,
+          userId: userDetail.id,
+        },
+        [result.data]
+      );
       handleClose();
     } else {
       console.log("handleCreateNewReview: ", result.error);

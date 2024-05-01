@@ -54,57 +54,12 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const getReviewByUser = async () => {
-      const condition1 = [
-        {
-          type: "where",
-          field: "product_id",
-          operator: "==",
-          value: product?.id,
-        },
-        {
-          type: "where",
-          field: "user_details.user_id",
-          operator: "==",
-          value: user?.id,
-        },
-      ];
-
-      const condition2 = [
-        {
-          type: "where",
-          field: "product_id",
-          operator: "==",
-          value: product?.id,
-        },
-        {
-          type: "where",
-          field: "user_details.user_id",
-          operator: "!=",
-          value: user?.id,
-        },
-        {
-          type: "where",
-          field: "status",
-          operator: "==",
-          value: "approved", // pending, approved, rejected
-        },
-        { type: "orderBy", field: "created_timestamp", order: "desc" },
-        { type: "limit", value: 5 },
-      ];
-
       const promises = [
         getReviewByUserAndProduct(
-          {
-            conditions: condition1,
-          },
+          { productId: product.id, userId: user.id },
           true
         ),
-        getReviews(
-          {
-            conditions: condition2,
-          },
-          true
-        ),
+        getReviews({ productId: product.id, userId: user.id }, true),
         // true is preferCacheValue
       ];
 
@@ -161,10 +116,20 @@ const ProductDetails = () => {
       if (result.data) {
         successNotification(`Review Updated, Will be published asap!!!`);
 
-        handleLocalRTKUpdate(reviewApi, "getReviewByUserAndProduct", [
-          // ...result.data,
-          { ...reviewModal.review, review, rating },
-        ]);
+        // handleLocalRTKUpdate(reviewApi, "getReviewByUserAndProduct", [
+        //   // ...result.data,
+        //   { ...reviewModal.review, review, rating },
+        // ]);
+
+        handleLocalRTKUpdate(
+          reviewApi,
+          "getReviewByUserAndProduct",
+          {
+            productId: reviewModal.review.product_id,
+            userId: reviewModal.review.user_details.user_id,
+          },
+          [{ ...reviewModal.review, review, rating }]
+        );
 
         setReviewModal({
           isOpen: false,
@@ -197,6 +162,7 @@ const ProductDetails = () => {
           borderBottomWidth: "2px",
         }}
       />
+
       <ReviewAndRating
         product={product}
         setOpen={setReviewModal}
