@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack } from "@mui/material";
+import { Box, Button, Divider, Grid, Stack } from "@mui/material";
 import OrderItem from "./OrderItem";
 import { useGetAllOrdersByUserIdQuery } from "../../api/order";
 import { useEffect, useState } from "react";
@@ -182,7 +182,7 @@ const OrderList = () => {
             <div
               id="order_tab"
               className="orderCardWrap current"
-              style={{ margin: 5 }}
+              style={{ margin: 15 }}
             >
               <div className="orderCard row">
                 <div className="orderHead col-6 col-md-3 col-lg-3">
