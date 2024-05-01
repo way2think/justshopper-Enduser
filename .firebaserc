@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "justshopper-dev"
-  }
+    "default": "justshopper-dev",
+    "stage": "justshopper-dev",
+    "prod": "justshopper-prod"
+  },
+  "targets": {},
+  "etags": {}
 }

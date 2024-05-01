@@ -34,10 +34,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "firebase deploy"
+    "build:stage": "dotenv -e .env.stage react-scripts build",
+    "build:prod": "dotenv -e .env.production react-scripts build",
+    "deploy:stage": "firebase use justshopper-dev && firebase deploy --only hosting",
+    "deploy:prod": "firebase use justshopper-prod && firebase deploy --only hosting",
+    "install-dotenv-cli-globally": "npm install -g dotenv-cli"
   },
   "eslintConfig": {
     "extends": [
