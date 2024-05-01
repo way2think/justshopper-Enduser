@@ -1,9 +1,7 @@
-import { Button, Card, CardActions, CardContent, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import CardNewArrival from "./CardNewArrival";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import "./NewArrivalCarosuel.css";
 
 export default function SimpleSlider({ products }) {
@@ -52,7 +50,7 @@ export default function SimpleSlider({ products }) {
     );
   }
 
-  var settings = {
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -122,24 +120,24 @@ export default function SimpleSlider({ products }) {
     ],
   };
 
-  const cart = {
-    background: "#dc3237",
-    color: "#fff",
-    fontSize: "14px",
-    padding: "5px 10px",
-    fontFamily: "amazonbold",
-    "&:hover": {
-      background: "#dc3237",
-      color: "#fff",
-      fontSize: "14px",
-      fontFamily: "amazonbold",
-      padding: "5px 10px",
-    },
-    "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
-      {
-        fontSize: "12px",
-      },
-  };
+  // const cart = {
+  //   background: "#dc3237",
+  //   color: "#fff",
+  //   fontSize: "14px",
+  //   padding: "5px 10px",
+  //   fontFamily: "amazonbold",
+  //   "&:hover": {
+  //     background: "#dc3237",
+  //     color: "#fff",
+  //     fontSize: "14px",
+  //     fontFamily: "amazonbold",
+  //     padding: "5px 10px",
+  //   },
+  //   "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+  //     {
+  //       fontSize: "12px",
+  //     },
+  // };
 
   return (
     <div className="container-fluid new-arrivals ">

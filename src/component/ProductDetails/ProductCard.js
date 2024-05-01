@@ -94,6 +94,7 @@ const ProductCard = ({ product }) => {
   const userId = useSelector(selectUserId);
   const [updateFavouritesDB, {}] = useUpdateFavouritesMutation();
   const [color, setColor] = useState("");
+  const [colorBasedQuantity, setColorBasedQuantity] = useState([]);
 
   useEffect(() => {
     const index = cartItems.findIndex((item) => item.id === product.id);
@@ -101,11 +102,26 @@ const ProductCard = ({ product }) => {
     if (index !== -1) {
       setColor(cartItems[index].color);
     } else {
-      if (product?.color_based_quantity) {
-        !color && setColor(product?.color_based_quantity[0]?.color_name);
+      if (product?.is_multi_color && product?.color_based_quantity) {
+        const colorsInArray = Object.entries(product?.color_based_quantity).map(
+          ([color_name, { quantity, minimum_quantity }]) => ({
+            color_name,
+            quantity,
+            minimum_quantity,
+          })
+        );
+
+        setColorBasedQuantity(colorsInArray);
+        !color && setColor(colorsInArray[0]?.color_name);
       }
     }
-  }, [cartItems, color, product?.color_based_quantity, product.id]);
+  }, [
+    cartItems,
+    color,
+    product?.color_based_quantity,
+    product.id,
+    product?.is_multi_color,
+  ]);
 
   const noOfItems = useMemo(() => {
     const item = cartItems.find((item) => item.id === product.id);
@@ -272,7 +288,7 @@ const ProductCard = ({ product }) => {
             <Box className={classes.maincolors}>
               <h3 className={classes.colors}>Colors : </h3>
               <Box className={classes.colorsCircle}>
-                {product?.color_based_quantity?.map((item) => (
+                {colorBasedQuantity?.map((item) => (
                   <span
                     className={classes.colorcircle}
                     key={item._id + item.color_name}
