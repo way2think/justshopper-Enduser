@@ -17,7 +17,7 @@ const formatDate = (timestamp) => {
 };
 
 const formatAmount = (amount) => {
-  return amount.toFixed(2);
+  return amount?.toFixed(2) || 0;
 };
 
 function formatAddress(address) {

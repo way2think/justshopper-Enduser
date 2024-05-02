@@ -46,6 +46,13 @@ const checkoutStyle = {
   },
 };
 
+// const checkout = {
+//   background: "#dc3237",
+//   color: "#fff",
+//   fontSize: "18px",
+//   marginTop: "10px",
+// };
+
 const deleteicon = {
   padding: "8px 15px",
   marginLeft: 2,
@@ -465,6 +472,7 @@ const CartTable = () => {
       <AddressModal open={open} setOpen={(val) => setOpen(val)} />
       {cartItems.length === 0 ? (
         <>
+          <img src="../images/shopping.png" alt="" className="noitem" />
           <p>No items in cart</p>
           <Button
             variant="contained"

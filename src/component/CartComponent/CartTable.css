@@ -67,7 +67,16 @@
   justify-content: left;
   align-items: center;
 }
+
+.noitem {
+  width: 180px;
+  height: 180px;
+}
 @media only screen and (min-width: 320px) and (max-width: 768px) {
+  .noitem {
+    width: 100px;
+    height: 100px;
+  }
   .boxitems {
     display: flex;
     justify-content: end;

@@ -315,11 +315,11 @@ const ProductCard = ({ product }) => {
           <Box className={classes.price}>
             <h3 className={classes.price1}>
               <CurrencyRupeeIcon className={classes.rupee1} />
-              {formatAmount(product.discount_price)}
+              {formatAmount(product?.discount_price)}
             </h3>
             <h3 className={classes.price2}>
               <CurrencyRupeeIcon className={classes.rupee2} />
-              {formatAmount(product.selling_price)}
+              {formatAmount(product?.selling_price)}
             </h3>
           </Box>
         </Stack>

@@ -133,6 +133,7 @@ export default function CardNewArrival({ product }) {
         boxShadow: "none",
         py: 2,
         margin: "auto",
+        height: "inherit",
         "@media only screen and (min-width: 320px) and (max-width: 600px)": {
           maxWidth: 150,
         },
@@ -172,17 +173,45 @@ export default function CardNewArrival({ product }) {
 
       <CardContent
         sx={{
-          p: "5px 10px",
-          mt: 2,
+          p: "5px 8px",
+          marginTop: "6px",
           "@media only screen and (min-width: 320px) and (max-width: 600px)": {
             display: "flex",
             justifyContent: "Start",
             alignItems: "Start",
             flexDirection: "column",
+            p: "5px 8px",
+            marginTop: "6px",
           },
+          "@media only screen and (min-width: 768px) and (max-width: 1023px)": {
+            display: "flex",
+            justifyContent: "Start",
+            alignItems: "Start",
+            flexDirection: "column",
+            p: "5px 8px",
+            marginTop: "6px",
+          },
+          "@media only screen and (min-width: 1024px) and (max-width: 1535px)":
+            {
+              display: "flex",
+              justifyContent: "Start",
+              alignItems: "Start",
+              flexDirection: "column",
+              p: "5px 8px",
+              marginTop: "6px",
+            },
+          "@media only screen and (min-width: 1536px) and (max-width: 2560px)":
+            {
+              display: "flex",
+              justifyContent: "Start",
+              alignItems: "Start",
+              flexDirection: "column",
+              p: "5px 8px",
+              marginTop: "6px",
+            },
         }}
       >
-        <p className="cardtitle">{name}</p>
+        <p className="cardtitle titlename">{name}</p>
         <Stack
           direction="row"
           justifyContent="space-between"

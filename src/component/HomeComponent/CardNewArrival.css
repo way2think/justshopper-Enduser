@@ -16,6 +16,10 @@
   /* cursor: pointer; */
 }
 
+.titlename {
+  height: 58px;
+}
+
 .cardtitle {
   text-align: left;
   font-family: amazonbold;
