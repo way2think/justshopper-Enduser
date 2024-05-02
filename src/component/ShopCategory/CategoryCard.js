@@ -33,7 +33,7 @@ const CategoryCard = ({ products }) => {
             )}
             {/* {} */}
           </Grid>
-          <CategoryPagination />
+          {/* <CategoryPagination /> */}
         </Box>
       </Stack>
     </>

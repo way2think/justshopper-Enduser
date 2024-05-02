@@ -270,13 +270,13 @@ const ProductCard = ({ product }) => {
                 onClick={() => handleUpdateFavourites("add")}
               />
             )}
-            <img
+            {/* <img
               src="../images/share (2).png"
               alt={`Share ${product.name}`}
               className={classes.yellowshare}
               onClick={handleShare}
               style={{ cursor: "pointer" }}
-            />
+            /> */}
           </Box>
         </Stack>
 
