@@ -12,7 +12,7 @@ import {
   removeItemQty,
   selectCartItems,
 } from "../../store/cartSlice";
-import { formatAmount } from "../../utils";
+import { formatAmount, scrollToTop } from "../../utils";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useUpdateFavouritesMutation } from "../../api/user";
@@ -196,6 +196,7 @@ const ProductCard = ({ product }) => {
   const handleBuyNow = () => {
     handleAddCartItem();
     navigate(`/cart`);
+    scrollToTop();
   };
 
   return (
