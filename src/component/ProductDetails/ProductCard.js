@@ -54,6 +54,7 @@ const ProductCard = ({ product }) => {
     width: "40px",
     height: "40px",
     mr: 1,
+    cursor: "Pointer",
     "& path": {
       fill: "#000",
     },
@@ -274,6 +275,7 @@ const ProductCard = ({ product }) => {
               alt={`Share ${product.name}`}
               className={classes.yellowshare}
               onClick={handleShare}
+              style={{ cursor: "pointer" }}
             />
           </Box>
         </Stack>
@@ -301,7 +303,9 @@ const ProductCard = ({ product }) => {
                       cursor: "pointer",
                       marginRight: "10px",
                       border:
-                        color === item.color_name ? "3px solid black" : "none",
+                        color === item.color_name ? "3px solid #fff" : "none",
+                      outline:
+                        color === item.color_name ? "1px solid #000" : "none",
                     }}
                     onClick={() => handleColorChange(item)}
                   ></span>
