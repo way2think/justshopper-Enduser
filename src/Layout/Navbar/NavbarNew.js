@@ -135,7 +135,7 @@ const NavbarNew = () => {
                 Shop by Category
               </Link>
               <div
-                className="dropdown-menu"
+                className="dropdown-menu catergory"
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 {categoryList?.map((item) =>
@@ -173,7 +173,7 @@ const NavbarNew = () => {
                 Shop by Theme
               </Link>
               <div
-                className="dropdown-menu"
+                className="dropdown-menu theme"
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 {themeList?.map((item) =>

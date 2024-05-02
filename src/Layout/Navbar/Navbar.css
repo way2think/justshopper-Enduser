@@ -45,6 +45,15 @@
   color: #dc3237;
 }
 
+.catergory {
+  overflow-y: auto;
+  max-height: 350px;
+}
+.theme {
+  overflow-y: auto;
+  max-height: 350px;
+}
+
 .linkproduct {
   font-size: 16px;
   font-family: "Poppins", sans-serif;
