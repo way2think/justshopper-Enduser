@@ -175,21 +175,23 @@ export default function SignupModal({ open, setOpen }) {
           errorNotification(`${errorCode}: ${errorMessage}`);
         });
     } else {
-      !isValidName(name) && errorNotification("Invalid Name");
+      errorNotification("Enter/select valid data");
 
-      !isValidEmail(email) && errorNotification("Invalid Email");
+      // !isValidName(name) && errorNotification("Invalid Name");
 
-      !isValidPhoneNumber(phonenumber) &&
-        errorNotification("Invalid Phone Number");
+      // !isValidEmail(email) && errorNotification("Invalid Email");
 
-      !isValidPassword(createPassword) &&
-        errorNotification("Invalid CreatePassword");
+      // !isValidPhoneNumber(phonenumber) &&
+      //   errorNotification("Invalid Phone Number");
 
-      !isValidPassword(confirmPassword) &&
-        errorNotification("Invalid ConfirmPassword");
+      // !isValidPassword(createPassword) &&
+      //   errorNotification("Invalid CreatePassword");
 
-      !(createPassword === confirmPassword) &&
-        errorNotification("Password doesn't match");
+      // !isValidPassword(confirmPassword) &&
+      //   errorNotification("Invalid ConfirmPassword");
+
+      // !(createPassword === confirmPassword) &&
+      //   errorNotification("Password doesn't match");
     }
   };
 
