@@ -5,6 +5,7 @@ import classes from "../ProductDetails/ProductCard.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import ShareIcon from "@mui/icons-material/Share";
 import {
   addItem,
   addItemQty,
@@ -18,7 +19,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useUpdateFavouritesMutation } from "../../api/user";
 import {
   selectFavourite,
-  selectUserId,
+  selectUser,
   updateFavourites,
 } from "../../store/userSlice";
 import { errorNotification } from "../../utils/notifications";
@@ -92,7 +93,7 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { cartItems } = useSelector(selectCartItems);
   const favourites = useSelector(selectFavourite);
-  const userId = useSelector(selectUserId);
+  const user = useSelector(selectUser);
   const [updateFavouritesDB, {}] = useUpdateFavouritesMutation();
   const [color, setColor] = useState("");
   const [colorBasedQuantity, setColorBasedQuantity] = useState([]);
@@ -146,6 +147,7 @@ const ProductCard = ({ product }) => {
   };
 
   const handleShare = async () => {
+    // console.log("handleShre");
     try {
       await navigator.share({
         title: `Just Shopper - ${product.name}`,
@@ -163,29 +165,33 @@ const ProductCard = ({ product }) => {
   };
 
   const handleUpdateFavourites = async (type) => {
-    const newFav = {
-      id: product.id,
-      name: product.name,
-    };
+    if (user.isAuthenticated) {
+      const newFav = {
+        id: product.id,
+        name: product.name,
+      };
 
-    let updatedFavList = [];
-    if (type === "add") {
-      updatedFavList = [...favourites, newFav];
+      let updatedFavList = [];
+      if (type === "add") {
+        updatedFavList = [...favourites, newFav];
+      } else {
+        updatedFavList = favourites.filter((fav) => fav.id !== product.id);
+      }
+
+      const result = await updateFavouritesDB({
+        docId: user.id,
+        dataObject: {
+          favourites: updatedFavList,
+        },
+      });
+
+      if (result.data) {
+        dispatch(updateFavourites(updatedFavList));
+      } else {
+        errorNotification(`Network error: ${result.error.message}`);
+      }
     } else {
-      updatedFavList = favourites.filter((fav) => fav.id !== product.id);
-    }
-
-    const result = await updateFavouritesDB({
-      docId: userId,
-      dataObject: {
-        favourites: updatedFavList,
-      },
-    });
-
-    if (result.data) {
-      dispatch(updateFavourites(updatedFavList));
-    } else {
-      errorNotification(`Network error: ${result.error.message}`);
+      errorNotification(`Please login to add to your favourites!!!`);
     }
   };
 
@@ -275,8 +281,9 @@ const ProductCard = ({ product }) => {
               alt={`Share ${product.name}`}
               className={classes.yellowshare}
               onClick={handleShare}
-              style={{ cursor: "pointer" }}
+              // style={{ cursor: "pointer" }}
             /> */}
+            <ShareIcon className={classes.yellowshare} onClick={handleShare} />
           </Box>
         </Stack>
 
@@ -291,27 +298,34 @@ const ProductCard = ({ product }) => {
             <Box className={classes.maincolors}>
               <h3 className={classes.colors}>Colors : </h3>
               <Box className={classes.colorsCircle}>
-                {colorBasedQuantity?.map((item) => (
-                  <span
-                    className={classes.colorcircle}
-                    key={item._id + item.color_name}
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      borderRadius: "50%",
-                      backgroundColor: item.color_name,
-                      boxShadow:
-                        "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                      border:
-                        color === item.color_name ? "3px solid #fff" : "none",
-                      outline:
-                        color === item.color_name ? "1px solid #000" : "none",
-                    }}
-                    onClick={() => handleColorChange(item)}
-                  ></span>
-                ))}
+                {colorBasedQuantity?.map(
+                  (item) =>
+                    item.quantity > 0 && (
+                      <span
+                        className={classes.colorcircle}
+                        key={item._id + item.color_name}
+                        style={{
+                          width: "35px",
+                          height: "35px",
+                          borderRadius: "50%",
+                          backgroundColor: item.color_name,
+                          boxShadow:
+                            "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+                          cursor: "pointer",
+                          marginRight: "10px",
+                          border:
+                            color === item.color_name
+                              ? "3px solid #fff"
+                              : "none",
+                          outline:
+                            color === item.color_name
+                              ? "1px solid #000"
+                              : "none",
+                        }}
+                        onClick={() => handleColorChange(item)}
+                      ></span>
+                    )
+                )}
               </Box>
             </Box>
           </Stack>
