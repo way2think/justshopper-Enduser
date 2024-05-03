@@ -24,6 +24,8 @@ import { errorNotification } from "../../utils/notifications";
 import { selectUser, updateShippingAddress } from "../../store/userSlice";
 import { useUpdateShippingAddressMutation } from "../../api/user";
 import { useEffect, useState } from "react";
+import { countryIndia } from "../../utils/constants";
+import { isValidName, isValidPincode } from "../../utils/validator";
 
 const style = {
   position: "absolute",
@@ -129,7 +131,7 @@ export default function Profile() {
     line: "",
     city: "",
     state: "",
-    country: "",
+    country: "India",
     pincode: "",
     is_active: false,
   });
@@ -141,9 +143,8 @@ export default function Profile() {
   useEffect(() => {
     if (addressDetails.country && addressDetails.state && addressDetails.city) {
       GetCountries().then((result) => {
-        const countryObj = result.find(
-          (country) => country.name === addressDetails.country
-        );
+        const countryObj = countryIndia;
+
         setCountry(countryObj);
 
         GetState(countryObj.id).then((resultState) => {
@@ -160,12 +161,24 @@ export default function Profile() {
         });
       });
     }
-  }, [addressDetails]);
+  }, [addressDetails, country]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const handleClose = () => {
+    setAddressDetails({
+      id: "",
+      name: "",
+      line: "",
+      city: "",
+      state: "",
+      country: "India",
+      pincode: "",
+      is_active: false,
+    });
+  };
   const onChangeHandler = (e) => {
     setAddressDetails((prevState) => {
       const { name, value } = e.target;
@@ -193,37 +206,49 @@ export default function Profile() {
 
   const handleUpdateShippingAddress = async (type) => {
     let updatedShippingAddresses = [...user.shipping_addresses];
+    const { city, pincode, name, line, state } = addressDetails;
 
-    if (type === "add") {
-      updatedShippingAddresses = [
-        ...updatedShippingAddresses,
-        {
-          ...addressDetails,
-          id: new Date().getTime(),
-          is_active: user.shipping_addresses.length === 0 ? true : false,
+    if (
+      isValidName(name) &&
+      isValidPincode(pincode) &&
+      city &&
+      line !== "" &&
+      state
+    ) {
+      if (type === "add") {
+        updatedShippingAddresses = [
+          ...updatedShippingAddresses,
+          {
+            ...addressDetails,
+            id: new Date().getTime(),
+            is_active: user.shipping_addresses.length === 0 ? true : false,
+          },
+        ];
+      } else if (type === "edit") {
+        const findIndex = updatedShippingAddresses.findIndex(
+          (address) => address.id === addressDetails.id
+        );
+        updatedShippingAddresses[findIndex] = addressDetails;
+      }
+
+      const result = await updateShippingAddressDB({
+        docId: user.id,
+        dataObject: {
+          shipping_addresses: updatedShippingAddresses,
         },
-      ];
-    } else if (type === "edit") {
-      const findIndex = updatedShippingAddresses.findIndex(
-        (address) => address.id === addressDetails.id
-      );
-      updatedShippingAddresses[findIndex] = addressDetails;
-    }
+      });
 
-    const result = await updateShippingAddressDB({
-      docId: user.id,
-      dataObject: {
-        shipping_addresses: updatedShippingAddresses,
-      },
-    });
+      if (result.data) {
+        // udpate the result in local state
+        dispatch(updateShippingAddress(updatedShippingAddresses));
+        setShowModal(false);
+      } else {
+        errorNotification(result.error.message);
+      }
 
-    // console.log("result: ", result);
-    if (result.data) {
-      // udpate the result in local state
-      dispatch(updateShippingAddress(updatedShippingAddresses));
-      setShowModal(false);
+      handleClose();
     } else {
-      errorNotification(result.error.message);
+      errorNotification("Invalid Data");
     }
   };
 
@@ -301,7 +326,16 @@ export default function Profile() {
                 </Grid>
 
                 <Grid md={6} xs={12} mb={2}>
-                  {country ? (
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Country"
+                    multiline
+                    rows={1}
+                    value="India"
+                    sx={{ width: "100%" }}
+                    disabled={true}
+                  />
+                  {/* {country ? (
                     <CountrySelect
                       defaultValue={country}
                       value={country?.id}
@@ -314,21 +348,21 @@ export default function Profile() {
                       onChange={(e) => onChangeDropdown("country", e)}
                       placeHolder="Select Country"
                     />
-                  )}
+                  )} */}
                 </Grid>
 
                 <Grid md={6} xs={12}>
                   {state ? (
                     <StateSelect
                       defaultValue={state}
-                      countryid={country?.id}
+                      countryid={countryIndia.id}
                       value={state?.id}
                       onChange={(e) => onChangeDropdown("state", e)}
                       placeHolder="Select State"
                     />
                   ) : (
                     <StateSelect
-                      countryid={country?.id}
+                      countryid={countryIndia?.id}
                       value={state?.id}
                       onChange={(e) => onChangeDropdown("state", e)}
                       placeHolder="Select State"
@@ -340,7 +374,7 @@ export default function Profile() {
                   {city ? (
                     <CitySelect
                       defaultValue={city}
-                      countryid={country?.id}
+                      countryid={countryIndia?.id}
                       stateid={state?.id}
                       value={city?.id}
                       onChange={(e) => onChangeDropdown("city", e)}
@@ -348,7 +382,7 @@ export default function Profile() {
                     />
                   ) : (
                     <CitySelect
-                      countryid={country?.id}
+                      countryid={countryIndia?.id}
                       stateid={state?.id}
                       value={city?.id}
                       onChange={(e) => onChangeDropdown("city", e)}

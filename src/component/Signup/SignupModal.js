@@ -105,7 +105,7 @@ export default function SignupModal({ open, setOpen }) {
       line: "",
       city: "",
       state: "",
-      country: "",
+      country: "India",
       pincode: "",
     },
   });
@@ -120,6 +120,18 @@ export default function SignupModal({ open, setOpen }) {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const countryIndia = {
+    id: 101,
+    name: "India",
+    iso3: "IND",
+    iso2: "IN",
+    numeric_code: "356",
+    phone_code: 91,
+    region: "Asia",
+    subregion: "Southern Asia",
+    tld: ".in",
   };
 
   const handleInputChange = (e) => {
@@ -314,7 +326,16 @@ export default function SignupModal({ open, setOpen }) {
               </Grid>
 
               <Grid md={6} xs={12} sx={{ marginBottom: "9px" }}>
-                <CountrySelect
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Country"
+                  multiline
+                  rows={1}
+                  value="India"
+                  sx={{ width: "100%" }}
+                  disabled={true}
+                />
+                {/* <CountrySelect
                   onChange={(e) => {
                     setCountryid(e.id);
                     setCountryName(e.name);
@@ -329,7 +350,7 @@ export default function SignupModal({ open, setOpen }) {
                     });
                   }}
                   placeHolder="Select Country"
-                />
+                /> */}
                 {/* <TextField
                   id="outlined-multiline-static"
                   label="City"
@@ -372,7 +393,7 @@ export default function SignupModal({ open, setOpen }) {
                   sx={{ mb: 2, width: "100%" }}
                 /> */}
                 <StateSelect
-                  countryid={countryid}
+                  countryid={countryIndia.id}
                   onChange={(e) => {
                     setstateid(e.id);
                     setstateName(e.name);
@@ -412,7 +433,7 @@ export default function SignupModal({ open, setOpen }) {
                   sx={{ mb: 2, width: "100%" }}
                 /> */}
                 <CitySelect
-                  countryid={countryid}
+                  countryid={countryIndia.id}
                   stateid={stateid}
                   onChange={(e) => {
                     setCityName(e.name);
