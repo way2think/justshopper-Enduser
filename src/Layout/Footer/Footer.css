@@ -84,6 +84,11 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .companylogo{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+  }
   .companydesc {
     text-align: left;
   }
@@ -101,7 +106,7 @@
     flex-direction: column;
   }
   .socialicon {
-    margin-right: 10px;
+    margin: "0 5px";
   }
   .socialicon {
     font-size: 12px !important;
@@ -133,7 +138,7 @@
   }
   .copy {
     display: flex;
-    justify-content: end;
-    align-items: end;
+    justify-content: flex-start;
+    align-items: center;
   }
 }

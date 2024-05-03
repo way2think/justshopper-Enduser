@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useLocation, useRoutes } from "react-router-dom";
 import DashBoardLayout from "./Layout/dashboard/DashboardLayout";
 import Home from "./pages/Home/Home";
 import ContactUs from "./pages/Contactus/ContactUs";
@@ -14,12 +14,23 @@ import { useGetSettingsQuery } from "./api/api";
 import BackDropWithLoader from "./component/Loader/BackDropWithLoader";
 import { useDispatch } from "react-redux";
 import { setCartItems } from "./store/cartSlice";
+import CancellationRefundPolicy from "./pages/RefundPolicy/CancellationRefundPolicy";
+import AboutUs from "./pages/Aboutus/AboutUs";
+import DeliveryPolicy from "./pages/Delivery/DeliveryPolicy";
+import TermsCondition from "./pages/Termsandcondition/TermsCondition";
 
 export default function Router() {
   const dispatch = useDispatch();
   const { data: user, isFetching, isLoading, error } = useOnAuthListenerQuery();
   const { data: settings } = useGetSettingsQuery();
   const [authChecked, setAuthChecked] = useState(false);
+
+  const { pathname } = useLocation();
+
+  // Automatically scrolls to top whenever pathname changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     // console.log("data: ", user);
@@ -79,6 +90,22 @@ export default function Router() {
           path: "orders",
           element: <AuthenticatedRoute element={<Order />} key="Profile" />,
           // element: <Order />,
+        },
+        {
+          path: "about-us",
+          element: <AboutUs />,
+        },
+        {
+          path: "cancellation-refund-policy",
+          element: <CancellationRefundPolicy />,
+        },
+        {
+          path: "shipping-delivery-policy",
+          element: <DeliveryPolicy />,
+        },
+        {
+          path: "terms-and-condition",
+          element: <TermsCondition />,
         },
       ],
     },
