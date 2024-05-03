@@ -244,18 +244,18 @@ const OrderList = () => {
                         {" "}
                         <Box>
                           <h3 className="Delivery">
-                            Status:
+                            Status:&nbsp;
                             <p
                               style={{
-                                // backgroundColor:
-                                //   order.status === "booked"
-                                //     ? "#ffff10"
-                                //     : order.status === "dispatched" &&
-                                //       "#32e232",
                                 borderRadius: "4px",
-                                color: "#2bb22b",
+                                color:
+                                  order.status === "booked"
+                                    ? "#dcdc27"
+                                    : order.status === "dispatched" &&
+                                      "#2bb22b",
+
                                 display: "inline",
-                                fontWeight: "500",
+                                fontWeight: "bold",
                               }}
                             >
                               {order.status[0].toUpperCase() +

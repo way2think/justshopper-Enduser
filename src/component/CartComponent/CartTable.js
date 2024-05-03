@@ -524,7 +524,12 @@ const CartTable = () => {
                     }}
                   >
                     <p className="itemname">
-                      <strong>{item.name}</strong>
+                      <strong
+                        style={{ cursor: "pointer" }}
+                        onClick={() => navigate(`/product/${item.id}`)}
+                      >
+                        {item.name}
+                      </strong>
                     </p>
                     {/* <p className="itemdesc">Category: {item.category}</p>
                     {item.theme && (
