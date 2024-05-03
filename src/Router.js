@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useLocation, useRoutes } from "react-router-dom";
 import DashBoardLayout from "./Layout/dashboard/DashboardLayout";
 import Home from "./pages/Home/Home";
 import ContactUs from "./pages/Contactus/ContactUs";
@@ -24,6 +24,13 @@ export default function Router() {
   const { data: user, isFetching, isLoading, error } = useOnAuthListenerQuery();
   const { data: settings } = useGetSettingsQuery();
   const [authChecked, setAuthChecked] = useState(false);
+
+  const { pathname } = useLocation();
+
+  // Automatically scrolls to top whenever pathname changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     // console.log("data: ", user);
@@ -84,25 +91,21 @@ export default function Router() {
           element: <AuthenticatedRoute element={<Order />} key="Profile" />,
           // element: <Order />,
         },
-
         {
           path: "about-us",
           element: <AboutUs />,
         },
         {
-          path: "Cancellation-Refund-Policy",
+          path: "cancellation-refund-policy",
           element: <CancellationRefundPolicy />,
-          // element: <Order />,
         },
         {
-          path: "Shipping-delivery-Policy",
+          path: "shipping-delivery-policy",
           element: <DeliveryPolicy />,
-          // element: <Order />,
         },
         {
-          path: "Terms-condition",
+          path: "terms-and-condition",
           element: <TermsCondition />,
-          // element: <Order />,
         },
       ],
     },

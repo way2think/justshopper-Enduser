@@ -8,6 +8,7 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -15,33 +16,6 @@ export default function Footer() {
       bgColor="black"
       className="text-center text-lg-start text-muted p-4"
     >
-      {/* <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <div className="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
-        </div>
-
-        <div>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="facebook-f" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="twitter" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="google" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="instagram" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="linkedin" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="github" />
-          </a>
-        </div>
-      </section> */}
-
       <section className="">
         <MDBContainer className="text-center text-md-start mt-5">
           <MDBRow className="mt-3">
@@ -59,8 +33,9 @@ export default function Footer() {
               >
                 <a
                   href="https://www.facebook.com/profile.php?id=61557129773638"
-                  className="  socialicon"
+                  className=" socialicon"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   {/* <MDBIcon fab icon="facebook-f" /> */}
                   <img
@@ -73,6 +48,7 @@ export default function Footer() {
                   href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
                   target="_blank"
                   className=" socialicon"
+                  rel="noreferrer"
                 >
                   {/* <MDBIcon fab icon="twitter" /> */}
                   <img
@@ -86,6 +62,7 @@ export default function Footer() {
                   href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
                   className=" socialicon"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   {/* <MDBIcon fab icon="instagram" /> */}
                   <img
@@ -107,35 +84,30 @@ export default function Footer() {
                 Products
               </h6>
               <p className="linkcontent">
-                <a href="/" className="text-reset">
+                <Link to="/" className="text-reset">
                   Home
-                </a>
+                </Link>
               </p>
               <p className="linkcontent">
-                <a href="/shop-by-category" className="text-reset">
+                <Link to="/shop-by-category" className="text-reset">
                   Shop by Category
-                </a>
+                </Link>
               </p>
               <p className="linkcontent">
-                <a href="/shop-by-theme" className="text-reset">
+                <Link to="/shop-by-theme" className="text-reset">
                   Shop by Theme
-                </a>
+                </Link>
               </p>
               <p className="linkcontent">
-                <a href="/contact-us" className="text-reset">
+                <Link to="/contact-us" className="text-reset">
                   Contact Us
-                </a>
+                </Link>
               </p>
               <p className="linkcontent">
-                <a href="/about-us" className="text-reset">
+                <Link to="/about-us" className="text-reset">
                   About us
-                </a>
+                </Link>
               </p>
-              {/* <p className="linkcontent">
-                <a href="#!" className="text-reset">
-                  Laravel
-                </a>
-              </p> */}
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
@@ -143,19 +115,19 @@ export default function Footer() {
                 Useful links
               </h6>
               <p className="linkcontent">
-                <a href="/Cancellation-Refund-Policy" className="text-reset ">
+                <Link to="/cancellation-refund-policy" className="text-reset ">
                   Cancellation Refund Policy
-                </a>
+                </Link>
               </p>
               <p className="linkcontent">
-                <a href="/Shipping-delivery-Policy" className="text-reset">
+                <Link to="/shipping-delivery-policy" className="text-reset">
                   Shipping & delivery Policy
-                </a>
+                </Link>
               </p>
               <p className="linkcontent">
-                <a href="Terms-condition" className="text-reset">
+                <Link to="terms-and-condition" className="text-reset">
                   Terms & Condition
-                </a>
+                </Link>
               </p>
               {/* <p className="linkcontent">
                 <a href="#!" className="text-reset"></a>
