@@ -15,6 +15,12 @@ const endOfDay = new Date(today);
 const millisecondsPerDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
 const thirtyDaysAgo = endOfDay.getTime() - millisecondsPerDay * 30;
 
+const rupeeSymbol = {
+  fontFamily: "sans-serif",
+  display: "inline",
+  color: "#5b5d5d !important",
+};
+
 const OrderList = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
@@ -224,6 +230,7 @@ const OrderList = () => {
                 <div className="itemDetails">
                   {order.ordered_items.map((item) => (
                     <OrderItem
+                      rupeeSymbol={rupeeSymbol}
                       key={item.id}
                       item={item}
                       userDetail={order?.user_details}
@@ -236,7 +243,25 @@ const OrderList = () => {
                       <Grid item sm={6} xs={12} md={3} lg={3}>
                         {" "}
                         <Box>
-                          <h3 className="Delivery">Status: {order.status}</h3>
+                          <h3 className="Delivery">
+                            Status:
+                            <p
+                              style={{
+                                // backgroundColor:
+                                //   order.status === "booked"
+                                //     ? "#ffff10"
+                                //     : order.status === "dispatched" &&
+                                //       "#32e232",
+                                borderRadius: "4px",
+                                color: "#2bb22b",
+                                display: "inline",
+                                fontWeight: "500",
+                              }}
+                            >
+                              {order.status[0].toUpperCase() +
+                                order.status.slice(1)}
+                            </p>
+                          </h3>
                           <h3 className="Delivery">
                             Payment Status:{" "}
                             {order.payment_status === "success"
@@ -274,16 +299,18 @@ const OrderList = () => {
                         <Box>
                           <h3 className="Delivery">Order Summary</h3>
                           <p>
-                            Item(s) Subtotal: &#8377;
+                            Item(s) Subtotal:
+                            <span style={rupeeSymbol}>&#8377;</span>
                             {formatAmount(order.total_item_price)}
                           </p>
                           <p>
-                            Shipping: &#8377;
+                            Shipping: <span style={rupeeSymbol}>&#8377;</span>
                             {formatAmount(order.shipping_price)}
                           </p>
                           {/* <p>Total: {formatAmount(order.total_price)}</p> */}
                           <p>
-                            Grand Total: &#8377;
+                            Grand Total:{" "}
+                            <span style={rupeeSymbol}>&#8377;</span>
                             {formatAmount(order.total_price)}
                           </p>
                           {/* <p>Grand Total: 708.00</p> */}

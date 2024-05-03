@@ -166,14 +166,14 @@ export default function Footer() {
         }}
       >
         <Grid item lg={6}>
-          <section className="d-flex justify-content-start justify-content-lg-start copy align-items-start">
+          <section className="copy">
             <div className="text-center copy">
               © 2024 Copyright JustShopper
               {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
            
           </a> */}
             </div>
-            <div className="socialflex d-flex">
+            <div className="text-center copy">
               <a
                 href="https://www.facebook.com/profile.php?id=61557129773638"
                 className="  socialicon"

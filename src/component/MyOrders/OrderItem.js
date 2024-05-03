@@ -36,7 +36,7 @@ const review = {
   fontFamily: "Poppins",
 };
 
-const OrderItem = ({ item, userDetail }) => {
+const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -156,8 +156,14 @@ const OrderItem = ({ item, userDetail }) => {
             </h5>
             <p>Sold by: Just Shopper</p>
             <p>Quantity: {item.quantity}</p>
-            <p>Item price: &#8377;{formatAmount(item.discount_price)}</p>
-            <p>Total item price: &#8377;{formatAmount(item.total_price)}</p>
+            <p>
+              Item price: <p style={rupeeSymbol}>&#8377;</p>
+              {formatAmount(item.discount_price)}
+            </p>
+            <p>
+              Total item price: <p style={rupeeSymbol}>&#8377;</p>
+              {formatAmount(item.total_price)}
+            </p>
           </div>
         </Stack>
       </Grid>

@@ -176,9 +176,10 @@ const WishlistCard = () => {
                   <Button
                     sx={cart}
                     variant="contained"
-                    onClick={() => handleAddToCart(item)}
+                    // onClick={() => handleAddToCart(item)}
+                    onClick={() => navigate(`/product/${item.id}`)}
                   >
-                    Add to Cart
+                    View
                   </Button>
                   <Button
                     sx={deleteicon}
