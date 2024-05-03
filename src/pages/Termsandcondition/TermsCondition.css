@@ -1,0 +1,39 @@
+.terms-container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.headingterms {
+  text-align: left;
+  font-size: 40px;
+  color: #dc3237;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.ulterms {
+  text-align: justify;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #000;
+  list-style-type: decimal;
+}
+.ulterms li {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .terms-container {
+    padding: 10px;
+  }
+  .headingterms {
+    font-size: 24px;
+  }
+  .ulterms {
+    font-size: 14px;
+    text-align: left;
+  }
+}

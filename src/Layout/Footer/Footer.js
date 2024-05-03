@@ -51,6 +51,50 @@ export default function Footer() {
                 Company name
               </h6> */}
               <img src="../images/JS logo png.png" alt="" className="jslogo" />
+              <Stack
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                flexDirection="row"
+              >
+                <a
+                  href="https://www.facebook.com/profile.php?id=61557129773638"
+                  className="  socialicon"
+                  target="_blank"
+                >
+                  {/* <MDBIcon fab icon="facebook-f" /> */}
+                  <img
+                    src="../images/Facebook F.png"
+                    alt=""
+                    className="sociallink"
+                  />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
+                  target="_blank"
+                  className=" socialicon"
+                >
+                  {/* <MDBIcon fab icon="twitter" /> */}
+                  <img
+                    src="../images/YouTube.png"
+                    alt=""
+                    className="sociallink"
+                  />
+                </a>
+
+                <a
+                  href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
+                  className=" socialicon"
+                  target="_blank"
+                >
+                  {/* <MDBIcon fab icon="instagram" /> */}
+                  <img
+                    src="../images/Instagram.png"
+                    alt=""
+                    className="sociallink"
+                  />
+                </a>
+              </Stack>
               {/* <p className="companydesc">
                 Here you can use rows and columns to organize your footer
                 content. Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -78,8 +122,13 @@ export default function Footer() {
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="/contact-us`" className="text-reset">
+                <a href="/contact-us" className="text-reset">
                   Contact Us
+                </a>
+              </p>
+              <p className="linkcontent">
+                <a href="/about-us" className="text-reset">
+                  About us
                 </a>
               </p>
               {/* <p className="linkcontent">
@@ -94,25 +143,23 @@ export default function Footer() {
                 Useful links
               </h6>
               <p className="linkcontent">
-                <a href="/cart" className="text-reset ">
-                  Cart
+                <a href="/Cancellation-Refund-Policy" className="text-reset ">
+                  Cancellation Refund Policy
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="/favorites" className="text-reset">
-                  Wishlist
+                <a href="/Shipping-delivery-Policy" className="text-reset">
+                  Shipping & delivery Policy
                 </a>
               </p>
               <p className="linkcontent">
-                <a href="#!" className="text-reset">
-                  Privacy Policy
-                </a>
-              </p>
-              <p className="linkcontent">
-                <a href="#!" className="text-reset">
+                <a href="Terms-condition" className="text-reset">
                   Terms & Condition
                 </a>
               </p>
+              {/* <p className="linkcontent">
+                <a href="#!" className="text-reset"></a>
+              </p> */}
             </MDBCol>
 
             <MDBCol md="4" lg="4" xl="4" className="mx-auto mb-md-0 mb-4">
@@ -167,54 +214,7 @@ export default function Footer() {
       >
         <Grid item lg={6}>
           <section className="copy">
-            <div className="text-center copy">
-              © 2024 Copyright JustShopper
-              {/* <a className="text-reset fw-bold " href="https://mdbootstrap.com/">
-           
-          </a> */}
-            </div>
-            <div className="text-center copy">
-              <a
-                href="https://www.facebook.com/profile.php?id=61557129773638"
-                className="  socialicon"
-                target="_blank"
-              >
-                {/* <MDBIcon fab icon="facebook-f" /> */}
-                <img
-                  src="../images/Facebook F.png"
-                  alt=""
-                  className="sociallink"
-                />
-              </a>
-              <a
-                href="https://www.youtube.com/channel/UCbaR43u7NOb76zzRopMGuBQ"
-                target="_blank"
-                className=" socialicon"
-              >
-                {/* <MDBIcon fab icon="twitter" /> */}
-                <img
-                  src="../images/YouTube.png"
-                  alt=""
-                  className="sociallink"
-                />
-              </a>
-              {/* <a href="" className=" socialicon">
-            <MDBIcon fab icon="google" />
-            <img src="../images/TwitterX.png" alt="" className="sociallink"  />
-          </a> */}
-              <a
-                href="https://www.instagram.com/justshopperofficial?igsh=MXB0eDBiaHNnbjRqYQ%3D%3D&utm_source=qr"
-                className=" socialicon"
-                target="_blank"
-              >
-                {/* <MDBIcon fab icon="instagram" /> */}
-                <img
-                  src="../images/Instagram.png"
-                  alt=""
-                  className="sociallink"
-                />
-              </a>
-            </div>
+            <div className="">© 2024 Copyright JustShopper</div>
           </section>
         </Grid>
         <Grid item lg={6}>
