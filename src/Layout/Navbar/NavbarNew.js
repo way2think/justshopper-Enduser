@@ -146,6 +146,7 @@ const NavbarNew = () => {
                   setValue(newValue);
                   if (newValue) {
                     navigate(`/product/${newValue.id}`, { state: newValue });
+                    // setValue(""); // uncomment if want to clear selection afte navigation
                   }
                 }}
                 inputValue={inputValue}
