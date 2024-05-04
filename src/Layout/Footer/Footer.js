@@ -130,9 +130,9 @@ export default function Footer() {
                 </Link>
               </p>
               <p className="linkcontent">
-                <a href="privacy-policy" className="text-reset">
+                <Link to="privacy-policy" className="text-reset">
                   Privacy Policy
-                </a>
+                </Link>
               </p>
               {/* <p className="linkcontent">
                 <a href="#!" className="text-reset"></a>
@@ -145,8 +145,8 @@ export default function Footer() {
               </h6>
               <p className="linkcontent">
                 <MDBIcon icon="home" className="me-3" />
-                No 9 old 2a 3rd cross street Vijayanagar Velachery
-                chennai 600042
+                No. 9, old 2a, 3rd cross street, Vijayanagar, Velachery, chennai
+                - 600042
               </p>
               <p className="linkcontent">
                 <MDBIcon icon="envelope" className="me-3" />
