@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginModal from "../../component/Login/LoginModal";
 import SignupModal from "../../component/Signup/SignupModal";
-import { Badge, Stack } from "@mui/material";
+import { Badge, Stack, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -21,6 +21,8 @@ import {
   MDBDropdownMenu,
   MDBDropdownToggle,
 } from "mdb-react-ui-kit";
+import Autocomplete from "@mui/material/Autocomplete";
+import { useGetAllProductsQuery } from "../../api/product";
 
 const NavbarNew = () => {
   const location = useLocation();
@@ -34,6 +36,9 @@ const NavbarNew = () => {
     login: false,
     signup: false,
   });
+  const [options, setOptions] = useState([]);
+  const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const categoryListDetail = useSelector(selectCategory);
@@ -51,6 +56,25 @@ const NavbarNew = () => {
 
   const [signOutUser, { isError, error, data, isLoading }] =
     useSignOutUserMutation();
+
+  const conditions = [
+    {
+      type: "where",
+      field: "status",
+      operator: "==",
+      value: "published",
+    },
+    {
+      type: "where",
+      field: "search_tags",
+      operator: "array-contains",
+      value: inputValue,
+    },
+  ];
+  const { productData, isProductLoading, isFetching } = useGetAllProductsQuery({
+    conditions,
+  });
+  console.log(productData);
 
   useEffect(() => {
     function handleResize() {
@@ -106,6 +130,24 @@ const NavbarNew = () => {
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li className="nav-item active navitem">
+              <Autocomplete
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                inputValue={inputValue}
+                onInputChange={(event, newInputValue) => {
+                  setInputValue(newInputValue);
+                }}
+                id="controllable-states-demo"
+                options={options}
+                sx={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="" placeholder="Search" />
+                )}
+              />
+            </li>
             <li className="nav-item active navitem">
               <Link
                 className="nav-link"
