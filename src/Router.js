@@ -20,6 +20,7 @@ import DeliveryPolicy from "./pages/Delivery/DeliveryPolicy";
 import TermsCondition from "./pages/Termsandcondition/TermsCondition";
 import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
 import Error404 from "./pages/404/Error404";
+import { errorNotification } from "./utils/notifications";
 
 export default function Router() {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ export default function Router() {
 
     if (user) {
       setAuthChecked(true);
+      if (user === "no record found") {
+        errorNotification("You don't have access to this website");
+      }
     }
   }, [dispatch, user]);
 

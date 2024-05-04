@@ -89,6 +89,7 @@ export const auth = api.injectEndpoints({
             // console.log("user: ", user.accessToken);
             if (user) {
               const userDet = await getObjectByParam(collectionId, user.uid);
+              console.log("userDet: ", userDet);
               if (userDet.data) {
                 const updatedUser = {
                   ...userDet.data,
@@ -99,7 +100,8 @@ export const auth = api.injectEndpoints({
                 // dispatch(setAuthUser(user));
                 updateCachedData((draft) => updatedUser);
               } else {
-                return userDet.error;
+                await signOutUser(); // no user found then signout, possibly admin
+                updateCachedData((draft) => "no record found");
               }
             } else {
               console.log("User logged out or not yet logged in");
