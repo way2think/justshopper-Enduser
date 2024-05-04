@@ -144,7 +144,9 @@ const NavbarNew = () => {
                 value={value}
                 onChange={(event, newValue) => {
                   setValue(newValue);
-                  navigate(`/product/${newValue.id}`, { state: newValue });
+                  if (newValue) {
+                    navigate(`/product/${newValue.id}`, { state: newValue });
+                  }
                 }}
                 inputValue={inputValue}
                 onInputChange={(event, newInputValue) => {
@@ -152,7 +154,7 @@ const NavbarNew = () => {
                 }}
                 id="controllable-states-demo"
                 options={options}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option) => option.name || ""}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
                   <TextField {...params} label="" placeholder="Search" />
