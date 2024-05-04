@@ -71,10 +71,19 @@ const NavbarNew = () => {
       value: inputValue,
     },
   ];
-  const { productData, isProductLoading, isFetching } = useGetAllProductsQuery({
+  const {
+    data: productData,
+    isProductLoading,
+    isFetching,
+  } = useGetAllProductsQuery({
     conditions,
   });
-  console.log(productData);
+
+  useEffect(() => {
+    if (productData && productData.length) {
+      setOptions(productData);
+    }
+  }, [productData]);
 
   useEffect(() => {
     function handleResize() {
@@ -135,6 +144,7 @@ const NavbarNew = () => {
                 value={value}
                 onChange={(event, newValue) => {
                   setValue(newValue);
+                  navigate(`/product/${newValue.id}`, { state: newValue });
                 }}
                 inputValue={inputValue}
                 onInputChange={(event, newInputValue) => {
@@ -142,6 +152,7 @@ const NavbarNew = () => {
                 }}
                 id="controllable-states-demo"
                 options={options}
+                getOptionLabel={(option) => option.name}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
                   <TextField {...params} label="" placeholder="Search" />
