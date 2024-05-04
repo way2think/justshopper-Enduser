@@ -38,10 +38,14 @@ const ManageAddress = ({ openAddressModal, value, setShowModal, add }) => {
       window.confirm(`Do you want to delete this address: ${address.name}?`) ===
       true
     ) {
-      const updatedShippingAddresses = user.shipping_addresses.filter(
-        (add) => add.id !== address.id
-      );
-
+      const updatedShippingAddresses = user.shipping_addresses
+        .filter((add) => add.id !== address.id)
+        .map((add) => ({ ...add }));
+      // console.log("updatedShippingAddres-manage",updateShippingAddress)
+      // updatedShippingAddresses[0]?.is_active=true;
+      if (updatedShippingAddresses.length > 0) {
+        updatedShippingAddresses[0].is_active = true;
+      }
       const result = await addNewShippingAddress({
         docId: user.id,
         dataObject: {

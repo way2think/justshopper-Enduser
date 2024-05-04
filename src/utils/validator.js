@@ -58,6 +58,13 @@ function isValidNumber(num) {
   return numberRegex.test(num);
 }
 
+function isValidPincode(pin) {
+  //contain only 6 digit for india
+  const pincodeRegex = /^\d{6}$/;
+
+  return pincodeRegex.test(pin);
+}
+
 export {
   isValidEmail,
   isValidPassword,
@@ -66,4 +73,5 @@ export {
   isValidName,
   isValidNumber,
   isValidAddressObject,
+  isValidPincode,
 };

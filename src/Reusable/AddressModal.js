@@ -20,6 +20,8 @@ import {
   StateSelect,
 } from "react-country-state-city";
 import { useUpdateShippingAddressMutation } from "../api/user";
+import { isValidName, isValidPincode } from "../utils/validator";
+import { countryIndia } from "../utils/constants";
 
 const style = {
   position: "absolute",
@@ -101,7 +103,7 @@ export default function AddressModal({ open, setOpen }) {
     line: "",
     city: "",
     state: "",
-    country: "",
+    country: "India",
     pincode: "",
     is_active: false,
   });
@@ -137,29 +139,40 @@ export default function AddressModal({ open, setOpen }) {
   }
 
   const handleAddNewShippingAddress = async () => {
-    const updatedShippingAddresses = [
-      ...user.shipping_addresses,
-      {
-        id: new Date().getTime(),
-        ...addressDetails,
-        is_active: user.shipping_addresses.length === 0 ? true : false,
-      },
-    ];
+    if (
+      isValidName(addressDetails.name) &&
+      addressDetails.line !== "" &&
+      addressDetails.country !== "" &&
+      addressDetails.city !== "" &&
+      addressDetails.state !== "" &&
+      isValidPincode(addressDetails.pincode)
+    ) {
+      const updatedShippingAddresses = [
+        ...user.shipping_addresses,
+        {
+          id: new Date().getTime(),
+          ...addressDetails,
+          is_active: user.shipping_addresses.length === 0 ? true : false,
+        },
+      ];
 
-    const result = await addNewShippingAddress({
-      docId: user.id,
-      dataObject: {
-        shipping_addresses: updatedShippingAddresses,
-      },
-    });
+      const result = await addNewShippingAddress({
+        docId: user.id,
+        dataObject: {
+          shipping_addresses: updatedShippingAddresses,
+        },
+      });
 
-    console.log("result: ", result);
-    if (result.data) {
-      // udpate the result in local state
-      dispatch(updateShippingAddress(updatedShippingAddresses));
-      reset();
+      console.log("result: ", result);
+      if (result.data) {
+        // udpate the result in local state
+        dispatch(updateShippingAddress(updatedShippingAddresses));
+        reset();
+      } else {
+        errorNotification(result.error.message);
+      }
     } else {
-      errorNotification(result.error.message);
+      errorNotification("InValid data");
     }
   };
 
@@ -234,7 +247,16 @@ export default function AddressModal({ open, setOpen }) {
                 </Grid>
 
                 <Grid md={6} xs={6} pr={2}>
-                  <CountrySelect
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Country"
+                    multiline
+                    rows={1}
+                    value="India"
+                    sx={{ width: "100%" }}
+                    disabled={true}
+                  />
+                  {/* <CountrySelect
                     onChange={(e) => {
                       setCountryid(e.id);
                       setCountryName(e.name);
@@ -246,12 +268,12 @@ export default function AddressModal({ open, setOpen }) {
                       });
                     }}
                     placeHolder="Select Country"
-                  />
+                  /> */}
                 </Grid>
 
                 <Grid md={6} xs={6}>
                   <StateSelect
-                    countryid={countryid}
+                    countryid={countryIndia.id}
                     onChange={(e) => {
                       setstateid(e.id);
                       setstateName(e.name);
@@ -268,7 +290,7 @@ export default function AddressModal({ open, setOpen }) {
 
                 <Grid md={6} xs={6} pr={2} mt={2}>
                   <CitySelect
-                    countryid={countryid}
+                    countryid={countryIndia.id}
                     stateid={stateid}
                     onChange={(e) => {
                       setCityName(e.name);

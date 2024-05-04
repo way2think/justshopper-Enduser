@@ -155,7 +155,7 @@ export default function CardNewArrival({ product }) {
         className="cardimage"
         // onClick={handleNavigateToProductDetail}
       />
-      {/* <div className="favImage">
+      <div className="favImage">
         {isFavourite ? (
           <FavoriteIcon
             sx={{ cursor: "pointer" }}
@@ -167,7 +167,7 @@ export default function CardNewArrival({ product }) {
             onClick={() => handleUpdateFavourites("add")}
           />
         )}
-      </div> */}
+      </div>
       {/* <img src="../images/heart.png" className="favImage" alt="" width={25} height={25} /> */}
       {/* <ImageCarousel /> */}
 

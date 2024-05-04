@@ -129,4 +129,16 @@ const shipping_charges = {
   },
 };
 
-export { shipping_charges };
+const countryIndia = {
+  id: 101,
+  name: "India",
+  iso3: "IND",
+  iso2: "IN",
+  numeric_code: "356",
+  phone_code: 91,
+  region: "Asia",
+  subregion: "Southern Asia",
+  tld: ".in",
+};
+
+export { shipping_charges, countryIndia };

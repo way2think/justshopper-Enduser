@@ -40,9 +40,11 @@ import {
   isValidAddressObject,
   isValidName,
   isValidPhoneNumber,
+  isValidPincode,
 } from "../../utils/validator";
 import { useUpdateProfileDetailMutation } from "../../api/user";
 import { setIsLoading } from "../../store/appSlice";
+import { countryIndia } from "../../utils/constants";
 
 const save = {
   background: "#dc3237",
@@ -121,10 +123,8 @@ const ProfileDetail = () => {
   useEffect(() => {
     if (user.address.country && user.address.state && user.address.city) {
       GetCountries().then((result) => {
-        const countryObj = result.find(
-          (country) => country.name === user.address.country
-        );
-        // console.log("countryObj: ", countryObj);
+        const countryObj = countryIndia;
+
         setCountry(countryObj);
 
         GetState(countryObj.id).then((resultState) => {
@@ -149,7 +149,7 @@ const ProfileDetail = () => {
     setDefaultValues((prevState) => {
       const { name, value } = e.target;
 
-      if (name === "addressLine" || name === "pincode") {
+      if (name === "line" || name === "pincode") {
         return {
           ...prevState,
           address: {
@@ -192,7 +192,8 @@ const ProfileDetail = () => {
     if (
       isValidName(name) &&
       isValidPhoneNumber(phone) &&
-      isValidAddressObject(address)
+      isValidAddressObject(address) &&
+      isValidPincode(address.pincode)
     ) {
       const result = await updateProfile({
         docId: user.id,
@@ -296,16 +297,25 @@ const ProfileDetail = () => {
                 value={defaultValues.address.line}
                 onChange={onChangeHandler}
                 disabled={disableProfileEdit}
-                name="addressLine"
+                name="line"
                 sx={{ mb: 2, width: "100%" }}
               />
             </Grid>
             <Grid item md={6} xs={12}>
-              <CountrySelect
+              <TextField
+                id="outlined-multiline-static"
+                // label="Country"
+                multiline
+                rows={1}
+                value={country.name}
+                sx={{ width: "100%" }}
+                disabled={true}
+              />
+              {/* <CountrySelect
                 defaultValue={country}
                 onChange={(object) => onChangeDropdown("country", object)}
                 placeHolder="Select Country"
-              />
+              /> */}
             </Grid>
             <Grid item md={6} xs={12}>
               <StateSelect

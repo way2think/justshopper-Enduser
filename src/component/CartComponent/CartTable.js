@@ -92,10 +92,10 @@ const CartTable = () => {
 
   useEffect(() => {
     // console.log("selectedaddre: ", user.selected_address.state);
-    if (user.selected_address.state !== "Tamil Nadu") {
+    if (user.selected_address?.state !== "Tamil Nadu") {
       setOneDayDelivery(false);
     }
-  }, [user.selected_address.state]);
+  }, [user.selected_address?.state]);
 
   // console.log("cartItems: ", cartItems);
 
@@ -149,12 +149,12 @@ const CartTable = () => {
     // const totalWeight = 1000;
     const totalWeight = parseFloat(totalWeightInGrams);
     const { selected_address } = user;
-    const country = shipping_charges.countries[selected_address.country];
+    const country = shipping_charges.countries[selected_address?.country];
 
     if (!country) {
       setCheckout({
         canCheckout: false,
-        message: `Currently we don't support Country: ${selected_address.country}`,
+        message: `Currently we don't support Country: ${selected_address?.country}`,
       });
       return;
     }
