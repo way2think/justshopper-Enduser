@@ -157,6 +157,11 @@ export default function Footer() {
                   Terms & Condition
                 </a>
               </p>
+              <p className="linkcontent">
+                <a href="privacy-policy" className="text-reset">
+                  Privacy Policy
+                </a>
+              </p>
               {/* <p className="linkcontent">
                 <a href="#!" className="text-reset"></a>
               </p> */}
