@@ -145,7 +145,8 @@ export default function Footer() {
               </h6>
               <p className="linkcontent">
                 <MDBIcon icon="home" className="me-3" />
-                Chennai
+                No 9 old 2a 3rd cross street Vijayanagar Velachery
+                chennai 600042
               </p>
               <p className="linkcontent">
                 <MDBIcon icon="envelope" className="me-3" />

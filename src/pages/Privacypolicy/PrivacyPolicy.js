@@ -3,7 +3,7 @@ import "./PrivacyPolicy.css"; // Import CSS file for styling
 
 const PrivacyPolicy = () => {
   return (
-    <div className="privacy-policy-container">
+    <div className="privacy-policy-container container ">
       <h1>Privacy Policy</h1>
 
       <p>
@@ -24,6 +24,7 @@ const PrivacyPolicy = () => {
 
       <div className="section">
         <h2>Interpretation and Definitions</h2>
+
         <div className="sub-section">
           <h3>Interpretation</h3>
           <p>
@@ -116,7 +117,7 @@ const PrivacyPolicy = () => {
             <li>Address, State, Province, ZIP/Postal code, City</li>
             <li>Usage Data</li>
           </ul>
-          <h4>Usage Data</h4>
+          <h3>Usage Data</h3>
           <p>Usage Data is collected automatically when using the Service.</p>
           <p>
             Usage Data may include information such as Your Device's Internet
@@ -250,24 +251,24 @@ const PrivacyPolicy = () => {
             of our Service.
           </li>
           <li>
-            To manage Your Account: to manage Your registration as a user of the
-            Service. The Personal Data You provide can give You access to
-            different functionalities of the Service that are available to You
-            as a registered user.
+            <strong>To manage Your Account:</strong> to manage Your registration
+            as a user of the Service. The Personal Data You provide can give You
+            access to different functionalities of the Service that are
+            available to You as a registered user.
           </li>
           <li>
-            For the performance of a contract: the development, compliance and
-            undertaking of the purchase contract for the products, items or
-            services You have purchased or of any other contract with Us through
-            the Service.
+            <strong>For the performance of a contract:</strong> the development,
+            compliance and undertaking of the purchase contract for the
+            products, items or services You have purchased or of any other
+            contract with Us through the Service.
           </li>
           <li>
-            To contact You: To contact You by email, telephone calls, SMS, or
-            other equivalent forms of electronic communication, such as a mobile
-            application's push notifications regarding updates or informative
-            communications related to the functionalities, products or
-            contracted services, including the security updates, when necessary
-            or reasonable for their implementation.
+            <strong>To contact You:</strong> To contact You by email, telephone
+            calls, SMS, or other equivalent forms of electronic communication,
+            such as a mobile application's push notifications regarding updates
+            or informative communications related to the functionalities,
+            products or contracted services, including the security updates,
+            when necessary or reasonable for their implementation.
           </li>
           <li>
             To provide You with news, special offers and general information
@@ -526,6 +527,10 @@ const PrivacyPolicy = () => {
             <a href="https://justshopper.in/contact-us">Contact Us</a>
           </li>
           <li>By phone number: 9500231901</li>
+          <li>
+            By Address: No 9 old 2a 3rd cross street Vijayanagar Velachery
+            chennai 600042
+          </li>
         </ul>
       </div>
     </div>

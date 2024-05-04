@@ -142,7 +142,10 @@ const ContactDetails = () => {
                       alt=""
                       className="Location"
                     />
-                    <p className="m-0 chennai">Chennai</p>
+                    <p className="m-0 chennai">
+                      No 9 old 2a 3rd cross street Vijayanagar Velachery
+                      chennai 600042
+                    </p>
                   </Stack>
                 </Box>
               </Grid>
