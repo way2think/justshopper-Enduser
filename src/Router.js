@@ -19,6 +19,7 @@ import AboutUs from "./pages/Aboutus/AboutUs";
 import DeliveryPolicy from "./pages/Delivery/DeliveryPolicy";
 import TermsCondition from "./pages/Termsandcondition/TermsCondition";
 import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
+import Error404 from "./pages/404/Error404";
 
 export default function Router() {
   const dispatch = useDispatch();
@@ -111,6 +112,11 @@ export default function Router() {
         {
           path: "privacy-policy",
           element: <PrivacyPolicy />,
+          // element: <Order />,
+        },
+        {
+          path: "404-error",
+          element: <Error404 />,
           // element: <Order />,
         },
       ],

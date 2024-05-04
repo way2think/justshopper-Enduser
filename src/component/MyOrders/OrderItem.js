@@ -133,7 +133,7 @@ const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item sm={12} xs={12} md={8} lg={8}>
+      <Grid item sm={12} xs={12} md={5} lg={5}>
         <Stack direction="row" justifyContent="start" alignItems="center">
           <div className={classes.itemImg}>
             <img
@@ -168,7 +168,16 @@ const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
         </Stack>
       </Grid>
 
-      <Grid className="trackbtn" sm={12} xs={12} md={4} lg={4}>
+      <Grid item sm={12} xs={12} md={4} lg={4}>
+        <p className="trackid">
+          <b className="track">Tracking Id :</b> 12345678909
+        </p>
+        <p className="trackid">
+          <b className="track">Tracking Url :</b> link
+        </p>
+      </Grid>
+
+      <Grid className="trackbtn" sm={12} xs={12} md={3} lg={3}>
         <Stack direction="row" justifyContent="center" alignItems="center">
           <div className="btn_group">
             {/* <ReturnIcon /> */}
