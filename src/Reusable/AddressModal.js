@@ -163,16 +163,13 @@ export default function AddressModal({ open, setOpen }) {
         },
       });
 
-      console.log("result: ", result);
-      if (result.data) {
-        // udpate the result in local state
-        dispatch(updateShippingAddress(updatedShippingAddresses));
-        reset();
-      } else {
-        errorNotification(result.error.message);
-      }
+    // console.log("result: ", result);
+    if (result.data) {
+      // udpate the result in local state
+      dispatch(updateShippingAddress(updatedShippingAddresses));
+      reset();
     } else {
-      errorNotification("InValid data");
+      errorNotification(result.error.message);
     }
   };
 

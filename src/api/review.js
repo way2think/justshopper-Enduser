@@ -88,7 +88,7 @@ export const review = api.injectEndpoints({
       queryFn: async ({ dataObject }) => {
         const { old: oldReview, new: newReview } = dataObject;
 
-        console.log("updateReview: ", oldReview, newReview);
+        // console.log("updateReview: ", oldReview, newReview);
 
         const updatedReviewObject = {
           rating: newReview.rating,

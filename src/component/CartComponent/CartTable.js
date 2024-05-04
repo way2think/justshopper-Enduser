@@ -190,7 +190,7 @@ const CartTable = () => {
       return;
     }
 
-    console.log("oneDayDelivery shipping: ", oneDayDelivery);
+    // console.log("oneDayDelivery shipping: ", oneDayDelivery);
 
     const deliveryType = oneDayDelivery
       ? "one_day_delivery"
@@ -247,7 +247,7 @@ const CartTable = () => {
   const handleCheckout = async () => {
     if (user.isAuthenticated) {
       if (checkout.canCheckout) {
-        console.log("subtotalPrice: ", subtotalPrice);
+        // console.log("subtotalPrice: ", subtotalPrice);
         if (subtotalPrice < 100) {
           errorNotification(
             "Minimum order value must be Rs. 100, Please add more products."
@@ -289,11 +289,11 @@ const CartTable = () => {
                   warningNotification(
                     `Current stock quantity is greater than available stock, stock quantity recalculated`
                   );
-                  console.log(
-                    currentCartItems,
-                    cartItemIndex,
-                    currentCartItems[cartItemIndex].cart_quantity
-                  );
+                  // console.log(
+                  //   currentCartItems,
+                  //   cartItemIndex,
+                  //   currentCartItems[cartItemIndex].cart_quantity
+                  // );
                   const updatedCartItem = {
                     ...currentCartItems[cartItemIndex],
                     cart_quantity: product.total_quantity,
@@ -315,7 +315,7 @@ const CartTable = () => {
               }
             });
 
-            console.log("outOfStock: ", outOfStock, proceedPayment);
+            // console.log("outOfStock: ", outOfStock, proceedPayment);
 
             if (outOfStock > 0 || !proceedPayment) {
               dispatch(setIsLoading(false));
@@ -390,12 +390,20 @@ const CartTable = () => {
               // 2. create order in firebase - order_id
               const resultOrderCreation = await createOrder(order);
               if (resultOrderCreation.data) {
-                console.log("resultOrderCreation: ", resultOrderCreation.data);
+                // console.log("resultOrderCreation: ", resultOrderCreation.data);
                 const { data: resultOrder } = resultOrderCreation;
                 // 3. create razorpay payment order using firebase functions - get razorpay payment: order_id
+                const options = {
+                  headers: {
+                    Authorization: `Bearer ${user.access_token}`,
+                  },
+                };
                 const resultRzpOrderCreation = await createRazorpayOrder({
-                  order_id: resultOrder.id,
-                  amount: resultOrder.total_price,
+                  rzpOptions: {
+                    order_id: resultOrder.id,
+                    amount: resultOrder.total_price,
+                  },
+                  restOptions: options,
                 });
                 if (resultRzpOrderCreation.data) {
                   const { data: resultRzpOrder } = resultRzpOrderCreation;
@@ -413,9 +421,9 @@ const CartTable = () => {
                       // 5. in handler, just show the payment success or failure
                       // 6. after completing, in webhook, we will get success or failure, update the firebase order with the payment details - done in server
                       // 7. add the order in notifications for real-time listener - done in server
-                      console.log("rzp: ", response.razorpay_payment_id);
-                      console.log(response.razorpay_order_id);
-                      console.log(response.razorpay_signature);
+                      // console.log("rzp: ", response.razorpay_payment_id);
+                      // console.log(response.razorpay_order_id);
+                      // console.log(response.razorpay_signature);
                       dispatch(clearCart());
                       successNotification(
                         "Order Successfully Placed, You'll receive receipt in email shortly. Have a great day!"
@@ -449,7 +457,10 @@ const CartTable = () => {
                   errorNotification(resultRzpOrderCreation.error.message);
                 }
               } else {
-                // console.log("resultOrderCreation-error: ", resultOrderCreation.error);
+                console.log(
+                  "resultOrderCreation-error: ",
+                  resultOrderCreation.error
+                );
                 dispatch(setIsLoading(false));
                 errorNotification(resultOrderCreation.error.message);
               }

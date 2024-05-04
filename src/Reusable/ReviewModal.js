@@ -51,7 +51,7 @@ export default function ReviewModal({
   const [review, setReview] = useState("");
 
   useEffect(() => {
-    console.log("existingReview: ", existingReview);
+    // console.log("existingReview: ", existingReview);
     if (existingReview) {
       setRating(existingReview.rating);
       setReview(existingReview.review);

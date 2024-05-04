@@ -11,7 +11,7 @@ export const product = api.injectEndpoints({
   endpoints: (build) => ({
     getAllProducts: build.query({
       queryFn: async ({ conditions }) => {
-        console.log("conf: ", conditions);
+        // console.log("conf: ", conditions);
         return await getAllObjects(collectionId, conditions);
       },
     }),

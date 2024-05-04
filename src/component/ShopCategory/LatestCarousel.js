@@ -89,7 +89,7 @@ function LatestCarousel({ relatedProducts }) {
     isLoading,
   } = useGetMultiProductByIdsQuery(relatedProducts);
 
-  console.log("related products: ", products, isFetching, isLoading);
+  // console.log("related products: ", products, isFetching, isLoading);
 
   const handleNavigateToProductDetail = (product) => {
     navigate(`/product/${product.id}`, { state: product });

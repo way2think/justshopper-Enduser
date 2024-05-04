@@ -10,8 +10,8 @@ import { getAuth } from "firebase/auth";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-console.log("api key: ", apiKey);
-console.log("env: ", process.env.NODE_ENV);
+// console.log("api key: ", apiKey);
+// console.log("env: ", process.env.NODE_ENV);
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

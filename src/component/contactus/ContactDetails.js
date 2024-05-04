@@ -185,9 +185,7 @@ const ContactDetails = () => {
                       alt=""
                       className="Location"
                     />
-                    <p className="m-0 chennai">
-                      +91 77608 88801, +91 95002 31901
-                    </p>
+                    <p className="m-0 chennai">+91 95002 31901</p>
                   </Stack>
                 </Box>
               </Grid>

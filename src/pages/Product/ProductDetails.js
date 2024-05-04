@@ -90,7 +90,7 @@ const ProductDetails = () => {
   }, [getProductById, id, state]);
 
   const handleUpdateReview = async ({ rating, review }) => {
-    console.log("handleUpdateReview: ", reviewModal.review, rating, review);
+    // console.log("handleUpdateReview: ", reviewModal.review, rating, review);
     // // same rating & review don't update
     if (
       reviewModal.review.rating === rating &&

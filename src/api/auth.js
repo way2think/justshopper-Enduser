@@ -33,7 +33,7 @@ export const auth = api.injectEndpoints({
     signInWithEmailAndPassword: build.mutation({
       queryFn: async ({ email, password }) => {
         const result = await signinWithEmailAndPassword(email, password);
-        console.log("resulttt----", result);
+        // console.log("resulttt----", result);
 
         const user = result.data;
         if (user) {
@@ -86,13 +86,14 @@ export const auth = api.injectEndpoints({
           await cacheDataLoaded;
 
           unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
+            // console.log("user: ", user.accessToken);
             if (user) {
               const userDet = await getObjectByParam(collectionId, user.uid);
               if (userDet.data) {
-                console.log("user: ", userDet.data);
                 const updatedUser = {
                   ...userDet.data,
                   isAuthenticated: true,
+                  accessToken: user.accessToken,
                 };
                 dispatch(setUser(updatedUser));
                 // dispatch(setAuthUser(user));

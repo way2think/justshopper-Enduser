@@ -183,7 +183,7 @@ export default function LoginModal({ open, setOpen }) {
     } else {
       dispatch(setIsLoading(true));
 
-      console.log("userCred: ", userCred);
+      // console.log("userCred: ", userCred);
       dispatch(setIsLoading(false));
       const { email, password } = userCred;
       if (isValidEmail(email) && isValidPassword(password)) {
@@ -195,7 +195,7 @@ export default function LoginModal({ open, setOpen }) {
           successNotification(`Successfully Signed In!!!`);
           closeModal();
         } else {
-          // console.log("error: ", result);
+          console.log("error: ", result);
           dispatch(setIsLoading(false));
           errorNotification(result?.error?.message);
         }

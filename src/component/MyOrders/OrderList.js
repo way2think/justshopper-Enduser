@@ -28,8 +28,6 @@ const OrderList = () => {
 
   const [time, setTime] = useState(thirtyDaysAgo);
 
-  // console.log("use: ", user.id);
-
   const conditions = [
     {
       type: "where",
@@ -94,10 +92,16 @@ const OrderList = () => {
   const downloadInvoice = async (order) => {
     dispatch(setIsLoading(true));
     try {
+      const options = {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+        responseType: "arraybuffer",
+      };
       const result = await axios.post(
         `${process.env.REACT_APP_API_URL}/payment/generate-invoice`,
         { order_id: order.id },
-        { responseType: "arraybuffer" }
+        options
       );
 
       // console.log("downloadInvoice: ", result.status, result.data);

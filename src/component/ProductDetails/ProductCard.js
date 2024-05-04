@@ -158,7 +158,7 @@ const ProductCard = ({ product }) => {
             : window.location.hostname
         }/product/${product.id}`,
       });
-      console.log("Successfully shared");
+      // console.log("Successfully shared");
     } catch (error) {
       console.error("Error sharing:", error);
     }

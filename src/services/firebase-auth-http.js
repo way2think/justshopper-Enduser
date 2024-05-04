@@ -17,7 +17,7 @@ const signupWithEmailAndPassword = async (email, password) => {
     );
     // Signed up
     const user = userCredential.user;
-    console.log(`signupWithEmailAndPassword: ${email} - success`, user);
+    // console.log(`signupWithEmailAndPassword: ${email} - success`, user);
     return {
       data: {
         ...user,
@@ -43,7 +43,7 @@ const signinWithEmailAndPassword = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    console.log(`signinWithEmailAndPassword: ${email} - success`, user);
+    // console.log(`signinWithEmailAndPassword: ${email} - success`, user);
     return {
       data: user,
       error: null,
@@ -62,7 +62,7 @@ const signinWithEmailAndPassword = async (email, password) => {
 const sendPasswordResetEmail = async (email) => {
   try {
     await sendResetPasswordEmail(auth, email);
-    console.log(`sendPasswordResetEmail: ${email} - success`);
+    // console.log(`sendPasswordResetEmail: ${email} - success`);
     return {
       data: {
         isDone: true,
@@ -83,7 +83,7 @@ const sendPasswordResetEmail = async (email) => {
 const updateUserPassword = async (password) => {
   const auth = getAuth();
   const user = auth.currentUser;
-  console.log("updateUserPassword: ", user);
+  // console.log("updateUserPassword: ", user);
   try {
     await updatePassword(user, password);
     return {
@@ -101,7 +101,6 @@ const updateUserPassword = async (password) => {
 };
 
 const signOutUser = async () => {
-  console.log("signOutUser - api");
   try {
     await signOut(auth);
     return {
