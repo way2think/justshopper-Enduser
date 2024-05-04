@@ -62,7 +62,7 @@ const displayRazorpay = async (options) => {
   paymentObject.open();
 };
 
-const createRazorpayOrder = async (dataObject) => {
+const createRazorpayOrder = async (dataObject, options) => {
   try {
     // const result = await fetch(
     //   `${process.env.REACT_APP_API_URL}/payment/create-order`,
@@ -71,18 +71,20 @@ const createRazorpayOrder = async (dataObject) => {
     //     body: dataObject,
     //   }
     // ).then((t) => t.json());
-    console.log(
-      "http: createRazorpayOrder: ",
-      process.env.REACT_APP_API_URL,
-      dataObject
-    );
+    // console.log(
+    //   "http: createRazorpayOrder: ",
+    //   process.env.REACT_APP_API_URL,
+    //   dataObject,
+    //   options
+    // );
 
     const result = await axios.post(
       `${process.env.REACT_APP_API_URL}/payment/create-order`,
-      dataObject
+      dataObject,
+      options
     );
 
-    console.log("createRazorpayOrder: ", result.data);
+    // console.log("createRazorpayOrder try: ", result.data);
     if (result.data) {
       return {
         data: result.data.data,
@@ -90,13 +92,14 @@ const createRazorpayOrder = async (dataObject) => {
       };
     } else {
       // some error in 3rd party integration
+      console.log("result.error: ", result.error);
       return {
         data: null,
         error: result.error,
       };
     }
   } catch (e) {
-    console.log("createRazorpayOrder: ", e);
+    console.log("createRazorpayOrder catch: ", e, e.response.data);
     return {
       data: null,
       error: e.response.data.error,

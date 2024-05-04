@@ -143,8 +143,8 @@ const ContactDetails = () => {
                       className="Location"
                     />
                     <p className="m-0 chennai">
-                      No 9 old 2a 3rd cross street Vijayanagar Velachery
-                      chennai 600042
+                      No. 9, old 2a, 3rd cross street, Vijayanagar, Velachery,
+                      chennai - 600042
                     </p>
                   </Stack>
                 </Box>
@@ -185,9 +185,7 @@ const ContactDetails = () => {
                       alt=""
                       className="Location"
                     />
-                    <p className="m-0 chennai">
-                      +91 77608 88801, +91 95002 31901
-                    </p>
+                    <p className="m-0 chennai">+91 95002 31901</p>
                   </Stack>
                 </Box>
               </Grid>

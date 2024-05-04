@@ -25,7 +25,7 @@ const initialState = {
     country: "",
     pincode: "",
   },
-  // authUser: {},
+  access_token: "",
 };
 
 export const userSlice = createSlice({
@@ -38,7 +38,7 @@ export const userSlice = createSlice({
     // },
     setUser: (state, action) => {
       const payload = action.payload;
-      console.log("act: ", payload);
+      // console.log("act: ", payload);
       let selectedAddress = {
         id: "",
         line: "",
@@ -69,6 +69,7 @@ export const userSlice = createSlice({
       state.favourites = payload.favourites;
       state.isAuthenticated = payload.isAuthenticated;
       state.selected_address = selectedAddress;
+      state.access_token = payload.accessToken;
     },
     setUserLogout: (state) => {
       state.id = "";
@@ -96,6 +97,7 @@ export const userSlice = createSlice({
         country: "",
         pincode: "",
       };
+      state.access_token = "";
     },
     updateShippingAddress: (state, action) => {
       const payload = action.payload;

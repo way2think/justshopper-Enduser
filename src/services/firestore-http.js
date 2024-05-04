@@ -115,7 +115,8 @@ const getAllObjects = async (
       };
       resultList.push(data);
     });
-    console.log(`${metaData}: - success`, resultList);
+    // console.log(`${metaData} - success`, resultList);
+    console.log(`${metaData} - success`);
     return {
       data: [...resultList],
       error: null,
@@ -139,7 +140,7 @@ const getObjectByParam = async (
 
   if (docSnap.exists()) {
     const result = docSnap.data();
-    console.log(`${metaData}: ${docId} - success`, result);
+    console.log(`${metaData}: ${docId} - success`);
     return {
       data: { id: docSnap.id, ...result },
       error: null,
@@ -160,7 +161,7 @@ const getMultiObjectParallellyByIds = async (
   metaData = "getMultiObjectParallelly"
 ) => {
   try {
-    console.log("objectIds: ", objects, collectionId);
+    // console.log("objectIds: ", objects, collectionId);
 
     // create promise array with collection id
 
@@ -175,7 +176,7 @@ const getMultiObjectParallellyByIds = async (
       id: docSnap.id,
       ...docSnap.data(),
     }));
-    console.log("resultData: ", resultData);
+    // console.log("resultData: ", resultData);
     return {
       data: resultData,
       error: null,
@@ -196,7 +197,7 @@ const updateObjectByParam = async (
   dataObject,
   metaData = "updateObjectByParam"
 ) => {
-  console.log("updateObjectByParam: ", collectionId, docId, dataObject);
+  // console.log("updateObjectByParam: ", collectionId, docId, dataObject);
   try {
     const docRef = doc(db, collectionId, docId);
     await updateDoc(docRef, dataObject);

@@ -16,10 +16,7 @@ const PrivacyPolicy = () => {
       <p>
         We use Your Personal data to provide and improve the Service. By using
         the Service, You agree to the collection and use of information in
-        accordance with this Privacy Policy. This Privacy Policy has been
-        created with the help of the [Free Privacy Policy
-        Generator](https://www.freeprivacypolicy.com/free-
-        privacy-policy-generator/).
+        accordance with this Privacy Policy.
       </p>
 
       <div className="section">
@@ -86,8 +83,10 @@ const PrivacyPolicy = () => {
             </li>
             <li>
               {" "}
-              Website refers to Just Shopper, accessible from
-              <a href="">https://www.justshopper.in</a>
+              Website refers to Just Shopper, accessible from{" "}
+              <a href="https://justshopper.in" target="_blank" rel="noreferrer">
+                https://justshopper.in
+              </a>
             </li>
             <li>
               {" "}
@@ -175,9 +174,7 @@ const PrivacyPolicy = () => {
             Cookies can be "Persistent" or "Session" Cookies. Persistent Cookies
             remain on Your personal computer or mobile device when You go
             offline, while Session Cookies are deleted as soon as You close Your
-            web browser. Learn more about cookies on the [Free Privacy Policy
-            website](https://www.freeprivacypolicy.com/blog/sample-privacy-policy-
-            template/#Use_Of_Cookies_And_Tracking) article.
+            web browser.
           </p>
           <p>
             Usage Data may include information such as Your Device's Internet
@@ -528,8 +525,8 @@ const PrivacyPolicy = () => {
           </li>
           <li>By phone number: 9500231901</li>
           <li>
-            By Address: No 9 old 2a 3rd cross street Vijayanagar Velachery
-            chennai 600042
+            By Address: No. 9, old 2a, 3rd cross street, Vijayanagar, Velachery,
+            chennai - 600042
           </li>
         </ul>
       </div>

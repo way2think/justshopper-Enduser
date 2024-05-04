@@ -163,7 +163,7 @@ export default function AddressModal({ open, setOpen }) {
         },
       });
 
-      console.log("result: ", result);
+      // console.log("result: ", result);
       if (result.data) {
         // udpate the result in local state
         dispatch(updateShippingAddress(updatedShippingAddresses));
@@ -171,47 +171,44 @@ export default function AddressModal({ open, setOpen }) {
       } else {
         errorNotification(result.error.message);
       }
-    } else {
-      errorNotification("InValid data");
     }
-  };
 
-  return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography variant="h5" component="h5">
-            {addNewAddress ? "Add New Address" : "Saved Addresses"}
-          </Typography>
-          {addNewAddress ? (
-            <>
-              <Grid container mt={5}>
-                <Grid xs={12} className="gridsignup">
-                  <TextField
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    variant="outlined"
-                    name="name"
-                    type="text"
-                    className="name"
-                    value={addressDetails.name}
-                    onChange={handleInputChange}
-                    sx={{
-                      mb: 2,
-                      // width: "90%",
-                      // "@media (max-width: 768px)": {
-                      //   width: "100%",
-                      // },
-                    }}
-                  />
-                </Grid>
-                {/* <Grid md={6} xs={12}>
+    return (
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography variant="h5" component="h5">
+              {addNewAddress ? "Add New Address" : "Saved Addresses"}
+            </Typography>
+            {addNewAddress ? (
+              <>
+                <Grid container mt={5}>
+                  <Grid xs={12} className="gridsignup">
+                    <TextField
+                      fullWidth
+                      id="name"
+                      label="Name"
+                      variant="outlined"
+                      name="name"
+                      type="text"
+                      className="name"
+                      value={addressDetails.name}
+                      onChange={handleInputChange}
+                      sx={{
+                        mb: 2,
+                        // width: "90%",
+                        // "@media (max-width: 768px)": {
+                        //   width: "100%",
+                        // },
+                      }}
+                    />
+                  </Grid>
+                  {/* <Grid md={6} xs={12}>
                   <TextField
                     fullWidth
                     id="phone"
@@ -225,38 +222,38 @@ export default function AddressModal({ open, setOpen }) {
                     sx={{ mb: 2 }}
                   />
                 </Grid> */}
-              </Grid>
-              <Grid container>
-                <Grid xs={12}>
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Address Line"
-                    placeholder="Door / House No, Street Name, Area"
-                    name="addressLine"
-                    value={addressDetails.line}
-                    onChange={(e) => {
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          line: e.target.value,
-                        };
-                      });
-                    }}
-                    sx={{ mb: 2, width: "100%" }}
-                  />
                 </Grid>
+                <Grid container>
+                  <Grid xs={12}>
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Address Line"
+                      placeholder="Door / House No, Street Name, Area"
+                      name="addressLine"
+                      value={addressDetails.line}
+                      onChange={(e) => {
+                        setAddressDetails((prevState) => {
+                          return {
+                            ...prevState,
+                            line: e.target.value,
+                          };
+                        });
+                      }}
+                      sx={{ mb: 2, width: "100%" }}
+                    />
+                  </Grid>
 
-                <Grid md={6} xs={6} pr={2}>
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Country"
-                    multiline
-                    rows={1}
-                    value="India"
-                    sx={{ width: "100%" }}
-                    disabled={true}
-                  />
-                  {/* <CountrySelect
+                  <Grid md={6} xs={6} pr={2}>
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Country"
+                      multiline
+                      rows={1}
+                      value="India"
+                      sx={{ width: "100%" }}
+                      disabled={true}
+                    />
+                    {/* <CountrySelect
                     onChange={(e) => {
                       setCountryid(e.id);
                       setCountryName(e.name);
@@ -269,163 +266,120 @@ export default function AddressModal({ open, setOpen }) {
                     }}
                     placeHolder="Select Country"
                   /> */}
-                </Grid>
+                  </Grid>
 
-                <Grid md={6} xs={6}>
-                  <StateSelect
-                    countryid={countryIndia.id}
-                    onChange={(e) => {
-                      setstateid(e.id);
-                      setstateName(e.name);
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          state: e.name,
-                        };
-                      });
-                    }}
-                    placeHolder="Select State"
-                  />
-                </Grid>
+                  <Grid md={6} xs={6}>
+                    <StateSelect
+                      countryid={countryIndia.id}
+                      onChange={(e) => {
+                        setstateid(e.id);
+                        setstateName(e.name);
+                        setAddressDetails((prevState) => {
+                          return {
+                            ...prevState,
+                            state: e.name,
+                          };
+                        });
+                      }}
+                      placeHolder="Select State"
+                    />
+                  </Grid>
 
-                <Grid md={6} xs={6} pr={2} mt={2}>
-                  <CitySelect
-                    countryid={countryIndia.id}
-                    stateid={stateid}
-                    onChange={(e) => {
-                      setCityName(e.name);
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          city: e.name,
-                        };
-                      });
-                    }}
-                    placeHolder="Select City"
-                  />
-                </Grid>
+                  <Grid md={6} xs={6} pr={2} mt={2}>
+                    <CitySelect
+                      countryid={countryIndia.id}
+                      stateid={stateid}
+                      onChange={(e) => {
+                        setCityName(e.name);
+                        setAddressDetails((prevState) => {
+                          return {
+                            ...prevState,
+                            city: e.name,
+                          };
+                        });
+                      }}
+                      placeHolder="Select City"
+                    />
+                  </Grid>
 
-                <Grid md={6} xs={6} mt={2}>
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Pincode"
-                    multiline
-                    rows={1}
-                    name="pincode"
-                    value={addressDetails.pincode}
-                    onChange={(e) => {
-                      setAddressDetails((prevState) => {
-                        return {
-                          ...prevState,
-                          pincode: e.target.value,
-                        };
-                      });
-                    }}
-                    sx={{ mb: 2, width: "100%" }}
-                  />
+                  <Grid md={6} xs={6} mt={2}>
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Pincode"
+                      multiline
+                      rows={1}
+                      name="pincode"
+                      value={addressDetails.pincode}
+                      onChange={(e) => {
+                        setAddressDetails((prevState) => {
+                          return {
+                            ...prevState,
+                            pincode: e.target.value,
+                          };
+                        });
+                      }}
+                      sx={{ mb: 2, width: "100%" }}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid sx={{ justifyContent: "end" }} container>
-                <Button
-                  sx={cancel}
-                  onClick={() => {
-                    reset();
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button sx={save} onClick={handleAddNewShippingAddress}>
-                  Save
-                </Button>
-              </Grid>
-            </>
-          ) : (
-            <>
-              <div className="card my-2">
-                <div
-                  className={`p-2 ${
-                    address?.id === user?.address?.id
-                      ? "bg-primary text-white"
-                      : ""
-                  }`}
-                  style={{
-                    boxShadow: "0 2px 5px #7d7d7d",
-                    borderRadius: "8px",
-                  }}
-                  onClick={() => {
-                    dispatch(
-                      updateSelectedAddress({
-                        name: user.name,
-                        ...user.address,
-                      })
-                    );
-                    handleClose();
-                  }}
-                  role="button"
-                >
-                  <label
-                    className="m-0 ms-2 me-4"
-                    htmlFor="shipping"
+                <Grid sx={{ justifyContent: "end" }} container>
+                  <Button
+                    sx={cancel}
+                    onClick={() => {
+                      reset();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button sx={save} onClick={handleAddNewShippingAddress}>
+                    Save
+                  </Button>
+                </Grid>
+              </>
+            ) : (
+              <>
+                <div className="card my-2">
+                  <div
+                    className={`p-2 ${
+                      address?.id === user?.address?.id
+                        ? "bg-primary text-white"
+                        : ""
+                    }`}
+                    style={{
+                      boxShadow: "0 2px 5px #7d7d7d",
+                      borderRadius: "8px",
+                    }}
+                    onClick={() => {
+                      dispatch(
+                        updateSelectedAddress({
+                          name: user.name,
+                          ...user.address,
+                        })
+                      );
+                      handleClose();
+                    }}
                     role="button"
                   >
-                    <span>{user.name + ", " + user.address.line}</span>
-                    <div>{user.address.city + ", " + user.address.state}</div>
-                    <div>
-                      {user.address.country + " - " + user.address.pincode}{" "}
-                      (Same as Billing Address)
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <hr />
-              </div>
-              {user.shipping_addresses &&
-                (user.shipping_addresses.length === 0 ? (
-                  <div className="card my-2">
-                    <Button
-                      sx={addNewBtn}
-                      onClick={() => setAddNewAddress(true)}
+                    <label
+                      className="m-0 ms-2 me-4"
+                      htmlFor="shipping"
+                      role="button"
                     >
-                      Add New Address
-                    </Button>
-                  </div>
-                ) : (
-                  <>
-                    {user.shipping_addresses.map((add) => (
-                      <div
-                        className="card my-2"
-                        key={add.id}
-                        onClick={() => {
-                          dispatch(updateSelectedAddress(add));
-                          handleClose();
-                        }}
-                        role="button"
-                      >
-                        <div
-                          className={`p-2 ${
-                            address?.id === add?.id
-                              ? "bg-primary text-white"
-                              : ""
-                          }`}
-                          style={{
-                            boxShadow: "0 2px 5px #7d7d7d",
-                            borderRadius: "8px",
-                          }}
-                        >
-                          <label
-                            className="m-0 ms-2 me-4"
-                            htmlFor="shipping"
-                            role="button"
-                          >
-                            <span>{add.name + ": " + add.line}</span>
-                            <div>{add.city + ", " + add.state}</div>
-                            <div>{add.country + " - " + add.pincode}</div>
-                          </label>
-                        </div>
+                      <span>{user.name + ", " + user.address.line}</span>
+                      <div>{user.address.city + ", " + user.address.state}</div>
+                      <div>
+                        {user.address.country + " - " + user.address.pincode}{" "}
+                        (Same as Billing Address)
                       </div>
-                    ))}
-                    <div className="card mt-3">
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <hr />
+                </div>
+                {user.shipping_addresses &&
+                  (user.shipping_addresses.length === 0 ? (
+                    <div className="card my-2">
                       <Button
                         sx={addNewBtn}
                         onClick={() => setAddNewAddress(true)}
@@ -433,12 +387,56 @@ export default function AddressModal({ open, setOpen }) {
                         Add New Address
                       </Button>
                     </div>
-                  </>
-                ))}
-            </>
-          )}
-        </Box>
-      </Modal>
-    </div>
-  );
+                  ) : (
+                    <>
+                      {user.shipping_addresses.map((add) => (
+                        <div
+                          className="card my-2"
+                          key={add.id}
+                          onClick={() => {
+                            dispatch(updateSelectedAddress(add));
+                            handleClose();
+                          }}
+                          role="button"
+                        >
+                          <div
+                            className={`p-2 ${
+                              address?.id === add?.id
+                                ? "bg-primary text-white"
+                                : ""
+                            }`}
+                            style={{
+                              boxShadow: "0 2px 5px #7d7d7d",
+                              borderRadius: "8px",
+                            }}
+                          >
+                            <label
+                              className="m-0 ms-2 me-4"
+                              htmlFor="shipping"
+                              role="button"
+                            >
+                              <span>{add.name + ": " + add.line}</span>
+                              <div>{add.city + ", " + add.state}</div>
+                              <div>{add.country + " - " + add.pincode}</div>
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                      <div className="card mt-3">
+                        <Button
+                          sx={addNewBtn}
+                          onClick={() => setAddNewAddress(true)}
+                        >
+                          Add New Address
+                        </Button>
+                      </div>
+                    </>
+                  ))}
+              </>
+            )}
+          </Box>
+        </Modal>
+      </div>
+    );
+  };
 }
