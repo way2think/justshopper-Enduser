@@ -128,7 +128,7 @@ const ContactDetails = () => {
             </Stack>
 
             <Grid container spacing={2} sx={{ mb: 3, p: 3 }}>
-              <Grid sm={12} xs={12} md={4} lg={4}>
+              <Grid sm={12} xs={12} md={12} lg={12}>
                 <Box className="location1">
                   <Stack
                     direction="row"
@@ -149,7 +149,7 @@ const ContactDetails = () => {
                   </Stack>
                 </Box>
               </Grid>
-              <Grid sm={12} xs={12} md={4} lg={4}>
+              <Grid sm={12} xs={12} md={6} lg={6}>
                 <Box className="location1">
                   <Stack
                     direction="row"
@@ -169,7 +169,7 @@ const ContactDetails = () => {
                   </Stack>
                 </Box>
               </Grid>
-              <Grid sm={12} xs={12} md={4} lg={4}>
+              <Grid sm={12} xs={12} md={6} lg={6}>
                 <Box className="location1">
                   <Stack
                     direction="row"

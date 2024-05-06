@@ -98,7 +98,7 @@ const ProfileDetail = () => {
       line: "",
       city: "",
       state: "",
-      country: "",
+      country: "India",
       pincode: "",
     },
   });
@@ -166,11 +166,13 @@ const ProfileDetail = () => {
     });
   };
 
-  const onChangeDropdown = (type, object) => {
+  const onChangeDropdown = async (type, object) => {
     if (type === "country") {
       setCountry(object);
     } else if (type === "state") {
       setState(object);
+      const result = await GetCity(country.id, object.id);
+      setCity(result[0]);
     } else if (type === "city") {
       setCity(object);
     }

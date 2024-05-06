@@ -119,6 +119,17 @@ export default function LoginModal({ open, setOpen }) {
     password: "",
   });
 
+  useEffect(() => {
+    if (!open) {
+      setUserCred({
+        email: "",
+        password: "",
+      });
+      setResetPassword(false);
+      setShowPassword(false);
+    }
+  }, [open]);
+
   const handleOpen = (isOpen, type) => setOpen(isOpen, type);
   const handleClose = () => setOpen(false, "login");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -141,6 +152,8 @@ export default function LoginModal({ open, setOpen }) {
       email: "",
       password: "",
     });
+    setResetPassword(false);
+    setShowPassword(false);
   };
 
   // useEffect(() => {
@@ -340,7 +353,7 @@ export default function LoginModal({ open, setOpen }) {
                   id="modal-modal-title"
                   variant="subtitle2"
                   underline="hover"
-                  sx={{ color: "#9F3239" }}
+                  sx={{ color: "#9F3239", cursor: "pointer" }}
                   onClick={() => {
                     setResetPassword(!resetPassword);
                   }}

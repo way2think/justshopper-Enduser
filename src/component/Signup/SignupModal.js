@@ -35,6 +35,7 @@ import {
   CountrySelect,
   StateSelect,
 } from "react-country-state-city";
+import LoginModal from "../Login/LoginModal";
 
 const style = {
   position: "absolute",
@@ -42,7 +43,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 630,
+  height: 645,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -56,11 +57,15 @@ const style = {
 
 const signup = {
   // background: "#f19e38",
+  border: 0,
+  margin: 0,
+  padding: 0,
   color: "#dc3237",
   marginTop: "5px",
   fontSize: "12px",
   fontweight: 800,
   fontfamily: "amazonbold",
+  float: "right",
   // "&:hover": {
   //   // background: "#f19e38",
   //   color: "#fff",
@@ -590,6 +595,12 @@ export default function SignupModal({ open, setOpen }) {
             </Grid>
             <Button sx={Signupbtn} onClick={handleSignup}>
               Sign up
+            </Button>
+            <Button
+              sx={signup}
+              onClick={() => setOpen({ login: true, signup: false })}
+            >
+              Login
             </Button>
           </>
         </Box>
