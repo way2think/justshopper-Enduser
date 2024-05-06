@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import "./ContactDetails.css";
-import { useSendEnquiryMutation } from "../../api/api";
+import {
+  useSendEnquiryMutation,
+  useSendNotificationMutation,
+} from "../../api/api";
 import {
   errorNotification,
   successNotification,
@@ -27,6 +30,8 @@ const ContactDetails = () => {
   const [sendEnquiry, { isLoading, isSuccess, isError, error }] =
     useSendEnquiryMutation();
 
+  const [sendNotification, {}] = useSendNotificationMutation();
+
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setContactInfo((prevState) => ({
@@ -46,18 +51,25 @@ const ContactDetails = () => {
       contactInfo.description !== ""
     ) {
       const result = await sendEnquiry(contactInfo);
-      // console.log("result: ", result);
       if (result.data) {
+        console.log("result: ", result.data);
+        const { id } = result.data;
+        await sendNotification({
+          id,
+          body: `New Enquiry added from website`,
+          title: `New Enquiry - ${id}`,
+          type: "enquiry",
+        });
         dispatch(setIsLoading(false));
         successNotification(
           "Enquiry Successfully sent, we will reach to you asap!!!"
         );
-        setContactInfo({
-          name: "",
-          email: "",
-          phone: "",
-          description: "",
-        });
+        // setContactInfo({
+        //   name: "",
+        //   email: "",
+        //   phone: "",
+        //   description: "",
+        // });
         scrollToTop();
       } else {
         dispatch(setIsLoading(false));
