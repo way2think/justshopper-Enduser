@@ -65,7 +65,7 @@ const signup = {
   fontSize: "12px",
   fontweight: 800,
   fontfamily: "amazonbold",
-  float: "right",
+  float: "left",
   // "&:hover": {
   //   // background: "#f19e38",
   //   color: "#fff",
@@ -596,11 +596,8 @@ export default function SignupModal({ open, setOpen }) {
             <Button sx={Signupbtn} onClick={handleSignup}>
               Sign up
             </Button>
-            <Button
-              sx={signup}
-              onClick={() => setOpen({ login: true, signup: false })}
-            >
-              Login
+            <Button sx={signup} onClick={() => setOpen(true, "login")}>
+              If Already have account?
             </Button>
           </>
         </Box>

@@ -430,12 +430,21 @@ const NavbarNew = () => {
               />
               <SignupModal
                 open={open.signup}
-                setOpen={(isOpen, type) =>
-                  setOpen((prevState) => ({
-                    ...prevState,
-                    signup: isOpen,
-                  }))
-                }
+                setOpen={(isOpen, type) => {
+                  setOpen((prevState) => {
+                    if (type === "login") {
+                      return {
+                        signup: false,
+                        login: isOpen,
+                      };
+                    } else {
+                      return {
+                        signup: isOpen,
+                        login: false,
+                      };
+                    }
+                  });
+                }}
               />
             </li>
           )}
