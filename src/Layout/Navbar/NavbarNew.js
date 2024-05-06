@@ -296,6 +296,11 @@ const NavbarNew = () => {
                     display: "block",
                     width: 100,
                   },
+                "@media only screen and (min-device-width: 768px) and (max-device-width: 1023px)":
+                  {
+                    display: "block",
+                    width: 300,
+                  },
               }}
               renderInput={(params) => (
                 <TextField
