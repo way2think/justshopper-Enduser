@@ -171,9 +171,6 @@ const OrderList = () => {
           value={filter}
           onChange={(e) => {
             const { value } = e.target;
-
-            // console.log("e", e.target.value, value);
-
             setFilter(value);
           }}
         >
@@ -237,6 +234,7 @@ const OrderList = () => {
                       rupeeSymbol={rupeeSymbol}
                       key={item.id}
                       item={item}
+                      order={order}
                       userDetail={order?.user_details}
                     />
                   ))}

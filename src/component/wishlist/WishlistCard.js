@@ -1,17 +1,21 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./WishlistCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFavourite,
-  selectUser,
+  selectUserId,
   updateFavourites,
 } from "../../store/userSlice";
-import { useGetAllFavouritesQuery } from "../../api/user";
+import {
+  useGetAllFavouritesQuery,
+  useUpdateFavouritesMutation,
+} from "../../api/user";
 import { formatAmount } from "../../utils";
-import { addItem, removeItem } from "../../store/cartSlice";
+import { addItem } from "../../store/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { errorNotification } from "../../utils/notifications";
+import { setIsLoading } from "../../store/appSlice";
 
 const WishlistCard = () => {
   const cart = {
@@ -58,10 +62,12 @@ const WishlistCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const favourites = useSelector(selectFavourite);
+  const userId = useSelector(selectUserId);
   const { data, isFetching, isLoading } = useGetAllFavouritesQuery({
     collectionId: "product",
     favourites: favourites || [],
   });
+  const [updateFavouritesDB, {}] = useUpdateFavouritesMutation();
   // console.log("fav products: ", data);
 
   const handleAddToCart = (item) => {
@@ -75,9 +81,28 @@ const WishlistCard = () => {
       : dispatch(addItem(item));
   };
 
-  const handleRemoveFromFavourites = (item) => {
-    const filteredFavourites = favourites.filter((fav) => fav.id !== item.id);
-    dispatch(updateFavourites(filteredFavourites));
+  const handleRemoveFromFavourites = async (item) => {
+    if (userId) {
+      dispatch(setIsLoading(true));
+
+      let updatedFavList = favourites.filter((fav) => fav.id !== item.id);
+
+      const result = await updateFavouritesDB({
+        docId: userId,
+        dataObject: {
+          favourites: updatedFavList,
+        },
+      });
+      if (result.data) {
+        dispatch(updateFavourites(updatedFavList));
+        dispatch(setIsLoading(false));
+      } else {
+        errorNotification(`Network error: ${result.error.message}`);
+        dispatch(setIsLoading(false));
+      }
+    } else {
+      errorNotification(`Please login to add favourites`);
+    }
   };
 
   return (
