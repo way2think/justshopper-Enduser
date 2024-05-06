@@ -26,6 +26,7 @@ import { useUpdateShippingAddressMutation } from "../../api/user";
 import { useEffect, useState } from "react";
 import { countryIndia } from "../../utils/constants";
 import { isValidName, isValidPincode } from "../../utils/validator";
+import { setIsLoading } from "../../store/appSlice";
 
 const style = {
   position: "absolute",
@@ -142,6 +143,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (addressDetails.country && addressDetails.state && addressDetails.city) {
+      dispatch(setIsLoading(true));
       GetCountries().then((result) => {
         const countryObj = countryIndia;
 
@@ -157,6 +159,7 @@ export default function Profile() {
               (state) => state.name === addressDetails.city
             );
             setCity(cityObj);
+            dispatch(setIsLoading(false));
           });
         });
       });
