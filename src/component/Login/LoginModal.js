@@ -143,20 +143,20 @@ export default function LoginModal({ open, setOpen }) {
     });
   };
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
-        // console.log("Enter key was pressed. Run your function.");
-        event.preventDefault();
-        // callMyFunction();
-        handleLogin(userCred);
-      }
-    };
-    document.addEventListener("keydown", listener);
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  }, [userCred]);
+  // useEffect(() => {
+  //   const listener = (event) => {
+  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
+  //       // console.log("Enter key was pressed. Run your function.");
+  //       event.preventDefault();
+  //       // callMyFunction();
+  //       handleLogin(userCred);
+  //     }
+  //   };
+  //   document.addEventListener("keydown", listener);
+  //   return () => {
+  //     document.removeEventListener("keydown", listener);
+  //   };
+  // }, [userCred]);
 
   //for user verificationa nd login(submit)
 
@@ -280,6 +280,11 @@ export default function LoginModal({ open, setOpen }) {
                     sx={{ mb: 2 }}
                     value={userCred.email}
                     onChange={handleInputChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleLogin(e);
+                      }
+                    }}
                   />
                 </Grid>
                 {!resetPassword && (
@@ -292,6 +297,11 @@ export default function LoginModal({ open, setOpen }) {
                         Password
                       </InputLabel>
                       <OutlinedInput
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            handleLogin(e);
+                          }
+                        }}
                         id="outlined-adornment-password"
                         name="password"
                         type={showPassword ? "text" : "password"}

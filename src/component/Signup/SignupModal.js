@@ -159,7 +159,8 @@ export default function SignupModal({ open, setOpen }) {
       isValidEmail(email) &&
       isValidPhoneNumber(phonenumber) &&
       isValidPassword(createPassword) &&
-      isValidPassword(confirmPassword)
+      isValidPassword(confirmPassword) &&
+      address !== ""
     ) {
       createUserWithEmailAndPassword(auth, email, createPassword)
         .then(async (userCredential) => {
@@ -263,6 +264,11 @@ export default function SignupModal({ open, setOpen }) {
                   className="name"
                   value={signUpDetails.name}
                   onChange={handleInputChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   sx={{
                     mb: 2,
                     // width: "90%",
@@ -282,6 +288,11 @@ export default function SignupModal({ open, setOpen }) {
                   type="tel"
                   value={signUpDetails.phonenumber}
                   onChange={handleInputChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   className="phone"
                   sx={{ mb: 2 }}
                 />
@@ -298,6 +309,11 @@ export default function SignupModal({ open, setOpen }) {
                   type="email"
                   value={signUpDetails.email}
                   onChange={handleInputChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   className="email"
                   sx={{ mb: 2 }}
                 />
@@ -310,6 +326,11 @@ export default function SignupModal({ open, setOpen }) {
                   placeholder="Door / House No, Street Name, Area"
                   name="addressLine"
                   value={signUpDetails.address.line}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   onChange={(e) => {
                     setSignUpDetails((prevState) => {
                       return {
@@ -407,6 +428,11 @@ export default function SignupModal({ open, setOpen }) {
                       };
                     });
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   placeHolder="Select State"
                 />
               </Grid>
@@ -434,6 +460,11 @@ export default function SignupModal({ open, setOpen }) {
                 /> */}
                 <CitySelect
                   countryid={countryIndia.id}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   stateid={stateid}
                   onChange={(e) => {
                     setCityName(e.name);
@@ -459,6 +490,11 @@ export default function SignupModal({ open, setOpen }) {
                   rows={1}
                   name="pincode"
                   value={signUpDetails.address.pincode}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                   onChange={(e) => {
                     setSignUpDetails((prevState) => {
                       return {
@@ -491,6 +527,11 @@ export default function SignupModal({ open, setOpen }) {
                     label="Create Password"
                     id="password"
                     type={showPassword ? "text" : "password"}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSignup(e);
+                      }
+                    }}
                     name="createPassword"
                     value={signUpDetails.createPassword}
                     onChange={handleInputChange}
@@ -518,6 +559,11 @@ export default function SignupModal({ open, setOpen }) {
                     label="Confirm Password"
                     id="confirmPassword"
                     type={showPassword ? "text" : "password"}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSignup(e);
+                      }
+                    }}
                     name="confirmPassword"
                     value={signUpDetails.confirmPassword}
                     onChange={handleInputChange}
