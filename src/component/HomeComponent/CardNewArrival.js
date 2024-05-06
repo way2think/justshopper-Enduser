@@ -53,8 +53,6 @@ export default function CardNewArrival({ product }) {
     },
   };
 
-  // console.log("product: ", product);
-
   const { name, discount_price, selling_price, images, is_multi_color } =
     product;
 
@@ -139,39 +137,27 @@ export default function CardNewArrival({ product }) {
         },
         cursor: "pointer",
       }}
-      onClick={handleNavigateToProductDetail}
     >
-      {/* <CardMedia
-        component="img"
-        alt="green iguana"
-        image={props.image}
-        sx={{ borderRadius: "5px" }}
-        className="cardimage"
-      /> */}
-      {/* <span className="Sale">{props.sale}</span> */}
-      <img
-        src={images[0] || "../images/dummy-image.jpg"}
-        alt={name}
-        className="cardimage"
-        // onClick={handleNavigateToProductDetail}
-      />
-      <div className="favImage">
+      <div onClick={handleNavigateToProductDetail}>
+        <img
+          src={images[0] || "../images/dummy-image.jpg"}
+          alt={name}
+          className="cardimage"
+        />
+      </div>
+      <div
+        className="favImage"
+        onClick={() => handleUpdateFavourites(isFavourite ? "remove" : "add")}
+      >
         {isFavourite ? (
-          <FavoriteIcon
-            sx={{ cursor: "pointer" }}
-            onClick={() => handleUpdateFavourites("remove")}
-          />
+          <FavoriteIcon sx={{ cursor: "pointer" }} />
         ) : (
-          <FavoriteBorderIcon
-            sx={{ cursor: "pointer" }}
-            onClick={() => handleUpdateFavourites("add")}
-          />
+          <FavoriteBorderIcon sx={{ cursor: "pointer" }} />
         )}
       </div>
-      {/* <img src="../images/heart.png" className="favImage" alt="" width={25} height={25} /> */}
-      {/* <ImageCarousel /> */}
 
       <CardContent
+        onClick={handleNavigateToProductDetail}
         sx={{
           p: "5px 8px",
           marginTop: "6px",
@@ -228,38 +214,6 @@ export default function CardNewArrival({ product }) {
           <CurrencyRupeeIcon fontSize="16px" /> {selling_price}
         </p>
       </CardContent>
-      {/* <CardActions
-        sx={{
-          p: "5px 10px",
-          "@media only screen and (min-width: 320px) and (max-width: 600px)": {
-            display: "flex",
-            justifyContent: "Start",
-            alignItems: "Start",
-          },
-        }}
-      >
-        {noOfItems <= 0 ? (
-          <Button
-            size="small"
-            sx={cart}
-            className="cart"
-            type="button"
-            onClick={handleAddCartItem}
-          >
-            Add to Cart
-          </Button>
-        ) : (
-          <>
-            <Button size="small" className="cart" onClick={handleRemoveItemQty}>
-              <RemoveIcon sx={{ color: "#dc3237" }} />
-            </Button>
-            {noOfItems}
-            <Button size="small" className="cart" onClick={handleAddItemQty}>
-              <AddIcon sx={{ color: "#dc3237" }} />
-            </Button>
-          </>
-        )}
-      </CardActions> */}
     </Card>
   );
 }

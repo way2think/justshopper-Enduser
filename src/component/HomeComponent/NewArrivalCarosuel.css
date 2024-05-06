@@ -28,7 +28,7 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  z-index: 99;
+  z-index: 1500;
   /* cursor: pointer; */
 }
 
