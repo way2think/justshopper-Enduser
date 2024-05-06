@@ -24,11 +24,9 @@ const useStyles = styled((theme) => ({
 }));
 
 const ManageAddress = ({ openAddressModal, value, setShowModal, add }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  // console.log("user: ", user);
-
-  const classes = useStyles();
 
   const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
     useUpdateShippingAddressMutation();

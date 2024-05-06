@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 export default function BackDropWithLoader({ message }) {
   return (
     <Backdrop
-      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 200 }}
       open
     >
       <CircularProgress color="inherit" style={{ position: "absolute" }} />

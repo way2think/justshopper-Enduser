@@ -143,28 +143,24 @@ export default function Profile() {
 
   useEffect(() => {
     if (addressDetails.country && addressDetails.state && addressDetails.city) {
-      dispatch(setIsLoading(true));
-      GetCountries().then((result) => {
-        const countryObj = countryIndia;
-
-        setCountry(countryObj);
-
-        GetState(countryObj.id).then((resultState) => {
-          const stateObj = resultState.find(
-            (state) => state.name === addressDetails.state
+      // GetCountries().then((result) => {
+      const countryObj = countryIndia;
+      setCountry(countryObj);
+      GetState(countryObj.id).then((resultState) => {
+        const stateObj = resultState.find(
+          (state) => state.name === addressDetails.state
+        );
+        setState(stateObj);
+        GetCity(countryObj.id, stateObj.id).then((resultCity) => {
+          const cityObj = resultCity.find(
+            (state) => state.name === addressDetails.city
           );
-          setState(stateObj);
-          GetCity(countryObj.id, stateObj.id).then((resultCity) => {
-            const cityObj = resultCity.find(
-              (state) => state.name === addressDetails.city
-            );
-            setCity(cityObj);
-            dispatch(setIsLoading(false));
-          });
+          setCity(cityObj);
         });
       });
+      // });
     }
-  }, [addressDetails, country]);
+  }, [addressDetails]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -501,9 +497,9 @@ export default function Profile() {
           )} */}
           <ManageAddress
             openAddressModal={({ isOpen, isEdit, data }) => {
+              console.log(isOpen, isEdit, data);
               setShowModal({ isOpen, isEdit });
-
-              setAddressDetails(data);
+              setAddressDetails((prevState) => data);
             }}
             value={value}
             setShowModal={setShowModal}

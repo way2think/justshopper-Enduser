@@ -181,14 +181,15 @@ export default function LoginModal({ open, setOpen }) {
         // console.log("result: ", result);
         if (result.data) {
           // getting user from db is handled in authListener
-          dispatch(setIsLoading(false));
+
           successNotification(`Password Reset Mail sent !!!`);
           closeModal();
+          dispatch(setIsLoading(false));
           setResetPassword(false);
         } else {
           // console.log("error: ", result);
-          dispatch(setIsLoading(false));
           errorNotification(result?.error?.message);
+          dispatch(setIsLoading(false));
         }
       } else {
         errorNotification("Invalid Email");
@@ -196,22 +197,19 @@ export default function LoginModal({ open, setOpen }) {
       }
     } else {
       dispatch(setIsLoading(true));
-
-      // console.log("userCred: ", userCred);
-      dispatch(setIsLoading(false));
       const { email, password } = userCred;
       if (isValidEmail(email) && isValidPassword(password)) {
         const result = await signInWithEmailAndPassword({ email, password });
         // console.log("result: ", result);
         if (result.data) {
           // getting user from db is handled in authListener
-          dispatch(setIsLoading(false));
           successNotification(`Successfully Signed In!!!`);
           closeModal();
+          dispatch(setIsLoading(false));
         } else {
           console.log("error: ", result);
-          dispatch(setIsLoading(false));
           errorNotification(result?.error?.message);
+          dispatch(setIsLoading(false));
         }
       } else {
         errorNotification("Invalid Email/Password");
