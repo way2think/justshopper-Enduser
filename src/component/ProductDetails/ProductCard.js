@@ -283,7 +283,18 @@ const ProductCard = ({ product }) => {
               onClick={handleShare}
               // style={{ cursor: "pointer" }}
             /> */}
-            <ShareIcon className={classes.yellowshare} onClick={handleShare} />
+            <ShareIcon
+              sx={{
+                fontSize: "2.5rem",
+                color: "#000",
+                "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                  {
+                    fontSize: "2.0rem",
+                  },
+              }}
+              className={classes.yellowshare}
+              onClick={handleShare}
+            />
           </Box>
         </Stack>
 
