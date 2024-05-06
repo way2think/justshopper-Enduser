@@ -175,6 +175,7 @@ export default function LoginModal({ open, setOpen }) {
 
   const handleLogin = async () => {
     if (resetPassword) {
+      dispatch(setIsLoading(true));
       if (isValidEmail(userCred.email)) {
         const result = await sendPasswordResetEmail({ email: userCred.email });
         // console.log("result: ", result);

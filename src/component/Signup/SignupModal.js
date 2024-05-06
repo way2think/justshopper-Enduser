@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDebugValue, useState } from "react";
 import {
   FormControl,
   Grid,
@@ -36,6 +36,8 @@ import {
   StateSelect,
 } from "react-country-state-city";
 import LoginModal from "../Login/LoginModal";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../../store/appSlice";
 
 const style = {
   position: "absolute",
@@ -95,6 +97,7 @@ const Signupbtn = {
 
 export default function SignupModal({ open, setOpen }) {
   // const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [countryid, setCountryid] = useState(0);
   const [stateid, setstateid] = useState(0);
@@ -159,6 +162,7 @@ export default function SignupModal({ open, setOpen }) {
       createPassword,
       address,
     } = signUpDetails;
+    dispatch(setIsLoading(true));
 
     if (
       isValidName(name) &&
@@ -191,13 +195,16 @@ export default function SignupModal({ open, setOpen }) {
             shipping_addresses: [],
             favourites: [],
           });
+          dispatch(setIsLoading(false));
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          dispatch(setIsLoading(false));
           errorNotification(`${errorCode}: ${errorMessage}`);
         });
     } else {
+      dispatch(setIsLoading(false));
       errorNotification("Enter/select valid data");
 
       // !isValidName(name) && errorNotification("Invalid Name");
