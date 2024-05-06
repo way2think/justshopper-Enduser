@@ -14,9 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TextField from "@mui/material/TextField";
 import {
   CitySelect,
-  CountrySelect,
   GetCity,
-  GetCountries,
   GetState,
   StateSelect,
 } from "react-country-state-city";
@@ -26,7 +24,6 @@ import { useUpdateShippingAddressMutation } from "../../api/user";
 import { useEffect, useState } from "react";
 import { countryIndia } from "../../utils/constants";
 import { isValidName, isValidPincode } from "../../utils/validator";
-import { setIsLoading } from "../../store/appSlice";
 
 const style = {
   position: "absolute",
@@ -188,11 +185,13 @@ export default function Profile() {
     });
   };
 
-  const onChangeDropdown = (type, object) => {
+  const onChangeDropdown = async (type, object) => {
     if (type === "country") {
       setCountry(object);
     } else if (type === "state") {
       setState(object);
+      const result = await GetCity(countryIndia.id, object.id);
+      setCity(result[0]);
     } else if (type === "city") {
       setCity(object);
     }
@@ -497,7 +496,7 @@ export default function Profile() {
           )} */}
           <ManageAddress
             openAddressModal={({ isOpen, isEdit, data }) => {
-              console.log(isOpen, isEdit, data);
+              // console.log(isOpen, isEdit, data);
               setShowModal({ isOpen, isEdit });
               setAddressDetails((prevState) => data);
             }}
