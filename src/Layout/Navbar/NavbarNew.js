@@ -158,7 +158,12 @@ const NavbarNew = () => {
                 getOptionLabel={(option) => option.name || ""}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="" placeholder="Search" />
+                  <TextField
+                    variant="standard"
+                    {...params}
+                    label=""
+                    placeholder="Search"
+                  />
                 )}
               />
             </li>
@@ -314,6 +319,7 @@ const NavbarNew = () => {
                   </StyledBadge>
                 </Link>
               </li>
+
               <li className="nav-item  navitem">
                 <MDBDropdown>
                   <MDBDropdownToggle
