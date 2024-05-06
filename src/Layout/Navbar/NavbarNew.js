@@ -271,6 +271,42 @@ const NavbarNew = () => {
           </ul>
         </div>
         <ul className="shopingnavbar">
+          <li className="nav-item navitem">
+            <Autocomplete
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+                if (newValue) {
+                  navigate(`/product/${newValue.id}`, { state: newValue });
+                  // setValue(""); // uncomment if want to clear selection afte navigation
+                }
+              }}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
+              id="controllable-states-demo"
+              options={options}
+              getOptionLabel={(option) => option.name || ""}
+              sx={{
+                width: 300,
+                display: "none",
+                "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                  {
+                    display: "block",
+                    width: 100,
+                  },
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="standard"
+                  {...params}
+                  label=""
+                  placeholder="Search"
+                />
+              )}
+            />
+          </li>
           <li
             className="nav-item navitem"
             style={{ marginBottom: "3px", marginRight: 0 }}
