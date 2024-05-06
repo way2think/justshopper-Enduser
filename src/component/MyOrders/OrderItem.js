@@ -36,7 +36,7 @@ const review = {
   fontFamily: "Poppins",
 };
 
-const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
+const OrderItem = ({ item, userDetail, order, rupeeSymbol }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -51,7 +51,8 @@ const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
   const handleBuyItAgain = () => {
     // console.log("handleBuyItAgain: ", item);
     dispatch(addItem(item));
-    successNotification(`${item.name} added to cart`);
+    navigate("/cart");
+    // successNotification(`${item.name} added to cart`);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -64,16 +65,12 @@ const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
     // check if any review is written from this user to this product, if yes, then route to that product and show the review
     // else he can write a new review, after dispatched (D + 2 days)
     // console.log(item, userDetail);
-    const conditions = [
-      { type: "where", field: "product_id", operator: "==", value: item.id },
-      {
-        type: "where",
-        field: "user_details.user_id",
-        operator: "==",
-        value: userDetail.user_id,
-      },
-    ];
-    const result = await getReviewByUserAndProduct({ conditions }, true); // true is preferCacheValue
+
+    // console.log("conditions: ", conditions);
+    const result = await getReviewByUserAndProduct(
+      { productId: item.id, userId: userDetail.user_id },
+      true
+    ); // true is preferCacheValue
     // console.log("result review: ", result.data);
     const reviews = result.data;
     if (reviews) {
@@ -168,14 +165,24 @@ const OrderItem = ({ item, userDetail, rupeeSymbol }) => {
         </Stack>
       </Grid>
 
-      <Grid item sm={12} xs={12} md={4} lg={4}>
-        <p className="trackid">
-          <b className="track">Tracking Id :</b> 12345678909
-        </p>
-        <p className="trackid">
-          <b className="track">Tracking Url :</b> link
-        </p>
-      </Grid>
+      {order.status === "dispatched" && (
+        <Grid item sm={12} xs={12} md={4} lg={4}>
+          <p className="trackid">
+            <b className="track">Tracking Id :</b>{" "}
+            {order.logistics.tracking_number}
+          </p>
+          <p className="trackid">
+            <b className="track">Tracking Url :</b>{" "}
+            <a
+              target="_blank"
+              href={order.logistics.tracking_url}
+              rel="noreferrer"
+            >
+              {order.logistics.carrier_name.toUpperCase()}
+            </a>
+          </p>
+        </Grid>
+      )}
 
       <Grid className="trackbtn" sm={12} xs={12} md={3} lg={3}>
         <Stack direction="row" justifyContent="center" alignItems="center">

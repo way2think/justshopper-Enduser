@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./MyOrders.css";
-import { Box, Divider, Grid, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import BuyAgain from "./BuyAgain";
 import OrderProductList from "./OrderItem";
 import OrderList from "./OrderList";
