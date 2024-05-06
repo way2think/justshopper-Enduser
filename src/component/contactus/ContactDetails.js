@@ -64,12 +64,12 @@ const ContactDetails = () => {
         successNotification(
           "Enquiry Successfully sent, we will reach to you asap!!!"
         );
-        // setContactInfo({
-        //   name: "",
-        //   email: "",
-        //   phone: "",
-        //   description: "",
-        // });
+        setContactInfo({
+          name: "",
+          email: "",
+          phone: "",
+          description: "",
+        });
         scrollToTop();
       } else {
         dispatch(setIsLoading(false));
