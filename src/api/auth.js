@@ -89,7 +89,7 @@ export const auth = api.injectEndpoints({
             // console.log("user: ", user.accessToken);
             if (user) {
               const userDet = await getObjectByParam(collectionId, user.uid);
-              console.log("userDet: ", userDet);
+              // console.log("userDet: ", userDet);
               if (userDet.data) {
                 const updatedUser = {
                   ...userDet.data,

@@ -109,7 +109,7 @@ export default function Searchbar(
     conditions,
   });
 
-  console.log("optionsdata", options, optionData, productData, searchValue);
+  // console.log("optionsdata", options, optionData, productData, searchValue);
 
   useEffect(() => {
     if (productData && productData.length) {

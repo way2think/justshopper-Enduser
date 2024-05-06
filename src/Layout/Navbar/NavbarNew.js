@@ -312,7 +312,6 @@ const NavbarNew = () => {
               )}
             />
           </li> */}
-          {console.log("option in navbarnew", options)}
           <li className="nav-item navitem">
             <Searchbar
               value={value}
