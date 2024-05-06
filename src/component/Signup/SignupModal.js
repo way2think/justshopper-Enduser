@@ -23,6 +23,7 @@ import {
   isValidName,
   isValidPassword,
   isValidPhoneNumber,
+  isValidPincode,
 } from "../../utils/validator";
 
 import { auth, db } from "../../config/firebase";
@@ -160,7 +161,11 @@ export default function SignupModal({ open, setOpen }) {
       isValidPhoneNumber(phonenumber) &&
       isValidPassword(createPassword) &&
       isValidPassword(confirmPassword) &&
-      address !== ""
+      isValidPincode(address.pincode) &&
+      address.state !== "" &&
+      address.city !== "" &&
+      address.line !== "" &&
+      createPassword === confirmPassword
     ) {
       createUserWithEmailAndPassword(auth, email, createPassword)
         .then(async (userCredential) => {
