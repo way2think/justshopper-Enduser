@@ -23,6 +23,7 @@ import {
 } from "mdb-react-ui-kit";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useGetAllProductsQuery } from "../../api/product";
+import Searchbar from "../../Reusable/Searchbar";
 
 const NavbarNew = () => {
   const location = useLocation();
@@ -139,7 +140,7 @@ const NavbarNew = () => {
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li className="nav-item active navitem">
+            {/* <li className="nav-item active navitem">
               <Autocomplete
                 value={value}
                 onChange={(event, newValue) => {
@@ -166,7 +167,7 @@ const NavbarNew = () => {
                   />
                 )}
               />
-            </li>
+            </li> */}
             <li className="nav-item active navitem">
               <Link
                 className="nav-link"
@@ -271,7 +272,7 @@ const NavbarNew = () => {
           </ul>
         </div>
         <ul className="shopingnavbar">
-          <li className="nav-item navitem">
+          {/* <li className="nav-item navitem">
             <Autocomplete
               value={value}
               onChange={(event, newValue) => {
@@ -311,6 +312,9 @@ const NavbarNew = () => {
                 />
               )}
             />
+          </li> */}
+          <li className="nav-item navitem">
+            <Searchbar />
           </li>
           <li
             className="nav-item navitem"
