@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slide from "@mui/material/Slide";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
@@ -9,6 +9,10 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import SearchIcon from "@mui/icons-material/Search";
 import { bgBlur } from "../Reusable/css";
 import { Stack } from "@mui/material";
+import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
+import { useGetAllProductsQuery } from "../api/product";
+import { errorNotification } from "../utils/notifications";
+import { useNavigate } from "react-router-dom";
 
 // import Iconify from "src/components/iconify";
 
@@ -65,12 +69,53 @@ const OptionItem = styled("div")(({ theme }) => ({
 }));
 
 // Sample options for demonstration
-const sampleOptions = ["no option"];
+const sampleOptions = ["eraser", "duck", "monkey", "horse"];
 
-export default function Searchbar() {
+export default function Searchbar(
+  {
+    // value,
+    // setValue,
+    // inputValue,
+    // setInputValue,
+    // optionsData,
+    // productData,
+  }
+) {
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState("");
+  const [optionData, setOptionData] = useState([]);
+  const navigate = useNavigate();
+
+  const conditions = [
+    {
+      type: "where",
+      field: "status",
+      operator: "==",
+      value: "published",
+    },
+    {
+      type: "where",
+      field: "search_tags",
+      operator: "array-contains",
+      value: searchValue,
+    },
+  ];
+  const {
+    data: productData,
+    isProductLoading,
+    isFetching,
+  } = useGetAllProductsQuery({
+    conditions,
+  });
+
+  console.log("optionsdata", options, optionData, productData, searchValue);
+
+  useEffect(() => {
+    if (productData && productData.length) {
+      setOptionData(() => productData);
+    }
+  }, [productData]);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -78,23 +123,38 @@ export default function Searchbar() {
 
   const handleClose = () => {
     setOpen(false);
+    setSearchValue("");
+    setOptions("");
+    setOptionData([]);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event, newInputValue) => {
     const { value } = event.target;
-    setSearchValue(value);
+    setSearchValue(() => value);
     // Here you can implement your logic to fetch options based on the input value
     // For now, using a sample set of options
+
     const filteredOptions = sampleOptions.filter((option) =>
       option.toLowerCase().includes(value.toLowerCase())
     );
-    setOptions(filteredOptions);
+    setOptionData(productData);
   };
 
   const handleOptionSelect = (option) => {
-    setSearchValue(option);
-    handleClose(); // Close the search bar
+    setSearchValue(option.name);
+    setOptions(option);
+    // handleClose(); // Close the search bar
     // You can add further logic here, such as navigating to the selected option
+  };
+
+  const handleSearch = () => {
+    console.log("options", options);
+    if (options !== "") {
+      navigate(`product/${options.id}`);
+      handleClose();
+    } else {
+      errorNotification("no data found");
+    }
   };
 
   return (
@@ -126,18 +186,22 @@ export default function Searchbar() {
                 onChange={handleInputChange}
                 sx={{ mr: 1, fontWeight: "fontWeightBold" }}
               />
-              <Button variant="contained" onClick={handleClose}>
+              <Button
+                variant="contained"
+                onClick={handleSearch}
+                sx={{ backgroundColor: "#DC3227" }}
+              >
                 Search
               </Button>
             </Stack>
-            {options.length > 0 && (
+            {optionData.length > 0 && (
               <OptionsContainer>
-                {options.map((option, index) => (
+                {optionData.map((option, index) => (
                   <OptionItem
                     key={index}
                     onClick={() => handleOptionSelect(option)}
                   >
-                    {option}
+                    {option.name}
                   </OptionItem>
                 ))}
               </OptionsContainer>

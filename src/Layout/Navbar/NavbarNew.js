@@ -69,7 +69,7 @@ const NavbarNew = () => {
       type: "where",
       field: "search_tags",
       operator: "array-contains",
-      value: inputValue,
+      value: "duck",
     },
   ];
   const {
@@ -179,7 +179,6 @@ const NavbarNew = () => {
                 Home <span className="sr-only">(current)</span>
               </Link>
             </li>
-
             <li className="nav-item dropdown navitem">
               <Link
                 className="nav-link dropdown-toggle"
@@ -313,8 +312,16 @@ const NavbarNew = () => {
               )}
             />
           </li> */}
+          {console.log("option in navbarnew", options)}
           <li className="nav-item navitem">
-            <Searchbar />
+            <Searchbar
+              value={value}
+              setValue={setValue}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              optionsData={options}
+              productData={productData}
+            />
           </li>
           <li
             className="nav-item navitem"
@@ -433,7 +440,6 @@ const NavbarNew = () => {
               />
             </li>
           )}
-
           <SideNav />
         </ul>
       </nav>
