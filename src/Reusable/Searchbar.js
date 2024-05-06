@@ -109,7 +109,7 @@ export default function Searchbar(
     conditions,
   });
 
-  console.log("optionsdata", options, optionData, productData, searchValue);
+  // console.log("optionsdata", options, optionData, productData, searchValue);
 
   useEffect(() => {
     if (productData && productData.length) {
@@ -130,7 +130,7 @@ export default function Searchbar(
 
   const handleInputChange = (event, newInputValue) => {
     const { value } = event.target;
-    setSearchValue(() => value);
+    setSearchValue(() => value.toLowerCase());
     // Here you can implement your logic to fetch options based on the input value
     // For now, using a sample set of options
 

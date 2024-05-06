@@ -1,4 +1,3 @@
-import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./NewMainBanner.css";
@@ -9,13 +8,10 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import { useGetSettingsQuery } from "../api/api";
 import { Button } from "@mui/material";
-import { Padding } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 
 export default function NewMainBanner() {
   const { data } = useGetSettingsQuery();
   const homeBanner = data?.home_banner || [];
-  // console.log("homeBanner: ", homeBanner);
 
   return (
     <>
@@ -26,37 +22,22 @@ export default function NewMainBanner() {
         modules={[Autoplay, Navigation]}
       >
         {homeBanner.map((banner) => (
-          <SwiperSlide>
+          <SwiperSlide key={banner.timestamp}>
             <img
               src={banner.images[0].url}
               className="d-block w-100 banner-image"
               alt={banner.images[0].url}
               // style={{ height: "150px" }
             />
-            <Button className="shopnow">
-              <a href={banner.url} target="_blank" style={{ color: "black" }}>
-                Order Now
-              </a>
+            <Button
+              className="shopnow"
+              type="button"
+              onClick={() => window.open(banner.url, "_blank")}
+            >
+              Order Now
             </Button>
           </SwiperSlide>
         ))}
-
-        {/* <SwiperSlide>
-          {" "}
-          <img
-            src="../images/web banner teddy Theme.jpg"
-            class="d-block w-100"
-            alt="..."
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          {" "}
-          <img
-            src="../images/web banner Unicorn Theme.jpg"
-            class="d-block w-100"
-            alt="..."
-          />
-        </SwiperSlide> */}
       </Swiper>
     </>
   );
