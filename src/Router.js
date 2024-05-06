@@ -119,7 +119,7 @@ export default function Router() {
           // element: <Order />,
         },
         {
-          path: "404-error",
+          path: "*",
           element: <Error404 />,
           // element: <Order />,
         },
