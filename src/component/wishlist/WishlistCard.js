@@ -148,7 +148,18 @@ const WishlistCard = () => {
             </Stack>
           ) : (
             data?.map((item) => (
-              <Grid key={item.id} container spacing={2} sx={{ mb: 10 }}>
+              <Grid
+                key={item.id}
+                container
+                spacing={2}
+                sx={{
+                  mb: 10,
+                  "@media only screen and (min-width: 320px) and (max-width: 600px)":
+                    {
+                      mb: 8,
+                    },
+                }}
+              >
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <Stack
                     direction="row"
