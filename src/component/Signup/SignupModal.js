@@ -278,6 +278,7 @@ export default function SignupModal({ open, setOpen }) {
                   variant="outlined"
                   name="name"
                   type="text"
+                  autoComplete="new-password"
                   className="name"
                   value={signUpDetails.name}
                   onChange={handleInputChange}
@@ -302,6 +303,7 @@ export default function SignupModal({ open, setOpen }) {
                   label="Phone Number"
                   variant="outlined"
                   name="phonenumber"
+                  autoComplete="new-password"
                   type="tel"
                   value={signUpDetails.phonenumber}
                   onChange={handleInputChange}
@@ -324,6 +326,7 @@ export default function SignupModal({ open, setOpen }) {
                   variant="outlined"
                   name="email"
                   type="email"
+                  autoComplete="new-password"
                   value={signUpDetails.email}
                   onChange={handleInputChange}
                   onKeyDown={(e) => {
@@ -341,6 +344,7 @@ export default function SignupModal({ open, setOpen }) {
                   id="outlined-multiline-static"
                   label="Address Line"
                   placeholder="Door / House No, Street Name, Area"
+                  autoComplete="new-password"
                   name="addressLine"
                   value={signUpDetails.address.line}
                   onKeyDown={(e) => {
@@ -367,6 +371,7 @@ export default function SignupModal({ open, setOpen }) {
                 <TextField
                   id="outlined-multiline-static"
                   label="Country"
+                  autoComplete="new-password"
                   multiline
                   rows={1}
                   value="India"
@@ -432,6 +437,7 @@ export default function SignupModal({ open, setOpen }) {
                 /> */}
                 <StateSelect
                   countryid={countryIndia.id}
+                  autoComplete="new-password"
                   onChange={(e) => {
                     setstateid(e.id);
                     setstateName(e.name);
@@ -477,6 +483,7 @@ export default function SignupModal({ open, setOpen }) {
                 /> */}
                 <CitySelect
                   countryid={countryIndia.id}
+                  autoComplete="new-password"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleSignup(e);
