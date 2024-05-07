@@ -181,7 +181,7 @@ export default function SignupModal({ open, setOpen }) {
       address,
     } = signUpDetails;
     dispatch(setIsLoading(true));
-
+    console.log("address", address);
     if (
       isValidName(name) &&
       isValidEmail(email) &&
@@ -247,10 +247,8 @@ export default function SignupModal({ open, setOpen }) {
     const stateObj = state.filter((resultState) => {
       return resultState.name === name;
     });
-    // console.log("stateObj", stateObj);
-    GetCity(countryIndia.id, stateObj[0].id).then((resultCity) => {
+    GetCity(countryIndia.id, stateObj[0]?.id).then((resultCity) => {
       setCity(resultCity);
-      // console.log("getCity", resultCity);
     });
   };
 
@@ -308,6 +306,7 @@ export default function SignupModal({ open, setOpen }) {
                   name="name"
                   type="text"
                   autoComplete="new-password"
+                  autofill="off"
                   className="name"
                   value={signUpDetails.name}
                   onChange={handleInputChange}
@@ -333,6 +332,16 @@ export default function SignupModal({ open, setOpen }) {
                   variant="outlined"
                   name="phonenumber"
                   autoComplete="new-password"
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="City"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password",
+                      }}
+                    />
+                  )}
                   type="tel"
                   value={signUpDetails.phonenumber}
                   onChange={handleInputChange}
@@ -503,20 +512,17 @@ export default function SignupModal({ open, setOpen }) {
                     />
                   )}
                   onChange={(e) => {
-                    console.log("e", e, e.target.innerHTML);
-                    // setstateid(e.id);
                     getStateData(e.target.innerHTML);
-                    console.log("result", stateid, city);
-                    // setstateName(e.name);
-                    // setSignUpDetails((prevState) => {
-                    //   return {
-                    //     ...prevState,
-                    //     address: {
-                    //       ...prevState.address,
-                    //       state: e.name,
-                    //     },
-                    //   };
-                    // });
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          state: e.target.innerHTML,
+                        },
+                      };
+                    });
+                    console.log("result", stateid, city, signUpDetails);
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -588,22 +594,16 @@ export default function SignupModal({ open, setOpen }) {
                   )}
                   onChange={(e) => {
                     console.log("e", e, e.target.innerHTML);
-                    // setstateid(e.id);
-                    // setState(e.id);
-                    // getStateData(e.target.innerHTML);
-                    // console.log("result", stateid);
-                    // getCityData(stateid);
-                    // console.log("result", stateid, city);
-                    // setstateName(e.name);
-                    // setSignUpDetails((prevState) => {
-                    //   return {
-                    //     ...prevState,
-                    //     address: {
-                    //       ...prevState.address,
-                    //       state: e.name,
-                    //     },
-                    //   };
-                    // });
+
+                    setSignUpDetails((prevState) => {
+                      return {
+                        ...prevState,
+                        address: {
+                          ...prevState.address,
+                          city: e.target.innerHTML,
+                        },
+                      };
+                    });
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
