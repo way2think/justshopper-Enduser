@@ -245,19 +245,12 @@ export default function SignupModal({ open, setOpen }) {
 
   const getStateData = (name) => {
     const stateObj = state.filter((resultState) => {
-      return resultState.name == name;
+      return resultState.name === name;
     });
-    console.log("stateObj", stateObj);
-    setstateid(stateObj[0]?.id);
-  };
-
-  const getCityData = (id) => {
-    console.log("country &state", countryIndia.id, id);
-    GetCity(countryIndia.id, id).then((resultCity) => {
-      const cityObj = resultCity;
-
-      setCity(cityObj);
-      console.log("getCity", cityObj);
+    // console.log("stateObj", stateObj);
+    GetCity(countryIndia.id, stateObj[0].id).then((resultCity) => {
+      setCity(resultCity);
+      // console.log("getCity", resultCity);
     });
   };
 
@@ -513,7 +506,6 @@ export default function SignupModal({ open, setOpen }) {
                     console.log("e", e, e.target.innerHTML);
                     // setstateid(e.id);
                     getStateData(e.target.innerHTML);
-                    getCityData(stateid);
                     console.log("result", stateid, city);
                     // setstateName(e.name);
                     // setSignUpDetails((prevState) => {
