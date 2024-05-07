@@ -1,5 +1,6 @@
-import { useDebugValue, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 import {
+  Autocomplete,
   FormControl,
   Grid,
   IconButton,
@@ -33,11 +34,14 @@ import "./SignupModal.css";
 import {
   CitySelect,
   CountrySelect,
+  GetCity,
+  GetState,
   StateSelect,
 } from "react-country-state-city";
 import LoginModal from "../Login/LoginModal";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../store/appSlice";
+import { countryIndia } from "../../utils/constants";
 
 const style = {
   position: "absolute",
@@ -118,9 +122,23 @@ export default function SignupModal({ open, setOpen }) {
       pincode: "",
     },
   });
-  // console.log("testing for name", signUpDetails);
-  // const auth = getAuth();
-  // const collection = "users";
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
+
+  useEffect(() => {
+    setCountry(countryIndia);
+    GetState(countryIndia.id).then((resultState) => {
+      const stateObj = resultState;
+      setState(stateObj);
+      GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
+        const cityObj = resultCity;
+        setCity(cityObj);
+        console.log("getCity", cityObj);
+      });
+      console.log("getState", resultState);
+    });
+  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -131,17 +149,17 @@ export default function SignupModal({ open, setOpen }) {
     event.preventDefault();
   };
 
-  const countryIndia = {
-    id: 101,
-    name: "India",
-    iso3: "IND",
-    iso2: "IN",
-    numeric_code: "356",
-    phone_code: 91,
-    region: "Asia",
-    subregion: "Southern Asia",
-    tld: ".in",
-  };
+  // const countryIndia = {
+  //   id: 101,
+  //   name: "India",
+  //   iso3: "IND",
+  //   iso2: "IN",
+  //   numeric_code: "356",
+  //   phone_code: 91,
+  //   region: "Asia",
+  //   subregion: "Southern Asia",
+  //   tld: ".in",
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -223,6 +241,24 @@ export default function SignupModal({ open, setOpen }) {
       // !(createPassword === confirmPassword) &&
       //   errorNotification("Password doesn't match");
     }
+  };
+
+  const getStateData = (name) => {
+    const stateObj = state.filter((resultState) => {
+      return resultState.name == name;
+    });
+    console.log("stateObj", stateObj);
+    setstateid(stateObj[0]?.id);
+  };
+
+  const getCityData = (id) => {
+    console.log("country &state", countryIndia.id, id);
+    GetCity(countryIndia.id, id).then((resultCity) => {
+      const cityObj = resultCity;
+
+      setCity(cityObj);
+      console.log("getCity", cityObj);
+    });
   };
 
   return (
@@ -435,7 +471,7 @@ export default function SignupModal({ open, setOpen }) {
                   }}
                   sx={{ mb: 2, width: "100%" }}
                 /> */}
-                <StateSelect
+                {/* <StateSelect
                   countryid={countryIndia.id}
                   autoComplete="new-password"
                   onChange={(e) => {
@@ -457,6 +493,44 @@ export default function SignupModal({ open, setOpen }) {
                     }
                   }}
                   placeHolder="Select State"
+                /> */}
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={state}
+                  getOptionLabel={(option) => `${option.name}`}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="State"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password",
+                      }}
+                    />
+                  )}
+                  onChange={(e) => {
+                    console.log("e", e, e.target.innerHTML);
+                    // setstateid(e.id);
+                    getStateData(e.target.innerHTML);
+                    getCityData(stateid);
+                    console.log("result", stateid, city);
+                    // setstateName(e.name);
+                    // setSignUpDetails((prevState) => {
+                    //   return {
+                    //     ...prevState,
+                    //     address: {
+                    //       ...prevState.address,
+                    //       state: e.name,
+                    //     },
+                    //   };
+                    // });
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                 />
               </Grid>
 
@@ -481,7 +555,7 @@ export default function SignupModal({ open, setOpen }) {
                   }}
                   sx={{ mb: 2, width: "100%" }}
                 /> */}
-                <CitySelect
+                {/* <CitySelect
                   countryid={countryIndia.id}
                   autoComplete="new-password"
                   onKeyDown={(e) => {
@@ -503,6 +577,47 @@ export default function SignupModal({ open, setOpen }) {
                     });
                   }}
                   placeHolder="Select City"
+                /> */}
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={city}
+                  // sx={{ width: 300 }}
+                  getOptionLabel={(option) => `${option.name}`}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="City"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password",
+                      }}
+                    />
+                  )}
+                  onChange={(e) => {
+                    console.log("e", e, e.target.innerHTML);
+                    // setstateid(e.id);
+                    // setState(e.id);
+                    // getStateData(e.target.innerHTML);
+                    // console.log("result", stateid);
+                    // getCityData(stateid);
+                    // console.log("result", stateid, city);
+                    // setstateName(e.name);
+                    // setSignUpDetails((prevState) => {
+                    //   return {
+                    //     ...prevState,
+                    //     address: {
+                    //       ...prevState.address,
+                    //       state: e.name,
+                    //     },
+                    //   };
+                    // });
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup(e);
+                    }
+                  }}
                 />
               </Grid>
 

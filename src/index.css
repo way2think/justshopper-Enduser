@@ -88,6 +88,12 @@ body {
 .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
   padding: 12.5px 14px !important;
 }
+.MuiAutocomplete-hasPopupIcon.css-clttge-MuiAutocomplete-root
+  .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-clttge-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  padding-bottom: 0;
+}
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
   .css-1ei8ci9-MuiGrid-root {
