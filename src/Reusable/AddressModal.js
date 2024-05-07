@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,7 +9,7 @@ import {
   updateSelectedAddress,
   updateShippingAddress,
 } from "../store/userSlice";
-import { Grid, TextField } from "@mui/material";
+import { Autocomplete, Grid, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 
 import { errorNotification } from "../utils/notifications";
@@ -17,6 +17,8 @@ import { errorNotification } from "../utils/notifications";
 import {
   CitySelect,
   CountrySelect,
+  GetCity,
+  GetState,
   StateSelect,
 } from "react-country-state-city";
 import { useUpdateShippingAddressMutation } from "../api/user";
@@ -107,6 +109,9 @@ export default function AddressModal({ open, setOpen }) {
     pincode: "",
     is_active: false,
   });
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
 
   const user = useSelector(selectUser);
   const address = useSelector(selectSavedAddress);
@@ -114,6 +119,17 @@ export default function AddressModal({ open, setOpen }) {
   const [addNewShippingAddress, { isLoading, isSuccess, isError, error }] =
     useUpdateShippingAddressMutation();
 
+  useEffect(() => {
+    setCountry(countryIndia);
+    GetState(countryIndia.id).then((resultState) => {
+      const stateObj = resultState;
+      setState(stateObj);
+      GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
+        const cityObj = resultCity;
+        setCity(cityObj);
+      });
+    });
+  }, []);
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e) => {
@@ -132,13 +148,22 @@ export default function AddressModal({ open, setOpen }) {
       line: "",
       city: "",
       state: "",
-      country: "",
+      country: "India",
       pincode: "",
     });
     setAddNewAddress(false);
   }
+  const getStateData = (name) => {
+    const stateObj = state.filter((resultState) => {
+      return resultState.name === name;
+    });
+    GetCity(countryIndia.id, stateObj[0]?.id).then((resultCity) => {
+      setCity(resultCity);
+    });
+  };
 
   const handleAddNewShippingAddress = async () => {
+    console.log("addressDeatils", addressDetails);
     if (
       isValidName(addressDetails.name) &&
       addressDetails.line !== "" &&
@@ -194,6 +219,7 @@ export default function AddressModal({ open, setOpen }) {
                     fullWidth
                     id="name"
                     label="Name"
+                    autoComplete="new-password" 
                     variant="outlined"
                     name="name"
                     type="text"
@@ -229,6 +255,7 @@ export default function AddressModal({ open, setOpen }) {
                   <TextField
                     id="outlined-multiline-static"
                     label="Address Line"
+                    autoComplete="new-password"
                     placeholder="Door / House No, Street Name, Area"
                     name="addressLine"
                     value={addressDetails.line}
@@ -270,7 +297,7 @@ export default function AddressModal({ open, setOpen }) {
                 </Grid>
 
                 <Grid md={6} xs={6}>
-                  <StateSelect
+                  {/* <StateSelect
                     countryid={countryIndia.id}
                     onChange={(e) => {
                       setstateid(e.id);
@@ -283,11 +310,54 @@ export default function AddressModal({ open, setOpen }) {
                       });
                     }}
                     placeHolder="Select State"
+                  /> */}
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={state}
+                    getOptionLabel={(option) => `${option.name}`}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="State"
+                        inputProps={{
+                          ...params.inputProps,
+                          autoComplete: "new-password",
+                        }}
+                      />
+                    )}
+                    // onChange={(e) => {
+                    //   getStateData(e.target.innerHTML);
+                    //   setSignUpDetails((prevState) => {
+                    //     return {
+                    //       ...prevState,
+                    //       address: {
+                    //         ...prevState.address,
+                    //         state: e.target.innerHTML,
+                    //       },
+                    //     };
+                    //   });
+                    // }}
+                    onChange={(e) => {
+                      getStateData(e.target.innerHTML);
+                      setstateName(e.target.innerHTML);
+                      setAddressDetails((prevState) => {
+                        return {
+                          ...prevState,
+                          state: e.target.innerHTML,
+                        };
+                      });
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        // handleSignup(e);
+                      }
+                    }}
                   />
                 </Grid>
 
                 <Grid md={6} xs={6} pr={2} mt={2}>
-                  <CitySelect
+                  {/* <CitySelect
                     countryid={countryIndia.id}
                     stateid={stateid}
                     onChange={(e) => {
@@ -300,6 +370,48 @@ export default function AddressModal({ open, setOpen }) {
                       });
                     }}
                     placeHolder="Select City"
+                  /> */}
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={city}
+                    // sx={{ width: 300 }}
+                    getOptionLabel={(option) => `${option.name}`}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="City"
+                        inputProps={{
+                          ...params.inputProps,
+                          autoComplete: "new-password",
+                        }}
+                      />
+                    )}
+                    // onChange={(e) => {
+                    //   setSignUpDetails((prevState) => {
+                    //     return {
+                    //       ...prevState,
+                    //       address: {
+                    //         ...prevState.address,
+                    //         city: e.target.innerHTML,
+                    //       },
+                    //     };
+                    //   });
+                    // }}
+                    onChange={(e) => {
+                      setCityName(e.target.innerHTML);
+                      setAddressDetails((prevState) => {
+                        return {
+                          ...prevState,
+                          city: e.target.innerHTML,
+                        };
+                      });
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        // handleSignup(e);
+                      }
+                    }}
                   />
                 </Grid>
 

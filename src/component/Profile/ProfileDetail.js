@@ -27,6 +27,7 @@ import {
   GetCity,
 } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
+import { Autocomplete } from "@mui/material";
 
 import classes from "./ProfileDetail.module.css";
 import { selectUser, updateProfileDetail } from "../../store/userSlice";
@@ -105,6 +106,9 @@ const ProfileDetail = () => {
   const [country, setCountry] = useState({});
   const [state, setState] = useState({});
   const [city, setCity] = useState({});
+  const [stateData, setStateData] = useState([]);
+  const [cityData, setCityData] = useState([]);
+  let defaultValue1;
 
   const [updateProfile, {}] = useUpdateProfileDetailMutation();
 
@@ -128,9 +132,11 @@ const ProfileDetail = () => {
         setCountry(countryObj);
 
         GetState(countryObj.id).then((resultState) => {
+          setStateData(resultState);
           const stateObj = resultState.find(
             (state) => state.name === user.address.state
           );
+
           // console.log("stateObj: ", stateObj);
           setState(stateObj);
           GetCity(countryObj.id, stateObj.id).then((resultCity) => {
@@ -144,6 +150,12 @@ const ProfileDetail = () => {
       });
     }
   }, [user.address]);
+
+  useEffect(() => {
+    GetState(countryIndia.id).then((result) => {
+      setStateData(result);
+    });
+  }, []);
 
   const onChangeHandler = (e) => {
     setDefaultValues((prevState) => {
@@ -167,24 +179,54 @@ const ProfileDetail = () => {
   };
 
   const onChangeDropdown = async (type, object) => {
+    console.log("object", object);
+    let stateObj;
     if (type === "country") {
       setCountry(object);
     } else if (type === "state") {
-      setState(object);
-      const result = await GetCity(country.id, object.id);
+      const name = object.target.innerHTML;
+      stateObj = stateData.filter((resultState) => {
+        return resultState.name === name;
+      });
+      stateObj && setState(stateObj[0]);
+      const result = await GetCity(countryIndia.id, stateObj[0]?.id);
+
+      setCityData(result);
       setCity(result[0]);
     } else if (type === "city") {
-      setCity(object);
+      if (state) {
+        // setCity(stateObj[0]);
+      }
     }
 
     setDefaultValues((prevState) => ({
       ...prevState,
       address: {
         ...prevState.address,
-        [type]: object.name,
+        [type]: object.target.innerHTML,
       },
     }));
   };
+
+  // const onChangeDropdown = async (type, object) => {
+  //   if (type === "country") {
+  //     setCountry(object);
+  //   } else if (type === "state") {
+  //     setState(object);
+  //     const result = await GetCity(country.id, object.id);
+  //     setCity(result[0]);
+  //   } else if (type === "city") {
+  //     setCity(object);
+  //   }
+
+  //   setDefaultValues((prevState) => ({
+  //     ...prevState,
+  //     address: {
+  //       ...prevState.address,
+  //       [type]: object.name,
+  //     },
+  //   }));
+  // };
 
   const handleSaveChanges = async () => {
     dispatch(setIsLoading(true));
@@ -215,6 +257,15 @@ const ProfileDetail = () => {
       errorNotification(`Invalid details!!!`);
       dispatch(setIsLoading(false));
     }
+  };
+
+  const getStateData = (name) => {
+    const stateObj = state.filter((resultState) => {
+      return resultState.name === name;
+    });
+    GetCity(countryIndia.id, stateObj[0]?.id).then((resultCity) => {
+      setCity(resultCity);
+    });
   };
 
   return (
@@ -320,20 +371,93 @@ const ProfileDetail = () => {
               /> */}
             </Grid>
             <Grid item md={6} xs={12}>
-              <StateSelect
+              {/* <StateSelect
                 defaultValue={state}
                 countryid={country.id}
                 onChange={(object) => onChangeDropdown("state", object)}
                 placeHolder="Select State"
+              /> */}
+
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                disabled={disableProfileEdit}
+                options={stateData}
+                defaultValue={defaultValue1}
+                getOptionLabel={(option) => `${option.name}`}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="State"
+                    inputProps={{
+                      ...params.inputProps,
+                      autoComplete: "new-password",
+                    }}
+                  />
+                )}
+                onChange={(e) => onChangeDropdown("state", e)}
+                // onChange={(e) => {
+                //   getStateData(e.target.innerHTML);
+                //   setSignUpDetails((prevState) => {
+                //     return {
+                //       ...prevState,
+                //       address: {
+                //         ...prevState.address,
+                //         state: e.target.innerHTML,
+                //       },
+                //     };
+                //   });
+                // }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    // handleSignup(e);
+                  }
+                }}
               />
             </Grid>
+            {console.log("city", cityData)}
             <Grid item md={6} xs={12}>
-              <CitySelect
+              {/* <CitySelect
                 defaultValue={city}
                 countryid={country.id}
                 stateid={state.id}
                 onChange={(object) => onChangeDropdown("city", object)}
                 placeHolder="Select City"
+              /> */}
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                disabled={disableProfileEdit}
+                options={cityData}
+                // sx={{ width: 300 }}
+                getOptionLabel={(option) => `${option.name}`}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="City"
+                    inputProps={{
+                      ...params.inputProps,
+                      autoComplete: "new-password",
+                    }}
+                  />
+                )}
+                onChange={(e) => onChangeDropdown("city", e)}
+                // onChange={(e) => {
+                //   setSignUpDetails((prevState) => {
+                //     return {
+                //       ...prevState,
+                //       address: {
+                //         ...prevState.address,
+                //         city: e.target.innerHTML,
+                //       },
+                //     };
+                //   });
+                // }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    // handleSignup(e);
+                  }
+                }}
               />
             </Grid>
             <Grid item md={6} xs={12}>
