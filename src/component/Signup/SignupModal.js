@@ -217,11 +217,18 @@ export default function SignupModal({ open, setOpen }) {
           const errorCode = error.code;
           const errorMessage = error.message;
           dispatch(setIsLoading(false));
-          errorNotification(`${errorCode}: ${errorMessage}`);
+          // errorNotification(`${errorCode}: ${errorMessage}`);
+          if (errorCode === "auth/email-already-in-use") {
+            errorNotification("Provided email address already exists");
+          }else{
+            errorNotification(`${errorCode}: ${errorMessage}`);
+          }
         });
     } else {
+      !isValidPassword(createPassword)
+        ? errorNotification("Invalid Password, Minimum 6 characters")
+        : errorNotification("Enter/select valid data");
       dispatch(setIsLoading(false));
-      errorNotification("Enter/select valid data");
 
       // !isValidName(name) && errorNotification("Invalid Name");
 
@@ -229,9 +236,6 @@ export default function SignupModal({ open, setOpen }) {
 
       // !isValidPhoneNumber(phonenumber) &&
       //   errorNotification("Invalid Phone Number");
-
-      // !isValidPassword(createPassword) &&
-      //   errorNotification("Invalid CreatePassword");
 
       // !isValidPassword(confirmPassword) &&
       //   errorNotification("Invalid ConfirmPassword");
@@ -247,6 +251,7 @@ export default function SignupModal({ open, setOpen }) {
     });
     GetCity(countryIndia.id, stateObj[0]?.id).then((resultCity) => {
       setCity(resultCity);
+      // setCityName("");
     });
   };
 
@@ -577,6 +582,7 @@ export default function SignupModal({ open, setOpen }) {
                   disablePortal
                   id="combo-box-demo"
                   options={city}
+                  // value={cityName}
                   // sx={{ width: 300 }}
                   getOptionLabel={(option) => `${option.name}`}
                   renderInput={(params) => (
@@ -590,6 +596,7 @@ export default function SignupModal({ open, setOpen }) {
                     />
                   )}
                   onChange={(e) => {
+                    setCityName(e.target.innerHTML);
                     setSignUpDetails((prevState) => {
                       return {
                         ...prevState,

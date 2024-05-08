@@ -45,9 +45,7 @@ export const auth = api.injectEndpoints({
         } else {
           return {
             data: "failed",
-            error: {
-              message: result.error.message,
-            },
+            error: result.error,
           };
         }
       },

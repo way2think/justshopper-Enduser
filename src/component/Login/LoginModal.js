@@ -208,7 +208,16 @@ export default function LoginModal({ open, setOpen }) {
           dispatch(setIsLoading(false));
         } else {
           console.log("error: ", result);
-          errorNotification(result?.error?.message);
+          const errorCode = result?.error?.code;
+          // errorNotification(result?.error?.message);
+          if (errorCode === "auth/invalid-credential") {
+            errorNotification(
+              "Invalid Email/Password (or) create new account"
+            );
+          } else {
+            errorNotification(result?.error?.message);
+          }
+          console.error("Please");
           dispatch(setIsLoading(false));
         }
       } else {
