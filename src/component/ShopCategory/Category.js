@@ -18,6 +18,12 @@ const Category = ({ type, productType }) => {
   const conditions = [
     { type: "where", field: "status", operator: "==", value: "published" },
     { type: "where", field: type, operator: "==", value: productType },
+    {
+      type: "where",
+      field: "total_quantity",
+      operator: ">",
+      value: 0,
+    },
     // { type: "orderBy", field: "population", order: "asc | desc" },
     // { type: "limit", value: 10 },
   ];

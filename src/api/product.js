@@ -16,7 +16,30 @@ export const product = api.injectEndpoints({
       },
     }),
     getAllNewProductArrivals: build.query({
-      queryFn: async ({ conditions }) => {
+      queryFn: async () => {
+        const conditions = [
+          {
+            type: "where",
+            field: "status",
+            operator: "==",
+            value: "published",
+          },
+          {
+            type: "where",
+            field: "is_new_arrival",
+            operator: "==",
+            value: true,
+          },
+          {
+            type: "where",
+            field: "total_quantity",
+            operator: ">",
+            value: 0,
+          },
+          { type: "orderBy", field: "timestamp", order: "desc" },
+          { type: "limit", value: 15 }, // max newArrivals only 15
+        ];
+
         return await getAllObjects(collectionId, conditions);
       },
     }),
