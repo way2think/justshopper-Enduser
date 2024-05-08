@@ -51,4 +51,5 @@ function numberToWord(number) {
   }
 }
 
+
 export { scrollToTop, formatDate, formatAmount, formatAddress, numberToWord };

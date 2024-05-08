@@ -81,11 +81,11 @@ const ProductGallery = ({ name, images }) => {
             <div className="img-display">
               <div className="img-showcase">
                 {images.length > 0
-                  ? images.map((image) => (
+                  ? images.map((image, i) => (
                       <img
-                        key={image}
-                        src={image}
-                        alt={image}
+                        key={image.id || i}
+                        src={image.url || image || "../images/dummy-image.jpg"}
+                        alt={image.name || image}
                         className="galleryimage"
                         style={{
                           width: "100%",
@@ -114,12 +114,16 @@ const ProductGallery = ({ name, images }) => {
                   <div className="img-select" id="img-select">
                     {images.length > 0
                       ? images.map((image, i) => (
-                          <div className="img-item">
+                          <div className="img-item" key={image.id || i}>
                             <a href="#" data-id={i + 1}>
                               <img
                                 className="bottomimage"
-                                src={image}
-                                alt={image}
+                                src={
+                                  image.url ||
+                                  image ||
+                                  "../images/dummy-image.jpg"
+                                }
+                                alt={image.name || image}
                                 style={{
                                   width: "100px",
                                   height: "100px",

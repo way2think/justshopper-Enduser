@@ -244,6 +244,15 @@ const CartTable = () => {
     dispatch(removeItemQty(product));
   };
 
+  const getRightImage = (item) => {
+    // console.log("te: ", item);
+    // item.images[0].url || "../images/dummy-image.jpg"
+    if (item.color) {
+      return item.images.find((imgObj) => imgObj.color === item.color).url;
+    }
+    return item.images[0].url || "../images/dummy-image.jpg";
+  };
+
   const handleCheckout = async () => {
     if (user.isAuthenticated) {
       if (checkout.canCheckout) {
@@ -333,7 +342,7 @@ const CartTable = () => {
                 selling_price: item.selling_price,
                 discount_price: item.discount_price,
                 discount_percentage: item.discount_percentage,
-                images: item.images,
+                image: getRightImage(item),
                 color: item?.color || "", // "" - if not multi-color
                 quantity: item.cart_quantity,
                 total_price: item.cart_total_price,
@@ -386,8 +395,10 @@ const CartTable = () => {
                   // isDeliveredEmailSent: false,
                 },
               };
+
               // console.log("order: ", order);
               // 2. create order in firebase - order_id
+
               const resultOrderCreation = await createOrder(order);
               if (resultOrderCreation.data) {
                 // console.log("resultOrderCreation: ", resultOrderCreation.data);
@@ -517,7 +528,7 @@ const CartTable = () => {
                   }}
                 >
                   <img
-                    src={item.images[0] || "../images/dummy-image.jpg"}
+                    src={getRightImage(item)}
                     alt={item.name}
                     style={{
                       maxWidth: "100px",
@@ -548,7 +559,9 @@ const CartTable = () => {
                     )} */}
                     {item.color && (
                       <p className="itemdesc">
-                        Color: {item.color}{" "}
+                        Color:{" "}
+                        {item.color[0].toUpperCase() +
+                          item.color.substring(1).toLowerCase()}
                         <span
                           style={{
                             width: "35px",

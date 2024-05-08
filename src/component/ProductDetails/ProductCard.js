@@ -99,31 +99,45 @@ const ProductCard = ({ product }) => {
   const [colorBasedQuantity, setColorBasedQuantity] = useState([]);
 
   useEffect(() => {
-    const index = cartItems.findIndex((item) => item.id === product.id);
+    if (product?.is_multi_color && product?.color_based_quantity) {
+      const colorsInArray = Object.entries(product?.color_based_quantity).map(
+        ([color_name, { quantity, minimum_quantity }]) => ({
+          color_name,
+          quantity,
+          minimum_quantity,
+        })
+      );
 
-    if (index !== -1) {
-      setColor(cartItems[index].color);
-    } else {
-      if (product?.is_multi_color && product?.color_based_quantity) {
-        const colorsInArray = Object.entries(product?.color_based_quantity).map(
-          ([color_name, { quantity, minimum_quantity }]) => ({
-            color_name,
-            quantity,
-            minimum_quantity,
-          })
+      const productImages = product.images;
+
+      // Sort the colorsInArray based on the order of colors defined in product.images
+      colorsInArray.sort((a, b) => {
+        // Find the index of color a.color_name in product.images
+        const indexA = productImages.findIndex(
+          (img) => img.color === a.color_name
         );
 
-        setColorBasedQuantity(colorsInArray);
+        // Find the index of color b.color_name in product.images
+        const indexB = productImages.findIndex(
+          (img) => img.color === b.color_name
+        );
+
+        // Compare the indices to determine the sorting order
+        return indexA - indexB;
+      });
+
+      setColorBasedQuantity(colorsInArray);
+
+      const index = cartItems.findIndex((item) => item.id === product.id);
+      // console.log("coming", index !== -1);
+
+      if (index !== -1) {
+        setColor(cartItems[index].color);
+      } else {
         !color && setColor(colorsInArray[0]?.color_name);
       }
     }
-  }, [
-    cartItems,
-    color,
-    product?.color_based_quantity,
-    product.id,
-    product?.is_multi_color,
-  ]);
+  }, [cartItems, color, product?.color_based_quantity, product.id, product.images, product?.is_multi_color]);
 
   const noOfItems = useMemo(() => {
     const item = cartItems.find((item) => item.id === product.id);
