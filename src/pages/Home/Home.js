@@ -40,7 +40,7 @@ const Home = () => {
         dataList={themeList || []}
       />
       <WorkDetails />
-      <ComingSoonModal />
+      {/* <ComingSoonModal /> */}
     </>
   );
 };
