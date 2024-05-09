@@ -31,7 +31,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 630,
+  height: 500,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -219,7 +219,7 @@ export default function AddressModal({ open, setOpen }) {
                     fullWidth
                     id="name"
                     label="Name"
-                    autoComplete="new-password" 
+                    autoComplete="new-password"
                     variant="outlined"
                     name="name"
                     type="text"
