@@ -52,7 +52,7 @@ const ContactDetails = () => {
     ) {
       const result = await sendEnquiry(contactInfo);
       if (result.data) {
-        console.log("result: ", result.data);
+        // console.log("result: ", result.data);
         const { id } = result.data;
         await sendNotification({
           id,

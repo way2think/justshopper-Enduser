@@ -191,7 +191,7 @@ const ProfileDetail = () => {
   };
 
   const onChangeDropdown = async (type, object) => {
-    console.log("object", object);
+    // console.log("object", object);
 
     if (type === "country") {
       setCountry(object);

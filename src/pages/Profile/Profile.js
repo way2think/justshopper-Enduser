@@ -225,7 +225,7 @@ export default function Profile() {
   const handleUpdateShippingAddress = async (type) => {
     let updatedShippingAddresses = [...user.shipping_addresses];
     const { city, pincode, name, line, state } = addressDetails;
-    console.log(city, pincode, name, line, state);
+    // console.log(city, pincode, name, line, state);
 
     if (
       isValidName(name) &&

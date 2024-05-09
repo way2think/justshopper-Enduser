@@ -163,7 +163,7 @@ export default function AddressModal({ open, setOpen }) {
   };
 
   const handleAddNewShippingAddress = async () => {
-    console.log("addressDeatils", addressDetails);
+    // console.log("addressDeatils", addressDetails);
     if (
       isValidName(addressDetails.name) &&
       addressDetails.line !== "" &&

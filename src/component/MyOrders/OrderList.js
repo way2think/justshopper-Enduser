@@ -121,7 +121,7 @@ const OrderList = () => {
         // window.open(url);
       } else {
         dispatch(setIsLoading(false));
-        console.log("downloadInvoice: ", result.data);
+        // console.log("downloadInvoice: ", result.data);
         errorNotification(`Failed to download invoice`);
       }
     } catch (error) {

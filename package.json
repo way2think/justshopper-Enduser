@@ -38,7 +38,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:stage": "dotenv -e .env.stage react-scripts build",
-    "build:prod": "dotenv -e .env.production react-scripts build",
+    "build:prod": "dotenv -e .env.production GENERATE_SOURCEMAP=false react-scripts build",
     "deploy:stage": "firebase use justshopper-dev && firebase deploy --only hosting",
     "deploy:prod": "firebase use justshopper-prod && firebase deploy --only hosting",
     "install-dotenv-cli-globally": "npm install -g dotenv-cli"

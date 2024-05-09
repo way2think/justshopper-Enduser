@@ -148,7 +148,7 @@ export default function Searchbar(
   };
 
   const handleSearch = () => {
-    console.log("options", options);
+    // console.log("options", options);
     if (options !== "") {
       navigate(`product/${options.id}`);
       handleClose();
