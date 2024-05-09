@@ -109,14 +109,18 @@ const WishlistCard = () => {
     // console.log("te: ", item);
     // item.images[0].url || "../images/dummy-image.jpg"
     if (item.color) {
-      const index = item.images.findIndex(
-        (imgObj) => imgObj.color === item.color
-      );
-
-      if (index === -1) {
-        return item.images[0];
+      if (item?.image) {
+        return item?.image;
       } else {
-        return item.images[index].url;
+        const index = item.images.findIndex(
+          (imgObj) => imgObj.color === item.color
+        );
+
+        if (index === -1) {
+          return item.images[0];
+        } else {
+          return item.images[index].url;
+        }
       }
     }
     return item.images[0].url || "../images/dummy-image.jpg";
