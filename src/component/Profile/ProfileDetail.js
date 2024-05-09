@@ -114,6 +114,27 @@ const ProfileDetail = () => {
 
   useEffect(() => {
     setDefaultValues((prevState) => {
+      if (user.address.country && user.address.state && user.address.city) {
+        setCountry(countryIndia);
+        console.log("countryIndia: ", countryIndia);
+
+        GetState(countryIndia.id).then((resultState) => {
+          setStateData(resultState);
+          const stateObj = resultState.find(
+            (state) => state.name === user.address.state
+          );
+
+          console.log("stateObj: ", stateObj);
+          setState(stateObj);
+          GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
+            const cityObj = resultCity.find(
+              (state) => state.name === user.address.city
+            );
+            console.log("cityObj: ", cityObj);
+            setCity(cityObj);
+          });
+        });
+      }
       return {
         ...prevState,
         name: user.name,
@@ -124,38 +145,29 @@ const ProfileDetail = () => {
     });
   }, [user]);
 
-  useEffect(() => {
-    if (user.address.country && user.address.state && user.address.city) {
-      GetCountries().then((result) => {
-        const countryObj = countryIndia;
+  // useEffect(() => {
+  //   if (user.address.country && user.address.state && user.address.city) {
+  //     setCountry(countryIndia);
+  //     console.log("countryIndia: ", countryIndia);
 
-        setCountry(countryObj);
+  //     GetState(countryIndia.id).then((resultState) => {
+  //       setStateData(resultState);
+  //       const stateObj = resultState.find(
+  //         (state) => state.name === user.address.state
+  //       );
 
-        GetState(countryObj.id).then((resultState) => {
-          setStateData(resultState);
-          const stateObj = resultState.find(
-            (state) => state.name === user.address.state
-          );
-
-          // console.log("stateObj: ", stateObj);
-          setState(stateObj);
-          GetCity(countryObj.id, stateObj.id).then((resultCity) => {
-            const cityObj = resultCity.find(
-              (state) => state.name === user.address.city
-            );
-            // console.log("cityObj: ", cityObj);
-            setCity(cityObj);
-          });
-        });
-      });
-    }
-  }, [user.address]);
-
-  useEffect(() => {
-    GetState(countryIndia.id).then((result) => {
-      setStateData(result);
-    });
-  }, []);
+  //       console.log("stateObj: ", stateObj);
+  //       setState(stateObj);
+  //       GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
+  //         const cityObj = resultCity.find(
+  //           (state) => state.name === user.address.city
+  //         );
+  //         console.log("cityObj: ", cityObj);
+  //         setCity(cityObj);
+  //       });
+  //     });
+  //   }
+  // }, [user.address]);
 
   const onChangeHandler = (e) => {
     setDefaultValues((prevState) => {
@@ -179,7 +191,7 @@ const ProfileDetail = () => {
   };
 
   const onChangeDropdown = async (type, object) => {
-    console.log("object", object);
+    // console.log("object", object);
     let stateObj;
     if (type === "country") {
       setCountry(object);
@@ -383,7 +395,7 @@ const ProfileDetail = () => {
                 id="combo-box-demo"
                 disabled={disableProfileEdit}
                 options={stateData}
-                defaultValue={defaultValue1}
+                value={state.name}
                 getOptionLabel={(option) => `${option.name}`}
                 renderInput={(params) => (
                   <TextField
@@ -415,7 +427,6 @@ const ProfileDetail = () => {
                 }}
               />
             </Grid>
-            {console.log("city", cityData)}
             <Grid item md={6} xs={12}>
               {/* <CitySelect
                 defaultValue={city}
@@ -429,6 +440,7 @@ const ProfileDetail = () => {
                 id="combo-box-demo"
                 disabled={disableProfileEdit}
                 options={cityData}
+                value={city.name}
                 // sx={{ width: 300 }}
                 getOptionLabel={(option) => `${option.name}`}
                 renderInput={(params) => (

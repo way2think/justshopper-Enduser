@@ -135,7 +135,12 @@ const OrderItem = ({ item, userDetail, order, rupeeSymbol }) => {
           <Stack direction="row" justifyContent="start" alignItems="center">
             <div className={classes.itemImg}>
               <img
-                src={item.image || item.images[0] || "../images/biscuit.jpg"}
+                src={
+                item.image ||
+                item.images[0].url ||
+                item.images[0] ||
+                "../images/dummy-image.jpg"
+              }
                 style={{
                   width: "100px",
                   height: "100px",

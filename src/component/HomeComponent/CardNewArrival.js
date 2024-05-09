@@ -140,7 +140,7 @@ export default function CardNewArrival({ product }) {
     >
       <div onClick={handleNavigateToProductDetail}>
         <img
-          src={images[0].url || "../images/dummy-image.jpg"}
+          src={images[0].url || images[0] || "../images/dummy-image.jpg"}
           alt={name}
           className="cardimage"
         />
