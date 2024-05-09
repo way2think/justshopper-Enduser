@@ -22,12 +22,14 @@ import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
 import Error404 from "./pages/404/Error404";
 import { errorNotification } from "./utils/notifications";
 import ComingSoonModal from "./pages/ComingSoonModal/ComingSoonModal";
+import Maintenance from "./pages/Maintenance/Maintenance";
 
 export default function Router() {
   const dispatch = useDispatch();
   const { data: user, isFetching, isLoading, error } = useOnAuthListenerQuery();
   const { data: settings } = useGetSettingsQuery();
   const [authChecked, setAuthChecked] = useState(false);
+  const [underMaintenance, setUnderMaintenance] = useState(false);
 
   const { pathname } = useLocation();
 
@@ -53,6 +55,12 @@ export default function Router() {
     }
   }, [dispatch, user]);
 
+  useEffect(() => {
+    if (settings?.maintenance.is_enabled === false) {
+      setUnderMaintenance(true);
+    }
+  }, [settings]);
+
   // console.log("Route - user?.isAuthenticated: ", user?.isAuthenticated);
 
   const AuthenticatedRoute = ({ element, ...rest }) =>
@@ -66,7 +74,7 @@ export default function Router() {
     },
     {
       path: "/",
-      element: <DashBoardLayout />,
+      element: !underMaintenance ? <DashBoardLayout /> : <Maintenance />,
       children: [
         { path: "/", element: <Home /> },
         { path: "contact-us", element: <ContactUs /> },
@@ -129,7 +137,6 @@ export default function Router() {
           element: <Error404 />,
           // element: <Order />,
         },
-       
       ],
     },
   ]);
