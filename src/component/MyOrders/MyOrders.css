@@ -399,6 +399,12 @@ ul.tabs li.current {
 .overallorderpage {
   padding: 40px;
 }
+.overallorderpage1 {
+  padding: 40px;
+  overflow-y: auto;
+  max-height: 700px;
+  margin-bottom: 50px;
+}
 
 .track {
   font-size: 18px;
@@ -414,6 +420,11 @@ ul.tabs li.current {
   font-style: normal;
   margin-bottom: 10px;
 }
+
+/* .orderCard {
+  overflow-y: scroll;
+  max-height: 200px;
+} */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .trackid {

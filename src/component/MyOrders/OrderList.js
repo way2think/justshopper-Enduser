@@ -9,6 +9,7 @@ import { formatAmount, formatDate } from "../../utils";
 import axios from "axios";
 import { setIsLoading } from "../../store/appSlice";
 import { errorNotification } from "../../utils/notifications";
+import "./MyOrders.css";
 
 const today = new Date();
 const endOfDay = new Date(today);

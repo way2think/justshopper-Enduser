@@ -17,11 +17,9 @@ const MyOrders = () => {
   return (
     <>
       <Box textAlign="left" className="overallorderpage container">
-        <div className="container-fluid bgBox">
-          <div className="customer_details orderList">
-            <div className="orderTop">
-              <h2 className="hidden-xs">My Orders</h2>
-              {/* <div className="search-container">
+        <div className="orderTop">
+          <h2 className="hidden-xs">My Orders</h2>
+          {/* <div className="search-container">
                 <form action="/action_page.php">
                   <input
                     type="text"
@@ -33,19 +31,17 @@ const MyOrders = () => {
                   </button>
                 </form>
               </div> */}
-            </div>
-            <div className="order_tab">
-              <ul className="tabs">
-                <li
-                  className={`tab-link ${
-                    currentTab === "order_tab" && "current"
-                  }`}
-                  onClick={() => handleTabClick("order_tab")}
-                  data-tab="order_tab"
-                >
-                  Orders
-                </li>
-                {/* <li
+        </div>
+        <div className="order_tab">
+          <ul className="tabs">
+            <li
+              className={`tab-link ${currentTab === "order_tab" && "current"}`}
+              onClick={() => handleTabClick("order_tab")}
+              data-tab="order_tab"
+            >
+              Orders
+            </li>
+            {/* <li
                   className={`tab-link ${
                     currentTab === "buy_again" && "current"
                   }`}
@@ -54,7 +50,7 @@ const MyOrders = () => {
                 >
                   Buy Again
                 </li> */}
-                {/* <li
+            {/* <li
                   className={`tab-link ${
                     currentTab === "cancelled_orders" && "current"
                   }`}
@@ -63,9 +59,13 @@ const MyOrders = () => {
                 >
                   Cancelled Orders
                 </li> */}
-              </ul>
-              {/* my orders - buy again */}
-            </div>
+          </ul>
+          {/* my orders - buy again */}
+        </div>
+      </Box>
+      <Box textAlign="left" className="overallorderpage1 container">
+        <div className="container-fluid bgBox">
+          <div className="customer_details orderList">
             {/* orders */}
             {currentTabContent === "order_tab" && <OrderList />}
             {/* buy again */}
