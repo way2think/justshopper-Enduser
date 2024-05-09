@@ -87,15 +87,21 @@ const OrderItem = ({ item, userDetail, order, rupeeSymbol }) => {
     }
   };
 
-  const handleCreateNewReview = async ({ rating, review }) => {
+  const handleCreateNewReview = async ({
+    rating,
+    review,
+    productName,
+    productColor,
+  }) => {
     const timestamp = new Date().getTime();
-
     const { name, email, phone, user_id } = userDetail;
 
     const result = await createNewReview({
       created_timestamp: timestamp,
       images: [], // later if required
       product_id: item.id,
+      product_name: productName,
+      product_color: productColor,
       review,
       rating,
       status: "pending",
@@ -136,11 +142,11 @@ const OrderItem = ({ item, userDetail, order, rupeeSymbol }) => {
             <div className={classes.itemImg}>
               <img
                 src={
-                item.image ||
-                item.images[0].url ||
-                item.images[0] ||
-                "../images/dummy-image.jpg"
-              }
+                  item.image ||
+                  item.images[0].url ||
+                  item.images[0] ||
+                  "../images/dummy-image.jpg"
+                }
                 style={{
                   width: "100px",
                   height: "100px",
@@ -216,6 +222,8 @@ const OrderItem = ({ item, userDetail, order, rupeeSymbol }) => {
                   open={open}
                   handleOpen={handleOpen}
                   handleClose={handleClose}
+                  productName={item?.name}
+                  productColor={item?.color}
                   handleCreateNewReview={handleCreateNewReview}
                 />
               )}

@@ -46,9 +46,13 @@ export default function ReviewModal({
   handleClose,
   handleCreateNewReview,
   handleUpdateReview,
+  productName,
+  productColor,
 }) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+
+  console.log("title", title);
 
   useEffect(() => {
     // console.log("existingReview: ", existingReview);
@@ -101,7 +105,14 @@ export default function ReviewModal({
                 <Button
                   variant="contained"
                   sx={save}
-                  onClick={() => handleUpdateReview({ rating, review })}
+                  onClick={() =>
+                    handleUpdateReview({
+                      rating,
+                      review,
+                      productName,
+                      productColor,
+                    })
+                  }
                 >
                   Update Review
                 </Button>
@@ -114,7 +125,14 @@ export default function ReviewModal({
                 <Button
                   variant="contained"
                   sx={save}
-                  onClick={() => handleCreateNewReview({ rating, review })}
+                  onClick={() =>
+                    handleCreateNewReview({
+                      rating,
+                      review,
+                      productName,
+                      productColor,
+                    })
+                  }
                 >
                   Save
                 </Button>

@@ -116,7 +116,7 @@ export default function Router() {
           // element: <Order />,
         },
         {
-          path: "about-us",
+          path: "x",
           element: <AboutUs />,
         },
         {
