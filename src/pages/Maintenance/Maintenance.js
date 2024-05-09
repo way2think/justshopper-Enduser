@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; // Assuming you're using React Router for navigation
 import "./Maintenance.css"; // Import CSS file for styling
 
-const Maintenance = () => {
+const Maintenance = ({ msg }) => {
   return (
     <div className="error-container container bg">
       <br />
@@ -24,8 +24,9 @@ const Maintenance = () => {
       ></dotlottie-player>
       <h1>Under Maintenance</h1>
       <p>
-        We're currently renovating our website to bring you an even better
-        experience. Thanks for your support and patience!"
+        {msg
+          ? msg
+          : "We're currently renovating our website to bring you an even better experience. Thanks for your support and patience!"}
       </p>
     </div>
   );

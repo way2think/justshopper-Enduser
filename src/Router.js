@@ -56,7 +56,7 @@ export default function Router() {
   }, [dispatch, user]);
 
   useEffect(() => {
-    if (settings?.maintenance.is_enabled === false) {
+    if (settings?.maintenance.is_enabled) {
       setUnderMaintenance(true);
     }
   }, [settings]);
@@ -74,7 +74,11 @@ export default function Router() {
     },
     {
       path: "/",
-      element: !underMaintenance ? <DashBoardLayout /> : <Maintenance />,
+      element: underMaintenance ? (
+        <Maintenance msg={settings?.maintenance.message} />
+      ) : (
+        <DashBoardLayout />
+      ),
       children: [
         { path: "/", element: <Home /> },
         { path: "contact-us", element: <ContactUs /> },
