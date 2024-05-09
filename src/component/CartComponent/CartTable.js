@@ -248,7 +248,15 @@ const CartTable = () => {
     // console.log("te: ", item);
     // item.images[0].url || "../images/dummy-image.jpg"
     if (item.color) {
-      return item.images.find((imgObj) => imgObj.color === item.color).url;
+      const index = item.images.findIndex(
+        (imgObj) => imgObj.color === item.color
+      );
+
+      if (index === -1) {
+        return item.images[0];
+      } else {
+        return item.images[index].url;
+      }
     }
     return item.images[0].url || "../images/dummy-image.jpg";
   };

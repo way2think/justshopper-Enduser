@@ -140,19 +140,22 @@ export default function Profile() {
   const [city, setCity] = useState({});
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
+
   let defaultValue1;
+
   useEffect(() => {
     if (addressDetails.country && addressDetails.state && addressDetails.city) {
       // GetCountries().then((result) => {
-      const countryObj = countryIndia;
-      setCountry(countryObj);
-      GetState(countryObj.id).then((resultState) => {
+      setCountry(countryIndia);
+      console.log("country: ", countryIndia);
+      GetState(countryIndia.id).then((resultState) => {
+        console.log("state: ", resultState);
         setStateData(resultState);
         const stateObj = resultState.find(
           (state) => state.name === addressDetails.state
         );
         setState(stateObj);
-        GetCity(countryObj.id, stateObj.id).then((resultCity) => {
+        GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
           const cityObj = resultCity.find(
             (state) => state.name === addressDetails.city
           );
@@ -163,12 +166,6 @@ export default function Profile() {
       // });
     }
   }, [addressDetails]);
-
-  useEffect(() => {
-    GetState(countryIndia.id).then((result) => {
-      setStateData(result);
-    });
-  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -186,6 +183,7 @@ export default function Profile() {
       is_active: false,
     });
   };
+
   const onChangeHandler = (e) => {
     setAddressDetails((prevState) => {
       const { name, value } = e.target;
