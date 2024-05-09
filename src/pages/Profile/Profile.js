@@ -141,25 +141,24 @@ export default function Profile() {
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
 
-  let defaultValue1;
-
   useEffect(() => {
     if (addressDetails.country && addressDetails.state && addressDetails.city) {
       // GetCountries().then((result) => {
       setCountry(countryIndia);
-      console.log("country: ", countryIndia);
+      // console.log("country: ", countryIndia);
       GetState(countryIndia.id).then((resultState) => {
-        console.log("state: ", resultState);
         setStateData(resultState);
         const stateObj = resultState.find(
           (state) => state.name === addressDetails.state
         );
+        // console.log("state: ", stateObj);
         setState(stateObj);
         GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
           const cityObj = resultCity.find(
             (state) => state.name === addressDetails.city
           );
-          setCity(cityObj);
+          // console.log("city: ", cityObj);
+          cityObj ? setCity(cityObj) : setCity(resultCity[0]);
         });
       });
 
@@ -195,28 +194,31 @@ export default function Profile() {
   };
 
   const onChangeDropdown = async (type, object) => {
-    console.log("object", object);
+    // console.log("object", object);
     if (type === "country") {
       setCountry(object);
     } else if (type === "state") {
-      const name = object.target.innerHTML;
-      const stateObj = stateData.filter((resultState) => {
-        return resultState.name === name;
-      });
-      setState(stateObj[0]);
-      const result = await GetCity(countryIndia.id, stateObj[0]?.id);
+      // const name = object.name;
+      // const stateObj = stateData.find((resultState) => {
+      //   return resultState.name === name;
+      // });
+      // console.log("stateOPbj:: ", object);
+      setState(object);
+
+      const result = await GetCity(countryIndia.id, object?.id);
       setCityData(result);
+      // console.log("cityObvj: ", result[0]);
       setCity(result[0]);
     } else if (type === "city") {
-      const cityObj = cityData.filter((resultState) => {
-        return resultState.name === object.target.innerHTML;
+      const cityObj = cityData.find((resultState) => {
+        return resultState.name === object?.id;
       });
       setCity(cityObj);
     }
 
     setAddressDetails((prevState) => ({
       ...prevState,
-      [type]: object.target.innerHTML,
+      [type]: object?.name || "",
     }));
   };
 
@@ -328,7 +330,7 @@ export default function Profile() {
                   <TextField
                     fullWidth
                     id="name"
-                    label="Name"
+                    label="Name (Ex: Home, Office, etc)"
                     variant="outlined"
                     name="name"
                     type="text"
@@ -400,11 +402,10 @@ export default function Profile() {
                     />
                   )}
                 </Grid> */}
-                {console.log("state", stateData, state, defaultValue1)}
                 <Grid md={6} xs={12}>
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
+                    id="state"
                     options={stateData}
                     value={state}
                     getOptionLabel={(option) => `${option.name}`}
@@ -418,7 +419,7 @@ export default function Profile() {
                         }}
                       />
                     )}
-                    onChange={(e) => onChangeDropdown("state", e)}
+                    onChange={(e, value) => onChangeDropdown("state", value)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         // handleSignup(e);
@@ -429,7 +430,7 @@ export default function Profile() {
                 <Grid md={6} xs={12} mt={2}>
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
+                    id="city"
                     options={cityData}
                     value={city}
                     // sx={{ width: 300 }}
@@ -444,7 +445,7 @@ export default function Profile() {
                         }}
                       />
                     )}
-                    onChange={(e) => onChangeDropdown("city", e)}
+                    onChange={(e, value) => onChangeDropdown("city", value)}
                     // onChange={(e) => {
                     //   setSignUpDetails((prevState) => {
                     //     return {

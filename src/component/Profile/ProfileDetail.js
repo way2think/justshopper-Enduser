@@ -108,7 +108,6 @@ const ProfileDetail = () => {
   const [city, setCity] = useState({});
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
-  let defaultValue1;
 
   const [updateProfile, {}] = useUpdateProfileDetailMutation();
 
@@ -116,7 +115,7 @@ const ProfileDetail = () => {
     setDefaultValues((prevState) => {
       if (user.address.country && user.address.state && user.address.city) {
         setCountry(countryIndia);
-        console.log("countryIndia: ", countryIndia);
+        // console.log("countryIndia: ", countryIndia);
 
         GetState(countryIndia.id).then((resultState) => {
           setStateData(resultState);
@@ -124,17 +123,18 @@ const ProfileDetail = () => {
             (state) => state.name === user.address.state
           );
 
-          console.log("stateObj: ", stateObj);
+          // console.log("stateObj: ", stateObj);
           setState(stateObj);
           GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
             const cityObj = resultCity.find(
               (state) => state.name === user.address.city
             );
-            console.log("cityObj: ", cityObj);
+            // console.log("cityObj: ", cityObj);
             setCity(cityObj);
           });
         });
       }
+
       return {
         ...prevState,
         name: user.name,
@@ -191,23 +191,19 @@ const ProfileDetail = () => {
   };
 
   const onChangeDropdown = async (type, object) => {
-    // console.log("object", object);
-    let stateObj;
+    console.log("object", object);
+
     if (type === "country") {
       setCountry(object);
     } else if (type === "state") {
-      const name = object.target.innerHTML;
-      stateObj = stateData.filter((resultState) => {
-        return resultState.name === name;
-      });
-      stateObj && setState(stateObj[0]);
-      const result = await GetCity(countryIndia.id, stateObj[0]?.id);
+      setState(object);
 
+      const result = await GetCity(countryIndia.id, object?.id);
       setCityData(result);
       setCity(result[0]);
     } else if (type === "city") {
       if (state) {
-        // setCity(stateObj[0]);
+        setCity(object);
       }
     }
 
@@ -215,7 +211,7 @@ const ProfileDetail = () => {
       ...prevState,
       address: {
         ...prevState.address,
-        [type]: object.target.innerHTML,
+        [type]: object?.name || "",
       },
     }));
   };
@@ -395,7 +391,7 @@ const ProfileDetail = () => {
                 id="combo-box-demo"
                 disabled={disableProfileEdit}
                 options={stateData}
-                value={state.name}
+                value={state}
                 getOptionLabel={(option) => `${option.name}`}
                 renderInput={(params) => (
                   <TextField
@@ -407,7 +403,7 @@ const ProfileDetail = () => {
                     }}
                   />
                 )}
-                onChange={(e) => onChangeDropdown("state", e)}
+                onChange={(e, value) => onChangeDropdown("state", value)}
                 // onChange={(e) => {
                 //   getStateData(e.target.innerHTML);
                 //   setSignUpDetails((prevState) => {
@@ -440,7 +436,7 @@ const ProfileDetail = () => {
                 id="combo-box-demo"
                 disabled={disableProfileEdit}
                 options={cityData}
-                value={city.name}
+                value={city}
                 // sx={{ width: 300 }}
                 getOptionLabel={(option) => `${option.name}`}
                 renderInput={(params) => (
@@ -453,7 +449,7 @@ const ProfileDetail = () => {
                     }}
                   />
                 )}
-                onChange={(e) => onChangeDropdown("city", e)}
+                onChange={(e, value) => onChangeDropdown("city", value)}
                 // onChange={(e) => {
                 //   setSignUpDetails((prevState) => {
                 //     return {
