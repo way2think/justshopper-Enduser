@@ -239,7 +239,7 @@ const OrderList = () => {
                     />
                   ))}
 
-                  <hr />
+                  {/* <hr /> */}
                   <Stack>
                     <Grid container spacing={2}>
                       <Grid item sm={6} xs={12} md={3} lg={3}>

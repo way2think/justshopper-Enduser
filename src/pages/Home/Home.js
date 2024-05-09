@@ -7,6 +7,7 @@ import NewArrivalCarosuel from "../../component/HomeComponent/NewArrivalCarosuel
 import { selectCategory, selectTheme } from "../../api/api";
 import { useGetAllNewProductArrivalsQuery } from "../../api/product";
 import NewMainBanner from "../../component/NewMainBanner";
+import ComingSoonModal from "../ComingSoonModal/ComingSoonModal";
 
 const Home = () => {
   const {
@@ -39,6 +40,7 @@ const Home = () => {
         dataList={themeList || []}
       />
       <WorkDetails />
+      <ComingSoonModal />
     </>
   );
 };

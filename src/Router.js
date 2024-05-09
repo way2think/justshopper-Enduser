@@ -21,6 +21,7 @@ import TermsCondition from "./pages/Termsandcondition/TermsCondition";
 import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
 import Error404 from "./pages/404/Error404";
 import { errorNotification } from "./utils/notifications";
+import ComingSoonModal from "./pages/ComingSoonModal/ComingSoonModal";
 
 export default function Router() {
   const dispatch = useDispatch();
@@ -58,6 +59,11 @@ export default function Router() {
     user?.isAuthenticated ? element : <Navigate to="/" />;
 
   const routes = useRoutes([
+    {
+      path: "comingsoon",
+      element: <ComingSoonModal />,
+      // element: <Order />,
+    },
     {
       path: "/",
       element: <DashBoardLayout />,
@@ -123,6 +129,7 @@ export default function Router() {
           element: <Error404 />,
           // element: <Order />,
         },
+       
       ],
     },
   ]);
