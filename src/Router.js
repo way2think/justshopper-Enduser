@@ -67,11 +67,11 @@ export default function Router() {
     user?.isAuthenticated ? element : <Navigate to="/" />;
 
   const routes = useRoutes([
-    {
-      path: "/comingsoon",
-      element: <ComingSoonModal />,
-      // element: <Order />,
-    },
+    // {
+    //   path: "/comingsoon",
+    //   element: <ComingSoonModal />,
+    //   // element: <Order />,
+    // },
     {
       path: "/",
       element: underMaintenance ? (
