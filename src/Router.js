@@ -68,7 +68,7 @@ export default function Router() {
 
   const routes = useRoutes([
     {
-      path: "comingsoon",
+      path: "/comingsoon",
       element: <ComingSoonModal />,
       // element: <Order />,
     },

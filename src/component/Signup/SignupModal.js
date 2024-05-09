@@ -220,7 +220,7 @@ export default function SignupModal({ open, setOpen }) {
           // errorNotification(`${errorCode}: ${errorMessage}`);
           if (errorCode === "auth/email-already-in-use") {
             errorNotification("Provided email address already exists");
-          }else{
+          } else {
             errorNotification(`${errorCode}: ${errorMessage}`);
           }
         });
@@ -720,7 +720,7 @@ export default function SignupModal({ open, setOpen }) {
               Sign up
             </Button>
             <Button sx={signup} onClick={() => setOpen(true, "login")}>
-              If Already have account?
+              Do you already have an account?
             </Button>
           </>
         </Box>
