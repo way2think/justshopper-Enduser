@@ -84,7 +84,14 @@ const ChangePassword = () => {
             setDisableSettingsEdit(true);
             window.location.href = "/";
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+            console.log("handleUpdatePassword: ", e);
+            if (e.code === "auth/requires-recent-login") {
+              errorNotification(
+                "Password change requires recent login, so login again!!!"
+              );
+            }
+          });
 
         // // --- it is not working ---
         // const result = await updatePassword(password);

@@ -632,10 +632,10 @@ const CartTable = () => {
                 </td>
 
                 <td className="text-right price discount" title="Price">
-                  {item.discount_price}
+                  {item.discount_price.toFixed(2)}
                 </td>
                 <td className="text-right price" title="Total">
-                  {item.cart_total_price}
+                  {item.cart_total_price.toFixed(2)}
                 </td>
               </tr>
             ))}
@@ -646,20 +646,24 @@ const CartTable = () => {
               </td>
               <td className="text-right price">{subtotalPrice}</td>
             </tr>
-            <tr className="total-row info">
-              <td className="text-right price" colspan="3">
-                Delivery Price
-              </td>
-              <td className="text-right price">
-                {shipping?.shipping_price || "NA"}
-              </td>
-            </tr>
+            {user.isAuthenticated && (
+              <tr className="total-row info">
+                <td className="text-right price" colspan="3">
+                  Shipping Price
+                </td>
+                <td className="text-right price">
+                  {shipping?.shipping_price || "Login"}
+                </td>
+              </tr>
+            )}
 
             <tr className="total-row info" style={{ background: "#eee" }}>
               <td className="text-right price" colspan="3">
                 <span className="ml-auto">Total</span>
               </td>
-              <td className="text-right price">{totalPrice}</td>
+              <td className="text-right price">
+                {user.isAuthenticated ? totalPrice : `${totalPrice} + Shipping`}
+              </td>
             </tr>
             <tr className="total-row info">
               <td className="text-right price" colspan="10">

@@ -225,9 +225,32 @@ export default function SignupModal({ open, setOpen }) {
           }
         });
     } else {
-      !isValidPassword(createPassword)
-        ? errorNotification("Invalid Password, Minimum 6 characters")
-        : errorNotification("Enter/select valid data");
+      console.log("address: ", address);
+      if (
+        !isValidName(name) ||
+        !isValidEmail(email) ||
+        !isValidPincode(address.pincode) ||
+        address.state === "" ||
+        address.city === "" ||
+        address.line === ""
+      ) {
+        errorNotification("Invalid details");
+      } else if (!isValidPhoneNumber(phonenumber)) {
+        errorNotification(
+          "Phone is invalid, please give only 10 digit Indian number"
+        );
+      } else if (
+        !isValidPassword(createPassword) ||
+        !isValidPassword(confirmPassword)
+      ) {
+        errorNotification("Password should be Minimum 6 characters");
+      } else if (createPassword !== confirmPassword) {
+        errorNotification("Password & Confirm Password is mismatching");
+      }
+
+      // !isValidPassword(createPassword) &&
+      //   errorNotification("Invalid Password, Minimum 6 characters");
+
       dispatch(setIsLoading(false));
 
       // !isValidName(name) && errorNotification("Invalid Name");

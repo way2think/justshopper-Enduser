@@ -148,16 +148,23 @@ export default function Profile() {
       // console.log("country: ", countryIndia);
       GetState(countryIndia.id).then((resultState) => {
         setStateData(resultState);
-        const stateObj = resultState.find(
+        let stateObj = resultState.find(
           (state) => state.name === addressDetails.state
         );
-        // console.log("state: ", stateObj);
-        setState(stateObj);
+        console.log("state: ", stateObj);
+
+        if (stateObj) {
+          setState(stateObj);
+        } else {
+          stateObj = resultState[0];
+          setState(stateObj);
+        }
+
         GetCity(countryIndia.id, stateObj.id).then((resultCity) => {
           const cityObj = resultCity.find(
             (state) => state.name === addressDetails.city
           );
-          // console.log("city: ", cityObj);
+          console.log("city: ", cityObj);
           cityObj ? setCity(cityObj) : setCity(resultCity[0]);
         });
       });
@@ -223,6 +230,7 @@ export default function Profile() {
   };
 
   const handleUpdateShippingAddress = async (type) => {
+    console.log("addressDetails: ", addressDetails);
     let updatedShippingAddresses = [...user.shipping_addresses];
     const { city, pincode, name, line, state } = addressDetails;
     // console.log(city, pincode, name, line, state);

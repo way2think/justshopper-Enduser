@@ -72,7 +72,7 @@ const ManageAddress = ({ openAddressModal, value, setShowModal, add }) => {
 
   return (
     <div className={`${classes.root} container`}>
-      {value === 2 && (
+      {/* {value === 2 && (
         <Button
           variant="contained"
           onClick={() =>
@@ -85,7 +85,7 @@ const ManageAddress = ({ openAddressModal, value, setShowModal, add }) => {
         >
           Add Address
         </Button>
-      )}
+      )} */}
       <Grid container spacing={2}>
         {user.shipping_addresses?.length === 0 ? (
           <Grid item sm={12}>
