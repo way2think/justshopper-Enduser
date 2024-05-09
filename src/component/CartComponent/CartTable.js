@@ -304,7 +304,8 @@ const CartTable = () => {
                   product.total_quantity
                 ) {
                   warningNotification(
-                    `Current stock quantity is greater than available stock, stock quantity recalculated`
+                    // `Current stock quantity is greater than available stock, stock quantity recalculated`
+                    `The selected number of quantity is not available lowering your quantity to available number`
                   );
                   // console.log(
                   //   currentCartItems,
