@@ -49,7 +49,7 @@ const OrderList = () => {
       value: time,
     },
     { type: "orderBy", field: "order_booked_timestamp", order: "desc" },
-    { type: "limit", value: 5 },
+    // { type: "limit", value: 5 },
   ];
   const {
     data: orders,

@@ -143,7 +143,7 @@ const OrderItem = ({ item, userDetail, order, rupeeSymbol }) => {
               <img
                 src={
                   item.image ||
-                  item.images[0].url ||
+                  item.images[0]?.url ||
                   item.images[0] ||
                   "../images/dummy-image.jpg"
                 }
