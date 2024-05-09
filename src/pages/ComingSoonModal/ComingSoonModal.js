@@ -6,7 +6,7 @@ import "./ComingSoonModal.css";
 export default function ComingSoonModal() {
   return (
     <div>
-      <Box>
+      <Box sx={{ height: "100%" }}>
         <img
           src="../images/Websitecomingsoon.png"
           alt="coming soon"
