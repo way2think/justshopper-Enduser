@@ -10,11 +10,23 @@ const CategoryCard = ({ products }) => {
       <Stack
         justifyContent="space-between"
         alignItems="center"
-        className="my-4 container"
+        className="mt-4 container"
         direction="row"
       >
-        <Box sx={{ flexGrow: 1, position: "relative" }}>
-          <Grid className="new-arrivals" container spacing={2} sx={{ mb: 10 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            position: "relative",
+            overflowY: "auto",
+            maxHeight: "900px",
+          }}
+        >
+          <Grid
+            className="new-arrivals"
+            container
+            spacing={2}
+            sx={{ mb: "5px" }}
+          >
             {products.length === 0 ? (
               <Typography align="center">No Products</Typography>
             ) : (
