@@ -229,15 +229,17 @@ const OrderList = () => {
                 </div>
 
                 <div className="itemDetails">
-                  {order.ordered_items.map((item) => (
-                    <OrderItem
-                      rupeeSymbol={rupeeSymbol}
-                      key={item.id}
-                      item={item}
-                      order={order}
-                      userDetail={order?.user_details}
-                    />
-                  ))}
+                  <Stack sx={{ overflowY: "scroll", maxHeight: "400px" }}>
+                    {order.ordered_items.map((item) => (
+                      <OrderItem
+                        rupeeSymbol={rupeeSymbol}
+                        key={item.id}
+                        item={item}
+                        order={order}
+                        userDetail={order?.user_details}
+                      />
+                    ))}
+                  </Stack>
 
                   {/* <hr /> */}
                   <Stack>
