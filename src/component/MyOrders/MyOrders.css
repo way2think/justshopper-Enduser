@@ -397,10 +397,10 @@ ul.tabs li.current {
 }
 
 .overallorderpage {
-  padding: 40px;
+  padding: 20px;
 }
 .overallorderpage1 {
-  padding: 40px;
+  padding: 20px;
   overflow-y: auto;
   max-height: 700px;
   margin-bottom: 50px;
