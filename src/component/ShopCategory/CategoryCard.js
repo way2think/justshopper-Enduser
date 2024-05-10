@@ -17,8 +17,8 @@ const CategoryCard = ({ products }) => {
           sx={{
             flexGrow: 1,
             position: "relative",
-            overflowY: "auto",
-            maxHeight: "900px",
+            // overflowY: "auto",
+            // maxHeight: "900px",
           }}
         >
           <Grid

@@ -460,86 +460,9 @@ export default function SignupModal({ open, setOpen }) {
                   sx={{ width: "100%" }}
                   disabled={true}
                 />
-                {/* <CountrySelect
-                  onChange={(e) => {
-                    setCountryid(e.id);
-                    setCountryName(e.name);
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          country: e.name,
-                        },
-                      };
-                    });
-                  }}
-                  placeHolder="Select Country"
-                /> */}
-                {/* <TextField
-                  id="outlined-multiline-static"
-                  label="City"
-                  placeholder="City"
-                  name="city"
-                  value={signUpDetails.address.city}
-                  onChange={(e) => {
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          city: e.target.value,
-                        },
-                      };
-                    });
-                  }}
-                  sx={{ mb: 2, width: "100%" }}
-                /> */}
               </Grid>
 
               <Grid md={6} xs={12}>
-                {/* <TextField
-                  id="outlined-multiline-static"
-                  label="State"
-                  placeholder="State"
-                  name="state"
-                  value={signUpDetails.address.state}
-                  onChange={(e) => {
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          state: e.target.value,
-                        },
-                      };
-                    });
-                  }}
-                  sx={{ mb: 2, width: "100%" }}
-                /> */}
-                {/* <StateSelect
-                  countryid={countryIndia.id}
-                  autoComplete="new-password"
-                  onChange={(e) => {
-                    setstateid(e.id);
-                    setstateName(e.name);
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          state: e.name,
-                        },
-                      };
-                    });
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleSignup(e);
-                    }
-                  }}
-                  placeHolder="Select State"
-                /> */}
                 <Autocomplete
                   disablePortal
                   id="state"
@@ -551,18 +474,21 @@ export default function SignupModal({ open, setOpen }) {
                       label="State"
                       inputProps={{
                         ...params.inputProps,
-                        autoComplete: "new-password",
+                        autoComplete: "",
+                        autoCorrect: "off",
+                        "aria-autocomplete": "none",
                       }}
                     />
                   )}
-                  onChange={(e) => {
-                    getStateData(e.target.innerHTML);
+                  onChange={(e, value) => {
+                    // console.log("value: ", value);
+                    getStateData(value?.name || "");
                     setSignUpDetails((prevState) => {
                       return {
                         ...prevState,
                         address: {
                           ...prevState.address,
-                          state: e.target.innerHTML,
+                          state: value?.name || "",
                         },
                       };
                     });
@@ -576,49 +502,6 @@ export default function SignupModal({ open, setOpen }) {
               </Grid>
 
               <Grid md={6} xs={12} mt={2}>
-                {/* <TextField
-                  id="outlined-multiline-static"
-                  label="Pincode"
-                  multiline
-                  rows={1}
-                  name="country"
-                  value={signUpDetails.address.country}
-                  onChange={(e) => {
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          country: e.target.value,
-                        },
-                      };
-                    });
-                  }}
-                  sx={{ mb: 2, width: "100%" }}
-                /> */}
-                {/* <CitySelect
-                  countryid={countryIndia.id}
-                  autoComplete="new-password"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleSignup(e);
-                    }
-                  }}
-                  stateid={stateid}
-                  onChange={(e) => {
-                    setCityName(e.name);
-                    setSignUpDetails((prevState) => {
-                      return {
-                        ...prevState,
-                        address: {
-                          ...prevState.address,
-                          city: e.name,
-                        },
-                      };
-                    });
-                  }}
-                  placeHolder="Select City"
-                /> */}
                 <Autocomplete
                   disablePortal
                   id="city"
@@ -636,14 +519,15 @@ export default function SignupModal({ open, setOpen }) {
                       }}
                     />
                   )}
-                  onChange={(e) => {
-                    setCityName(e.target.innerHTML);
+                  onChange={(e, value) => {
+                    // console.log("city: ", value);
+                    setCityName(value?.name || "");
                     setSignUpDetails((prevState) => {
                       return {
                         ...prevState,
                         address: {
                           ...prevState.address,
-                          city: e.target.innerHTML,
+                          city: value?.name || "",
                         },
                       };
                     });
