@@ -2,6 +2,7 @@ import { useDebugValue, useEffect, useState } from "react";
 import {
   Autocomplete,
   FormControl,
+  FormHelperText,
   Grid,
   IconButton,
   InputAdornment,
@@ -126,6 +127,18 @@ export default function SignupModal({ open, setOpen }) {
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phonenumber: "",
+    createPassword: "",
+    confirmPassword: "",
+    addressLine: "",
+    state: "",
+    city: "",
+    pincode: "",
+  });
+
   useEffect(() => {
     setCountry(countryIndia);
     GetState(countryIndia.id).then((resultState) => {
@@ -167,6 +180,54 @@ export default function SignupModal({ open, setOpen }) {
         [name]: value,
       };
     });
+
+    console.log("name:", name, value);
+
+    // Validate the input field and update the error state accordingly
+    switch (name) {
+      case "name":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          name: isValidName(value) ? "" : "Please enter a valid name",
+        }));
+        break;
+      case "phonenumber":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          phonenumber: isValidPhoneNumber(value)
+            ? ""
+            : "Please enter a valid 10 digit number",
+        }));
+        break;
+      case "email":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: isValidEmail(value) ? "" : "Please enter a valid email",
+        }));
+        break;
+      // Similarly, add cases for other fields
+      case "createPassword":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          createPassword: isValidPassword(value)
+            ? ""
+            : "Minimum password length is 6 characters",
+        }));
+        break;
+      case "confirmPassword":
+        console.log(signUpDetails);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          confirmPassword: isValidPassword(value)
+            ? signUpDetails.createPassword === value
+              ? ""
+              : "Password doesn't match"
+            : "Minimum password length is 6 characters",
+        }));
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSignup = () => {
@@ -352,6 +413,8 @@ export default function SignupModal({ open, setOpen }) {
                   autoComplete="new-password"
                   autofill="off"
                   className="name"
+                  error={Boolean(errors.name)}
+                  helperText={errors.name}
                   value={signUpDetails.name}
                   onChange={handleInputChange}
                   onKeyDown={(e) => {
@@ -388,6 +451,8 @@ export default function SignupModal({ open, setOpen }) {
                   )}
                   type="tel"
                   value={signUpDetails.phonenumber}
+                  error={Boolean(errors.phonenumber)}
+                  helperText={errors.phonenumber}
                   onChange={handleInputChange}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -408,6 +473,8 @@ export default function SignupModal({ open, setOpen }) {
                   variant="outlined"
                   name="email"
                   type="email"
+                  error={Boolean(errors.email)}
+                  helperText={errors.email}
                   autoComplete="new-password"
                   value={signUpDetails.email}
                   onChange={handleInputChange}
@@ -428,6 +495,8 @@ export default function SignupModal({ open, setOpen }) {
                   placeholder="Door / House No, Street Name, Area"
                   autoComplete="new-password"
                   name="addressLine"
+                  error={Boolean(errors.addressLine)}
+                  helperText={errors.addressLine}
                   value={signUpDetails.address.line}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -444,6 +513,14 @@ export default function SignupModal({ open, setOpen }) {
                         },
                       };
                     });
+
+                    // Validate the selected state value
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      addressLine: e.target.value
+                        ? ""
+                        : "Please enter valid address",
+                    }));
                   }}
                   sx={{ mb: 2, width: "100%" }}
                 />
@@ -474,10 +551,10 @@ export default function SignupModal({ open, setOpen }) {
                       label="State"
                       inputProps={{
                         ...params.inputProps,
-                        autoComplete: "",
-                        autoCorrect: "off",
-                        "aria-autocomplete": "none",
+                        autoComplete: "new-password",
                       }}
+                      error={Boolean(errors.state)}
+                      helperText={errors.state}
                     />
                   )}
                   onChange={(e, value) => {
@@ -492,6 +569,12 @@ export default function SignupModal({ open, setOpen }) {
                         },
                       };
                     });
+
+                    // Validate the selected state value
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      state: value?.name ? "" : "Please select a state",
+                    }));
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -517,6 +600,8 @@ export default function SignupModal({ open, setOpen }) {
                         ...params.inputProps,
                         autoComplete: "new-password",
                       }}
+                      error={Boolean(errors.city)}
+                      helperText={errors.city}
                     />
                   )}
                   onChange={(e, value) => {
@@ -531,6 +616,12 @@ export default function SignupModal({ open, setOpen }) {
                         },
                       };
                     });
+
+                    // Validate the selected state value
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      city: value?.name ? "" : "Please select a state",
+                    }));
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -547,6 +638,8 @@ export default function SignupModal({ open, setOpen }) {
                   multiline
                   rows={1}
                   name="pincode"
+                  error={Boolean(errors.pincode)}
+                  helperText={errors.pincode}
                   value={signUpDetails.address.pincode}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -563,6 +656,13 @@ export default function SignupModal({ open, setOpen }) {
                         },
                       };
                     });
+
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      pincode: isValidPincode(e.target.value)
+                        ? ""
+                        : "Please enter valid Indian pincode",
+                    }));
                   }}
                   sx={{ mb: 2, width: "100%" }}
                 />
@@ -593,6 +693,8 @@ export default function SignupModal({ open, setOpen }) {
                     name="createPassword"
                     value={signUpDetails.createPassword}
                     onChange={handleInputChange}
+                    error={Boolean(errors.createPassword)}
+                    // helperText={errors.createPassword}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -606,6 +708,11 @@ export default function SignupModal({ open, setOpen }) {
                       </InputAdornment>
                     }
                   />
+                  {Boolean(errors.createPassword) && (
+                    <FormHelperText error>
+                      {errors.createPassword}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid md={6} xs={12}>
@@ -623,6 +730,8 @@ export default function SignupModal({ open, setOpen }) {
                       }
                     }}
                     name="confirmPassword"
+                    error={Boolean(errors.confirmPassword)}
+                    // helperText={errors.confirmPassword}
                     value={signUpDetails.confirmPassword}
                     onChange={handleInputChange}
                     endAdornment={
@@ -638,6 +747,11 @@ export default function SignupModal({ open, setOpen }) {
                       </InputAdornment>
                     }
                   />
+                  {Boolean(errors.confirmPassword) && (
+                    <FormHelperText error>
+                      {errors.confirmPassword}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
             </Grid>
