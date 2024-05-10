@@ -226,19 +226,37 @@ export default function SignupModal({ open, setOpen }) {
         });
     } else {
       console.log("address: ", address);
-      if (
-        !isValidName(name) ||
-        !isValidEmail(email) ||
-        !isValidPincode(address.pincode) ||
-        address.state === "" ||
-        address.city === "" ||
-        address.line === ""
-      ) {
-        errorNotification("Invalid details");
+      // if (
+      //   !isValidName(name) ||
+      //   !isValidEmail(email) ||
+      //   !isValidPincode(address.pincode) ||
+      //   address.state === "" ||
+      //   address.city === "" ||
+      //   address.line === ""
+      // ) {
+      //   errorNotification("Invalid details");
+      // }
+
+      if (!isValidName(name)) {
+        errorNotification("Please enter valid name, don't enter numbers");
       } else if (!isValidPhoneNumber(phonenumber)) {
         errorNotification(
           "Phone is invalid, please give only 10 digit Indian number"
         );
+      } else if (!isValidEmail(email)) {
+        errorNotification("Please enter valid email");
+      } else if (address.line === "") {
+        errorNotification("Please enter valid address line");
+      } else if (address.state === "") {
+        errorNotification(
+          "Please enter valid state, choose from the given list"
+        );
+      } else if (address.city === "") {
+        errorNotification(
+          "Please enter valid city, choose from the given list"
+        );
+      } else if (!isValidPincode(address.pincode)) {
+        errorNotification("Please enter valid 6 digit pincode");
       } else if (
         !isValidPassword(createPassword) ||
         !isValidPassword(confirmPassword)
@@ -361,7 +379,7 @@ export default function SignupModal({ open, setOpen }) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="City"
+                      label="a"
                       inputProps={{
                         ...params.inputProps,
                         autoComplete: "new-password",
@@ -524,7 +542,7 @@ export default function SignupModal({ open, setOpen }) {
                 /> */}
                 <Autocomplete
                   disablePortal
-                  id="combo-box-demo"
+                  id="state"
                   options={state}
                   getOptionLabel={(option) => `${option.name}`}
                   renderInput={(params) => (
@@ -603,7 +621,7 @@ export default function SignupModal({ open, setOpen }) {
                 /> */}
                 <Autocomplete
                   disablePortal
-                  id="combo-box-demo"
+                  id="city"
                   options={city}
                   // value={cityName}
                   // sx={{ width: 300 }}
