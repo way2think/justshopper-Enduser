@@ -181,7 +181,7 @@ export default function SignupModal({ open, setOpen }) {
       };
     });
 
-    console.log("name:", name, value);
+    // console.log("name:", name, value);
 
     // Validate the input field and update the error state accordingly
     switch (name) {
@@ -215,7 +215,7 @@ export default function SignupModal({ open, setOpen }) {
         }));
         break;
       case "confirmPassword":
-        console.log(signUpDetails);
+        // console.log(signUpDetails);
         setErrors((prevErrors) => ({
           ...prevErrors,
           confirmPassword: isValidPassword(value)
@@ -231,14 +231,16 @@ export default function SignupModal({ open, setOpen }) {
   };
 
   const handleSignup = () => {
-    const {
-      name,
-      email,
-      phonenumber,
-      confirmPassword,
-      createPassword,
-      address,
-    } = signUpDetails;
+    const { confirmPassword, createPassword, address } = signUpDetails;
+
+    const name = signUpDetails.name.trim();
+    const email = signUpDetails.email.trim();
+    const phonenumber = signUpDetails.phonenumber.trim();
+
+    // console.log("trimname: ", name);
+    // console.log("trime-email: ", email);
+    // console.log("trime: ", phonenumber);
+
     dispatch(setIsLoading(true));
 
     if (
