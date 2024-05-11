@@ -80,12 +80,12 @@ const loginbtn = {
   },
 };
 const signup = {
-  // background: "#f19e38",
+  border: "1px solid #dc3237",
   color: "#dc3237",
   marginTop: "5px",
   fontSize: "12px",
   fontweight: 800,
-  fontfamily: "amazonbold",
+  fontFamily: "Poppins",
   // "&:hover": {
   //   // background: "#f19e38",
   //   color: "#fff",
@@ -211,9 +211,7 @@ export default function LoginModal({ open, setOpen }) {
           const errorCode = result?.error?.code;
           // errorNotification(result?.error?.message);
           if (errorCode === "auth/invalid-credential") {
-            errorNotification(
-              "Invalid Email/Password (or) create new account"
-            );
+            errorNotification("Invalid Email/Password (or) create new account");
           } else {
             errorNotification(result?.error?.message);
           }
@@ -288,6 +286,23 @@ export default function LoginModal({ open, setOpen }) {
                 }}
               >
                 {resetPassword ? "Reset Password" : "Login"}
+              </Typography>
+              <Stack sx={{ mb: 1 }}>
+                <Button onClick={() => handleOpen(true, "signup")} sx={signup}>
+                  Create New Account?
+                </Button>
+              </Stack>
+              <Typography
+                id="modal-modal-title"
+                variant="h5"
+                component="h5"
+                sx={{
+                  textAlign: "center",
+                  marginBottom: 1,
+                  fontFamily: "amazonbold",
+                }}
+              >
+                Or
               </Typography>
               <Grid container>
                 <Grid item md={12} xs={12}>
@@ -373,9 +388,6 @@ export default function LoginModal({ open, setOpen }) {
                 {resetPassword ? "Reset Password" : "Login"}
               </Button>
 
-              <Button onClick={() => handleOpen(true, "signup")} sx={signup}>
-                Create New Account?
-              </Button>
               {/* <SignupModal /> */}
             </Grid>
           </Stack>

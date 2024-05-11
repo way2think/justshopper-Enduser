@@ -50,11 +50,12 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 645,
+  maxHeight: "500px",
+  overflowY: "scroll",
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
-  p: 4,
+  p: 5,
   "@media (max-width: 768px)": {
     width: 350,
     maxHeight: "450px",
@@ -528,7 +529,12 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={12} sx={{ marginBottom: "9px" }}>
+              <Grid
+                md={6}
+                xs={12}
+                sx={{ marginBottom: "9px" }}
+                className="gridsignup"
+              >
                 <TextField
                   id="outlined-multiline-static"
                   label="Country"
@@ -586,7 +592,7 @@ export default function SignupModal({ open, setOpen }) {
                 />
               </Grid>
 
-              <Grid md={6} xs={12} mt={2}>
+              <Grid md={6} xs={12} mt={2} className="gridsignup">
                 <Autocomplete
                   disablePortal
                   id="city"
