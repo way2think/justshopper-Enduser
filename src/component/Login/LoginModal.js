@@ -29,6 +29,7 @@ import {
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { setIsLoading } from "../../store/appSlice";
+import { Padding } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -80,12 +81,20 @@ const loginbtn = {
   },
 };
 const signup = {
-  border: "1px solid #dc3237",
-  color: "#dc3237",
+  background: "#000",
+  color: "#fff",
   marginTop: "5px",
-  fontSize: "12px",
+  fontSize: "14px",
   fontweight: 800,
   fontFamily: "Poppins",
+  paddingTop: "10px",
+  paddingBottom: "10px",
+  "&:hover": {
+    background: "#fff",
+    color: "#dc3237",
+    fontsize: "18px",
+    border: "1px solid #dc3237",
+  },
   // "&:hover": {
   //   // background: "#f19e38",
   //   color: "#fff",
@@ -289,7 +298,7 @@ export default function LoginModal({ open, setOpen }) {
               </Typography>
               <Stack sx={{ mb: 1 }}>
                 <Button onClick={() => handleOpen(true, "signup")} sx={signup}>
-                  Create New Account?
+                  Create New Account
                 </Button>
               </Stack>
               <Typography
@@ -297,12 +306,30 @@ export default function LoginModal({ open, setOpen }) {
                 variant="h5"
                 component="h5"
                 sx={{
+                  fontSize: "16px",
                   textAlign: "center",
                   marginBottom: 1,
-                  fontFamily: "amazonbold",
+                  fontFamily: "Poppins",
+                  color: "#000",
+                  mb: 2,
                 }}
               >
-                Or
+                or
+              </Typography>
+              <Typography
+                id="modal-modal-title"
+                variant="h5"
+                component="h5"
+                sx={{
+                  fontSize: "16px",
+                  textAlign: "center",
+                  marginBottom: 1,
+                  fontFamily: "Poppins",
+                  color: "#000",
+                  mb: 2,
+                }}
+              >
+                Existing user
               </Typography>
               <Grid container>
                 <Grid item md={12} xs={12}>
