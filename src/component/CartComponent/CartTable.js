@@ -29,6 +29,7 @@ import { useLazyGetMultiProductByIdsQuery } from "../../api/product";
 import AddressModal from "../../Reusable/AddressModal";
 import { formatAddress } from "../../utils";
 import { shipping_charges } from "../../utils/constants";
+import { exceptionlessClient } from "../../config/exceptionless";
 
 const checkoutStyle = {
   background: "#dc3237",
@@ -262,243 +263,359 @@ const CartTable = () => {
         }
       }
     }
-    return item.images[0].url || "../images/dummy-image.jpg";
+    return item?.image || item.images[0].url || "../images/dummy-image.jpg";
   };
 
   const handleCheckout = async () => {
-    if (user.isAuthenticated) {
-      if (checkout.canCheckout) {
-        // console.log("subtotalPrice: ", subtotalPrice);
-        if (subtotalPrice < 100) {
-          errorNotification(
-            "Minimum order value must be Rs. 100, Please add more products."
-          );
-        } else {
-          // dispatch(setIsLoading(true));
-          dispatch(
-            setIsLoadingWithMessage({
-              isLoading: true,
-              isLoadingMessage: "Your payment is loading, Please wait!!!",
-            })
-          );
-          // console.log("cartItems: ", cartItems);
-          // 1. check whether the items in cart is available, if yes, proceed payment, in webhook, decrement the total_quantity
-          const result = await getMultiProductByIds(cartItems);
-          if (result.data) {
-            let proceedPayment = true;
-            // console.log("result: ", result.data);
+    try {
+      if (user.isAuthenticated) {
+        if (checkout.canCheckout) {
+          // console.log("subtotalPrice: ", subtotalPrice);
+          if (subtotalPrice < 100) {
+            errorNotification(
+              "Minimum order value must be Rs. 100, Please add more products."
+            );
+          } else {
+            // dispatch(setIsLoading(true));
+            dispatch(
+              setIsLoadingWithMessage({
+                isLoading: true,
+                isLoadingMessage: "Your payment is loading, Please wait!!!",
+              })
+            );
+            // console.log("cartItems: ", cartItems);
+            // 1. check whether the items in cart is available, if yes, proceed payment, in webhook, decrement the total_quantity
+            const result = await getMultiProductByIds(cartItems);
+            if (result.data) {
+              let proceedPayment = true;
+              // console.log("result: ", result.data);
 
-            const products = result.data;
-            let outOfStock = 0;
-            products.forEach((product) => {
-              if (product.total_quantity <= 0) {
-                dispatch(removeItem(product));
-                errorNotification(`${product.name} is out of stock`);
-                outOfStock++;
-              } else {
-                // more than 0, that is stock available.
-                // now we have to check the cart_quantity for each product, if its exceeds the current stock, then update the value to the current quantity
-                const currentCartItems = [...cartItems];
-                const cartItemIndex = currentCartItems.findIndex(
-                  (item) => item.id === product.id
-                );
+              const products = result.data;
+              let outOfStock = 0;
+              let currentCartItems = [...cartItems];
+              products.forEach((product) => {
+                if (product.total_quantity <= 0) {
+                  dispatch(removeItem(product));
+                  // currentCartItems = currentCartItems.filter(
+                  //   (item) => item.id !== product.id
+                  // );
+                  errorNotification(`${product.name} is out of stock`);
+                  outOfStock++;
+                } else {
+                  // more than 0, that is stock available.
+                  // now we have to check the cart_quantity for each product, if its exceeds the current stock, then update the value to the current quantity
+                  const cartItemIndex = currentCartItems.findIndex(
+                    (item) => item.id === product.id
+                  );
 
-                if (
-                  currentCartItems[cartItemIndex].cart_quantity >
-                  product.total_quantity
-                ) {
+                  // multi-color: check individually
+                  if (
+                    product.is_multi_color &&
+                    currentCartItems[cartItemIndex].color
+                  ) {
+                    // console.log("cuyrrentCart", currentCartItems[cartItemIndex]);
+                    // console.log(
+                    //   "product-quan",
+                    //   product.color_based_quantity[
+                    //     currentCartItems[cartItemIndex].color
+                    //   ]
+                    // );
+
+                    // warningNotification(
+                    //   // `Current stock quantity is greater than available stock, stock quantity recalculated`
+                    //   `The selected number of quantity is not available lowering your quantity to available number`
+                    // );
+
+                    const colorBasedQuantity =
+                      product.color_based_quantity[
+                        currentCartItems[cartItemIndex].color
+                      ].quantity;
+
+                    if (
+                      currentCartItems[cartItemIndex].cart_quantity >
+                      colorBasedQuantity
+                    ) {
+                      if (colorBasedQuantity <= 0) {
+                        const updatedCartItems = [
+                          ...currentCartItems.slice(0, cartItemIndex),
+                          ...currentCartItems.slice(cartItemIndex + 1),
+                        ];
+
+                        currentCartItems = [...updatedCartItems];
+                      } else {
+                        const updatedCartItem = {
+                          ...currentCartItems[cartItemIndex],
+                          cart_quantity: colorBasedQuantity,
+                          cart_total_price:
+                            colorBasedQuantity * product.discount_price,
+                        };
+
+                        const updatedCartItems = [
+                          ...currentCartItems.slice(0, cartItemIndex),
+                          updatedCartItem,
+                          ...currentCartItems.slice(cartItemIndex + 1),
+                        ];
+
+                        currentCartItems = [...updatedCartItems];
+                      }
+
+                      // console.log("cur-multi: ", currentCartItems);
+
+                      dispatch(setCartItems(currentCartItems));
+                      // dispatch(setIsLoading(false));
+                      proceedPayment = false;
+                    }
+                  }
+                  // not multi color
+                  else if (
+                    currentCartItems[cartItemIndex].cart_quantity >
+                    product.total_quantity
+                  ) {
+                    // warningNotification(
+                    //   // `Current stock quantity is greater than available stock, stock quantity recalculated`
+                    //   `The selected number of quantity is not available lowering your quantity to available number`
+                    // );
+                    // console.log(
+                    //   currentCartItems,
+                    //   cartItemIndex,
+                    //   currentCartItems[cartItemIndex].cart_quantity
+                    // );
+                    const updatedCartItem = {
+                      ...currentCartItems[cartItemIndex],
+                      cart_quantity: product.total_quantity,
+                      cart_total_price:
+                        product.total_quantity * product.discount_price,
+                    };
+
+                    const updatedCartItems = [
+                      ...currentCartItems.slice(0, cartItemIndex),
+                      updatedCartItem,
+                      ...currentCartItems.slice(cartItemIndex + 1),
+                    ];
+
+                    currentCartItems = [...updatedCartItems];
+                    // console.log("cur: ", currentCartItems);
+
+                    dispatch(setCartItems(currentCartItems));
+                    // dispatch(setIsLoading(false));
+                    proceedPayment = false;
+                    // return;
+                  }
+                }
+              });
+
+              // dispatch(setCartItems(currentCartItems));
+
+              // console.log(
+              //   "outOfStock: ",
+              //   outOfStock,
+              //   proceedPayment,
+              //   currentCartItems
+              // );
+
+              if (outOfStock > 0 || !proceedPayment) {
+                if (!proceedPayment) {
                   warningNotification(
                     // `Current stock quantity is greater than available stock, stock quantity recalculated`
                     `The selected number of quantity is not available lowering your quantity to available number`
                   );
-                  // console.log(
-                  //   currentCartItems,
-                  //   cartItemIndex,
-                  //   currentCartItems[cartItemIndex].cart_quantity
-                  // );
-                  const updatedCartItem = {
-                    ...currentCartItems[cartItemIndex],
-                    cart_quantity: product.total_quantity,
-                    cart_total_price:
-                      product.total_quantity * product.discount_price,
-                  };
-
-                  const updatedCartItems = [
-                    ...currentCartItems.slice(0, cartItemIndex),
-                    updatedCartItem,
-                    ...currentCartItems.slice(cartItemIndex + 1),
-                  ];
-
-                  dispatch(setCartItems(updatedCartItems));
-                  dispatch(setIsLoading(false));
-                  proceedPayment = false;
-                  return;
                 }
-              }
-            });
 
-            // console.log("outOfStock: ", outOfStock, proceedPayment);
+                dispatch(setIsLoading(false));
+                return;
+              } else {
+                const items = [];
+                const logItems = [];
 
-            if (outOfStock > 0 || !proceedPayment) {
-              dispatch(setIsLoading(false));
-              return;
-            } else {
-              const items = cartItems.map((item) => ({
-                id: item.id,
-                name: item.name,
-                pack_of: item.pack_of,
-                category: item.category,
-                theme: item.theme,
-                description: item.description,
-                dimensions: item.dimensions,
-                actual_price: item.actual_price,
-                selling_price: item.selling_price,
-                discount_price: item.discount_price,
-                discount_percentage: item.discount_percentage,
-                image: getRightImage(item),
-                color: item?.color || "", // "" - if not multi-color
-                quantity: item.cart_quantity,
-                total_price: item.cart_total_price,
-              }));
-              const order = {
-                type: "online",
-                device: "website",
-                ordered_items: [...items],
-                order_pending_timestamp: new Date().getTime(),
-                order_booked_timestamp: null,
-                order_dispatched_timestamp: null,
-                order_cancelled_timestamp: null,
-                status: "pending", // pending(only opened to pay, but didn't pay), booked(paid & order booked), dispatched, cancelled
-                total_weight_in_grams: +totalWeightInGrams,
-                total_quantity: +totalQuantity,
-                price_unit: "INR",
-                total_price: +totalPrice, // total_item_price + shipping_price + total_tax_price
-                total_actual_price: +totalActualPrice,
-                total_selling_price: +totalSellingPrice,
-                total_discount_price: +totalDiscountPrice,
-                total_item_price: +subtotalPrice, // equal to total_discount_price
-                total_profit_price: +totalProfitPrice, // total_discount_price - total_actual_price
-                total_tax_price: +tax.total_tax_price,
-                tax_cgst_percentage: +tax.tax_cgst_percentage,
-                tax_sgst_percentage: +tax.tax_sgst_percentage,
-                tax_total_percentage: +tax.tax_total_percentage,
-                shipping_type: shipping.shipping_type,
-                shipping_price: +shipping.shipping_price,
-                cancel_reason: "",
-                logistics: {
-                  carrier_name: "",
-                  estimated_delivery_date: "",
-                  tracking_number: "",
-                  tracking_url: "",
-                },
-                payment_status: "",
-                payment_method: "",
-                payment_details: {},
-                user_details: {
-                  user_id: user.id,
-                  name: user.name,
-                  phone: user.phone,
-                  email: user.email,
-                  billing_address: formatAddress(user.address),
-                  shipping_address: formatAddress(user.selected_address),
-                },
-                notifications: {
-                  isConfirmationEmailSent: false,
-                  isDispatchedEmailSent: false,
-                  // isDeliveredEmailSent: false,
-                },
-              };
+                cartItems.forEach((item) => {
+                  items.push({
+                    id: item.id,
+                    name: item.name,
+                    pack_of: item.pack_of,
+                    category: item.category,
+                    theme: item.theme,
+                    description: item.description,
+                    dimensions: item.dimensions,
+                    actual_price: item.actual_price,
+                    selling_price: item.selling_price,
+                    discount_price: item.discount_price,
+                    discount_percentage: item.discount_percentage,
+                    image: getRightImage(item),
+                    color: item?.color || "", // "" - if not multi-color
+                    quantity: item.cart_quantity,
+                    total_price: item.cart_total_price,
+                  });
+                  logItems.push({
+                    id: item.id,
+                    name: item.name,
+                    color: item?.color || "", // "" - if not multi-color
+                    quantity: item.cart_quantity,
+                    discount_price: item.discount_price,
+                    total_price: item.cart_total_price,
+                  });
+                });
 
-              // console.log("order: ", order);
-              // 2. create order in firebase - order_id
-
-              const resultOrderCreation = await createOrder(order);
-              if (resultOrderCreation.data) {
-                // console.log("resultOrderCreation: ", resultOrderCreation.data);
-                const { data: resultOrder } = resultOrderCreation;
-                // 3. create razorpay payment order using firebase functions - get razorpay payment: order_id
-                const options = {
-                  headers: {
-                    Authorization: `Bearer ${user.access_token}`,
+                const order = {
+                  type: "online",
+                  device: "website",
+                  ordered_items: [...items],
+                  order_pending_timestamp: new Date().getTime(),
+                  order_booked_timestamp: null,
+                  order_dispatched_timestamp: null,
+                  order_cancelled_timestamp: null,
+                  status: "pending", // pending(only opened to pay, but didn't pay), booked(paid & order booked), dispatched, cancelled
+                  total_weight_in_grams: +totalWeightInGrams,
+                  total_quantity: +totalQuantity,
+                  price_unit: "INR",
+                  total_price: +totalPrice, // total_item_price + shipping_price + total_tax_price
+                  total_actual_price: +totalActualPrice,
+                  total_selling_price: +totalSellingPrice,
+                  total_discount_price: +totalDiscountPrice,
+                  total_item_price: +subtotalPrice, // equal to total_discount_price
+                  total_profit_price: +totalProfitPrice, // total_discount_price - total_actual_price
+                  total_tax_price: +tax.total_tax_price,
+                  tax_cgst_percentage: +tax.tax_cgst_percentage,
+                  tax_sgst_percentage: +tax.tax_sgst_percentage,
+                  tax_total_percentage: +tax.tax_total_percentage,
+                  shipping_type: shipping.shipping_type,
+                  shipping_price: +shipping.shipping_price,
+                  cancel_reason: "",
+                  logistics: {
+                    carrier_name: "",
+                    estimated_delivery_date: "",
+                    tracking_number: "",
+                    tracking_url: "",
+                  },
+                  payment_status: "",
+                  payment_method: "",
+                  payment_details: {},
+                  user_details: {
+                    user_id: user.id,
+                    name: user.name,
+                    phone: user.phone,
+                    email: user.email,
+                    billing_address: formatAddress(user.address),
+                    shipping_address: formatAddress(user.selected_address),
+                  },
+                  notifications: {
+                    isConfirmationEmailSent: false,
+                    isDispatchedEmailSent: false,
+                    // isDeliveredEmailSent: false,
                   },
                 };
-                const resultRzpOrderCreation = await createRazorpayOrder({
-                  rzpOptions: {
-                    order_id: resultOrder.id,
-                    amount: resultOrder.total_price,
-                  },
-                  restOptions: options,
-                });
-                if (resultRzpOrderCreation.data) {
-                  const { data: resultRzpOrder } = resultRzpOrderCreation;
-                  // 4. pass it to razorpay checkout api, to open modal
+
+                // console.log("order: ", order);
+                // dispatch(setIsLoading(false));
+                // 2. create order in firebase - order_id
+
+                const resultOrderCreation = await createOrder(order);
+                if (resultOrderCreation.data) {
+                  // console.log("resultOrderCreation: ", resultOrderCreation.data);
+                  const { data: resultOrder } = resultOrderCreation;
+                  // 3. create razorpay payment order using firebase functions - get razorpay payment: order_id
                   const options = {
-                    key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-                    amount: resultRzpOrder.amount,
-                    currency: resultRzpOrder.currency,
-                    name: "Just Shopper",
-                    description: `Payment for you order no: ${resultOrder.id}`, // receipt from razorpay order response
-                    image:
-                      "https://firebasestorage.googleapis.com/v0/b/justshopper-dev.appspot.com/o/JS%20logo%20png.png?alt=media&token=4d5bf95f-cb69-44c4-936d-8368d1df0689",
-                    order_id: resultRzpOrder.id,
-                    handler: function (response) {
-                      // 5. in handler, just show the payment success or failure
-                      // 6. after completing, in webhook, we will get success or failure, update the firebase order with the payment details - done in server
-                      // 7. add the order in notifications for real-time listener - done in server
-                      // console.log("rzp: ", response.razorpay_payment_id);
-                      // console.log(response.razorpay_order_id);
-                      // console.log(response.razorpay_signature);
-                      dispatch(clearCart());
-                      successNotification(
-                        "Order Successfully Placed, You'll receive receipt in email shortly. Have a great day!"
-                      );
-                      navigate("/orders");
+                    headers: {
+                      Authorization: `Bearer ${user.access_token}`,
                     },
-                    prefill: {
-                      name: user.name,
-                      email: user.email,
-                      contact: user.phone,
-                    },
-                    notes: {
-                      order_id: resultOrder.id,
-                    },
-                    theme: {
-                      color: "#dc3237",
-                    },
-                    retry: {
-                      enabled: false,
-                    },
-                    timeout: 300,
                   };
-                  await displayRazorpay(options);
-                  dispatch(setIsLoading(false));
+                  const resultRzpOrderCreation = await createRazorpayOrder({
+                    rzpOptions: {
+                      order_id: resultOrder.id,
+                      amount: resultOrder.total_price,
+                    },
+                    restOptions: options,
+                  });
+                  if (resultRzpOrderCreation.data) {
+                    const { data: resultRzpOrder } = resultRzpOrderCreation;
+                    // 4. pass it to razorpay checkout api, to open modal
+                    const options = {
+                      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+                      amount: resultRzpOrder.amount,
+                      currency: resultRzpOrder.currency,
+                      name: "Just Shopper",
+                      description: `Payment for you order no: ${resultOrder.id}`, // receipt from razorpay order response
+                      image:
+                        "https://firebasestorage.googleapis.com/v0/b/justshopper-dev.appspot.com/o/JS%20logo%20png.png?alt=media&token=4d5bf95f-cb69-44c4-936d-8368d1df0689",
+                      order_id: resultRzpOrder.id,
+                      handler: function (response) {
+                        // 5. in handler, just show the payment success or failure
+                        // 6. after completing, in webhook, we will get success or failure, update the firebase order with the payment details - done in server
+                        // 7. add the order in notifications for real-time listener - done in server
+                        // console.log("rzp: ", response.razorpay_payment_id);
+                        // console.log(response.razorpay_order_id);
+                        // console.log(response.razorpay_signature);
+                        dispatch(clearCart());
+                        successNotification(
+                          "Order Successfully Placed, You'll receive receipt in email shortly. Have a great day!"
+                        );
+                        navigate("/orders");
+                      },
+                      prefill: {
+                        name: user.name,
+                        email: user.email,
+                        contact: user.phone,
+                      },
+                      notes: {
+                        order_id: resultOrder.id,
+                      },
+                      theme: {
+                        color: "#dc3237",
+                      },
+                      retry: {
+                        enabled: false,
+                      },
+                      timeout: 300,
+                    };
+                    await displayRazorpay(options);
+                    dispatch(setIsLoading(false));
+
+                    // generate for logs
+                    const logOrder = {
+                      id: resultOrder.id,
+                      ordered_items: [...logItems],
+                      total_quantity: totalQuantity,
+                      total_price: +totalPrice,
+                      user_id: user.id,
+                      user_name: user.name,
+                    };
+
+                    await exceptionlessClient
+                      .createLog("CartTable:582", logOrder, "Info")
+                      .addTags("cart-order")
+                      .setSource("CartTable:582")
+                      .submit();
+                  } else {
+                    console.log(
+                      "resultRzpOrderCreation-error: ",
+                      resultRzpOrderCreation.error
+                    );
+                    dispatch(setIsLoading(false));
+                    errorNotification(resultRzpOrderCreation.error.message);
+                  }
                 } else {
                   console.log(
-                    "resultRzpOrderCreation-error: ",
-                    resultRzpOrderCreation.error
+                    "resultOrderCreation-error: ",
+                    resultOrderCreation.error
                   );
                   dispatch(setIsLoading(false));
-                  errorNotification(resultRzpOrderCreation.error.message);
+                  errorNotification(resultOrderCreation.error.message);
                 }
-              } else {
-                console.log(
-                  "resultOrderCreation-error: ",
-                  resultOrderCreation.error
-                );
-                dispatch(setIsLoading(false));
-                errorNotification(resultOrderCreation.error.message);
               }
+            } else {
+              console.log("err: ", result.error);
+              errorNotification("Network error, please try after sometime");
             }
-          } else {
-            console.log("err: ", result.error);
-            errorNotification("Network error, please try after sometime");
           }
+        } else {
+          errorNotification(checkout.message);
         }
       } else {
-        errorNotification(checkout.message);
+        errorNotification("Please login to checkout");
       }
-    } else {
-      errorNotification("Please login to checkout");
+    } catch (e) {
+      console.log("error-catch: ", e);
+      await exceptionlessClient.submitException(e);
+      dispatch(setIsLoading(false));
     }
   };
 

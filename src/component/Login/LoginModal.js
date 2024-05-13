@@ -312,7 +312,7 @@ export default function LoginModal({ open, setOpen }) {
                   mb: 2,
                 }}
               >
-                or
+                (or)
               </Typography>
               <Typography
                 id="modal-modal-title"

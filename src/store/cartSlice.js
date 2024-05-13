@@ -131,6 +131,8 @@ export const cartSlice = createSlice({
             // console.log("totalQuantity: ", totalQty);
             state.totalQuantity = totalQty;
           }
+        } else {
+          state.totalQuantity = 0;
         }
         state.cartItems = [...cartItems];
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
