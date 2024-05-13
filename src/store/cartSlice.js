@@ -125,8 +125,10 @@ export const cartSlice = createSlice({
           if (cartItems.length === 1) {
             state.totalQuantity = cartItems[0].cart_quantity;
           } else {
+            // console.log("cartItems-1: ", cartItems);
             const totalQty = cartItems.reduce(
-              (a, b) => a.cart_quantity + b.cart_quantity
+              (total, currentItem) => total + currentItem.cart_quantity,
+              0
             );
             // console.log("totalQuantity: ", totalQty);
             state.totalQuantity = totalQty;
@@ -135,7 +137,7 @@ export const cartSlice = createSlice({
           state.totalQuantity = 0;
         }
         state.cartItems = [...cartItems];
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
       }
       // console.log("cartItems--:", cartItems, state.totalQuantity);
     },
