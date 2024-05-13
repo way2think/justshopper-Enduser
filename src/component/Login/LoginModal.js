@@ -44,8 +44,6 @@ const style = {
 
   "@media only screen and (min-width: 320px) and (max-width: 600px)": {
     width: 350,
-    maxHeight: "450px",
-    overflowY: "scroll",
   },
 };
 
